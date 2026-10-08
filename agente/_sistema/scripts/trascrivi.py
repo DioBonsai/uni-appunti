@@ -43,7 +43,7 @@ def fmt(sec: float) -> str:
     return f"{sec // 3600:02d}:{sec % 3600 // 60:02d}:{sec % 60:02d}" if sec >= 3600 else f"{sec // 60:02d}:{sec % 60:02d}"
 
 
-def transcribe(model: WhisperModel, src: Path) -> None:
+def transcribe(model: WhisperModel, src: Path, fast: bool = False) -> None:
     dst = OUT / (src.stem + ".txt")
     tmp = dst.with_suffix(".part")
     t0 = time.time()
@@ -51,7 +51,9 @@ def transcribe(model: WhisperModel, src: Path) -> None:
         str(src),
         language="it",
         vad_filter=True,
-        beam_size=5,
+        beam_size=1 if fast else 5,
+        # fast: niente "temperature fallback" (ripetizioni della decodifica sui tratti rumorosi, che possono bloccare per ore)
+        temperature=0.0 if fast else [0.0, 0.2, 0.4, 0.6, 0.8, 1.0],
         initial_prompt=load_glossary(),
         condition_on_previous_text=False,
     )
@@ -78,6 +80,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("files", nargs="*")
     ap.add_argument("--model", default="small", help="tiny|base|small|medium|large-v3 (default small)")
+    ap.add_argument("--fast", action="store_true", help="decodifica semplice (beam 1, senza fallback): 3-5 volte piu' veloce, quasi uguale")
     args = ap.parse_args()
 
     OUT.mkdir(exist_ok=True)
@@ -96,7 +99,7 @@ def main() -> None:
         if not p.exists():
             print(f"manca: {p}", file=sys.stderr)
             continue
-        transcribe(model, p)
+        transcribe(model, p, fast=args.fast)
 
 
 if __name__ == "__main__":
