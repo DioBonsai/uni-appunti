@@ -19,6 +19,8 @@ trascritti) a capitoli di riassunto che continuano il Word esistente.
 - `STATO.md` (in questa cartella): a che capitolo/lezione è ogni materia. Aggiornarlo SEMPRE dopo ogni capitolo.
 - `STILE.md` (in questa cartella): stile di scrittura da imitare.
 
+Nota: oltre ai 4 Word delle materie esiste `../Programmazione/Laboratorio.docx` (riassunto del laboratorio di Programmazione, numerazione propria, chiave `Programmazione/Laboratorio` negli script). I capitoli si aggiungono con `aggiungi_capitolo.py "Programmazione/Laboratorio.docx" bozza.md`. Formato bozze: `**grassetto**`, `~corsivo~`, backtick per comandi/codice in linea (Consolas), blocchi ``` per il codice (Consolas 8,5 pt), backslash+asterisco per un `*` letterale.
+
 ## Regole ferree
 0. Il repo Git sta in `UNI\` (cartella padre); le esclusioni (audio, fonti, backup, file temporanei di Word) sono in `.git/info/exclude`, non c'è un `.gitignore` visibile.
 1. Mai riscrivere o spostare i Word esistenti. Solo aggiungere in fondo, con backup (usa `aggiungi_capitolo.py`). Se il Word è aperto (`~$...` presente) fermarsi e dirlo.

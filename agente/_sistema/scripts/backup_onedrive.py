@@ -21,6 +21,7 @@ WORDS = {
     "Matematica discreta": "Appunti matematica discreta.docx",
     "Fondamenti Info": "Fondamenti Informatica.docx",
     "Programmazione": "Riassunto Programmazione.docx",
+    "Programmazione/Laboratorio": "Laboratorio.docx",
 }
 SKIP_DIRS = {"audio", "fonti", "backup", "trascrizioni", "__pycache__", ".git"}
 
@@ -43,7 +44,7 @@ def main() -> None:
     changed = 0
     stamp = datetime.now().strftime("%Y%m%d_%H%M")
     for materia, fname in WORDS.items():
-        src = UNI / materia / fname
+        src = UNI / materia.split("/")[0] / fname
         if not src.exists():
             continue
         if sync_file(src, DEST / "corrente" / materia / fname):

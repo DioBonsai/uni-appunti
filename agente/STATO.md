@@ -29,6 +29,9 @@ Coperti: 1.1-1.7, 1.9, 1.10. La sez. 1.8 (Python) è OMESSA dal docente nel 2026
 Word ha 12 capitoli (aggiunti 9-12 il 9 ott: referenziamento, scanf avanzato, puntatori, dereferenziamento/alias/NULL, dalle slide 02C). Prossima numerazione: **13**. Resta Lab01 (laboratorio) da decidere.
 Corretti l'8 ott: ALU (Arithmetic Logic Unit) e titoli dei capitoli 6-7 ("Capitolo N:"). I numeri spuri visti nell'XML non erano nel testo visibile.
 
+## Programmazione, Laboratorio – `Programmazione/Laboratorio.docx` (riassunto a parte, numerazione propria)
+Creato il 9 ott 2026 dalle slide `Lab01 - Introduzione` (laboratorio n. 1). 5 capitoli: 1 organizzazione del laboratorio, 2 interfaccia a riga di comando, 3 ambiente per programmare in C (gcc, MinGW, PATH, editor), 4 compilazione (gcc -c, linker, -Wall -Werror, objdump), 5 primi programmi (scrivi_intero.c, tabella_moltiplicazioni.c, esercizi). Prossima numerazione: **6** (lab n. 2 quando uscirà). Nessuna evidenziazione: da studiare.
+
 ## Pulizie da fare (fase 2)
 - [x] Fondamenti: rinumerato, corretti refusi ("Nascosto", "dell me", "movement", frase spezzata "all'addizionatore") [8 ott]; [x] contenuto duplicato unito [8 ott]
 - [x] Programmazione: correzioni [8 ott]

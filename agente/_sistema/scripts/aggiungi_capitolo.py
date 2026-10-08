@@ -34,7 +34,7 @@ RED = RGBColor(0xEE, 0x00, 0x00)
 ORANGE = RGBColor(0xE9, 0x71, 0x32)
 # l'apice puo' contenere un pedice annidato (es. e^{iθ_{1}}): in Word non si puo' avere apice+pedice,
 # quindi dentro l'apice il pedice viene scritto come testo normale (θ1).
-TOKEN = re.compile(r"(\*\*|~|\^\{(?:[^{}]|\{[^}]*\})*\}|_\{[^}]*\})")
+TOKEN = re.compile(r"(\*\*|~|`|\^\{(?:[^{}]|\{[^}]*\})*\}|_\{[^}]*\})")
 STAR = ""  # segnaposto per l'asterisco letterale \*
 NESTED = re.compile(r"_\{([^}]*)\}")
 
@@ -60,7 +60,7 @@ def bullet_numid(doc: Document):
 
 def add_runs(par, text, color=None, bold=False):
     """**grassetto**, ~corsivo~, ^{apice}, _{pedice}; per un asterisco letterale si scrive backslash+asterisco."""
-    b, i = bold, False
+    b, i, code = bold, False, False
     for tok in TOKEN.split(text.replace("\\*", STAR)):
         if not tok:
             continue
@@ -70,6 +70,9 @@ def add_runs(par, text, color=None, bold=False):
         if tok == "~":
             i = not i
             continue
+        if tok == "`":      # testo di codice/comando in linea: Consolas
+            code = not code
+            continue
         sup = tok.startswith("^{")
         sub = tok.startswith("_{")
         body = tok[2:-1] if (sup or sub) else tok
@@ -78,6 +81,11 @@ def add_runs(par, text, color=None, bold=False):
         run = par.add_run(body.replace(STAR, "*"))
         run.bold = True if (b or color is not None) else None
         run.italic = True if i else None
+        if code:
+            run.font.name = "Consolas"
+            rf = run._r.get_or_add_rPr().find(qn("w:rFonts"))
+            if rf is not None:
+                rf.set(qn("w:hAnsi"), "Consolas"); rf.set(qn("w:cs"), "Consolas")
         if sup:
             run.font.superscript = True
         if sub:

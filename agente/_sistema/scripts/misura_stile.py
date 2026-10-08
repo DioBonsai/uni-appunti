@@ -18,6 +18,7 @@ WORDS = {
     "Matematica discreta": "Appunti matematica discreta.docx",
     "Fondamenti Info": "Fondamenti Informatica.docx",
     "Programmazione": "Riassunto Programmazione.docx",
+    "Programmazione/Laboratorio": "Laboratorio.docx",
 }
 
 
@@ -44,7 +45,7 @@ def chapter_stats(P):
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     sel = sys.argv[1:] or list(WORDS)
-    allstats = {m: chapter_stats(Document(str(UNI / m / WORDS[m])).paragraphs) for m in sel}
+    allstats = {m: chapter_stats(Document(str(UNI / m.split("/")[0] / WORDS[m])).paragraphs) for m in sel}
     flat = [c for v in allstats.values() for c in v]
     ref_b = statistics.median(c["bullet"] for c in flat)
     ref_m = statistics.median(c["media"] for c in flat)

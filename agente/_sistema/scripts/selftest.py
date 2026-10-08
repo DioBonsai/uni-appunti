@@ -20,6 +20,7 @@ WORDS = {
     "Matematica discreta": "Appunti matematica discreta.docx",
     "Fondamenti Info": "Fondamenti Informatica.docx",
     "Programmazione": "Riassunto Programmazione.docx",
+    "Programmazione/Laboratorio": "Laboratorio.docx",
 }
 results = []
 
@@ -56,7 +57,7 @@ def main():
         pass
     # 2. Word
     for mat, fn in WORDS.items():
-        p = UNI / mat / fn
+        p = UNI / mat.split("/")[0] / fn
         if not p.exists():
             rec("ERRORE", f"Word {mat}", "file mancante"); continue
         try:
@@ -86,7 +87,7 @@ def main():
         rec("ERRORE", "backup OneDrive", "cartella UNI-backup assente: lancia backup_onedrive.py")
     else:
         for mat, fn in WORDS.items():
-            src, bk = UNI / mat / fn, dest / mat / fn
+            src, bk = UNI / mat.split("/")[0] / fn, dest / mat / fn
             if not bk.exists():
                 rec("ATTENZIONE", f"ripristino {mat}", "copia assente su OneDrive")
             elif sha(src) == sha(bk):

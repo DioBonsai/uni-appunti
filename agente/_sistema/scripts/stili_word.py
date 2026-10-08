@@ -26,6 +26,7 @@ WORDS = {
     "Matematica discreta": "Appunti matematica discreta.docx",
     "Fondamenti Info": "Fondamenti Informatica.docx",
     "Programmazione": "Riassunto Programmazione.docx",
+    "Programmazione/Laboratorio": "Laboratorio.docx",
 }
 RED, ORANGE = "EE0000", "E97132"
 
@@ -70,7 +71,7 @@ def classify(p):
 
 
 def process(materia, dry):
-    path = UNI / materia / WORDS[materia]
+    path = UNI / materia.split("/")[0] / WORDS[materia]
     doc = Document(str(path))
     s1, s2 = find_style(doc, "Titolo1"), find_style(doc, "Titolo2")
     todo = [(p, classify(p)) for p in doc.paragraphs]

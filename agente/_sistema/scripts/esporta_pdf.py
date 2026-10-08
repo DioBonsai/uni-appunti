@@ -19,6 +19,7 @@ WORDS = {
     "Matematica discreta": "Appunti matematica discreta.docx",
     "Fondamenti Info": "Fondamenti Informatica.docx",
     "Programmazione": "Riassunto Programmazione.docx",
+    "Programmazione/Laboratorio": "Laboratorio.docx",
 }
 EDGE = [Path(r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"),
         Path(r"C:\Program Files\Microsoft\Edge\Application\msedge.exe"),
@@ -41,8 +42,8 @@ def main():
         sys.exit("Edge/Chrome non trovato.")
     DEST.mkdir(parents=True, exist_ok=True)
     for materia, fname in WORDS.items():
-        src = UNI / materia / fname
-        pdf = DEST / f"{materia}.pdf"
+        src = UNI / materia.split("/")[0] / fname
+        pdf = DEST / (materia.replace("/", " - ") + ".pdf")
         if pdf.exists() and pdf.stat().st_mtime >= src.stat().st_mtime and not force:
             print(f"gia' aggiornato: {materia}")
             continue

@@ -20,6 +20,7 @@ WORDS = {
     "Matematica discreta": "Appunti matematica discreta.docx",
     "Fondamenti Info": "Fondamenti Informatica.docx",
     "Programmazione": "Riassunto Programmazione.docx",
+    "Programmazione/Laboratorio": "Laboratorio.docx",
 }
 FORBIDDEN = [
     r"\ble fonti\b", r"\bfonti fornite\b", r"come (detto|ricordato) nell'audio", r"\bnell'audio\b",
@@ -52,7 +53,7 @@ def is_formula(t: str) -> bool:
 
 
 def check(name: str) -> tuple[int, int]:
-    path = UNI / name / WORDS[name]
+    path = UNI / name.split("/")[0] / WORDS[name]
     if not path.exists():
         print(f"[{name}] file non trovato: {path}")
         return 1, 0
