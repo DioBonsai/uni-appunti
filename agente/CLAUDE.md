@@ -48,3 +48,14 @@ trascritti) a capitoli di riassunto che continuano il Word esistente.
 - Attività pianificata `moodle-controllo-giornaliero` (ogni giorno ~08:12, solo con l'app aperta): legge i 4 corsi su Moodle, scarica **in automatico solo i PDF nuovi ≤ 25 MB** (autorizzazione permanente di Emanuele, 8 ott 2026, limitata a questo), elenca senza scaricare ogni altro file e le registrazioni Webex, riassume gli annunci (⚠ per date d'esame). Report in `_sistema/moodle_report.md`, stato in `_sistema/moodle_stato.json`.
 - Se la sessione Moodle è scaduta l'attività si ferma e lo dice: il login lo fa SEMPRE Emanuele nel browser pane. Mai inserire password.
 - Webex, video, zip, docx/pptx: mai scaricati senza un nuovo ok esplicito.
+
+## Strumenti di qualità e studio (aggiunti l'8 ott 2026)
+- `python _sistema/scripts/selftest.py`: collaudo di tutto il sistema (librerie, Word, generatore, Anki, backup/ripristino, Whisper, git, Moodle). Lanciarlo a inizio sessione se qualcosa non torna.
+- `python _sistema/scripts/misura_stile.py`: elenchi/paragrafi per capitolo; i nuovi capitoli devono restare vicini alla mediana (≈44% elenchi, paragrafi ≈30 parole). Emanuele ha chiesto più discorsivo, meno bullet.
+- `python _sistema/scripts/frasi_docente.py`: estrae dalle trascrizioni le frasi "da esame/attenzione/errore" con timestamp (output in `_sistema/trascrizioni/da_esame/`). Usarle come suggerimenti per i capitoli, verificando sulle fonti (le trascrizioni sbagliano termini).
+- `powershell -File _sistema/scripts/esporta_pdf.ps1`: PDF dei Word in `OneDrive\UNI-PDF` (per il telefono).
+- `COPERTURA.md`: programma ufficiale vs Word. `/piano`: piano di ripasso. Audit dei capitoli esistenti in `_sistema/audit/` (le correzioni sono già applicate, vedi `applica_correzioni.py`); i punti lasciati aperti sono in `_sistema/audit/DA_DECIDERE.md`.
+- **Feedback di stile**: quando Emanuele corregge lo stile ("troppo bullet", "più discorsivo", "meno schematico", ecc.) aggiungere SUBITO una riga alla sezione "Correzioni di Emanuele" di `STILE.md`.
+- **Pagina di studio interattiva** (Artifact privato su claude.ai: https://claude.ai/artifact/BakDGpTHzJicQgSi2miMJj): quiz d'esame, schede a intervalli, avanzamento per materia, date d'esame. I progressi sono salvati nel browser di chi la usa, non qui. Per aggiornarla: modificare l'avanzamento in `_sistema/scripts/costruisci_pagina_studio.py` (coerente con STATO.md), lanciarlo e ripubblicare `_sistema/pagina_studio/index.html` con lo stesso percorso (mantiene l'URL).
+- Audit dei Word: `_sistema/audit/*.md` (report), `applica_correzioni.py` (registro delle 57 correzioni applicate l'8 ott), `DA_DECIDERE.md` (punti aperti).
+- Registri automatici: `_sistema/moodle_report.md` / `moodle_log.md` (Moodle), `_sistema/piano_oggi.md` (piano di ripasso generato ogni sera alle 18:30 circa).

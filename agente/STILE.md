@@ -22,3 +22,8 @@
 - Frasi di NotebookLM tipo "come ricordato nell'audio", "Le fonti forniscono": non vanno nel testo. Scrivere "a lezione" solo se il docente l'ha davvero detto.
 - Rimandi a "fonti"/"documento"; numeri di citazione; emoji.
 - Terminologia incoerente: usare quella del docente (es. "ricoprimento", "insieme quoziente", "campo", "scalare").
+
+## Correzioni di Emanuele (registro: aggiungere una riga a ogni feedback)
+- 1 ott 2026 (Algebra, NotebookLM): "troppo bullet point, non fare neanche un wall of text: elenchi solo quando servono, stile leggermente più discorsivo".
+- 5 ott 2026: i capitoli nuovi devono replicare struttura, tono e numerazione dei precedenti; un capitolo per volta; prima l'elenco dei macro-argomenti.
+- 7 ott 2026 (Fondamenti): "meno tutto a bullet point, stile un po' più discorsivo in generale".
