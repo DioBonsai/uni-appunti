@@ -3,12 +3,12 @@
 Legenda: ✅ nel Word | ⏳ da fare | ❓ da decidere
 
 ## Algebra lineare (Buzano/Radeschi) – `Algebra lineare/Riassunto Algebra lineare.docx`
-Il Word ha 6 capitoli numerati. Prossima numerazione: **7**.
+Il Word ha 9 capitoli (aggiunti 7-9 l'8 ott). Prossima numerazione: **10**.
 | Lez. | Data | Argomenti | Word | Fonti disponibili |
 |---|---|---|---|---|
 | L1 | 30 set | Vettori/mappe lineari, insiemi numerici, campi | ✅ cap. 1-2 | appunti, nota, audio, dispense cap.1 |
 | L2 | 5 ott | Complessi: forma algebrica, campo, coniugato/modulo/inverso, piano di Argand | ✅ cap. 3-6 | appunti (foto quaderno), audio 2A/2B, dispense cap.2 |
-| L3 | 7 ott | Coordinate polari, e^{iθ}, prodotto, inverso, potenze, radici n-esime | ⏳ | appunti, scheda, dispense cap.3 (audio non presente) |
+| L3 | 7 ott | Coordinate polari, e^{iθ}, prodotto, inverso, potenze, radici n-esime | ✅ cap. 7-9 | appunti, scheda, dispense cap.3 (audio non presente) |
 Dispense: 26 lezioni; prossime L4 Polinomi, L5-7 Spazi vettoriali.
 
 ## Matematica discreta (Mori) – `Matematica discreta/Appunti matematica discreta.docx`
