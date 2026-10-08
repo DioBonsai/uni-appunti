@@ -9,7 +9,7 @@ Sostituisce il flusso NotebookLM di Emanuele. Leggi sempre prima `CLAUDE.md`, `S
 
 ## 1. Preparazione (senza chiedere nulla)
 1. Da `STATO.md` ricava: Word di destinazione, prossima numerazione, cosa è già coperto.
-2. Raccogli le fonti della lezione in `_sistema/fonti/<materia>/` (appunti `L<n>_*`, schede, dispense, slide, libro) e le trascrizioni in `_sistema/trascrizioni/`. Se l'audio c'è ma manca la trascrizione, proponi `/trascrivi` (lunga, in background); non bloccare il lavoro se esistono appunti/schede.
+2. Raccogli le fonti della lezione in `_sistema/fonti_testo/<materia>/` (testo già estratto/trascritto: PDF con testo, appunti a mano trascritti `L<n>_appunti_*.md`) e, solo se serve, nei PDF originali in `_sistema/fonti/<materia>/` (leggili con il Read tool senza `pages`); le trascrizioni audio sono in `_sistema/trascrizioni/`. Se esistono PDF senza testo non ancora trascritti (vedi `_sistema/fonti_testo/DA_TRASCRIVERE.txt`) leggili e salva la trascrizione in `fonti_testo` per non rileggerli. Lancia `python _sistema/scripts/estrai_fonti.py` per aggiornare la cache.
    - Se mancano fonti nuove in `_sistema/fonti`, cerca in `C:\Users\admin\Downloads` SOLO per nome pertinente (materia, "lezione", data) e copiale nella cartella, mai altro.
    - I PDF scansionati si leggono con il Read tool (senza `pages`). Per i PDF con testo usa `pdftotext -layout`.
 3. Rileggi gli ultimi 2 capitoli del Word (estrai testo dal .docx) per imitare struttura, lunghezza e tono. Per estrarre testo: `python -c "from docx import Document; ..."` con il Python in CLAUDE.md.

@@ -29,6 +29,15 @@ PROMPT = (
 )
 
 
+def load_glossary() -> str:
+    """Aggiunge al prompt i termini di `glossario.txt` (uno per riga), cosi' Whisper li scrive bene."""
+    g = BASE / "glossario.txt"
+    if not g.exists():
+        return PROMPT
+    terms = [l.strip() for l in g.read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")]
+    return PROMPT + " Termini: " + ", ".join(terms[:150]) + "."
+
+
 def fmt(sec: float) -> str:
     sec = int(sec)
     return f"{sec // 3600:02d}:{sec % 3600 // 60:02d}:{sec % 60:02d}" if sec >= 3600 else f"{sec // 60:02d}:{sec % 60:02d}"
@@ -43,7 +52,7 @@ def transcribe(model: WhisperModel, src: Path) -> None:
         language="it",
         vad_filter=True,
         beam_size=5,
-        initial_prompt=PROMPT,
+        initial_prompt=load_glossary(),
         condition_on_previous_text=False,
     )
     print(f"{src.name}: durata {fmt(info.duration)}", flush=True)

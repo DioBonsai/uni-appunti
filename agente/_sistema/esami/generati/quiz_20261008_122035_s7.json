@@ -1,0 +1,142 @@
+[
+ {
+  "t": "Z_N-additivo, generatori",
+  "testo": "Per quale dei seguenti valori del modulo N la classe [14]_N NON è un generatore del gruppo additivo (Z_N, +)?",
+  "scelte": [
+   "N = 27",
+   "N = 53",
+   "N = 25",
+   "N = 42",
+   "N = 39"
+  ],
+  "risposta": 4,
+  "spiegazione": "[14]_N genera Z_N se e solo se MCD(14, N) = 1. Per N = 42 si ha MCD = 14 ≠ 1.",
+  "n": 1
+ },
+ {
+  "t": "base-2",
+  "testo": "Quale delle seguenti è la scrittura di 187 in base 2?",
+  "scelte": [
+   "11000001",
+   "11000110",
+   "10111110",
+   "10110110",
+   "10111011"
+  ],
+  "risposta": 5,
+  "spiegazione": "Divisioni successive per 2 e resti letti al contrario: 187 = (10111011)_2.",
+  "n": 2
+ },
+ {
+  "t": "Z_N-moltiplicativo",
+  "testo": "Il numero degli elementi del gruppo moltiplicativo (Z_57^*, ·) è:",
+  "scelte": [
+   "44",
+   "30",
+   "36",
+   "40",
+   "32"
+  ],
+  "risposta": 3,
+  "spiegazione": "|Z_N^*| = φ(N) = numero di classi con MCD(a, N) = 1. Qui φ(57) = 36.",
+  "n": 3
+ },
+ {
+  "t": "permutazioni, cicli-tipo-periodo",
+  "testo": "In S_7 la permutazione σ = (2 7 6 1)(3 5 4) (cicli disgiunti) ha periodo:",
+  "scelte": [
+   "15",
+   "10",
+   "12",
+   "19",
+   "11"
+  ],
+  "risposta": 3,
+  "spiegazione": "Il periodo è il minimo comune multiplo delle lunghezze dei cicli (4, 3): 12.",
+  "n": 4
+ },
+ {
+  "t": "insiemi, induzione",
+  "testo": "Quanti sottoinsiemi ha (in totale, compresi ∅ e A stesso) un insieme A con 5 elementi?",
+  "scelte": [
+   "31",
+   "10",
+   "16",
+   "32",
+   "120"
+  ],
+  "risposta": 4,
+  "spiegazione": "|P(A)| = 2^n = 2^5 = 32.",
+  "n": 5
+ },
+ {
+  "t": "Z_N-additivo, generatori",
+  "testo": "Per quale dei seguenti valori del modulo N la classe [14]_N NON è un generatore del gruppo additivo (Z_N, +)?",
+  "scelte": [
+   "N = 41",
+   "N = 57",
+   "N = 83",
+   "N = 27",
+   "N = 70"
+  ],
+  "risposta": 5,
+  "spiegazione": "[14]_N genera Z_N se e solo se MCD(14, N) = 1. Per N = 70 si ha MCD = 14 ≠ 1.",
+  "n": 6
+ },
+ {
+  "t": "Z_N-moltiplicativo",
+  "testo": "Il numero degli elementi del gruppo moltiplicativo (Z_96^*, ·) è:",
+  "scelte": [
+   "32",
+   "30",
+   "26",
+   "40",
+   "28"
+  ],
+  "risposta": 1,
+  "spiegazione": "|Z_N^*| = φ(N) = numero di classi con MCD(a, N) = 1. Qui φ(96) = 32.",
+  "n": 7
+ },
+ {
+  "t": "Z_N-moltiplicativo, MCD-euclide",
+  "testo": "Qual è l'inverso della classe [19] nel gruppo moltiplicativo (Z_40^*, ·)?",
+  "scelte": [
+   "[18]",
+   "[20]",
+   "[22]",
+   "[24]",
+   "[19]"
+  ],
+  "risposta": 5,
+  "spiegazione": "Si cerca x con 19·x ≡ 1 (mod 40) (algoritmo di Euclide esteso): x = 19, infatti 19·19 = 361 = 9·40 + 1.",
+  "n": 8
+ },
+ {
+  "t": "combinatoria, coefficienti-binomiali",
+  "testo": "Le 14 caselle di una riga devono essere colorate di rosso o di blu in modo che ci siano esattamente 4 caselle rosse. Quanti sono i modi di farlo?",
+  "scelte": [
+   "C(15,4)",
+   "14^4",
+   "14!/10!",
+   "C(14,4) = 1001",
+   "14!/4!"
+  ],
+  "risposta": 4,
+  "spiegazione": "Basta scegliere quali 4 caselle sono rosse (l'ordine non conta): C(14,4) = 1001.",
+  "n": 9
+ },
+ {
+  "t": "parita",
+  "testo": "In S_8 la permutazione σ = (8 7 5)(2 3) (cicli disgiunti) è:",
+  "scelte": [
+   "pari",
+   "dispari",
+   "né pari né dispari",
+   "dipende dalla scelta dei numeri",
+   "è l'identità"
+  ],
+  "risposta": 2,
+  "spiegazione": "Un ciclo di lunghezza l è pari se l è dispari. Lunghezze (3, 2) → 1 cicli pari di lunghezza pari → σ è dispari.",
+  "n": 10
+ }
+]

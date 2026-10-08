@@ -85,6 +85,18 @@ def add_runs(par, text, color=None, bold=False):
             run.font.color.rgb = color
 
 
+def style_by_id(doc, style_id):
+    for st in doc.styles:
+        if st.style_id == style_id:
+            return st
+    return None
+
+
+def doc_has_heading_styles(doc) -> bool:
+    """Usa Titolo 1/2 solo se il documento ha gia' i titoli con stile (dopo stili_word.py): niente miscele."""
+    return any(p.style.style_id in ("Titolo1", "Titolo2") for p in doc.paragraphs)
+
+
 def set_bullet(par, numid):
     pPr = par._p.get_or_add_pPr()
     numPr = OxmlElement("w:numPr")
@@ -92,6 +104,24 @@ def set_bullet(par, numid):
     nid = OxmlElement("w:numId"); nid.set(qn("w:val"), str(numid))
     numPr.append(ilvl); numPr.append(nid)
     pPr.append(numPr)
+
+
+def post_controlli(target: Path) -> None:
+    """Dopo l'inserimento: controllo qualita' del Word e backup su OneDrive (non bloccano mai)."""
+    import subprocess
+    here = Path(__file__).resolve().parent
+    py = sys.executable
+    for script, args in (("verifica_word.py", [target.parent.name]), ("backup_onedrive.py", [])):
+        try:
+            r = subprocess.run([py, str(here / script), *args], capture_output=True, text=True,
+                               encoding="utf-8", errors="replace", timeout=180)
+            out = (r.stdout or "").strip()
+            if out:
+                print(out)
+            if r.returncode and script == "verifica_word.py":
+                print("ATTENZIONE: il controllo ha trovato errori nel Word (vedi sopra).")
+        except Exception as e:  # noqa: BLE001
+            print(f"({script} non eseguito: {e})")
 
 
 def main():
@@ -114,6 +144,7 @@ def main():
 
     doc = Document(str(target))
     numid = bullet_numid(doc)
+    h1, h2 = style_by_id(doc, "Titolo1"), style_by_id(doc, "Titolo2")
     n_par = 0
     for raw in src.read_text(encoding="utf-8").splitlines():
         line = raw.rstrip()
@@ -123,8 +154,12 @@ def main():
         n_par += 1
         if line.startswith("## "):
             add_runs(p, line[3:].strip(), color=ORANGE)
+            if h2 is not None and doc_has_heading_styles(doc):
+                p.style = h2
         elif line.startswith("# "):
             add_runs(p, line[2:].strip(), color=RED)
+            if h1 is not None and doc_has_heading_styles(doc):
+                p.style = h1
         elif re.match(r"^\s*[-*] ", line):
             add_runs(p, re.sub(r"^\s*[-*] ", "", line))
             if numid:
@@ -142,6 +177,7 @@ def main():
     shutil.copy2(target, bk / f"{target.stem}_{stamp}{target.suffix}")
     doc.save(str(target))
     print(f"OK: {n_par} paragrafi aggiunti a {target.name} (backup in _sistema/backup)")
+    post_controlli(target)
 
 
 if __name__ == "__main__":

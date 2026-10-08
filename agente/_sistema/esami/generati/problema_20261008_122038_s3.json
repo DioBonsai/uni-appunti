@@ -1,0 +1,8 @@
+{
+ "testo": "In S_9 si consideri la permutazione σ = (1 7 4)(3 8 5 9).\na) (Punti 4) Calcolare il tipo, il periodo e la parità di σ, e scrivere σ^2 come prodotto di cicli disgiunti.\nb) (Punti 3) Calcolare quante sono le permutazioni di S_9 che hanno lo stesso tipo di σ (non è necessario calcolare i fattoriali).\nc) (Punti 4) Sia H = ⟨σ⟩ il sottogruppo ciclico generato da σ. Quanti elementi ha H? H contiene σ^2?",
+ "soluzione": {
+  "a": "σ = (1 7 4)(3 8 5 9) ha tipo (4, 3), periodo mcm(4, 3) = 12, è dispari. σ^2 = (1 4 7)(3 5)(8 9).",
+  "b": "Le permutazioni di S_9 con lo stesso tipo (cicli di lunghezza (4, 3), 2 punti fissi) sono 9!/Π(l^m·m!) = 15120.",
+  "c": "|H| = periodo di σ = 12; sì, σ^2 ∈ H perché è una potenza di σ."
+ }
+}

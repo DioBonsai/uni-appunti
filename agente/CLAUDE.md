@@ -9,10 +9,13 @@ trascritti) a capitoli di riassunto che continuano il Word esistente.
 - `../Algebra lineare/`, `../Matematica discreta/`, `../Fondamenti Info/`, `../Programmazione/` (cartelle sorelle di `agente`): i Word di riassunti (fonte di verità, NON si riscrivono da zero).
 - `_sistema/fonti/<materia>/`: copie ordinate delle fonti (lezione per lezione: `L3_appunti_7ott.pdf`, `L3_scheda.pdf`, libri, slide).
 - `_sistema/audio/` → `_sistema/trascrizioni/`: audio delle lezioni e loro trascrizione (`scripts/trascrivi.py`).
-- `_sistema/scripts/`: `trascrivi.py`, `aggiungi_capitolo.py` (il percorso del Word si dà relativo a `UNI\`, es. `"Algebra lineare/Riassunto Algebra lineare.docx"`).
+- `_sistema/fonti_testo/<materia>/`: **cache di testo** delle fonti (PDF con testo estratti, appunti a mano già trascritti `L<n>_appunti_*.md`). Leggere SEMPRE prima questa, poi i PDF originali. `DA_TRASCRIVERE.txt` elenca le scansioni ancora senza testo (slide Fondamenti, libro Mori).
+- `_sistema/glossario.txt`: termini tecnici per Whisper.
+- `_sistema/scripts/`: `trascrivi.py` (Whisper), `aggiungi_capitolo.py` (inserisce nel Word; poi controlla e fa backup da solo), `verifica_word.py` (qualità dei Word), `backup_onedrive.py`, `estrai_fonti.py`, `stili_word.py` (Titolo 1/2 veri), `genera_esercizi.py` (quiz/problemi verificati con SymPy), `anki_build.py`, `installa_globale.py`. Il percorso del Word si dà relativo a `UNI\`, es. `"Algebra lineare/Riassunto Algebra lineare.docx"`.
 - `_sistema/bozze/`: bozze dei capitoli prima dell'inserimento nel Word.
-- `_sistema/backup/`: copia automatica del Word prima di ogni modifica.
-- `_sistema/anki/`, `_sistema/esercizi/`: output di ripasso (fase 3).
+- `_sistema/backup/`: copia automatica del Word prima di ogni modifica. Copia aggiuntiva sincronizzata: `C:\Users\admin\OneDrive\UNI-backup\`.
+- `_sistema/esami/`: banca degli esami di Mate discreta (`quiz_*.md` 150 domande, `prob_*.md` 30 problemi svolti, `MAPPA_ESAMI.md`, `generati/`). Le soluzioni ufficiali contengono errori noti (righe "ATTENZIONE").
+- `_sistema/flashcard/<materia>.md` → `_sistema/anki/<materia>.apkg` (mazzi Anki). `_sistema/errori.md`: registro errori delle simulazioni. `_sistema/esercizi/`: formulari ed esercizi.
 - `STATO.md` (in questa cartella): a che capitolo/lezione è ogni materia. Aggiornarlo SEMPRE dopo ogni capitolo.
 - `STILE.md` (in questa cartella): stile di scrittura da imitare.
 
@@ -29,5 +32,14 @@ trascritti) a capitoli di riassunto che continuano il Word esistente.
 
 ## Comandi
 - `/riassunto <materia> <lezione>`: flusso completo (vedi `.claude/skills/riassunto/SKILL.md`).
-- `/trascrivi`: trascrive gli audio nuovi.
-- `/ripasso <materia>`: formulario, esercizi, flashcard Anki (fase 3).
+- `/trascrivi`: trascrive gli audio nuovi (Whisper locale, in background).
+- `/ripasso <materia> [lezione]`: formulario, esercizi svolti, flashcard Anki, mappa concettuale.
+- `/esame [quiz|problema|completo] [argomento]`: simulazione d'esame di Matematica discreta con correzione e registro errori.
+- `/moodle`: controlla slide, annunci, esami e registrazioni su Moodle (il login lo fa sempre Emanuele).
+- Skill, comandi e revisore sono installati anche a livello utente (`~/.claude`), quindi funzionano da qualsiasi cartella; dopo ogni modifica a `agente/.claude` rilanciare `python _sistema/scripts/installa_globale.py`.
+
+## Altre regole operative
+9. Dopo ogni inserimento nel Word: `aggiungi_capitolo.py` esegue da solo `verifica_word.py` e `backup_onedrive.py`; se segnala ERRORE, correggere prima di proseguire.
+10. Il repo Git (in `UNI\`) ha il remoto GitHub privato `uni-appunti`: dopo un lavoro concluso, `git add -A && git commit` e `git push`. Mai pubblicare in repo pubblici.
+11. Mai scrivere sui Word che sono aperti in Word (file di blocco `~$`): avvisare Emanuele di chiuderli.
+12. Convenzione permutazioni (Mate discreta): composizione da destra a sinistra.

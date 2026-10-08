@@ -1,0 +1,18 @@
+PDF senza testo (scansioni/appunti a mano): trascrivere a mano o con lettura visiva.
+
+Algebra lineare\L1_appunti_30set.pdf  (1 pagine, ~0 car/pagina)
+Algebra lineare\L2_appunti_5ott.pdf  (4 pagine, ~0 car/pagina)
+Algebra lineare\L3_appunti_7ott.pdf  (2 pagine, ~0 car/pagina)
+Fondamenti Info\slide_1-1 Bits And Their storage.pdf  (15 pagine, ~0 car/pagina)
+Fondamenti Info\slide_1-10 Communication Errors.pdf  (4 pagine, ~0 car/pagina)
+Fondamenti Info\slide_1-2 Main Memory.pdf  (7 pagine, ~0 car/pagina)
+Fondamenti Info\slide_1-3 Mass Storage.pdf  (5 pagine, ~0 car/pagina)
+Fondamenti Info\slide_1-4 Representing Information as Bit Patterns.pdf  (6 pagine, ~0 car/pagina)
+Fondamenti Info\slide_1-5 The binary System.pdf  (6 pagine, ~0 car/pagina)
+Fondamenti Info\slide_1-6 Storing Integers.pdf  (9 pagine, ~0 car/pagina)
+Fondamenti Info\slide_1-7 Storing Fractions.pdf  (9 pagine, ~0 car/pagina)
+Fondamenti Info\slide_1-9 Data Compression.pdf  (9 pagine, ~0 car/pagina)
+Matematica discreta\L1_appunti_1ott.pdf  (1 pagine, ~0 car/pagina)
+Matematica discreta\L2_appunti_2ott.pdf  (2 pagine, ~0 car/pagina)
+Matematica discreta\L3_appunti_6ott.pdf  (2 pagine, ~0 car/pagina)
+Matematica discreta\libro_Mori.pdf  (185 pagine, ~0 car/pagina)
