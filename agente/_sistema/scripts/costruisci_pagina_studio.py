@@ -66,10 +66,11 @@ def parse_quizzes():
 def parse_all_cards():
     out = []
     for mat in AVANZAMENTO:
-        p = BASE / "flashcard" / f"{mat}.md"
-        if p.exists():
-            for i, (t, q, a) in enumerate(parse_cards(p)):
-                out.append(dict(id=f"{mat[:3]}{i}", m=mat, t=t, d=q, r=a))
+        for suffix, tag in (("", "c"), (".quiz", "q")):
+            p = BASE / "flashcard" / f"{mat}{suffix}.md"
+            if p.exists():
+                for i, (t, q, a) in enumerate(parse_cards(p)):
+                    out.append(dict(id=f"{mat[:3]}{tag}{i}", m=mat, t=t, d=q, r=a))
     return out
 
 

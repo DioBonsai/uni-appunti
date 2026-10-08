@@ -43,3 +43,6 @@ Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai r
 - **Matematica discreta**: nessun segno → cap. 1-9 ancora da studiare.
 - **Fondamenti Info**: studiati cap. 1-4 e 8-10. Da studiare: 5, 6, 7, 11.
 - **Programmazione**: studiati cap. 1-4 e 6-8. Da studiare: 5 (Dal linguaggio macchina al C e filiera di compilazione).
+
+## Novita' Moodle
+- 8 ott 2026: prima esecuzione controllo automatico. Scaricati `RiassuntoLezione1.pdf` e `ProspettoCorsoB.pdf` (Mate discreta), `20260928-Presentazione-Testo-Fondamenti-Pearson.pdf` (Fondamenti). ⚠ Il link Moodle "Lezione 3: Numeri Complessi, II" (Algebra) punta a una registrazione Webex del 2025, non del 2026: verificare con il docente.

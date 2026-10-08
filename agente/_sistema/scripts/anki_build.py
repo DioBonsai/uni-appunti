@@ -103,6 +103,9 @@ def build(materia: str) -> int:
     n = 0
     src = CARDS / f"{materia}.md"
     items = parse_cards(src) if src.exists() else []
+    extra = CARDS / f"{materia}.quiz.md"
+    if extra.exists():
+        items += parse_cards(extra)
     if materia == "Matematica discreta":
         for q in sorted(EXAMS.glob("quiz_*.md")):
             items += [(f"Esame {t}", a, b) for t, a, b in parse_quiz(q)]

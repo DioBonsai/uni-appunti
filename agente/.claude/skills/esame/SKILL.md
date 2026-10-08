@@ -26,3 +26,10 @@ Leggi `CLAUDE.md`, `_sistema/esami/MAPPA_ESAMI.md` e `_sistema/errori.md`. Scopo
 - Convenzione permutazioni: composizione da destra a sinistra.
 - Non inventare domande a mano se esiste il generatore: le risposte devono essere verificate.
 - Se Emanuele chiede un argomento non ancora fatto a lezione (es. gruppi), dillo ma procedi: serve come anteprima.
+
+## Fondamenti dell'Informatica: `/esame fondamenti [argomento]`
+Banca: `_sistema/esami/fondamenti_quiz.md` (269 domande dei quiz del sito esami, con RISPOSTA e SPIEGAZIONE; tipi misti: scelta multipla, vero/falso, abbinamenti, numeriche, a risposta breve) e `_sistema/esami/FONDAMENTI_MAPPA.md` (domande per gruppo di lezioni). Formato dell'esame vero: **9 quiz a risposta chiusa da 3 punti in 45 minuti**, servono almeno 18 punti; poi domanda aperta facoltativa (solo con almeno 24).
+- Pesca 9 domande (modalità esame) o N su un argomento (`argomenti:` nel titolo di ogni domanda), mescolando i tipi come nell'esame; mostra solo testo e opzioni, mai RISPOSTA/SPIEGAZIONE.
+- Correggi con 3 punti a risposta (abbinamenti: parziale per voci giuste), spiega con il campo SPIEGAZIONE e, se manca, ricalcolando tu; registra gli errori in `_sistema/errori.md` come per Mate discreta.
+- Le domande di logica (lezioni 7-35) non sono ancora nel Word di Fondamenti: dopo ogni quiz suggerisci quali capitoli scrivere con `/riassunto`.
+- I quiz si possono rifare sul sito (voto più alto): per aggiungere altre domande servirebbe di nuovo l'autorizzazione di Emanuele a eseguire tentativi.
