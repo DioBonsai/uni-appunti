@@ -57,3 +57,17 @@ Avanzamento: cap. 1 completo (9/10 sezioni, 1.8 omessa); il resto del libro da f
 2. Programmazione: riassumere 02C (puntatori) e Lab01.
 3. Fondamenti: studiare i cap. 5, 6, 7, 11 (non segnati); poi 2.1+ quando il docente avanza.
 4. Mate discreta: studiare i cap. 1-9 con `/esame` e le flashcard, privilegiando appartenenza/inclusione e funzioni.
+
+## Fondamenti: struttura vera del corso e dell'esame (dal sito esami, 8 ott 2026)
+Il corso (35 lezioni) va ben oltre il cap. 1 di Brookshear: i quiz di ripasso del docente sono divisi così.
+| Lezioni | Argomento | Nei tuoi Word |
+|---|---|---|
+| 01-06 | Circuiti e rappresentazione binaria | ✅ (cap. 1-11 del Word di Fondamenti) |
+| 07-13 | Regole proposizionali, quantificatori | ⬜ |
+| 14-18 | Prove con quantificatori | ⬜ |
+| 19-23 | Invarianti e ragionamenti per induzione | ⬜ |
+| 24-26 | Proprietà delle sequenze e delle relazioni | ⬜ |
+| 27-30 | Algebre di Boole e prove di eguaglianza di circuiti | ⬜ |
+| 31-35 | Logica sequenziale, automi, grammatiche | ⬜ |
+**Esame (Berardi/Cardone/Paolini, corsi A+B+C):** 9 quiz a risposta chiusa da 3 punti in 45 minuti, servono almeno 18 punti; domanda aperta facoltativa di 30 minuti (da -1 a 6 punti) riservata a chi ha almeno 24 nella prima parte, fino a 30 e lode. Si svolge con Safe Exam Browser: una volta aperta la pagina d'esame non si può cambiare pagina. Sessioni gennaio-settembre 2027.
+**Materiale sul sito** `esami.i-learn.unito.it` (corso id 2673, iscritto): quiz di ripasso per lezione, esami 2024/2025/2026 e simulazioni 2023 (decine di quiz Moodle «solo per esercitarsi»), due PDF di soluzioni degli esercizi del libro (5,6 MB + 0,7 MB).
