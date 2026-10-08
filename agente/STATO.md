@@ -36,3 +36,10 @@ Corretti l'8 ott: ALU (Arithmetic Logic Unit) e titoli dei capitoli 6-7 ("Capito
 - [x] Stili Titolo 1/2 veri su tutti e 4 i Word (navigazione e indice automatico) [8 ott]
 - [ ] Mate discreta: controllo notazione partizioni
 - [x] Git + GitHub privato (DioBonsai/uni-appunti) [8 ott]
+
+## Cosa ha già studiato Emanuele (le evidenziazioni gialle nei Word = studiato a mano)
+Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai rimuovere né spostare le evidenziazioni; il testo nuovo si aggiunge SENZA evidenziazione. Stato all'8 ott 2026:
+- **Algebra lineare**: nessun segno → cap. 1-9 ancora da studiare.
+- **Matematica discreta**: nessun segno → cap. 1-9 ancora da studiare.
+- **Fondamenti Info**: studiati cap. 1-4 e 8-10. Da studiare: 5, 6, 7, 11.
+- **Programmazione**: studiati cap. 1-4 e 6-8. Da studiare: 5 (Dal linguaggio macchina al C e filiera di compilazione).
