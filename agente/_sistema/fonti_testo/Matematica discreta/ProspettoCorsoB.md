@@ -1,0 +1,91 @@
+# ProspettoCorsoB
+
+<!-- pagina 1 -->
+PROSPETTO MDAG Corso B 
+Settimana
+LUN 11-13
+MAR 9-11
+MER 11-13
+GIO 11-13
+VEN 9-11
+1
+28/9 — 2/10
+AG
+MD
+MD
+2
+5/10 — 9/10
+AG
+MD
+AG
+MD
+MD
+3
+12/10—16/10
+AG
+MD
+AG
+MD
+MD
+4
+19/10 — 23/10
+AG
+MD
+AG
+MD
+AG
+5
+26/10 — 30/10
+AG
+MD
+AG
+MD
+AG
+6
+2/11 — 6/11
+AG
+MD
+AG
+no lezione
+no lezione
+7
+9/11 — 13/11
+AG
+MD
+AG
+no lezione
+AG
+8
+16/11 — 20/11
+AG
+MD
+AG
+MD
+9
+23/11 — 27/11
+AG
+MD
+AG
+MD
+MD
+10
+30/11 — 4/12
+AG
+MD
+AG
+MD
+MD
+11
+7/12 — 11/12
+AG
+MD
+AG
+MD
+12
+14/12 —18/12
+AG
+MD
+AG
+MD
+13
+21/12 — 22/12
