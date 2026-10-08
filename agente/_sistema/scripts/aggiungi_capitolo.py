@@ -32,7 +32,10 @@ BASE = Path(__file__).resolve().parent.parent
 UNI = BASE.parent.parent  # cartella UNI con le 4 materie (BASE = UNI/agente/_sistema)
 RED = RGBColor(0xEE, 0x00, 0x00)
 ORANGE = RGBColor(0xE9, 0x71, 0x32)
-TOKEN = re.compile(r"(\*\*|\*|\^\{[^}]*\}|_\{[^}]*\})")
+# l'apice puo' contenere un pedice annidato (es. e^{iθ_{1}}): in Word non si puo' avere apice+pedice,
+# quindi dentro l'apice il pedice viene scritto come testo normale (θ1).
+TOKEN = re.compile(r"(\*\*|\*|\^\{(?:[^{}]|\{[^}]*\})*\}|_\{[^}]*\})")
+NESTED = re.compile(r"_\{([^}]*)\}")
 
 
 def bullet_numid(doc: Document):
@@ -68,7 +71,10 @@ def add_runs(par, text, color=None, bold=False):
             continue
         sup = tok.startswith("^{")
         sub = tok.startswith("_{")
-        run = par.add_run(tok[2:-1] if (sup or sub) else tok)
+        body = tok[2:-1] if (sup or sub) else tok
+        if sup:
+            body = NESTED.sub(r"\1", body)
+        run = par.add_run(body)
         run.bold = True if (b or color is not None) else None
         run.italic = True if i else None
         if sup:
