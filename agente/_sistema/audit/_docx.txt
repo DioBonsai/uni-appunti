@@ -1,0 +1,136 @@
+1 1. Introduzione all'Algebra Lineare e Applicazioni in Informatica
+2 Gli oggetti fondamentali: Vettori, Spazi Vettoriali e Mappe Lineari
+3 L'introduzione della lezione supera la visione classica del vettore inteso semplicemente come un segmento orientato — la tipica "freccia" dotata di direzione, verso e intensità utilizzata in fisica — per abbracciare un concetto algebrico molto più generale e astratto. In questo contesto formale, un vettore viene definito come un qualsiasi elemento che appartenga a uno spazio vettoriale.
+4 Uno spazio vettoriale non è altro che un insieme o collezione di oggetti sui quali sono definite due operazioni essenziali:
+5 La somma tra elementi, che sul piano geometrico corrisponde alla classica regola del parallelogramma;
+6 Il prodotto per un numero (detto scalare), che ha l'effetto di allungare, accorciare o invertire la direzione del vettore.
+7 Mentre gli spazi vettoriali fungono da contenitori dei dati, le mappe lineari rappresentano il linguaggio con cui questi spazi comunicano tra loro. Una mappa lineare è una funzione tra spazi vettoriali che preserva la struttura algebrica, cioè rispetta sia la somma tra vettori che la moltiplicazione per uno scalare. Se pensiamo ai vettori come agli oggetti che trasportano l'informazione, le mappe lineari sono lo strumento matematico che ci permette di prendere tale informazione e trasformarla in qualcosa di utile.
+8 Motivazioni ed Esempi Applicativi in Informatica
+9 Sebbene queste definizioni possano sembrare molto astratte, l'algebra lineare costituisce la struttura portante dell'informatica. In qualsiasi programma software, infatti, i dati in ingresso (input) e i risultati prodotti (output) vengono memorizzati e trasmessi come sequenze o stringhe di numeri, comunemente note come array. Poiché gli array si comportano a tutti gli effetti come vettori, l'insieme di tutti i possibili input o output forma uno spazio vettoriale, e il processo di elaborazione dei dati consiste prevalentemente nell'applicazione di mappe lineari.
+10 La lezione illustra questo legame attraverso due esempi concreti:
+11 Veicoli autonomi e Intelligenza Artificiale: Un'auto a guida autonoma riceve in continuazione dati dai suoi sensori e dalle telecamere. Un'immagine catturata da una telecamera è composta da una griglia di pixel, dove ciascun colore è identificato da una tripla di numeri RGB (rosso, verde, blu); allo stesso modo, la distanza da un ostacolo è un ulteriore valore numerico fornito da un sensore. Tutti questi dati insieme formano un lungo vettore di input che un algoritmo elabora per generare un vettore di output contenente i comandi di guida, come quanto accelerare, frenare o sterzare. Anche nelle reti neurali e nei modelli di IA generativa (come ChatGPT), i parametri o "pesi" appresi dal sistema durante l'addestramento non sono altro che trasformazioni e mappe lineari.
+12 Teoria dei segnali e filtraggio del rumore: Un segnale — che sia un'onda audio, una trasmissione elettromagnetica, un elettrocardiogramma (ECG) o un elettroencefalogramma (EEG) — viene descritto matematicamente come una funzione del tempo che ne misura l'ampiezza in ogni istante. Poiché le funzioni si possono sommare tra loro e moltiplicare per un numero, lo spazio dei segnali forma uno spazio vettoriale. Durante la registrazione o la trasmissione, un segnale viene spesso alterato da rumori ambientali o errori di canale. L'operazione necessaria per "ripulire" il segnale e recuperare l'informazione corretta si realizza proprio applicando un'opportuna mappa lineare.
+13 2. Costruzione degli Insiemi Numerici e Struttura di Campo (𝕂)
+14 La Costruzione Gerarchica degli Insiemi Numerici
+15 Per poter definire in modo rigoroso cosa sia uno spazio vettoriale, occorre prima chiarire che cos'è un numero e da dove provengono gli oggetti che usiamo per fare i calcoli. La matematica costruisce i sistemi numerici come una catena di insiemi incapsulati l'uno nell'altro (ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ), dove ciascun passaggio nasce dall'esigenza algebrica di risolvere un problema o un'operatore non consentito nell'insieme precedente.
+16 Numeri Naturali (ℕ = {0, 1, 2, …}): Rappresentano il punto di partenza. La loro definizione teorica formale è complessa (richiede la teoria degli insiemi e le classi di equivalenza), quindi nel corso vengono assunti come concetto primario e intuitivo.
+17 Numeri Interi (ℤ = {…, -2, -1, 0, 1, 2, …}): Nascono unendo ai naturali i loro opposti negativi. Questo estende il sistema permettendo di definire compiutamente la sottrazione.
+18 Numeri Razionali (ℚ = {a/b | a, b ∈ ℤ, b ≠ 0}): Vengono costruiti introducendo i rapporti (frazioni) tra interi. Questo passaggio permette di definire la divisione (ovvero la moltiplicazione per l'inverso).
+19 Il limite dei Razionali e la nascita dei Reali (ℝ)
+20 Rappresentando i numeri razionali su una retta, verrebbe da pensare che essi riempiano tutti i punti disponibili. Tuttavia, già nell'antica Grecia con la scuola pitagorica si scoprì che la diagonale di un quadrato di lato 1 ha lunghezza pari a √2. Come dimostrato formalmente per assurdo, √2 non può essere espresso come rapporto tra due interi: esistono quindi dei "buchi" sulla retta numerica che i razionali non riescono a coprire.
+21 Per "tappare" tutti questi buchi e completare la retta si costruisce l'insieme dei Numeri Reali (ℝ). Formalmente, un numero reale viene definito attraverso classi di equivalenza di successioni di Cauchy di numeri razionali.
+22 Al di là del rigore formale, la lezione sottolinea come un numero reale (specialmente se irrazionale, come π o e) debba essere inteso operativamente non come un oggetto "finito e statico", ma come un processo dinamico in divenire: una successione di approssimazioni razionali via via più precise.
+23 Questo approccio operativo è indispensabile per il calcolo informatico e matematico; basti pensare al calcolo di una potenza ad esponente reale come 2π: non potendo moltiplicare 2 per se stesso π volte, si calcola la sequenza delle potenze con esponenti razionali che approssimano π (23.1, 23.14, 23.141, …), avvicinandosi arbitrariamente al valore desiderato.
+24 Le 9 Proprietà dell'Aritmetica e la Definizione di Campo (𝕂)
+25 Sull'insieme dei numeri reali ℝ sono definite due operazioni fondamentali, la somma e la moltiplicazione, che soddisfano 9 proprietà algebriche fondamentali:
+26 Proprietà della Somma:
+27 Commutativa: a + b = b + a.
+28 Associativa: (a + b) + c = a + (b + c).
+29 Elemento neutro: Esiste lo 0 tale che a + 0 = a.
+30 Esistenza dell'opposto: Per ogni a esiste -a tale che a + (-a) = 0.
+31 Proprietà del Prodotto:
+32 Commutativa: a · b = b · a.
+33 Associativa: (a · b) · c = a · (b · c).
+34 Elemento neutro: Esiste l'1 tale che a · 1 = a.
+35 Esistenza dell'inverso: Per ogni a ≠ 0 esiste a−1 (o 1/a) tale che a · a−1 = 1.
+36 Proprietà di Anello/Legame:
+37 Proprietà distributiva del prodotto rispetto alla somma: a · (b + c) = a · b + a · c.
+38 La struttura algebrica di Campo (Field)
+39 In matematica, un qualsiasi insieme dotato di due operazioni che soddisfano tutte e 9 queste proprietà prende il nome formale di Campo (spesso indicato con il simbolo generico 𝕂).
+40 Analizzando i vari insiemi numerici alla luce di questa definizione:
+41 ℕ NON è un campo: mancano sia gli opposti (proprietà 4) sia gli inversi.
+42 ℤ NON è un campo: possiede gli opposti ma mancano gli inversi (ad esempio 2 ∈ ℤ, ma il suo inverso 1/2 ∉ ℤ).
+43 ℚ e ℝ SONO campi: soddisfano interamente tutte e 9 le proprietà. (In seguito si vedrà che anche l'insieme dei numeri complessi ℂ costituisce un campo).
+44 Ruolo del Campo nell'Algebra Lineare
+45 La nozione di campo è cruciale per il prosieguo del corso: quando definiremo formalmente gli spazi vettoriali, stabiliremo che i vettori si possono moltiplicare per dei numeri presi da un opportuno campo 𝕂. Gli elementi del campo prendono il nome di scalari. Nel corso dell'anno, il campo degli scalari di riferimento sarà quasi sempre ℝ (o ℂ per la parte sui numeri complessi).
+47 3. Introduzione ai Numeri Complessi e Definizione Algebrica
+48 Motivazione Teorica e l'Estensione dei Reali
+49 Nel percorso di costruzione dei sistemi numerici (ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ ⊂ ℂ), ogni ampliamento nasce dall'esigenza algebrica di risolvere problemi ed equazioni che non trovano soluzione nell'insieme precedente. Così come l'introduzione dei numeri reali ℝ ha consentito di risolvere equazioni come x2 = 2 (impossibili da completare in ℚ), l'estensione ai numeri complessi ℂ risponde alla necessità di risolvere equazioni algebriche prive di soluzioni reali, la cui forma più elementare è: 
+50 x2 + 1 = 0   ⟺   x2 = -1
+51 Nell'insieme dei numeri reali, il quadrato di qualsiasi numero non nullo è sempre strettamente positivo (x2 > 0), il che rende impossibile estrarre la radice quadrata di un numero negativo. Introducendo l'insieme ℂ, la matematica costruisce un sistema numerico con proprietà algebriche superiori. Come evidenziato a lezione, sebbene l'unità immaginaria possa sembrare un concetto astratto, i numeri complessi costituiscono uno strumento indispensabile come passaggio intermedio in ambiti come la fisica e l'ingegneria, permettendo di risolvere problemi il cui risultato finale torna poi a essere una grandezza reale e misurabile.
+52 La Forma Algebrica e l'Unità Immaginaria
+53 Un numero complesso z ∈ ℂ viene definito come un oggetto algebrico espresso in forma cartesiana (o algebrica): 
+54 z = a + bi
+55 I componenti di questa espressione sono definiti come segue:
+56 a e b sono due numeri reali arbitrari (a, b ∈ ℝ), chiamati rispettivamente parte reale e coefficiente della parte immaginaria.
+57 i è il simbolo speciale denominato unità immaginaria, caratterizzato dalla regola fondamentale: 
+58 i2 = -1
+59 I numeri reali costituiscono un sottoinsieme proprio dei numeri complessi (ℝ ⊂ ℂ): quando la componente b = 0, il numero z = a + 0i coincide con il comune numero reale a. Quando invece a = 0 e b ≠ 0, il numero z = bi prende il nome di immaginario puro.
+60 Operazioni Algebriche Fondamentali
+61 L'algebra dei numeri complessi segue le classiche regole operative dell'aritmetica reale, applicando l'unica avvertenza di sostituire ogni occorrenza di i2 con il valore -1.
+62 Somma: L'addizione tra due numeri complessi z1 = a + bi e z2 = c + di si effettua sommando separatamente le parti reali e le parti immaginarie: 
+63 (a + bi) + (c + di) = (a + c) + (b + d)i
+64 Prodotto: La moltiplicazione si calcola sviluppando il prodotto delle due parentesi tramite la normale proprietà distributiva e applicando la relazione i2 = -1: 
+65 (a + bi) · (c + di) = ac + adi + bci + bdi2 = (ac - bd) + (ad + bc)i
+67 4. Proprietà Algebriche e Struttura di Campo (ℂ)
+68 Le 9 Proprietà dell'Aritmetica e la Struttura di Campo
+69 Come già osservato per i numeri reali ℝ, anche sull'insieme dei numeri complessi ℂ sono definite le due operazioni binarie fondamentali — la somma e la moltiplicazione — che soddisfano rigorosamente le stesse 9 proprietà algebriche dell'aritmetica:
+70 Proprietà della Somma:
+71 Commutativa: z1 + z2 = z2 + z1 per ogni z1, z2 ∈ ℂ.
+72 Associativa: (z1 + z2) + z3 = z1 + (z2 + z3) per ogni z1, z2, z3 ∈ ℂ.
+73 Elemento neutro: Esiste l'elemento neutro 0 ∈ ℂ (espresso come 0 + 0i) tale che z + 0 = z.
+74 Esistenza dell'opposto: Per ogni z = a + bi ∈ ℂ, esiste l'opposto -z = -a - bi tale che z + (-z) = 0.
+75 Proprietà del Prodotto:
+76 Commutativa: z1 · z2 = z2 · z1 per ogni z1, z2 ∈ ℂ.
+77 Associativa: (z1 · z2) · z3 = z1 · (z2 · z3) per ogni z1, z2, z3 ∈ ℂ.
+78 Elemento neutro: Esiste l'unità 1 ∈ ℂ (espressa come 1 + 0i) tale che z · 1 = z.
+79 Esistenza dell'inverso: Per ogni numero complesso non nullo z ≠ 0, esiste un inverso moltiplicativo z−1 tale che z · z−1 = 1.
+80 Proprietà Distributiva:
+81 Il prodotto si distribuisce rispetto alla somma: z1 · (z2 + z3) = z1 · z2 + z1 · z3.
+82 Soddisfando tutti e 9 gli assiomi dell'aritmetica, l'insieme dei numeri complessi costituisce formalmente un Campo (indicato genericamente con il simbolo 𝕂). Di conseguenza, ℂ condivide la medesima dignità algebrica di ℝ e ℚ, e costituisce una struttura fondamentale da cui estrarre gli scalari per la definizione degli spazi vettoriali.
+83 La Mancanza di Ordinamento in ℂ
+84 Nonostante ℂ sia un campo algebrico completo, la lezione pone l'accento su una differenza fondamentale rispetto agli insiemi numerici precedentemente studiati (ℕ, ℤ, ℚ e ℝ): l'insieme dei numeri complessi non è un insieme ordinato.
+85 Nei numeri reali è sempre possibile confrontare due elementi distinti stabilendo quale sia maggiore o minore dell'altro (a > b oppure b > a) e distinguere chiaramente i numeri positivi da quelli negativi. In ℂ, al contrario, non esiste alcuna relazione d'ordine che sia compatibile con le operazioni algebriche di somma e prodotto.
+86 La motivazione teorica di questo limite deriva direttamente dalla definizione dell'unità immaginaria:
+87 In un qualsiasi campo ordinato, il quadrato di un elemento non nullo deve risultare strettamente positivo.
+88 Nei numeri complessi, tuttavia, la regola cardine stabilisce che i2 = -1. Se si tentasse di definire un ordine, si arriverebbe alla contraddizione per cui -1 dovrebbe essere considerato un numero positivo.
+89 Per questo motivo, non ha alcun significato matematico scrivere espressioni come z1 > z2 o chiedere se un numero complesso sia "positivo" o "negativo". Gli unici confronti ammessi tra numeri complessi riguardano la loro eventuale uguaglianza (z1 = z2) o diversità (z1 ≠ z2).
+91 5. I Tre Concetti Chiave: Coniugato, Modulo e Inverso Moltiplicativo
+92 Parte Reale e Parte Immaginaria
+93 Per poter manipolare operativamente un numero complesso espresso in forma cartesiana z = a + bi ∈ ℂ, occorre isolarne e distinguerne le due componenti fondamentali:
+94 Parte Reale: indicata con Re(z), è lo scalare a ∈ ℝ.
+95 Parte Immaginaria: indicata con Im(z), è il coefficiente reale b ∈ ℝ che moltiplica l'unità immaginaria.
+96 Un'osservazione rimarcata a lezione riguarda l'errore comune commesso dagli studenti: la parte immaginaria Im(z) è essa stessa un numero reale e non include il simbolo i. Ad esempio, dato il numero complesso z = 2 + 3i, si ha Re(z) = 2 e Im(z) = 3 (e mai 3i).
+97 Il Coniugato di un Numero Complesso (z̄)
+98 Dato un numero complesso z = a + bi, si definisce coniugato (o coniugio) di z, indicato convenzionalmente con il simbolo z̄, il numero complesso ottenuto invertendo il segno della sola parte immaginaria: 
+99 z̄ = a - bi
+100 Il coniugio lascia inalterata la parte reale e cambia il segno della parte immaginaria (Re(z̄) = Re(z) e Im(z̄) = -Im(z)). Se si applica l'operazione due volte di fila, si torna al numero di partenza (z̿ = z).
+101 Questa operazione permette di caratterizzare in modo elegante i numeri reali all'interno dell'insieme dei complessi:
+102 Se z ∈ ℝ, la sua parte immaginaria è nulla (Im(z) = 0), da cui segue che z = z̄.
+103 Sui numeri reali l'operazione di coniugio non produce alcun effetto; nei numeri complessi rappresenta invece una trasformazione fondamentale.
+104 Il Modulo o Valore Assoluto (|z|)
+105 Il modulo (o valore assoluto) di un numero complesso z = a + bi viene definito come la radice quadrata della somma dei quadrati della parte reale e della parte immaginaria: 
+106 |z| = √(a2 + b2)
+107 Poiché a e b sono numeri reali, i loro quadrati a2 e b2 sono quantità non negative; di conseguenza, la radice quadrata è sempre ben definita nei reali e restituisce uno scalare reale non negativo (|z| ∈ ℝ e |z| ≥ 0). Il modulo si annulla se e solo se il numero complesso è lo zero (z = 0 + 0i).
+108 La Relazione Fondamentale
+109 Moltiplicando un numero complesso z per il suo coniugato z̄, si ottiene un'identità algebrica di primaria importanza: 
+110 z · z̄ = (a + bi)(a - bi) = a2 - b2 i2 = a2 + b2 = |z|2
+111 Il prodotto tra un numero complesso e il suo coniugato restituisce sempre un numero reale non negativo, pari al quadrato del modulo del numero stesso (z · z̄ = |z|2).
+112 L'Inverso Moltiplicativo (z−1)
+113 Dimostrare che l'insieme dei numeri complessi ℂ costituisce un campo richiede di garantire l'esistenza dell'inverso moltiplicativo z−1 per qualsiasi elemento non nullo z ≠ 0. Cercare un numero z−1 tale che z · z−1 = 1 in forma cartesiana potrebbe sembrare complicato; tuttavia, la relazione z · z̄ = |z|2 ne fornisce la costruzione rigorosa.
+114 Essendo z ≠ 0, il modulo al quadrato |z|2 è un numero reale strettamente positivo; è quindi possibile dividere entrambi i membri dell'identità per |z|2: 
+115 z · ( (z̄)/(|z|2) ) = 1   ⟹   z−1 = (z̄)/(|z|2)
+116 Esplicitando z = a + bi, la formula dell'inverso in forma cartesiana diventa: 
+117 z−1 = (a - bi)/(a2 + b2) = ( a/(a2 + b2) ) + ( (-b)/(a2 + b2) )i
+118 Esempio Pratico
+119 Per calcolare l'inverso del numero complesso z = 2 + 5i:
+120 Si calcola il modulo al quadrato: |z|2 = 22 + 52 = 4 + 25 = 29.
+121 Si scrive il coniugato: z̄ = 2 - 5i.
+122 L'inverso risulta: z−1 = (2 - 5i)/29 = 2/29 - (5/29)i.
+123 Moltiplicando z · z−1 = (2 + 5i) ( 2/29 - (5/29)i ), si verifica immediatamente che il risultato è 1.
+125 6. Interpretazione Geometrica nel Piano di Argand-Gauss (ℝ2)
+126 La Rappresentazione del Piano Complesso
+127 Mentre i numeri reali ℝ trovano collocazione geometrica naturale lungo una retta monodimensionale, i numeri complessi ℂ necessitano di uno spazio bidimensionale. Ogni numero complesso espresso in forma cartesiana z = a + bi può essere univocamente identificato con il punto di coordinate cartesiane (a, b) nel piano ℝ2, noto come Piano di Argand-Gauss o piano complesso. In alternativa, z può essere interpretato come un vettore con applicazione nell'origine (0, 0) e punta posizionata nel punto (a, b).
+128 Gli assi cartesiani assumono un significato algebrico specifico:
+129 Asse delle ascisse (Asse Reale Re): ospita i numeri reali, corrispondenti ai complessi con parte immaginaria nulla (a + 0i).
+130 Asse delle ordinate (Asse Immaginario Im): ospita i numeri immaginari puri, corrispondenti ai complessi con parte reale nulla (0 + bi).
+131 Significato Geometrico delle Operazioni
+132 Interpretare i numeri complessi nel piano cartesiano permette di associare ad alcune operazioni algebriche una chiara trasformazione geometrica:
+133 Somma Vettoriale e Regola del Parallelogramma: L'addizione tra due numeri complessi z1 = (a, b) e z2 = (c, d) avviene sommando separatamente le componenti orizzontali e verticali: z1 + z2 = (a+c, b+d). Geometricamente, questa operazione coincide con la regola del parallelogramma utilizzata in fisica per la composizione delle forze e dei vettori.
+134 Riflessione del Coniugato (z̄): Il coniugato z̄ = a - bi mantiene inalterata la coordinata reale a e inverte il segno della coordinata immaginaria b. Nel piano complesso, questo corrisponde a una riflessione speculare del punto rispetto all'asse reale.
+135 Modulo come Distanza (|z|): Il modulo |z| = √(a2 + b2) rappresenta la lunghezza euclidea del vettore, ossia la distanza geometrica del punto (a, b) dall'origine (0, 0) calcolata tramite il teorema di Pitagora.
+136 Il Limite della Rappresentazione Cartesiana e l'Introduzione alle Coordinate Polari
+137 Se la somma complessa possiede un'immediata interpretazione geometrica tramite i vettori, la moltiplicazione algebrica: 
+138 (a, b) · (c, d) = (ac - bd, ad + bc)
+139 produce un nuovo vettore il cui legame geometrico con i due fattori di partenza risulta oscuro e poco intuitivo se analizzato unicamente tramite le coordinate cartesiane.
+140 Come sottolineato a lezione, per comprendere appieno il significato geometrico del prodotto occorre abbandonare la griglia cartesiana (x, y) in favore delle coordinate polari (r, θ), definite dalla distanza dall'origine (il modulo r = |z|) e dall'angolo di inclinazione rispetto all'asse reale (l'argomento θ). In questa nuova rappresentazione, la moltiplicazione rivela la sua vera natura: i moduli si moltiplicano e gli angoli si sommano.
