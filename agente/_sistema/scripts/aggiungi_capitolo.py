@@ -29,10 +29,10 @@ from docx.oxml.ns import qn
 from docx.shared import RGBColor
 
 BASE = Path(__file__).resolve().parent.parent
-UNI = BASE.parent
+UNI = BASE.parent.parent  # cartella UNI con le 4 materie (BASE = UNI/agente/_sistema)
 RED = RGBColor(0xEE, 0x00, 0x00)
 ORANGE = RGBColor(0xE9, 0x71, 0x32)
-INLINE = re.compile(r"(\*\*[^*]+\*\*|\*[^*]+\*)")
+TOKEN = re.compile(r"(\*\*|\*|\^\{[^}]*\}|_\{[^}]*\})")
 
 
 def bullet_numid(doc: Document):
@@ -55,19 +55,27 @@ def bullet_numid(doc: Document):
 
 
 def add_runs(par, text, color=None, bold=False):
-    for chunk in INLINE.split(text):
-        if not chunk:
+    """**grassetto**, *corsivo*, ^{apice}, _{pedice}; l'apice/pedice eredita grassetto/corsivo attivi."""
+    b, i = bold, False
+    for tok in TOKEN.split(text):
+        if not tok:
             continue
-        if chunk.startswith("**") and chunk.endswith("**"):
-            run = par.add_run(chunk[2:-2]); run.bold = True
-        elif chunk.startswith("*") and chunk.endswith("*") and len(chunk) > 2:
-            run = par.add_run(chunk[1:-1]); run.italic = True
-        else:
-            run = par.add_run(chunk)
-            if bold:
-                run.bold = True
+        if tok == "**":
+            b = not b
+            continue
+        if tok == "*":
+            i = not i
+            continue
+        sup = tok.startswith("^{")
+        sub = tok.startswith("_{")
+        run = par.add_run(tok[2:-1] if (sup or sub) else tok)
+        run.bold = True if (b or color is not None) else None
+        run.italic = True if i else None
+        if sup:
+            run.font.superscript = True
+        if sub:
+            run.font.subscript = True
         if color is not None:
-            run.bold = True
             run.font.color.rgb = color
 
 
