@@ -43,3 +43,8 @@ trascritti) a capitoli di riassunto che continuano il Word esistente.
 10. Il repo Git (in `UNI\`) ha il remoto GitHub privato `uni-appunti`: dopo un lavoro concluso, `git add -A && git commit` e `git push`. Mai pubblicare in repo pubblici.
 11. Mai scrivere sui Word che sono aperti in Word (file di blocco `~$`): avvisare Emanuele di chiuderli.
 12. Convenzione permutazioni (Mate discreta): composizione da destra a sinistra.
+
+## Moodle automatico
+- Attività pianificata `moodle-controllo-giornaliero` (ogni giorno ~08:12, solo con l'app aperta): legge i 4 corsi su Moodle, scarica **in automatico solo i PDF nuovi ≤ 25 MB** (autorizzazione permanente di Emanuele, 8 ott 2026, limitata a questo), elenca senza scaricare ogni altro file e le registrazioni Webex, riassume gli annunci (⚠ per date d'esame). Report in `_sistema/moodle_report.md`, stato in `_sistema/moodle_stato.json`.
+- Se la sessione Moodle è scaduta l'attività si ferma e lo dice: il login lo fa SEMPRE Emanuele nel browser pane. Mai inserire password.
+- Webex, video, zip, docx/pptx: mai scaricati senza un nuovo ok esplicito.
