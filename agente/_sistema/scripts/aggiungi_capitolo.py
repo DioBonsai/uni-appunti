@@ -26,7 +26,7 @@ from pathlib import Path
 from docx import Document
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.shared import RGBColor
+from docx.shared import Pt, RGBColor
 
 BASE = Path(__file__).resolve().parent.parent
 UNI = BASE.parent.parent  # cartella UNI con le 4 materie (BASE = UNI/agente/_sistema)
@@ -34,7 +34,8 @@ RED = RGBColor(0xEE, 0x00, 0x00)
 ORANGE = RGBColor(0xE9, 0x71, 0x32)
 # l'apice puo' contenere un pedice annidato (es. e^{iθ_{1}}): in Word non si puo' avere apice+pedice,
 # quindi dentro l'apice il pedice viene scritto come testo normale (θ1).
-TOKEN = re.compile(r"(\*\*|\*|\^\{(?:[^{}]|\{[^}]*\})*\}|_\{[^}]*\})")
+TOKEN = re.compile(r"(\*\*|~|\^\{(?:[^{}]|\{[^}]*\})*\}|_\{[^}]*\})")
+STAR = ""  # segnaposto per l'asterisco letterale \*
 NESTED = re.compile(r"_\{([^}]*)\}")
 
 
@@ -58,15 +59,15 @@ def bullet_numid(doc: Document):
 
 
 def add_runs(par, text, color=None, bold=False):
-    """**grassetto**, *corsivo*, ^{apice}, _{pedice}; l'apice/pedice eredita grassetto/corsivo attivi."""
+    """**grassetto**, ~corsivo~, ^{apice}, _{pedice}; per un asterisco letterale si scrive backslash+asterisco."""
     b, i = bold, False
-    for tok in TOKEN.split(text):
+    for tok in TOKEN.split(text.replace("\\*", STAR)):
         if not tok:
             continue
         if tok == "**":
             b = not b
             continue
-        if tok == "*":
+        if tok == "~":
             i = not i
             continue
         sup = tok.startswith("^{")
@@ -74,7 +75,7 @@ def add_runs(par, text, color=None, bold=False):
         body = tok[2:-1] if (sup or sub) else tok
         if sup:
             body = NESTED.sub(r"\1", body)
-        run = par.add_run(body)
+        run = par.add_run(body.replace(STAR, "*"))
         run.bold = True if (b or color is not None) else None
         run.italic = True if i else None
         if sup:
@@ -146,8 +147,26 @@ def main():
     numid = bullet_numid(doc)
     h1, h2 = style_by_id(doc, "Titolo1"), style_by_id(doc, "Titolo2")
     n_par = 0
+    in_code = False
     for raw in src.read_text(encoding="utf-8").splitlines():
         line = raw.rstrip()
+        if line.lstrip().startswith("```"):
+            if in_code:           # fine del blocco: riga vuota come nei tuoi Word
+                doc.add_paragraph(); n_par += 1
+            in_code = not in_code
+            continue
+        if in_code:               # codice: un paragrafo per riga, Consolas 8,5 pt, senza spaziatura
+            p = doc.add_paragraph(); n_par += 1
+            r = p.add_run(raw.rstrip("\n"))
+            r.font.name = "Consolas"; r.font.size = Pt(8.5)
+            rpr = r._r.get_or_add_rPr()
+            rf = rpr.find(qn("w:rFonts"))
+            if rf is not None:
+                rf.set(qn("w:hAnsi"), "Consolas"); rf.set(qn("w:cs"), "Consolas")
+            p.paragraph_format.space_after = Pt(0)
+            p.paragraph_format.space_before = Pt(0)
+            p.paragraph_format.line_spacing = 1.0
+            continue
         if not line.strip():
             continue
         p = doc.add_paragraph()

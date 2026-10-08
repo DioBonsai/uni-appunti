@@ -26,7 +26,7 @@ Word con 11 capitoli (rinumerati l'8 ott: era "6." due volte). Contenuto duplica
 Coperti: 1.1-1.7, 1.9, 1.10. La sez. 1.8 (Python) è OMESSA dal docente nel 2026: nulla da fare. Audio L1, L3.
 
 ## Programmazione I (Amparore) – `Programmazione/Riassunto Programmazione.docx`
-Word ha 8 capitoli fino a scanf/&. Prossima numerazione: **9** (slide successive non ancora uscite).
+Word ha 12 capitoli (aggiunti 9-12 il 9 ott: referenziamento, scanf avanzato, puntatori, dereferenziamento/alias/NULL, dalle slide 02C). Prossima numerazione: **13**. Resta Lab01 (laboratorio) da decidere.
 Corretti l'8 ott: ALU (Arithmetic Logic Unit) e titoli dei capitoli 6-7 ("Capitolo N:"). I numeri spuri visti nell'XML non erano nel testo visibile.
 
 ## Pulizie da fare (fase 2)
@@ -42,7 +42,7 @@ Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai r
 - **Algebra lineare**: nessun segno → cap. 1-9 ancora da studiare.
 - **Matematica discreta**: nessun segno → cap. 1-9 ancora da studiare.
 - **Fondamenti Info**: studiati cap. 1-4 e 8-10. Da studiare: 5, 6, 7, 11.
-- **Programmazione**: studiati cap. 1-4 e 6-8. Da studiare: 5 (Dal linguaggio macchina al C e filiera di compilazione).
+- **Programmazione**: studiati cap. 1-4 e 6-8. Da studiare: 5 (Dal linguaggio macchina al C e filiera di compilazione). Cap. 9-12 (puntatori) nuovi, non ancora studiati.
 
 ## Novita' Moodle
 - 8 ott 2026: prima esecuzione controllo automatico. Scaricati `RiassuntoLezione1.pdf` e `ProspettoCorsoB.pdf` (Mate discreta), `20260928-Presentazione-Testo-Fondamenti-Pearson.pdf` (Fondamenti). ⚠ Il link Moodle "Lezione 3: Numeri Complessi, II" (Algebra) punta a una registrazione Webex del 2025, non del 2026: verificare con il docente.

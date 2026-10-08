@@ -49,7 +49,7 @@ Avanzamento: cap. 1 completo (9/10 sezioni, 1.8 omessa); il resto del libro da f
 | 01B_architettura | Von Neumann, fetch-decode-execute | ✅ cap. 4 | sì |
 | 02A_da_assembly_a_c | assembly, linguaggio C, compilazione | ✅ cap. 5 | no |
 | 02B_assegnamento_memory_model | tipi, variabili, stack, assegnamento, printf/scanf | ✅ cap. 6-8 | sì |
-| 02C_referenziamento_scanf_puntatori | referenziamento, input, puntatori | ⬜ nuova (scaricata) | |
+| 02C_referenziamento_scanf_puntatori | referenziamento, input, puntatori | ✅ cap. 9-12 | no |
 | Lab01 - Introduzione | laboratorio | ⬜ nuova (scaricata) | |
 
 ## Prossimi passi consigliati

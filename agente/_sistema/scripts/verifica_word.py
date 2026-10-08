@@ -65,7 +65,8 @@ def check(name: str) -> tuple[int, int]:
             continue
         loc = f"par.{i} «{t[:50]}…»"
         code = is_code(p)
-        if re.search(r"\*\*|\^\{|_\{", t):
+        # marcatori rimasti: **parola** (coppia con testo dentro), ^{ o _{ ; un "**" isolato puo' essere codice C (es. int** p)
+        if re.search(r"\*\*[^\s*][^*]*[^\s*]\*\*|\*\*[^\s*]\*\*|\^\{|_\{", t):
             errors.append(f"{loc}: marcatore di formattazione rimasto")
         if not code and t.count("{") != t.count("}"):
             errors.append(f"{loc}: graffe sbilanciate")
