@@ -22,16 +22,17 @@ Fonti: appunti a mano, schede, libro Mori (scansione), audio L1-L2 (manca L3).
 Nota: negli appunti del 2 ott la condizione delle partizioni è scritta `Ai ∩ Aj ≠ ∅` (typo, deve essere `= ∅`).
 
 ## Fondamenti dell'Informatica (Brookshear) – `Fondamenti Info/Fondamenti Informatica.docx`
-Word con contenuto duplicato (sez. 3-5 ripetono 5-6) e numerazione doppia ("6." due volte). Da ripulire.
-Coperti: 1.1-1.7, 1.9, 1.10. Manca 1.8 (Data and Programming). Audio L1, L3.
+Word con 11 capitoli (rinumerati l'8 ott: era "6." due volte). **Resta da decidere**: contenuto duplicato (sez. 3-5 ripetono in parte 5-6: memoria di massa, ASCII/Unicode, RGB). Refusi corretti l'8 ott.
+Coperti: 1.1-1.7, 1.9, 1.10. La sez. 1.8 (Python) è OMESSA dal docente nel 2026: nulla da fare. Audio L1, L3.
 
 ## Programmazione I (Amparore) – `Programmazione/Riassunto Programmazione.docx`
 Word ha 8 capitoli fino a scanf/&. Prossima numerazione: **9** (slide successive non ancora uscite).
-Da correggere: "Algebraic Logic Unit" → *Arithmetic* Logic Unit; numeri spuri "3514090501650", "323596057150"; capitolo 6 senza prefisso "Capitolo".
+Corretti l'8 ott: ALU (Arithmetic Logic Unit) e titoli dei capitoli 6-7 ("Capitolo N:"). I numeri spuri visti nell'XML non erano nel testo visibile.
 
 ## Pulizie da fare (fase 2)
-- [ ] Fondamenti: deduplicare, rinumerare, correggere refusi ("Nascosto", "dell me", "movement", "all'addizionale")
-- [ ] Programmazione: correzioni sopra
-- [ ] Algebra: aggiungere L3
+- [x] Fondamenti: rinumerato, corretti refusi ("Nascosto", "dell me", "movement", frase spezzata "all'addizionatore") [8 ott]; [ ] da decidere: deduplicare il contenuto ripetuto
+- [x] Programmazione: correzioni [8 ott]
+- [x] Algebra: aggiunti cap. 7-9 (L3) [8 ott]
+- [x] Stili Titolo 1/2 veri su tutti e 4 i Word (navigazione e indice automatico) [8 ott]
 - [ ] Mate discreta: controllo notazione partizioni
-- [ ] Git sulla cartella UNI
+- [x] Git + GitHub privato (DioBonsai/uni-appunti) [8 ott]
