@@ -12,12 +12,13 @@ Il Word ha 9 capitoli (aggiunti 7-9 l'8 ott). Prossima numerazione: **10**.
 Dispense: 26 lezioni; prossime L4 Polinomi, L5-7 Spazi vettoriali.
 
 ## Matematica discreta (Mori) – `Matematica discreta/Appunti matematica discreta.docx`
-Il Word ha 9 capitoli. Prossima numerazione: **10**.
+Il Word ha 15 capitoli. Prossima numerazione: **16**.
 | Lez. | Data | Argomenti | Word |
 |---|---|---|---|
 | L1 | 1 ott | Insiemi, operazioni, prodotto cartesiano | ✅ cap. 1-3 |
 | L2 | 2 ott | Differenza, De Morgan, insieme delle parti, Peano, induzione, partizioni | ✅ cap. 4-6 |
 | L3 | 6 ott | Quoziente, relazioni, equivalenze, classi, funzioni come grafico | ✅ cap. 7-9 |
+| L4 | 8 ott | Funzioni: notazioni, notevoli, restrizione, quoziente, immagine/controimmagine, iniettiva/suriettiva, composizione, inversa | ✅ cap. 10-15 (il cap. 15 da appunti e scheda, non in audio) |
 Fonti: appunti a mano, schede, libro Mori (scansione), audio L1-L2 (manca L3).
 Nota: negli appunti del 2 ott la condizione delle partizioni è scritta `Ai ∩ Aj ≠ ∅` (typo, deve essere `= ∅`).
 
