@@ -1113,7 +1113,7 @@ function countUp(el, to, dur = 800, fmtFn) {
   const step = t => { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = f(Math.round(to * e)); if (k < 1) requestAnimationFrame(step); };
   requestAnimationFrame(step);
 }
-function countAll(root) { $$('[data-count]', root).forEach(el => countUp(el, +el.dataset.count)); }
+function countAll(root) { $$('[data-count]', root).forEach(el => countUp(el, +el.dataset.count, 800, el.dataset.suffix ? v => v + el.dataset.suffix : undefined)); }
 function toast(msg) {
   const box = $('#toasts'); if (!box) return;
   while (box.children.length > 2) box.firstChild.remove();
@@ -1226,13 +1226,13 @@ function renderOggi() {
 function greeting() { const h = new Date().getHours(); return h < 5 ? 'Buonanotte' : (h < 13 ? 'Buongiorno' : (h < 18 ? 'Buon pomeriggio' : 'Buonasera')); }
 function renderHero() {
   const nc = dueCards('*').length, nq = DATA.quiz.filter(q => { const s = S.qs[q.id]; return s && s.due <= todayStr(); }).length;
-  const cnt = todayCount(), pct = Math.min(1, cnt / GOAL), wk = weakThemes();
+  const mm = Object.values(DATA.materie), done = mm.reduce((s, x) => s + x.studiati, 0), allc = mm.reduce((s, x) => s + x.capitoli, 0), pct = allc ? done / allc : 0, perc = Math.round(100 * pct), wk = weakThemes();
   const dl = new Date().toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long' });
-  const note = cnt >= GOAL ? 'Obiettivo di oggi raggiunto: tutto il resto è un di più.' : (nc + nq === 0 ? 'Niente in scadenza: la sessione ti propone domande nuove ed esercizi generati.' : 'Circa 20 minuti: prima le schede in scadenza, poi domande scelte tra i tuoi punti deboli e il peso all\'esame, poi qualche esercizio nuovo.');
+  const note = (nc + nq === 0 ? 'Niente in scadenza: la sessione ti propone domande nuove ed esercizi generati.' : 'Circa 20 minuti: prima le schede in scadenza, poi domande scelte tra i tuoi punti deboli e il peso all\'esame, poi qualche esercizio nuovo.');
   $('#sessione-card').innerHTML = `
     <div class="greet"><span class="hand">${greeting()} Emanuele</span><span class="date">${esc(dl)}</span></div>
     <div class="hero-main">
-      ${ring(pct, 150, 12, { cls: cnt >= GOAL ? 'ok' : '', label: `Oggi hai fatto ${cnt} tra schede, domande e problemi; l'obiettivo è ${GOAL}`, center: `<b data-count="${cnt}">0</b><span>oggi · obiettivo ${GOAL}</span>` })}
+      ${ring(pct, 150, 12, { cls: perc >= 100 ? 'ok' : '', label: `Capitoli studiati in totale: ${done} su ${allc}, ${perc}%`, center: `<b data-count="${perc}" data-suffix="%">0%</b><span>${done} di ${allc} capitoli studiati</span>` })}
       <div class="stats">
         <div class="stat"><span class="v mono" data-count="${nc}">0</span><span class="k">schede da ripassare</span></div>
         <div class="stat"><span class="v mono" data-count="${nq}">0</span><span class="k">domande da rivedere</span></div>
