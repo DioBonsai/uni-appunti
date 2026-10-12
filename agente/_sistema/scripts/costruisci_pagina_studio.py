@@ -1,35 +1,73 @@
-"""Costruisce la pagina di studio interattiva (HTML unico) con i dati veri: quiz degli esami, flashcard e avanzamento.
+"""Costruisce la pagina di studio interattiva ("Quaderno di ripasso") con i dati veri.
 
-Legge:  _sistema/esami/quiz_*.md, _sistema/flashcard/*.md, il modello _sistema/pagina_studio/template.html
-Scrive: _sistema/pagina_studio/index.html  (da pubblicare come Artifact privato)
+Legge:  esami/quiz_*.md, esami/prob_*.md, flashcard/<materia>*.md, i Word (evidenziazioni gialle = studiato),
+        piano_oggi.md, pagina_studio/{template.html (solo <head> e CSS), extra.css, body.html, app.js, gen.js}
+Scrive: pagina_studio/index.html (la pagina) e pagina_studio/data.json (i dati, caricati con fetch).
+Pubblicare con l'Artifact tool: file_path index.html, files {"data.json": ".../data.json"}.
 
-Aggiornare il dizionario AVANZAMENTO qui sotto quando cambia lo stato di studio (coerente con STATO.md).
+Il collaudo del generatore di esercizi è pagina_studio/test_gen.js (node test_gen.js).
 Uso: python costruisci_pagina_studio.py
 """
+import hashlib
 import json
 import re
 import sys
 from datetime import date
 from pathlib import Path
 
-BASE = Path(__file__).resolve().parent.parent
+BASE = Path(__file__).resolve().parent.parent          # _sistema
+UNI = BASE.parent.parent                                # cartella UNI
+PAG = BASE / "pagina_studio"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from anki_build import parse_cards  # noqa: E402
 
-AVANZAMENTO = {
-    "Algebra lineare":     dict(capitoli=9,  studiati=0, lezioni="3 di 26", prossimo="Studiare i cap. 1-9 (campi, numeri complessi, forma polare, radici). Poi la lezione 4: Polinomi."),
-    "Matematica discreta": dict(capitoli=9,  studiati=0, lezioni="3 fatte", prossimo="Studiare i cap. 1-9, soprattutto appartenenza/inclusione e funzioni (escono spesso). Il resto del corso è ancora da fare."),
-    "Fondamenti Info":     dict(capitoli=11, studiati=7, lezioni="cap. 1 del libro", prossimo="Da studiare: cap. 5 (architettura e RAM), 6 (codifica dei dati), 7 (sistema binario), 11 (errori)."),
-    "Programmazione":      dict(capitoli=8,  studiati=7, lezioni="slide 00-02B", prossimo="Da studiare: cap. 5 (dal linguaggio macchina al C). Poi riassumere le slide 02C (puntatori) e Lab01."),
+# Percorsi dei Word: accetta sia i file sciolti in UNI\ sia le vecchie sottocartelle.
+WORD = {
+    "Algebra lineare": ["Riassunto Algebra lineare.docx", "Algebra lineare/Riassunto Algebra lineare.docx"],
+    "Matematica discreta": ["Riassunto Matematica discreta.docx", "Matematica discreta/Appunti matematica discreta.docx"],
+    "Fondamenti Info": ["Riassunto Fondamenti Informatica.docx", "Fondamenti Info/Fondamenti Informatica.docx"],
+    "Programmazione": ["Riassunto Programmazione.docx", "Programmazione/Riassunto Programmazione.docx"],
 }
-FREQ = [  # (tema, quiz su 150, problemi su 30, nel Word)
-    ("Permutazioni: cicli, tipo, periodo", 48, 14, False), ("Aritmetica modulare e congruenze", 21, 10, False),
-    ("Z_N moltiplicativo (inversi, φ di Eulero)", 16, 9, False), ("Omomorfismi tra gruppi", 1, 9, False),
-    ("Coefficienti binomiali e combinatoria", 15, 15, False), ("Gruppi, sottogruppi, generatori", 29, 11, False),
-    ("Parità delle permutazioni", 6, 6, False), ("MCD e algoritmo di Euclide", 1, 7, False),
-    ("Funzioni, composizione, iniettività", 33, 4, False), ("Appartenenza, inclusione, insiemi", 37, 0, True),
-    ("Prodotto cartesiano, operazioni sugli insiemi", 21, 4, True), ("Relazioni, equivalenze, induzione", 0, 0, True),
+# Testi a mano (non deducibili dai file): lezioni coperte e note. I capitoli studiati si calcolano dalle evidenziazioni.
+LEZIONI = {
+    "Algebra lineare": "3 di 26 (L4 Polinomi pronta, in attesa dell'ok)",
+    "Matematica discreta": "5 fatte",
+    "Fondamenti Info": "cap. 1 del libro",
+    "Programmazione": "slide 00-02C, laboratorio Lab01",
+}
+# Date d'esame (AAAA-MM-GG), da compilare quando Moodle le pubblica; si possono anche inserire nella pagina.
+ESAMI = {}
+
+# Pesi d'esame di Matematica discreta: (tema, quiz su 150, problemi su 30, parole chiave per «nel Word»)
+FREQ = [
+    ("Permutazioni: cicli, tipo, periodo", 48, 14, r"permutazion|cicli disgiunti"), ("Aritmetica modulare e congruenze", 21, 10, r"congruenz|aritmetica modulare"),
+    ("Z_N moltiplicativo (inversi, φ di Eulero)", 16, 9, r"φ di Eulero|funzione di Eulero|invertibil[ei] in ℤ"), ("Omomorfismi tra gruppi", 1, 9, r"omomorfism"),
+    ("Coefficienti binomiali e combinatoria", 15, 15, r"coefficient[ei] binomial|combinatori"), ("Gruppi, sottogruppi, generatori", 29, 11, r"sottogrupp|gruppo ciclico|generator"),
+    ("Parità delle permutazioni", 6, 6, r"parità"), ("MCD e algoritmo di Euclide", 1, 7, r"algoritmo di euclide|massimo comun divisore|MCD"),
+    ("Funzioni, composizione, iniettività", 33, 4, r"iniettiv"), ("Appartenenza, inclusione, insiemi", 37, 0, r"appartenenza|inclusione"),
+    ("Prodotto cartesiano, operazioni sugli insiemi", 21, 4, r"prodotto cartesiano"), ("Relazioni, equivalenze, induzione", 0, 0, r"equivalenz|induzione"),
 ]
+
+# Tag delle domande -> tema. L'ordine di PRIORITA decide il tema quando una domanda ha più tag.
+TAG_TEMA = {
+    "permutazioni": "Permutazioni", "cicli-tipo-periodo": "Permutazioni", "parita": "Permutazioni",
+    "aritmetica-modulare": "Aritmetica modulare e ℤ_N", "Z_N-moltiplicativo": "Aritmetica modulare e ℤ_N", "Z_N-additivo": "Aritmetica modulare e ℤ_N",
+    "generatori": "Aritmetica modulare e ℤ_N", "MCD-euclide": "Aritmetica modulare e ℤ_N",
+    "gruppi": "Gruppi e omomorfismi", "sottogruppi": "Gruppi e omomorfismi", "omomorfismi": "Gruppi e omomorfismi", "nucleo-immagine": "Gruppi e omomorfismi",
+    "combinatoria": "Combinatoria", "disposizioni": "Combinatoria", "combinazioni": "Combinatoria", "coefficienti-binomiali": "Combinatoria",
+    "funzioni": "Funzioni", "iniettiva-suriettiva-inversa": "Funzioni", "composizione": "Funzioni",
+    "partizioni": "Partizioni e relazioni", "insiemi": "Insiemi", "appartenenza-inclusione": "Insiemi", "operazioni-insiemi": "Insiemi", "prodotto-cartesiano": "Insiemi",
+    "base-2": "Binario", "altro": "Altro",
+}
+PRIORITA = ["Permutazioni", "Gruppi e omomorfismi", "Aritmetica modulare e ℤ_N", "Combinatoria", "Funzioni", "Partizioni e relazioni", "Binario", "Insiemi", "Altro"]
+# Capitoli del Word di Mate discreta per tema (None = non ancora nel Word)
+TEMI = {t: {"capitoli": None} for t in PRIORITA}
+TEMI["Insiemi"]["capitoli"] = "cap. 1-3"
+TEMI["Partizioni e relazioni"]["capitoli"] = "cap. 6-9"
+TEMI["Funzioni"]["capitoli"] = "cap. 10-19"
+# Peso d'esame del tema (0..1), dalla tabella FREQ
+PESO_TEMA = {"Permutazioni": 0.0, "Aritmetica modulare e ℤ_N": 0.0, "Gruppi e omomorfismi": 0.0, "Combinatoria": 0.0, "Funzioni": 0.0, "Insiemi": 0.0, "Partizioni e relazioni": 0.0, "Binario": 0.0, "Altro": 0.0}
+PESO_FREQ = {"Permutazioni": [0, 6], "Aritmetica modulare e ℤ_N": [1, 2, 7], "Gruppi e omomorfismi": [3, 5], "Combinatoria": [4], "Funzioni": [8], "Insiemi": [9, 10], "Partizioni e relazioni": [11]}
 
 
 def parse_quizzes():
@@ -63,26 +101,130 @@ def parse_quizzes():
     return out
 
 
-def parse_all_cards():
+def parse_problems():
     out = []
-    for mat in AVANZAMENTO:
-        for suffix, tag in (("", "c"), (".quiz", "q")):
-            p = BASE / "flashcard" / f"{mat}{suffix}.md"
-            if p.exists():
-                for i, (t, q, a) in enumerate(parse_cards(p)):
-                    out.append(dict(id=f"{mat[:3]}{tag}{i}", m=mat, t=t, d=q, r=a))
+    for f in sorted((BASE / "esami").glob("prob_*.md")):
+        for blk in re.split(r"(?m)^(?=## \[)", f.read_text(encoding="utf-8")):
+            m = re.match(r"## \[([^\]]+)\]\s*argomenti:\s*(.*)", blk)
+            if not m:
+                continue
+            t = re.search(r"(?ms)\*\*Testo:\*\*\s*(.*?)(?=^\*\*Soluzione:\*\*)", blk)
+            s = re.search(r"(?ms)\*\*Soluzione:\*\*\s*(.*?)(?=^\*\*Concetti usati:\*\*|\Z)", blk)
+            c = re.search(r"(?ms)\*\*Concetti usati:\*\*\s*(.*?)(?=^## |\Z)", blk)
+            if not (t and s):
+                continue
+            out.append(dict(id=m.group(1), args=[a.strip() for a in m.group(2).split(",") if a.strip()],
+                            testo=t.group(1).strip(), soluzione=s.group(1).strip(), concetti=(c.group(1).strip() if c else "")))
     return out
+
+
+def card_id(mat, title, d):
+    return mat[:3] + hashlib.sha1((title + "|" + d).encode("utf-8")).hexdigest()[:10]
+
+
+def parse_all_cards():
+    out, seen = [], set()
+    for mat in WORD:
+        files = sorted((BASE / "flashcard").glob(f"{mat}.md")) + sorted((BASE / "flashcard").glob(f"{mat}.*.md"))
+        for p in files:
+            for (t, q, a) in parse_cards(p):
+                cid = card_id(mat, t, q)           # id basato sul contenuto: i progressi non si spostano se le schede cambiano
+                if cid in seen:
+                    continue
+                seen.add(cid)
+                out.append(dict(id=cid, m=mat, t=t, d=q, r=a, lungo=len(a) > 400))
+    return out
+
+
+def find_word(mat):
+    for rel in WORD[mat]:
+        p = UNI / rel
+        if p.exists():
+            return p
+    return None
+
+
+def chapters(path):
+    """[(numero, titolo, stato)] stato 2 = studiato (almeno 3 paragrafi evidenziati), 1 = tracce isolate, 0 = no. Più il testo intero."""
+    from docx import Document
+    doc = Document(str(path))
+    chs, cur, text = [], None, []
+    for p in doc.paragraphs:
+        txt = p.text.strip()
+        text.append(txt)
+        if p.style.name.lower().startswith(("heading 1", "titolo 1")):
+            m = re.match(r"(?:Capitolo\s+)?(\d+)[.:]?\s*(.*)", txt)
+            cur = [int(m.group(1)) if m else len(chs) + 1, (m.group(2) if m else txt), 0, 0]
+            chs.append(cur)
+        if cur is not None and txt:
+            cur[3] += 1
+            if any(r.font.highlight_color is not None for r in p.runs):
+                cur[2] += 1
+    res = []
+    for n, t, hl, tot in chs:
+        res.append((n, t, 2 if hl >= 3 else (1 if hl else 0)))   # le evidenziazioni sono a pezzi: da 3 paragrafi in su = studiato
+    return res, "\n".join(text)
+
+
+def avanzamento():
+    out, texts = {}, {}
+    for mat in WORD:
+        p = find_word(mat)
+        if p is None:
+            out[mat] = dict(capitoli=0, studiati=0, lezioni=LEZIONI[mat], prossimo="Word non trovato.", elenco=[])
+            continue
+        res, text = chapters(p)
+        texts[mat] = text
+        done = [n for n, _, s in res if s == 2]
+        part = [n for n, _, s in res if s == 1]
+        todo = [n for n, _, s in res if s == 0]
+        def rng(l):
+            if not l:
+                return "nessuno"
+            parts, a = [], l[0]
+            for i, x in enumerate(l):
+                if i + 1 == len(l) or l[i + 1] != x + 1:
+                    parts.append(str(a) if a == x else f"{a}-{x}")
+                    a = l[i + 1] if i + 1 < len(l) else None
+            return ", ".join(parts)
+        nota = f"Studiati: {rng(done)}." + (f" In parte: {rng(part)}." if part else "") + (f" Da studiare: {rng(todo)}." if todo else " Tutto studiato.")
+        out[mat] = dict(capitoli=len(res), studiati=len(done), lezioni=LEZIONI[mat], prossimo=nota,
+                        elenco=[dict(n=n, t=t, s=s) for n, t, s in res])
+    return out, texts
+
+
+def piano():
+    p = BASE / "piano_oggi.md"
+    if not p.exists():
+        return ""
+    t = p.read_text(encoding="utf-8")
+    m = re.search(r"(?ms)^## Oggi.*?\n(.*?)(?=^## Da tenere|\Z)", t)
+    return m.group(1).strip() if m else ""
 
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
-    data = dict(oggi=str(date.today()), quiz=parse_quizzes(), cards=parse_all_cards(),
-                materie=AVANZAMENTO, freq=FREQ)
-    tpl = (BASE / "pagina_studio" / "template.html").read_text(encoding="utf-8")
-    html = tpl.replace("/*__DATA__*/null", json.dumps(data, ensure_ascii=False))
-    out = BASE / "pagina_studio" / "index.html"
-    out.write_text(html, encoding="utf-8")
-    print(f"{len(data['quiz'])} domande, {len(data['cards'])} schede -> {out} ({out.stat().st_size // 1024} KB)")
+    quiz, probs, cards = parse_quizzes(), parse_problems(), parse_all_cards()
+    avanz, texts = avanzamento()
+    mate_txt = texts.get("Matematica discreta", "")
+    freq = [[t, q, p, len(re.findall(rx, mate_txt, re.I)) >= 2] for (t, q, p, rx) in FREQ]
+    pesi = {}
+    for tema, idx in PESO_FREQ.items():
+        pesi[tema] = sum(FREQ[i][1] / 150 + FREQ[i][2] / 30 for i in idx)
+    mx = max(pesi.values()) or 1
+    pesi = {k: round(v / mx, 3) for k, v in pesi.items()}
+    data = dict(oggi=str(date.today()), quiz=quiz, problemi=probs, cards=cards, materie=avanz, freq=freq,
+                tagTema=TAG_TEMA, priorita=PRIORITA, temi=TEMI, pesi=pesi, piano=piano(), esami=ESAMI)
+    (PAG / "data.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+
+    head = (PAG / "template.html").read_text(encoding="utf-8").split('<div class="app">')[0]
+    head = head.replace("</style>", (PAG / "extra.css").read_text(encoding="utf-8") + "\n</style>", 1)
+    html = '<meta charset="utf-8">\n' + head + (PAG / "body.html").read_text(encoding="utf-8") + "\n<script>\n" + (PAG / "gen.js").read_text(encoding="utf-8").replace("if (typeof module", "if (false && typeof module") + "\n" + (PAG / "app.js").read_text(encoding="utf-8") + "\n</script>\n"
+    (PAG / "index.html").write_text(html, encoding="utf-8")
+    print(f"{len(quiz)} domande, {len(probs)} problemi, {len(cards)} schede; index.html {len(html) // 1024} KB, data.json {(PAG / 'data.json').stat().st_size // 1024} KB")
+    for m, x in avanz.items():
+        print(f"  {m}: {x['studiati']}/{x['capitoli']} studiati. {x['prossimo']}")
+    print("  nel Word:", [f[0][:18] for f in freq if f[3]])
 
 
 if __name__ == "__main__":

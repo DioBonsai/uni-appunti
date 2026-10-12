@@ -15,6 +15,8 @@ from datetime import datetime
 from pathlib import Path
 
 UNI = Path(__file__).resolve().parent.parent.parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from percorsi_word import trova  # noqa: E402
 DEST = Path.home() / "OneDrive" / "UNI-backup"
 WORDS = {
     "Algebra lineare": "Riassunto Algebra lineare.docx",
@@ -44,7 +46,7 @@ def main() -> None:
     changed = 0
     stamp = datetime.now().strftime("%Y%m%d_%H%M")
     for materia, fname in WORDS.items():
-        src = UNI / materia.split("/")[0] / fname
+        src = trova(UNI, materia.split("/")[0], fname)
         if not src.exists():
             continue
         if sync_file(src, DEST / "corrente" / materia / fname):

@@ -1,22 +1,25 @@
-# Piano di ripasso — 2026-10-08
+# Piano di ripasso — 2026-10-12
 
-Date d'esame non ancora note (nessuna data pubblicata su Moodle né segnalata da Emanuele): priorità basata su capitoli non studiati e su peso d'esame storico (Mate discreta).
+⚠ **Attenzione prima di tutto**: le cartelle delle materie (`Algebra lineare/`, `Matematica discreta/`, `Fondamenti Info/`, `Programmazione/`) non ci sono più in `UNI\`: i Word sono ora file sciolti nella cartella `UNI\` (es. `Riassunto Algebra lineare.docx`), e le dispense PDF (Algebra, slide Programmazione) risultano cancellate dal repo. Il contenuto dei Word è lo stesso (stesso hash) tranne Matematica discreta, che ha **32 nuove evidenziazioni gialle** non ancora salvate con un commit (bene: segno che hai studiato altro, ma va verificato). Gli script (`aggiungi_capitolo.py`, `verifica_word.py`, `backup_onedrive.py`) puntano ancora ai vecchi percorsi con sottocartella: finché non confermi se questo spostamento è voluto, i prossimi `/riassunto` potrebbero fallire o scrivere nel posto sbagliato. Prima di lanciare un nuovo `/riassunto`, conferma con Emanuele dove devono stare i Word e fai `git add -A && git commit` per mettere in sicurezza lo stato attuale (compresi i cap. già scritti il 9 ott, non ancora committati... verificare).
+
+Date d'esame non ancora note (Moodle oggi ha fatto login correttamente, 0 novità). Priorità basata su rotazione (8 ott Mate discreta, 9 ott Fondamenti, 10 ott Programmazione → oggi tocca Algebra lineare) e su capitoli non ancora studiati.
 
 ## Oggi (max 90', 3 blocchi da 30')
 
-**Blocco 1 (30') — Matematica discreta, cap. 1 "Insiemi, operazioni, prodotto cartesiano"**
-File: `Matematica discreta/Appunti matematica discreta.docx`. Nessuna evidenziazione: tutti i cap. 1-9 sono ancora da studiare. Si parte dal cap. 1 perché copre appartenenza/inclusione, l'argomento più frequente ai quiz d'esame (17/150, vedi `_sistema/esami/MAPPA_ESAMI.md`).
+**Blocco 1 (30') — Algebra lineare, cap. 1 "Numeri reali: vettori, campi"**
+File: `Riassunto Algebra lineare.docx` (ex `Algebra lineare/Riassunto Algebra lineare.docx`). Nessun capitolo di Algebra è ancora evidenziato (cap. 1-9 tutti da studiare): si parte dal cap. 1.
 
-**Blocco 2 (30') — 15 flashcard Anki, mazzo "Fondamenti Info"**
-File: `_sistema/anki/Fondamenti_Info.apkg`. Nessun argomento debole registrato (`errori.md` è vuoto, prima simulazione ancora da fare). Fondamenti ha 7 capitoli già studiati (1-4, 8-10) mai ripassati da quando sono stati evidenziati: buon candidato per consolidare prima di procedere oltre.
+**Blocco 2 (30') — Matematica discreta: prima simulazione, `/esame quiz` su funzioni e appartenenza/inclusione**
+`errori.md` è ancora vuoto: non hai mai fatto una simulazione. Tra gli argomenti già nel Word, "funzioni, composizione, iniettiva/suriettiva" (33 domande nei quiz passati) e "appartenenza e inclusione" (17 domande) sono i più frequenti all'esame (vedi `MAPPA_ESAMI.md`): a parità di materiale già pronto, sono quelli con più punti attesi.
 
-**Blocco 3 (30') — Preparazione Algebra lineare L4 (Polinomi)**
-Materiale già disponibile (`_sistema/fonti_testo/Algebra lineare/dispense_MDAG.md`, cap. 4), ma mancano appunti a mano o audio per quella lezione. Leggere le dispense e segnare i concetti chiave, pronto per lanciare `/riassunto algebra 4` quando Emanuele vuole (non farlo in automatico: un capitolo alla volta, con il suo ok).
+**Blocco 3 (30') — Preparazione Algebra lineare L4 "Polinomi"**
+Le dispense sono pronte da giorni (vedi `COPERTURA.md`), manca solo l'ok per `/riassunto algebra 4`. Rileggi le fonti e segna i macro-argomenti da proporre, così il prossimo riassunto parte subito dopo il tuo ok — a patto di aver chiarito prima il punto sulle cartelle qui sopra.
 
 ## Da tenere aggiornato
-- **Lezioni senza riassunto**: Algebra L4-L26 (prossima: L4 Polinomi, materiale dispense pronto); Mate discreta oltre L3 (L4 ha gli audio appena trascritti: `mate_L4_A.txt`, `mate_L4_B.txt`, da verificare se bastano per un capitolo); Fondamenti oltre il cap. 1 del libro (serve materiale per le lezioni 07-35 del programma reale, vedi `COPERTURA.md`); Programmazione Lab01 (5 capitoli scritti, nessuno ancora studiato/evidenziato).
-- **Audio da trascrivere** (confronto `_sistema/audio` vs `_sistema/trascrizioni`): tutta Algebra (`algebra_L1`, `L2A`, `L2B`, `L3A`, `L3B`) e parte di Mate discreta (`mate_L1_A`, `L1_B`, `L2_A`, `L2_B`, `L3_B`).
-- **Task fermo**: trascrizione di `mate_L3_A` risulta incompleta (file `.part`, non finita).
-- **Novità Moodle** (da `moodle_report.md`, 8 ott): ⚠ il link Webex "Lezione 3: Numeri Complessi, II" di Algebra punta a una registrazione del 2025, non del 2026 — da verificare con il docente; 4 registrazioni Webex di Fondamenti disponibili ma non scaricate (solo elencate).
+- **Struttura cartelle**: vedi avviso in cima — da chiarire con Emanuele prima di altri `/riassunto`.
+- **Lezioni senza riassunto**: Algebra L4-L26 (L4 Polinomi pronta, manca l'ok); Mate discreta oltre L5 (prossima quando esce); Fondamenti oltre il cap. 1 del libro (servono le lezioni 07-35 del programma reale, vedi `COPERTURA.md`); Programmazione Lab02 (non ancora uscito).
+- **Audio da trascrivere**: nessuno — i 21 audio in `_sistema/audio` hanno tutti la trascrizione corrispondente in `_sistema/trascrizioni`.
+- **Novità Moodle**: controllo tornato a funzionare oggi (login ok, 0 novità) dopo 3 giorni di sessione scaduta. Restano aperti da prima: link Webex "Lezione 3: Numeri Complessi, II" di Algebra che punta a una registrazione 2025 (da verificare col docente) e le registrazioni Webex di Fondamenti non ancora scaricate. Ancora nessuna data d'esame pubblicata.
+- **Task automatici fermi**: nessuno al momento — `moodle-controllo-giornaliero` ha ripreso a funzionare oggi.
 
-Piano pronto: Matematica discreta
+Piano pronto: Algebra lineare

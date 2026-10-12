@@ -1,0 +1,86 @@
+
+<div class="app">
+  <header>
+    <p class="kicker">Informatica UniTo · 1° anno · dati aggiornati al <span id="agg"></span></p>
+    <h1>Quaderno di ripasso</h1>
+    <div class="tabs" role="tablist" aria-label="Sezioni">
+      <button class="tab" role="tab" id="t-oggi" data-tab="oggi" aria-selected="true">Oggi</button>
+      <button class="tab" role="tab" id="t-quiz" data-tab="quiz" aria-selected="false">Quiz</button>
+      <button class="tab" role="tab" id="t-problemi" data-tab="problemi" aria-selected="false">Problemi</button>
+      <button class="tab" role="tab" id="t-schede" data-tab="schede" aria-selected="false">Schede</button>
+    </div>
+  </header>
+  <div id="load-err" class="note warn" hidden></div>
+
+  <section id="tab-oggi" aria-labelledby="t-oggi">
+    <div class="card hero" id="sessione-card"></div>
+    <details class="card plan" id="piano-card" hidden><summary><strong>Piano di oggi</strong> (tocca per aprire)</summary><div id="piano"></div></details>
+    <div class="card">
+      <h2>Date d'esame</h2>
+      <p class="muted">Quando le inserisci, gli intervalli di ripasso si accorciano per arrivare pronto in tempo. Si salva su questo dispositivo.</p>
+      <div class="grid" id="exams"></div>
+    </div>
+    <div class="grid" id="materie"></div>
+    <div class="card">
+      <h2>Cosa chiedono gli esami di Matematica discreta</h2>
+      <p class="muted">Su 15 prove (150 quiz e 30 problemi, 2024-2026). Più la barra è lunga, più il tema ricorre. «Nel Word» è calcolato leggendo i tuoi capitoli.</p>
+      <div class="freq" id="freq"></div>
+    </div>
+    <div class="grid">
+      <div class="card"><h2>Temi da rivedere</h2><div id="deboli"></div></div>
+      <div class="card"><h2>Ultime prove</h2><div id="storico"></div></div>
+    </div>
+    <div class="card">
+      <h2>Salva o sposta i progressi</h2>
+      <p class="muted">I progressi stanno solo in questo browser. Per portarli su un altro dispositivo copia il testo qui sotto e incollalo nell'altro.</p>
+      <div class="row"><button class="btn ghost small" id="exp">Mostra / copia</button><button class="btn ghost small" id="imp">Importa dal testo</button></div>
+      <textarea id="xfer" aria-label="Progressi" hidden></textarea>
+      <p class="hint" id="xfer-msg" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="tab-quiz" aria-labelledby="t-quiz" hidden>
+    <div class="card" id="quiz-setup">
+      <h2>Prepara il quiz</h2>
+      <p class="muted">Domande vere delle prove 2024-2026, a 5 risposte come all'esame, più esercizi generati senza limite (verificati col computer). Le soluzioni ufficiali in PDF hanno qualche errore: dove l'ho trovato lo segnalo.</p>
+      <div class="row">
+        <label for="q-topic">Tema<select id="q-topic"></select></label>
+        <label for="q-n">Domande<select id="q-n"><option>5</option><option selected>10</option><option>20</option></select></label>
+        <label for="q-mode">Modalità<select id="q-mode"><option value="1" selected>correzione dopo ogni risposta</option><option value="0">correzione solo alla fine</option><option value="sim">simulazione d'esame (a tempo)</option></select></label>
+        <label for="q-min" id="q-min-l" hidden>Minuti<select id="q-min"><option>20</option><option selected>30</option><option>45</option><option>60</option></select></label>
+      </div>
+      <div class="row"><button class="btn" id="q-start">Inizia</button><button class="btn ghost" id="q-weak" hidden>Solo i miei punti deboli</button></div>
+      <p class="hint">Scorciatoie: tasti <span class="kbd">1</span>–<span class="kbd">5</span> per rispondere, <span class="kbd">Invio</span> per proseguire.</p>
+    </div>
+    <div class="card" id="quiz-run" hidden></div>
+  </section>
+
+  <section id="tab-problemi" aria-labelledby="t-problemi" hidden>
+    <div class="card" id="prob-setup">
+      <h2>Problemi d'esame svolti</h2>
+      <p class="muted">I 30 problemi delle prove 2024-2026, con soluzione. Prima provi tu, poi guardi e dici com'è andata: i temi dove sbagli tornano più spesso.</p>
+      <div class="row">
+        <label for="p-topic">Tema<select id="p-topic"></select></label>
+        <span class="pill" id="p-count"></span>
+      </div>
+      <div class="row"><button class="btn" id="p-start">Dammi un problema</button></div>
+    </div>
+    <div class="card" id="prob-run" hidden></div>
+  </section>
+
+  <section id="tab-schede" aria-labelledby="t-schede" hidden>
+    <div class="card" id="cards-setup">
+      <h2>Schede di ripasso</h2>
+      <p class="muted">Se la scheda era facile torna dopo più giorni; se era difficile o sbagliata torna prima (e a ridosso dell'esame gli intervalli si accorciano).</p>
+      <div class="row">
+        <label for="c-mat">Materia<select id="c-mat"></select></label>
+        <label for="c-max">Per sessione<select id="c-max"><option>10</option><option selected>15</option><option>30</option><option value="999">tutte</option></select></label>
+        <span class="pill" id="c-count"></span>
+      </div>
+      <div class="row"><button class="btn" id="c-start">Ripassa</button></div>
+      <p class="hint">Scorciatoie: <span class="kbd">Invio</span> mostra la risposta, poi <span class="kbd">1</span> da rivedere, <span class="kbd">2</span> difficile, <span class="kbd">3</span> bene, <span class="kbd">4</span> facile.</p>
+    </div>
+    <div class="card" id="cards-run" hidden></div>
+  </section>
+  <div id="live" class="sr" aria-live="polite"></div>
+</div>

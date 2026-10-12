@@ -9,6 +9,8 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from percorsi_word import trova  # noqa: E402
 
 import mammoth
 
@@ -42,7 +44,7 @@ def main():
         sys.exit("Edge/Chrome non trovato.")
     DEST.mkdir(parents=True, exist_ok=True)
     for materia, fname in WORDS.items():
-        src = UNI / materia.split("/")[0] / fname
+        src = trova(UNI, materia.split("/")[0], fname)
         pdf = DEST / (materia.replace("/", " - ") + ".pdf")
         if pdf.exists() and pdf.stat().st_mtime >= src.stat().st_mtime and not force:
             print(f"gia' aggiornato: {materia}")

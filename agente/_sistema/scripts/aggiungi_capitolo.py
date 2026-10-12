@@ -29,6 +29,8 @@ from docx.oxml.ns import qn
 from docx.shared import Pt, RGBColor
 
 BASE = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from percorsi_word import trova  # noqa: E402
 UNI = BASE.parent.parent  # cartella UNI con le 4 materie (BASE = UNI/agente/_sistema)
 RED = RGBColor(0xEE, 0x00, 0x00)
 ORANGE = RGBColor(0xE9, 0x71, 0x32)
@@ -142,6 +144,8 @@ def main():
     target = Path(a.docx)
     if not target.is_absolute():
         target = UNI / target
+    if not target.exists():  # i Word possono stare sciolti in UNI\ (nuovo nome) invece che nelle sottocartelle
+        target = trova(UNI, target.parent.name, target.name)
     src = Path(a.md)
     if not target.exists() or not src.exists():
         sys.exit(f"File non trovato: {target if not target.exists() else src}")

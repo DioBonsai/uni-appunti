@@ -13,6 +13,8 @@ import sys
 from pathlib import Path
 
 from docx import Document
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from percorsi_word import trova  # noqa: E402
 
 UNI = Path(__file__).resolve().parent.parent.parent.parent
 WORDS = {
@@ -53,7 +55,7 @@ def is_formula(t: str) -> bool:
 
 
 def check(name: str) -> tuple[int, int]:
-    path = UNI / name.split("/")[0] / WORDS[name]
+    path = trova(UNI, name.split("/")[0], WORDS[name])
     if not path.exists():
         print(f"[{name}] file non trovato: {path}")
         return 1, 0
