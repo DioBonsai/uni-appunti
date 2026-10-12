@@ -271,7 +271,10 @@ def main():
             nascoste.setdefault(q["m"], {}).setdefault(q["theme"], 0)
             nascoste[q["m"]][q["theme"]] += 1
     quiz = visibili
-    from quiz_banche import tema_fondamenti
+    from quiz_banche import tema_fondamenti, solo_it
+    for c in cards:   # i quiz del sito sono bilingui: tengo l'italiano
+        if c["m"] == "Fondamenti Info":
+            c["d"], c["r"], c["t"] = solo_it(c["d"]), solo_it(c["r"]), solo_it(c["t"])
     n_cards = len(cards)   # schede ricavate dai quiz del sito di Fondamenti: tolte quelle su argomenti non ancora trattati
     cards = [c for c in cards if not (c["m"] == "Fondamenti Info" and c["lungo"]) or cop.get((c["m"], tema_fondamenti(c["d"] + " " + c["r"], c["t"])), 0) >= 3]
     print(f"  schede: {len(cards)} (nascoste {n_cards - len(cards)} su argomenti non ancora trattati)")

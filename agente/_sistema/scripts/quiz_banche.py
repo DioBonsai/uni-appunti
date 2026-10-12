@@ -63,7 +63,14 @@ def parse_numbered(path, materia, temi, prefix_prova):
     return out
 
 
-FIG = re.compile(r"qui sotto|seguente circuito|nella figura|in figura|figura|immagine|diagramma|automa (qui|seguente)|tabella (qui|seguente)|seguente (tabella|automa)", re.I)
+def solo_it(s):
+    """I quiz del sito sono bilingui («🇮🇹 testo 🇬🇧 text»): tiene solo l'italiano."""
+    if "🇮🇹" not in s:
+        return s.strip()
+    return re.sub(r"\s+", " ", re.sub(r"🇬🇧.*?(?=🇮🇹|\Z)", "", s, flags=re.S).replace("🇮🇹", "")).strip()
+
+
+FIG = re.compile(r"qui sopra|qui sotto|\bsopra\b|seguente circuito|nella figura|in figura|figura|immagine|diagramma|automa (qui|seguente)|tabella (qui|seguente)|seguente (tabella|automa)", re.I)
 TEMI_FOND = [  # (tema, espressione): il primo che corrisponde vince
     ("Automi e grammatiche", re.compile(r"automa|grammatica|linguaggio|regolare|derivazion|macchina di turing", re.I)),
     ("Logica e dimostrazioni", re.compile(r"logic|implica|quantific|∀|∃|inferenza|tautolog|proposizion|equivalen|valid[ao]|dimostr|induzion|invarian", re.I)),
@@ -103,14 +110,14 @@ def parse_fondamenti():
         first = next((i for i, l in enumerate(pre) if re.match(r"^- ([a-z]\.\s|Vero$|Falso$)", l)), None)
         if first is None:
             continue
-        testo = "\n".join(pre[:first]).strip()
-        opts = [re.sub(r"^- ([a-z]\.\s)?", "", l).strip() for l in pre[first:] if l.startswith("- ")]
+        testo = solo_it("\n".join(pre[:first]).strip())
+        opts = [solo_it(re.sub(r"^- ([a-z]\.\s)?", "", l).strip()) for l in pre[first:] if l.startswith("- ")]
         if len(opts) < 2 or FIG.search(testo) or any(FIG.search(o) for o in opts) or len(set(opts)) != len(opts):
             continue
-        hit = [i for i, o in enumerate(opts) if _norm(o) == _norm(risp.group(1))]
+        hit = [i for i, o in enumerate(opts) if _norm(o) == _norm(solo_it(risp.group(1)))]
         if len(hit) != 1:
             continue
-        s = (spieg.group(1).strip() if spieg else "")
+        s = solo_it(spieg.group(1).strip()) if spieg else ""
         s = re.sub(r"\\\(|\\\)", "", s)
         if s.startswith("(nessuna"):
             s = ""
