@@ -63,7 +63,7 @@ Il corso (35 lezioni) va ben oltre il cap. 1 di Brookshear: i quiz di ripasso de
 | Lezioni | Argomento | Nei tuoi Word |
 |---|---|---|
 | 01-06 | Circuiti e rappresentazione binaria | ✅ (cap. 1-11 del Word di Fondamenti) |
-| 07-13 | Regole proposizionali, quantificatori | ⬜ |
+| 07-13 | Regole proposizionali, quantificatori | 🟨 in corso: cap. 12-15 (proposizioni, connettivi, tavole di verità, equivalenze, tautologie); mancano implicazione, regole di inferenza, quantificatori |
 | 14-18 | Prove con quantificatori | ⬜ |
 | 19-23 | Invarianti e ragionamenti per induzione | ⬜ |
 | 24-26 | Proprietà delle sequenze e delle relazioni | ⬜ |

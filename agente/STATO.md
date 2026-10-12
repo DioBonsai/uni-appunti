@@ -24,8 +24,9 @@ Fonti: appunti a mano, schede, libro Mori (scansione), audio L1-L2 (manca L3).
 Nota: negli appunti del 2 ott la condizione delle partizioni è scritta `Ai ∩ Aj ≠ ∅` (typo, deve essere `= ∅`).
 
 ## Fondamenti dell'Informatica (Brookshear) – `Riassunto Fondamenti Informatica.docx`
-Word con 11 capitoli (rinumerati l'8 ott: era "6." due volte). Contenuto duplicato unito l'8 ott: memoria di massa solo nel cap. 3 (con i dettagli del cap. 5 aggiunti), ASCII/Unicode e RGB solo nel cap. 4; i cap. 5 e 6 rimandano. Refusi corretti l'8 ott. Cap. 3-4 e 8-10 hanno le evidenziazioni di Emanuele (non toccarle).
+Word con 15 capitoli (cap. 12-15 aggiunti il 12 ott: logica proposizionale, lezione 4 del corso) (rinumerati l'8 ott: era "6." due volte). Contenuto duplicato unito l'8 ott: memoria di massa solo nel cap. 3 (con i dettagli del cap. 5 aggiunti), ASCII/Unicode e RGB solo nel cap. 4; i cap. 5 e 6 rimandano. Refusi corretti l'8 ott. Cap. 3-4 e 8-10 hanno le evidenziazioni di Emanuele (non toccarle).
 Coperti: 1.1-1.7, 1.9, 1.10. La sez. 1.8 (Python) è OMESSA dal docente nel 2026: nulla da fare. Audio L1, L3.
+| L4 (corso) | 12 ott | Logica proposizionale: proposizioni, connettivi (and, or, xor, not, equivalenza), tavole di verità, equivalenze, tautologie e contraddizioni (PDF «Parte 2, 1.2 Propositions» + audio) | ✅ cap. 12-15 (restano da fare: implicazione e regole di inferenza, prossima lezione) |
 
 ## Programmazione I (Amparore) – `Riassunto Programmazione.docx`
 Word ha 12 capitoli (aggiunti 9-12 il 9 ott: referenziamento, scanf avanzato, puntatori, dereferenziamento/alias/NULL, dalle slide 02C). Prossima numerazione: **13**. Resta Lab01 (laboratorio) da decidere.
@@ -46,7 +47,7 @@ Creato il 9 ott 2026 dalle slide `Lab01 - Introduzione` (laboratorio n. 1). 5 ca
 Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai rimuovere né spostare le evidenziazioni; il testo nuovo si aggiunge SENZA evidenziazione. Stato ricontrollato il 12 ott 2026 (verifica diretta delle evidenziazioni nei Word, capitolo per capitolo):
 - **Algebra lineare**: nessun segno → cap. 1-9 ancora da studiare.
 - **Matematica discreta**: studiati cap. 1-4 e 6-7 (insiemi, operazioni avanzate, ricoprimenti e partizioni). Da studiare: 5 (induzione), 8-9 (relazioni, equivalenze) e 10-19 (funzioni, composizione, iniettività/suriettività).
-- **Fondamenti Info**: studiati tutti i cap. 1-11 (cap. 5, 6 e 7 evidenziati il 12 ott 2026; il cap. 11 lo era già). Nulla da studiare nel Word attuale.
+- **Fondamenti Info**: studiati tutti i cap. 1-11 (cap. 5, 6 e 7 evidenziati il 12 ott 2026; il cap. 11 lo era già). Da studiare: 12-15 (logica proposizionale, appena scritti).
 - **Programmazione**: studiati cap. 1-8 (cap. 5 evidenziato il 12 ott). Da studiare: 9-12 (referenziamento, scanf, puntatori, dereferenziamento).
 - **Programmazione, Laboratorio**: nessun segno → cap. 1-5 ancora da studiare.
 

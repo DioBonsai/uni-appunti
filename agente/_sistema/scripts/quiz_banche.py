@@ -122,7 +122,8 @@ def solo_it(s):
 FIG = re.compile(r"qui sopra|qui sotto|\bsopra\b|seguente circuito|nella figura|in figura|figura|immagine|diagramma|automa (qui|seguente)|tabella (qui|seguente)|seguente (tabella|automa)", re.I)
 TEMI_FOND = [  # (tema, espressione): il primo che corrisponde vince
     ("Automi e grammatiche", re.compile(r"automa|grammatica|linguaggi|linguaggio|regolare|derivazion|macchina di turing|stati finiti", re.I)),
-    ("Logica e dimostrazioni", re.compile(r"logic|implica|quantific|∀|∃|inferenza|tautolog|proposizion|equivalen|valid[ao]|dimostr|induzion|invarian", re.I)),
+    ("Logica avanzata", re.compile(r"implica|→|⟹|⇒|\\to|\\implies|quantific|∀|∃|forall|exists|inferenza|regol[ae] di|dimostr|induzion|invarian|predicat|ipotetic", re.I)),
+    ("Logica proposizionale", re.compile(r"logic|tavol[ae] di verit|tautolog|contraddizion|proposizion|equivalen|booleani|connettiv|\bvalid[ao]|\band\b|\bor\b|\bxor\b|negazion|congiunzion|disgiunzion", re.I)),
     ("Rappresentazione binaria", re.compile(r"binar|\bbit\b|complemento|floating|virgola|ottal|esadecim|\bbyte|ascii|unicode|eccesso|mantissa|compress|hamming|parit", re.I)),
     ("Circuiti e memoria", re.compile(r"circuit|porta|nand|\bnor\b|xor|flip|memoria|disco|\bram\b|cache|ssd|\bcd\b|dvd|nastro", re.I)),
     ("Insiemi e relazioni", re.compile(r"insiem|relazion|funzion|sequenz|prodotto cartesiano|partizion", re.I)),

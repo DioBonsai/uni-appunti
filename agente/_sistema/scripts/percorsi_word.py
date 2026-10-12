@@ -1,4 +1,4 @@
-"""I Word dei riassunti stanno come file sciolti in UNI\ (nessuna sottocartella per materia).
+"""I Word dei riassunti stanno come file sciolti nella cartella UNI (nessuna sottocartella per materia).
 trova() accetta anche i vecchi percorsi (es. "Matematica discreta/Appunti matematica discreta.docx") e li traduce nel nome nuovo."""
 from pathlib import Path
 

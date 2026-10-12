@@ -85,7 +85,7 @@ COPERTURA_RX = {
     ("Algebra lineare", "Campi"): r"\bcamp[oi]\b", ("Algebra lineare", "Numeri complessi"): r"numeri complessi", ("Algebra lineare", "Coniugato e modulo"): r"coniugat",
     ("Algebra lineare", "Forma polare"): r"polare", ("Algebra lineare", "Potenze e radici"): r"radic[ei] n-esim|moivre|potenz", ("Algebra lineare", "Vettori"): r"vettor",
     ("Fondamenti Info", "Rappresentazione binaria"): r"binari|complemento a due|esadecimal", ("Fondamenti Info", "Circuiti e memoria"): r"flip-flop|\bram\b|memoria",
-    ("Fondamenti Info", "Compressione ed errori"): r"compressione|hamming", ("Fondamenti Info", "Logica e dimostrazioni"): r"quantificator|inferenza|tautologi|tavol[ae] di verit",
+    ("Fondamenti Info", "Compressione ed errori"): r"compressione|hamming", ("Fondamenti Info", "Logica proposizionale"): r"tavol[ae] di verit|tautologi|contraddizion",
     ("Fondamenti Info", "Automi e grammatiche"): r"\bautom[ai]\b|grammatic", ("Fondamenti Info", "Insiemi e relazioni"): r"relazion[ei] di equivalenza|prodotto cartesiano",
     ("Programmazione", "Algoritmi"): r"algoritm", ("Programmazione", "Assembly e macchina"): r"assembly", ("Programmazione", "Tipi e memoria"): r"memoria",
     ("Programmazione", "Variabili e assegnamento"): r"assegnament", ("Programmazione", "Operatori"): r"operator", ("Programmazione", "Puntatori"): r"puntator",
