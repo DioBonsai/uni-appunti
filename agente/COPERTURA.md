@@ -9,7 +9,7 @@ Legenda: ✅ nel Word | 🟡 parziale | ⬜ non ancora (lezione/slide non ancora
 | 1 | Numeri reali (vettori, campi) | ✅ cap. 1-2 | non studiato |
 | 2 | Numeri complessi I | ✅ cap. 3-6 | non studiato |
 | 3 | Numeri complessi II (polari, radici) | ✅ cap. 7-9 | non studiato |
-| 4 | Polinomi | ⬜ | prossima |
+| 4 | Polinomi | ✅ cap. 10-13 | non studiato |
 | 5-7 | Spazi vettoriali I-III | ⬜ | |
 | 8-10 | Matrici I-III | ⬜ | |
 | 11-13 | Sistemi lineari I-III | ⬜ | |

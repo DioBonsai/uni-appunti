@@ -122,7 +122,7 @@ def post_controlli(target: Path) -> None:
     import subprocess
     here = Path(__file__).resolve().parent
     py = sys.executable
-    for script, args in (("verifica_word.py", [target.parent.name]), ("backup_onedrive.py", [])):
+    for script, args in (("verifica_word.py", []), ("backup_onedrive.py", [])):
         try:
             r = subprocess.run([py, str(here / script), *args], capture_output=True, text=True,
                                encoding="utf-8", errors="replace", timeout=180)

@@ -3,13 +3,13 @@
 Legenda: ✅ nel Word | ⏳ da fare | ❓ da decidere
 
 ## Algebra lineare (Buzano/Radeschi) – `Riassunto Algebra lineare.docx`
-Il Word ha 9 capitoli (aggiunti 7-9 l'8 ott). Prossima numerazione: **10**.
+Il Word ha 13 capitoli (aggiunti 10-13 il 12 ott). Prossima numerazione: **14**.
 | Lez. | Data | Argomenti | Word | Fonti disponibili |
 |---|---|---|---|---|
 | L1 | 30 set | Vettori/mappe lineari, insiemi numerici, campi | ✅ cap. 1-2 | appunti, nota, audio, dispense cap.1 |
 | L2 | 5 ott | Complessi: forma algebrica, campo, coniugato/modulo/inverso, piano di Argand | ✅ cap. 3-6 | appunti (foto quaderno), audio 2A/2B, dispense cap.2 |
 | L3 | 7 ott | Coordinate polari, e^{iθ}, prodotto, inverso, potenze, radici n-esime | ✅ cap. 7-9 | appunti, scheda, dispense cap.3 (audio non presente) |
-| L4 | 12 ott | Polinomi: monomi, grado, ℝ[x]/ℂ[x]/ℝₖ[x], divisione con resto, radici e molteplicità, al più n radici (induzione), discriminante, teorema fondamentale dell'algebra | ⬜ in attesa degli appunti | audio 4A/4B trascritti (84 min), dispense cap.4 |
+| L4 | 12 ott | Polinomi: monomi, grado, ℝ[x]/ℂ[x]/ℝₖ[x], divisione con resto, radici e molteplicità, al più n radici (induzione), discriminante, teorema fondamentale dell'algebra | ✅ cap. 10-13 | appunti 12 ott, audio 4A/4B, dispense cap.4 |
 Dispense: 26 lezioni; prossime L4 Polinomi, L5-7 Spazi vettoriali.
 
 ## Matematica discreta (Mori) – `Riassunto Matematica discreta.docx`
@@ -46,7 +46,7 @@ Creato il 9 ott 2026 dalle slide `Lab01 - Introduzione` (laboratorio n. 1). 5 ca
 
 ## Cosa ha già studiato Emanuele (le evidenziazioni gialle nei Word = studiato a mano)
 Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai rimuovere né spostare le evidenziazioni; il testo nuovo si aggiunge SENZA evidenziazione. Stato ricontrollato il 12 ott 2026 (verifica diretta delle evidenziazioni nei Word, capitolo per capitolo):
-- **Algebra lineare**: nessun segno → cap. 1-9 ancora da studiare.
+- **Algebra lineare**: nessun segno → cap. 1-13 ancora da studiare (10-13 appena scritti).
 - **Matematica discreta**: studiati cap. 1-4 e 6-7 (insiemi, operazioni avanzate, ricoprimenti e partizioni). Da studiare: 5 (induzione), 8-9 (relazioni, equivalenze) e 10-19 (funzioni, composizione, iniettività/suriettività).
 - **Fondamenti Info**: studiati tutti i cap. 1-11 (cap. 5, 6 e 7 evidenziati il 12 ott 2026; il cap. 11 lo era già). Da studiare: 12-15 (logica proposizionale, appena scritti).
 - **Programmazione**: studiati cap. 1-8 (cap. 5 evidenziato il 12 ott). Da studiare: 9-12 (referenziamento, scanf, puntatori, dereferenziamento).
