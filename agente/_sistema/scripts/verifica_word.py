@@ -13,16 +13,14 @@ import sys
 from pathlib import Path
 
 from docx import Document
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from percorsi_word import trova  # noqa: E402
 
 UNI = Path(__file__).resolve().parent.parent.parent.parent
 WORDS = {
     "Algebra lineare": "Riassunto Algebra lineare.docx",
-    "Matematica discreta": "Appunti matematica discreta.docx",
-    "Fondamenti Info": "Fondamenti Informatica.docx",
+    "Matematica discreta": "Riassunto Matematica discreta.docx",
+    "Fondamenti Info": "Riassunto Fondamenti Informatica.docx",
     "Programmazione": "Riassunto Programmazione.docx",
-    "Programmazione/Laboratorio": "Laboratorio.docx",
+    "Programmazione/Laboratorio": "Riassunto Laboratorio.docx",
 }
 FORBIDDEN = [
     r"\ble fonti\b", r"\bfonti fornite\b", r"come (detto|ricordato) nell'audio", r"\bnell'audio\b",
@@ -55,7 +53,7 @@ def is_formula(t: str) -> bool:
 
 
 def check(name: str) -> tuple[int, int]:
-    path = trova(UNI, name.split("/")[0], WORDS[name])
+    path = UNI / WORDS[name]
     if not path.exists():
         print(f"[{name}] file non trovato: {path}")
         return 1, 0

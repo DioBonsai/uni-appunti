@@ -13,16 +13,14 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BASE = HERE.parent
 AGENTE = BASE.parent
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from percorsi_word import trova  # noqa: E402
 UNI = AGENTE.parent
 PY = sys.executable
 WORDS = {
     "Algebra lineare": "Riassunto Algebra lineare.docx",
-    "Matematica discreta": "Appunti matematica discreta.docx",
-    "Fondamenti Info": "Fondamenti Informatica.docx",
+    "Matematica discreta": "Riassunto Matematica discreta.docx",
+    "Fondamenti Info": "Riassunto Fondamenti Informatica.docx",
     "Programmazione": "Riassunto Programmazione.docx",
-    "Programmazione/Laboratorio": "Laboratorio.docx",
+    "Programmazione/Laboratorio": "Riassunto Laboratorio.docx",
 }
 results = []
 
@@ -59,7 +57,7 @@ def main():
         pass
     # 2. Word
     for mat, fn in WORDS.items():
-        p = trova(UNI, mat.split("/")[0], fn)
+        p = UNI / fn
         if not p.exists():
             rec("ERRORE", f"Word {mat}", "file mancante"); continue
         try:
@@ -89,7 +87,7 @@ def main():
         rec("ERRORE", "backup OneDrive", "cartella UNI-backup assente: lancia backup_onedrive.py")
     else:
         for mat, fn in WORDS.items():
-            src, bk = trova(UNI, mat.split("/")[0], fn), dest / mat / fn
+            src, bk = UNI / fn, dest / mat / fn
             if not bk.exists():
                 rec("ATTENZIONE", f"ripristino {mat}", "copia assente su OneDrive")
             elif sha(src) == sha(bk):

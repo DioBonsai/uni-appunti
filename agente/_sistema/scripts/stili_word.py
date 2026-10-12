@@ -14,8 +14,6 @@ import shutil
 import sys
 from datetime import datetime
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from percorsi_word import trova  # noqa: E402
 
 from docx import Document
 from docx.oxml import OxmlElement
@@ -25,10 +23,10 @@ BASE = Path(__file__).resolve().parent.parent
 UNI = BASE.parent.parent
 WORDS = {
     "Algebra lineare": "Riassunto Algebra lineare.docx",
-    "Matematica discreta": "Appunti matematica discreta.docx",
-    "Fondamenti Info": "Fondamenti Informatica.docx",
+    "Matematica discreta": "Riassunto Matematica discreta.docx",
+    "Fondamenti Info": "Riassunto Fondamenti Informatica.docx",
     "Programmazione": "Riassunto Programmazione.docx",
-    "Programmazione/Laboratorio": "Laboratorio.docx",
+    "Programmazione/Laboratorio": "Riassunto Laboratorio.docx",
 }
 RED, ORANGE = "EE0000", "E97132"
 
@@ -73,7 +71,7 @@ def classify(p):
 
 
 def process(materia, dry):
-    path = trova(UNI, materia.split("/")[0], WORDS[materia])
+    path = UNI / WORDS[materia]
     doc = Document(str(path))
     s1, s2 = find_style(doc, "Titolo1"), find_style(doc, "Titolo2")
     todo = [(p, classify(p)) for p in doc.paragraphs]

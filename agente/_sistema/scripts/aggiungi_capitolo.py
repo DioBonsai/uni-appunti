@@ -2,7 +2,7 @@
 replicando la formattazione dei tuoi documenti.
 
 Uso:
-    python aggiungi_capitolo.py "Algebra lineare/Riassunto Algebra lineare.docx" capitolo.md
+    python aggiungi_capitolo.py "Riassunto Algebra lineare.docx" capitolo.md
     python aggiungi_capitolo.py ... capitolo.md --dry-run     # non scrive, mostra solo l'esito
 
 Formato del .md:

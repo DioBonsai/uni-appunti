@@ -5,7 +5,7 @@ description: Piano di ripasso giornaliero o settimanale per Emanuele, basato su 
 
 # /piano [oggi|settimana]
 
-Leggi `CLAUDE.md`, `STATO.md` (sezione "Cosa ha già studiato"), `COPERTURA.md`, `_sistema/errori.md`, `_sistema/moodle_report.md` (date d'esame e annunci, se presenti) e `_sistema/esami/MAPPA_ESAMI.md`.
+Leggi `CLAUDE.md`, `STATO.md` (sezione "Cosa ha già studiato"), `COPERTURA.md`, `_sistema/errori.md`, `_sistema/progressi.json` (se esiste: errori per tema `th`, problemi svolti `probs`, domande da rivedere `qs`, date d'esame `exams` dal Quaderno di ripasso locale), `_sistema/moodle_report.md` (date d'esame e annunci, se presenti) e `_sistema/esami/MAPPA_ESAMI.md`.
 
 ## Regole di priorità
 1. Esami imminenti (date nel report Moodle o dette da Emanuele): materia con l'esame più vicino prima.

@@ -2,7 +2,7 @@
 
 Legenda: ✅ nel Word | ⏳ da fare | ❓ da decidere
 
-## Algebra lineare (Buzano/Radeschi) – `Algebra lineare/Riassunto Algebra lineare.docx`
+## Algebra lineare (Buzano/Radeschi) – `Riassunto Algebra lineare.docx`
 Il Word ha 9 capitoli (aggiunti 7-9 l'8 ott). Prossima numerazione: **10**.
 | Lez. | Data | Argomenti | Word | Fonti disponibili |
 |---|---|---|---|---|
@@ -11,7 +11,7 @@ Il Word ha 9 capitoli (aggiunti 7-9 l'8 ott). Prossima numerazione: **10**.
 | L3 | 7 ott | Coordinate polari, e^{iθ}, prodotto, inverso, potenze, radici n-esime | ✅ cap. 7-9 | appunti, scheda, dispense cap.3 (audio non presente) |
 Dispense: 26 lezioni; prossime L4 Polinomi, L5-7 Spazi vettoriali.
 
-## Matematica discreta (Mori) – `Matematica discreta/Appunti matematica discreta.docx`
+## Matematica discreta (Mori) – `Riassunto Matematica discreta.docx`
 Il Word ha 19 capitoli. Prossima numerazione: **20**.
 | Lez. | Data | Argomenti | Word |
 |---|---|---|---|
@@ -23,15 +23,15 @@ Il Word ha 19 capitoli. Prossima numerazione: **20**.
 Fonti: appunti a mano, schede, libro Mori (scansione), audio L1-L2 (manca L3).
 Nota: negli appunti del 2 ott la condizione delle partizioni è scritta `Ai ∩ Aj ≠ ∅` (typo, deve essere `= ∅`).
 
-## Fondamenti dell'Informatica (Brookshear) – `Fondamenti Info/Fondamenti Informatica.docx`
+## Fondamenti dell'Informatica (Brookshear) – `Riassunto Fondamenti Informatica.docx`
 Word con 11 capitoli (rinumerati l'8 ott: era "6." due volte). Contenuto duplicato unito l'8 ott: memoria di massa solo nel cap. 3 (con i dettagli del cap. 5 aggiunti), ASCII/Unicode e RGB solo nel cap. 4; i cap. 5 e 6 rimandano. Refusi corretti l'8 ott. Cap. 3-4 e 8-10 hanno le evidenziazioni di Emanuele (non toccarle).
 Coperti: 1.1-1.7, 1.9, 1.10. La sez. 1.8 (Python) è OMESSA dal docente nel 2026: nulla da fare. Audio L1, L3.
 
-## Programmazione I (Amparore) – `Programmazione/Riassunto Programmazione.docx`
+## Programmazione I (Amparore) – `Riassunto Programmazione.docx`
 Word ha 12 capitoli (aggiunti 9-12 il 9 ott: referenziamento, scanf avanzato, puntatori, dereferenziamento/alias/NULL, dalle slide 02C). Prossima numerazione: **13**. Resta Lab01 (laboratorio) da decidere.
 Corretti l'8 ott: ALU (Arithmetic Logic Unit) e titoli dei capitoli 6-7 ("Capitolo N:"). I numeri spuri visti nell'XML non erano nel testo visibile.
 
-## Programmazione, Laboratorio – `Programmazione/Laboratorio.docx` (riassunto a parte, numerazione propria)
+## Programmazione, Laboratorio – `Riassunto Laboratorio.docx` (riassunto a parte, numerazione propria)
 Creato il 9 ott 2026 dalle slide `Lab01 - Introduzione` (laboratorio n. 1). 5 capitoli: 1 organizzazione del laboratorio, 2 interfaccia a riga di comando, 3 ambiente per programmare in C (gcc, MinGW, PATH, editor), 4 compilazione (gcc -c, linker, -Wall -Werror, objdump), 5 primi programmi (scrivi_intero.c, tabella_moltiplicazioni.c, esercizi). Prossima numerazione: **6** (lab n. 2 quando uscirà). Nessuna evidenziazione: da studiare.
 
 ## Pulizie da fare (fase 2)

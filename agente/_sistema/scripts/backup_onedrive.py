@@ -15,15 +15,13 @@ from datetime import datetime
 from pathlib import Path
 
 UNI = Path(__file__).resolve().parent.parent.parent.parent
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from percorsi_word import trova  # noqa: E402
 DEST = Path.home() / "OneDrive" / "UNI-backup"
 WORDS = {
     "Algebra lineare": "Riassunto Algebra lineare.docx",
-    "Matematica discreta": "Appunti matematica discreta.docx",
-    "Fondamenti Info": "Fondamenti Informatica.docx",
+    "Matematica discreta": "Riassunto Matematica discreta.docx",
+    "Fondamenti Info": "Riassunto Fondamenti Informatica.docx",
     "Programmazione": "Riassunto Programmazione.docx",
-    "Programmazione/Laboratorio": "Laboratorio.docx",
+    "Programmazione/Laboratorio": "Riassunto Laboratorio.docx",
 }
 SKIP_DIRS = {"audio", "fonti", "backup", "trascrizioni", "__pycache__", ".git"}
 
@@ -46,7 +44,7 @@ def main() -> None:
     changed = 0
     stamp = datetime.now().strftime("%Y%m%d_%H%M")
     for materia, fname in WORDS.items():
-        src = trova(UNI, materia.split("/")[0], fname)
+        src = UNI / fname
         if not src.exists():
             continue
         if sync_file(src, DEST / "corrente" / materia / fname):

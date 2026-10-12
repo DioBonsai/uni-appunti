@@ -3,7 +3,7 @@
 Legge:  esami/quiz_*.md, esami/prob_*.md, flashcard/<materia>*.md, i Word (evidenziazioni gialle = studiato),
         piano_oggi.md, pagina_studio/{template.html (solo <head> e CSS), extra.css, body.html, app.js, gen.js}
 Scrive: pagina_studio/index.html (la pagina) e pagina_studio/data.json (i dati, caricati con fetch).
-Pubblicare con l'Artifact tool: file_path index.html, files {"data.json": ".../data.json"}.
+Il sito si apre con apri_quaderno.bat o serve.py (che ricostruisce e serve su http://127.0.0.1:8765).
 
 Il collaudo del generatore di esercizi è pagina_studio/test_gen.js (node test_gen.js).
 Uso: python costruisci_pagina_studio.py

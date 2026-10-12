@@ -27,7 +27,7 @@ Per ogni capitolo approvato:
 2. Lancia il subagente `revisore-riassunti` passandogli: il percorso della bozza, le fonti usate e `STILE.md`. Non dirgli cosa pensi sia giusto. Applica le correzioni confermate; i dubbi li riporti a Emanuele.
 3. Mostra a Emanuele il capitolo (solo testo, senza ripetere la revisione per intero) con in fondo una riga "Revisione: N correzioni applicate, M punti da verificare".
 4. Dopo il suo ok (o "procedi"), inserisci nel Word:
-   `python _sistema/scripts/aggiungi_capitolo.py "<cartella>/<file>.docx" <bozza>.md`
+   `python _sistema/scripts/aggiungi_capitolo.py "Riassunto <materia>.docx" <bozza>.md`
    Se il Word è aperto lo script si rifiuta: chiedi di chiuderlo.
 5. Aggiorna `STATO.md` (capitoli, prossima numerazione, lezione ✅).
 

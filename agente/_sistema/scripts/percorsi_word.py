@@ -1,19 +1,14 @@
-"""Trova i Word dei riassunti sia nella vecchia struttura (UNI/<materia>/<file>) sia come file sciolti in UNI/."""
+"""I Word dei riassunti stanno come file sciolti in UNI\ (nessuna sottocartella per materia).
+trova() accetta anche i vecchi percorsi (es. "Matematica discreta/Appunti matematica discreta.docx") e li traduce nel nome nuovo."""
 from pathlib import Path
 
-LOOSE = {
-    "Riassunto Algebra lineare.docx": "Riassunto Algebra lineare.docx",
+NOMI = {  # vecchio nome -> nome attuale
     "Appunti matematica discreta.docx": "Riassunto Matematica discreta.docx",
     "Fondamenti Informatica.docx": "Riassunto Fondamenti Informatica.docx",
-    "Riassunto Programmazione.docx": "Riassunto Programmazione.docx",
     "Laboratorio.docx": "Riassunto Laboratorio.docx",
 }
 
 
 def trova(uni: Path, cartella: str, fname: str) -> Path:
-    """Percorso del Word: quello vecchio se esiste, altrimenti il file sciolto in UNI/ (se c'è), altrimenti il vecchio."""
-    old = uni / cartella / fname
-    if old.exists():
-        return old
-    new = uni / LOOSE.get(fname, fname)
-    return new if new.exists() else old
+    """UNI/<nome attuale>; la cartella (vecchia struttura) viene ignorata."""
+    return uni / NOMI.get(fname, fname)

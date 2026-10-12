@@ -7,7 +7,19 @@ try {
   if (x && x.v === 2) S = Object.assign(S, x);
   else { const old = JSON.parse(localStorage.getItem('quaderno-ripasso-v1') || 'null'); if (old) { S.hist = old.hist || []; S.exams = old.exams || {}; } }
 } catch (e) {}
-const save = () => { try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} };
+let SERVER = false, saveT = null;
+const save = () => {
+  S.ts = Date.now();
+  try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {}
+  if (SERVER) { clearTimeout(saveT); saveT = setTimeout(() => fetch('api/stato', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(S) }).catch(() => {}), 400); }
+};
+async function loadServerState() { // se la pagina è servita da serve.py, i progressi stanno anche in _sistema/progressi.json
+  try {
+    const r = await fetch('api/stato'); if (!r.ok) return; SERVER = true; const x = await r.json();
+    if (x && x.v === 2 && (x.ts || 0) > (S.ts || 0)) { S = Object.assign({ v: 2, qs: {}, th: {}, hist: [], cards: {}, exams: {}, probs: {} }, x); try { localStorage.setItem(LS_KEY, JSON.stringify(S)); } catch (e) {} }
+    else if (S.ts) save();
+  } catch (e) {}
+}
 const $ = (s, r = document) => r.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -292,10 +304,11 @@ document.addEventListener('keydown', e => {
 /* ---------- avvio ---------- */
 function boot(d) {
   DATA = d;
+  if (SERVER) { const m = $('#xfer-p'); if (m) m.textContent = 'I progressi sono salvati anche nel file progressi.json del computer, quindi restano cambiando browser. Qui puoi comunque copiarli a mano.'; }
   DATA.quiz.forEach(q => { q.theme = themeOf(q.args); });
   DATA.problemi.forEach(p => { p.theme = themeOf(p.args); });
   showTab((location.hash || '').replace('#', '') || 'oggi');
 }
-fetch('data.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(boot).catch(err => {
+loadServerState().then(() => fetch('data.json')).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(boot).catch(err => {
   const e = $('#load-err'); e.hidden = false; e.textContent = 'Non riesco a caricare i dati (' + err.message + '). Ricarica la pagina; se resta così, avvisa chi l\'ha pubblicata.';
 });
