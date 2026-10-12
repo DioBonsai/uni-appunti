@@ -45,9 +45,9 @@ Creato il 9 ott 2026 dalle slide `Lab01 - Introduzione` (laboratorio n. 1). 5 ca
 ## Cosa ha già studiato Emanuele (le evidenziazioni gialle nei Word = studiato a mano)
 Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai rimuovere né spostare le evidenziazioni; il testo nuovo si aggiunge SENZA evidenziazione. Stato ricontrollato il 12 ott 2026 (verifica diretta delle evidenziazioni nei Word, capitolo per capitolo):
 - **Algebra lineare**: nessun segno → cap. 1-9 ancora da studiare.
-- **Matematica discreta**: studiati cap. 1-3 e 6-7 (insiemi, appartenenza/inclusione, ricoprimenti e partizioni). Da studiare: 4-5 (operazioni avanzate, induzione), 8-9 (relazioni, equivalenze), 10-19 (funzioni, composizione, iniettività/suriettività).
+- **Matematica discreta**: studiati cap. 1-4 e 6-7 (insiemi, operazioni avanzate, ricoprimenti e partizioni). Da studiare: 5 (induzione), 8-9 (relazioni, equivalenze) e 10-19 (funzioni, composizione, iniettività/suriettività).
 - **Fondamenti Info**: studiati tutti i cap. 1-11 (cap. 5, 6 e 7 evidenziati il 12 ott 2026; il cap. 11 lo era già). Nulla da studiare nel Word attuale.
-- **Programmazione**: studiati cap. 1-4 e 6-8. Da studiare: 5 (Dal linguaggio macchina al C e filiera di compilazione) e 9-12 (referenziamento, scanf, puntatori, dereferenziamento).
+- **Programmazione**: studiati cap. 1-8 (cap. 5 evidenziato il 12 ott). Da studiare: 9-12 (referenziamento, scanf, puntatori, dereferenziamento).
 - **Programmazione, Laboratorio**: nessun segno → cap. 1-5 ancora da studiare.
 
 ## Novita' Moodle
