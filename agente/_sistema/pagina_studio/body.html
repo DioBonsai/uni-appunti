@@ -1,86 +1,158 @@
 
 <div class="app">
-  <header>
-    <p class="kicker">Informatica UniTo · 1° anno · dati aggiornati al <span id="agg"></span></p>
-    <h1>Quaderno di ripasso</h1>
-    <div class="tabs" role="tablist" aria-label="Sezioni">
-      <button class="tab" role="tab" id="t-oggi" data-tab="oggi" aria-selected="true">Oggi</button>
-      <button class="tab" role="tab" id="t-quiz" data-tab="quiz" aria-selected="false">Quiz</button>
-      <button class="tab" role="tab" id="t-problemi" data-tab="problemi" aria-selected="false">Problemi</button>
-      <button class="tab" role="tab" id="t-schede" data-tab="schede" aria-selected="false">Schede</button>
+  <header class="topbar">
+    <div class="topbar-in">
+      <a class="brand" href="#oggi" aria-label="Quaderno di ripasso, vai a Oggi">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="9" fill="var(--accent)"/><path d="M9 16.5l4.8 4.8L23 11.5" fill="none" stroke="var(--accent-ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand-name">Quaderno <span class="brand-sub">di ripasso</span></span>
+      </a>
+      <nav class="seg" role="tablist" aria-label="Sezioni" id="seg">
+        <span class="seg-ind" id="seg-ind" aria-hidden="true"></span>
+        <button class="tab" role="tab" id="t-oggi" data-tab="oggi" aria-selected="true" aria-controls="tab-oggi">Oggi</button>
+        <button class="tab" role="tab" id="t-quiz" data-tab="quiz" aria-selected="false" aria-controls="tab-quiz" tabindex="-1">Quiz</button>
+        <button class="tab" role="tab" id="t-problemi" data-tab="problemi" aria-selected="false" aria-controls="tab-problemi" tabindex="-1">Problemi</button>
+        <button class="tab" role="tab" id="t-schede" data-tab="schede" aria-selected="false" aria-controls="tab-schede" tabindex="-1">Schede</button>
+      </nav>
+      <div class="tools">
+        <button class="icon-btn" id="theme-btn" aria-label="Tema: automatico. Tocca per cambiare" title="Tema"><span id="theme-ic"></span></button>
+        <button class="icon-btn" id="set-btn" aria-label="Impostazioni e progressi" title="Impostazioni">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M19 7h1M4 17h1M11 17h9"/><circle cx="16" cy="7" r="2.2"/><circle cx="8" cy="17" r="2.2"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="phase" id="phase" hidden aria-label="Fase della sessione">
+      <ol>
+        <li data-p="1"><span class="pn">1</span> Schede</li>
+        <li data-p="2"><span class="pn">2</span> Domande</li>
+        <li data-p="3"><span class="pn">3</span> Fatto</li>
+      </ol>
     </div>
   </header>
-  <div id="load-err" class="note warn" hidden></div>
 
-  <section id="tab-oggi" aria-labelledby="t-oggi">
-    <div class="card hero" id="sessione-card"></div>
-    <details class="card plan" id="piano-card" hidden><summary><strong>Piano di oggi</strong> (tocca per aprire)</summary><div id="piano"></div></details>
-    <div class="card">
-      <h2>Date d'esame</h2>
-      <p class="muted">Quando le inserisci, gli intervalli di ripasso si accorciano per arrivare pronto in tempo. Si salva su questo dispositivo.</p>
-      <div class="grid" id="exams"></div>
+  <main class="main" id="main">
+    <div id="load-err" class="empty err" role="alert" hidden>
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="8" width="40" height="48" rx="5"/><path d="M20 22h24M20 31h24M20 40h12"/><path d="M44 44l10 10M54 44L44 54" class="x"/></svg>
+      <h2>I dati non si caricano</h2>
+      <p id="load-err-t"></p>
+      <button class="btn" id="load-retry">Riprova</button>
     </div>
-    <div class="grid" id="materie"></div>
-    <div class="card">
-      <h2>Cosa chiedono gli esami di Matematica discreta</h2>
-      <p class="muted">Su 15 prove (150 quiz e 30 problemi, 2024-2026). Più la barra è lunga, più il tema ricorre. «Nel Word» è calcolato leggendo i tuoi capitoli.</p>
-      <div class="freq" id="freq"></div>
-    </div>
-    <div class="grid">
-      <div class="card"><h2>Temi da rivedere</h2><div id="deboli"></div></div>
-      <div class="card"><h2>Ultime prove</h2><div id="storico"></div></div>
-    </div>
-    <div class="card">
-      <h2>Salva o sposta i progressi</h2>
-      <p class="muted" id="xfer-p">I progressi stanno solo in questo browser. Per portarli su un altro dispositivo copia il testo qui sotto e incollalo nell'altro.</p>
-      <div class="row"><button class="btn ghost small" id="exp">Mostra / copia</button><button class="btn ghost small" id="imp">Importa dal testo</button></div>
-      <textarea id="xfer" aria-label="Progressi" hidden></textarea>
-      <p class="hint" id="xfer-msg" aria-live="polite"></p>
-    </div>
-  </section>
 
-  <section id="tab-quiz" aria-labelledby="t-quiz" hidden>
-    <div class="card" id="quiz-setup">
-      <h2>Prepara il quiz</h2>
-      <p class="muted">Domande vere delle prove 2024-2026, a 5 risposte come all'esame, più esercizi generati senza limite (verificati col computer). Le soluzioni ufficiali in PDF hanno qualche errore: dove l'ho trovato lo segnalo.</p>
-      <div class="row">
-        <label for="q-topic">Tema<select id="q-topic"></select></label>
-        <label for="q-n">Domande<select id="q-n"><option>5</option><option selected>10</option><option>20</option></select></label>
-        <label for="q-mode">Modalità<select id="q-mode"><option value="1" selected>correzione dopo ogni risposta</option><option value="0">correzione solo alla fine</option><option value="sim">simulazione d'esame (a tempo)</option></select></label>
-        <label for="q-min" id="q-min-l" hidden>Minuti<select id="q-min"><option>20</option><option selected>30</option><option>45</option><option>60</option></select></label>
+    <!-- OGGI -->
+    <section id="tab-oggi" class="view" role="tabpanel" aria-label="Oggi" aria-labelledby="t-oggi">
+      <div class="bento skel-wrap" id="skel" aria-hidden="true">
+        <div class="sk sk-hero"></div><div class="sk sk-side"></div><div class="sk sk-wide"></div><div class="sk sk-wide2"></div>
       </div>
-      <div class="row"><button class="btn" id="q-start">Inizia</button><button class="btn ghost" id="q-weak" hidden>Solo i miei punti deboli</button></div>
-      <p class="hint">Scorciatoie: tasti <span class="kbd">1</span>–<span class="kbd">5</span> per rispondere, <span class="kbd">Invio</span> per proseguire.</p>
-    </div>
-    <div class="card" id="quiz-run" hidden></div>
-  </section>
-
-  <section id="tab-problemi" aria-labelledby="t-problemi" hidden>
-    <div class="card" id="prob-setup">
-      <h2>Problemi d'esame svolti</h2>
-      <p class="muted">I 30 problemi delle prove 2024-2026, con soluzione. Prima provi tu, poi guardi e dici com'è andata: i temi dove sbagli tornano più spesso.</p>
-      <div class="row">
-        <label for="p-topic">Tema<select id="p-topic"></select></label>
-        <span class="pill" id="p-count"></span>
+      <div class="bento" id="bento" hidden>
+        <article class="card b-hero" id="sessione-card"></article>
+        <article class="card b-streak" id="serie-card"></article>
+        <section class="b-exams" aria-labelledby="h-exams">
+          <div class="sec-head"><h2 id="h-exams">Esami</h2><p class="muted">Con la data, gli intervalli di ripasso si accorciano per arrivare pronto.</p></div>
+          <div class="exam-row" id="exams"></div>
+        </section>
+        <section class="b-subj" aria-labelledby="h-subj">
+          <div class="sec-head"><h2 id="h-subj">Materie</h2><p class="muted">I capitoli si spuntano quando li evidenzi nei tuoi Word.</p></div>
+          <div class="subj-grid" id="materie"></div>
+        </section>
+        <div class="b-side">
+          <article class="card" aria-labelledby="h-weak"><h2 id="h-weak">Temi da rivedere</h2><div id="deboli"></div></article>
+          <article class="card" aria-labelledby="h-hist"><h2 id="h-hist">Ultime prove</h2><div id="storico"></div></article>
+        </div>
+        <article class="card b-freq" aria-labelledby="h-freq">
+          <div class="sec-head tight"><h2 id="h-freq">Cosa chiede l'esame</h2><p class="muted">Matematica discreta, 15 prove (150 quiz e 30 problemi, 2024-2026). Più la barra è lunga, più il tema ricorre.</p></div>
+          <div class="freq" id="freq"></div>
+        </article>
+        <details class="card plan b-plan" id="piano-card" hidden><summary><span class="hand">Piano di oggi</span><span class="sum-hint">tocca per aprire o chiudere</span></summary><div id="piano" class="plan-body"></div></details>
       </div>
-      <div class="row"><button class="btn" id="p-start">Dammi un problema</button></div>
-    </div>
-    <div class="card" id="prob-run" hidden></div>
-  </section>
+    </section>
 
-  <section id="tab-schede" aria-labelledby="t-schede" hidden>
-    <div class="card" id="cards-setup">
-      <h2>Schede di ripasso</h2>
-      <p class="muted">Se la scheda era facile torna dopo più giorni; se era difficile o sbagliata torna prima (e a ridosso dell'esame gli intervalli si accorciano).</p>
-      <div class="row">
-        <label for="c-mat">Materia<select id="c-mat"></select></label>
-        <label for="c-max">Per sessione<select id="c-max"><option>10</option><option selected>15</option><option>30</option><option value="999">tutte</option></select></label>
-        <span class="pill" id="c-count"></span>
+    <!-- QUIZ -->
+    <section id="tab-quiz" class="view narrow" role="tabpanel" aria-label="Quiz" aria-labelledby="t-quiz" hidden>
+      <div id="quiz-setup" class="stack">
+        <div class="view-head"><h1>Quiz</h1><p class="muted">Domande vere delle prove 2024-2026 a 5 risposte, più esercizi generati senza limite e verificati col computer. Le soluzioni ufficiali in PDF hanno qualche errore: dove l'ho trovato lo segnalo.</p></div>
+        <div class="presets" id="presets">
+          <button class="preset p-blue" id="pr-fast"><span class="pr-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><span class="pr-t">Veloce</span><span class="pr-s">5 domande, correzione subito</span></button>
+          <button class="preset p-red" id="pr-exam"><span class="pr-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></span><span class="pr-t">Come all'esame</span><span class="pr-s">10 domande a tempo, 30 minuti</span></button>
+          <button class="preset p-orange" id="pr-weak"><span class="pr-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12l6-6"/></svg></span><span class="pr-t">I miei punti deboli</span><span class="pr-s" id="pr-weak-s">Solo i temi dove sbagli</span></button>
+          <button class="preset p-green" id="pr-gen"><span class="pr-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span><span class="pr-t">Esercizi generati</span><span class="pr-s">10 nuovi, mai gli stessi</span></button>
+        </div>
+        <details class="card custom" id="q-custom">
+          <summary><span>Personalizza</span><span class="sum-hint">tema, numero, modalità, minuti</span></summary>
+          <div class="form-grid">
+            <label for="q-topic">Tema<select id="q-topic"></select></label>
+            <label for="q-n">Domande<select id="q-n"><option>5</option><option selected>10</option><option>20</option></select></label>
+            <label for="q-mode">Modalità<select id="q-mode"><option value="1" selected>correzione dopo ogni risposta</option><option value="0">correzione solo alla fine</option><option value="sim">simulazione d'esame (a tempo)</option></select></label>
+            <label for="q-min" id="q-min-l" hidden>Minuti<select id="q-min"><option>20</option><option selected>30</option><option>45</option><option>60</option></select></label>
+          </div>
+          <div class="row"><button class="btn" id="q-start">Inizia</button><button class="btn ghost" id="q-weak" hidden>Solo i miei punti deboli</button></div>
+        </details>
+        <p class="hint kbd-hint">Scorciatoie durante il quiz: <span class="kbd">1</span>–<span class="kbd">5</span> rispondi, <span class="kbd">Invio</span> prosegui.</p>
       </div>
-      <div class="row"><button class="btn" id="c-start">Ripassa</button></div>
-      <p class="hint">Scorciatoie: <span class="kbd">Invio</span> mostra la risposta, poi <span class="kbd">1</span> da rivedere, <span class="kbd">2</span> difficile, <span class="kbd">3</span> bene, <span class="kbd">4</span> facile.</p>
-    </div>
-    <div class="card" id="cards-run" hidden></div>
-  </section>
+      <div id="quiz-run" class="run" hidden></div>
+    </section>
+
+    <!-- PROBLEMI -->
+    <section id="tab-problemi" class="view wide" role="tabpanel" aria-label="Problemi" aria-labelledby="t-problemi" hidden>
+      <div id="prob-setup" class="stack narrow-in">
+        <div class="view-head"><h1>Problemi d'esame</h1><p class="muted">I 30 problemi delle prove 2024-2026, con soluzione. Prima provi tu, poi guardi e dici com'è andata: i temi dove sbagli tornano più spesso.</p></div>
+        <div class="card setup-card">
+          <div class="form-grid one"><label for="p-topic">Tema<select id="p-topic"></select></label></div>
+          <div class="row between"><span class="pill" id="p-count"></span><button class="btn xl" id="p-start">Dammi un problema</button></div>
+        </div>
+      </div>
+      <div id="prob-run" class="run" hidden></div>
+    </section>
+
+    <!-- SCHEDE -->
+    <section id="tab-schede" class="view narrow" role="tabpanel" aria-label="Schede" aria-labelledby="t-schede" hidden>
+      <div id="cards-setup" class="stack">
+        <div class="view-head"><h1>Schede di ripasso</h1><p class="muted">Se la scheda era facile torna dopo più giorni; se era difficile o sbagliata torna prima, e a ridosso dell'esame gli intervalli si accorciano.</p></div>
+        <div class="card setup-card">
+          <div class="field"><span class="lab" id="c-mat-l">Materia</span><div class="chips-pick" id="c-mat" role="radiogroup" aria-labelledby="c-mat-l"></div></div>
+          <div class="form-grid one"><label for="c-max">Per sessione<select id="c-max"><option>10</option><option selected>15</option><option>30</option><option value="999">tutte</option></select></label></div>
+          <div class="row between"><span class="pill" id="c-count"></span><button class="btn xl" id="c-start">Ripassa</button></div>
+        </div>
+        <p class="hint kbd-hint"><span class="kbd">Invio</span> gira la scheda, poi <span class="kbd">1</span> da rivedere, <span class="kbd">2</span> difficile, <span class="kbd">3</span> bene, <span class="kbd">4</span> facile. Su telefono: trascina a destra per "bene", a sinistra per "da rivedere".</p>
+      </div>
+      <div id="cards-run" class="run" hidden></div>
+    </section>
+  </main>
+
+  <nav class="bottomnav" role="tablist" aria-label="Sezioni (barra in basso)" id="bnav">
+    <button class="bn" role="tab" data-tab="oggi" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg><span>Oggi</span></button>
+    <button class="bn" role="tab" data-tab="quiz" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.6a2.6 2.6 0 1 1 3.6 2.4c-.7.4-1.1.9-1.1 1.7M12 17h.01"/></svg><span>Quiz</span></button>
+    <button class="bn" role="tab" data-tab="problemi" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19zM14 7l3 3"/></svg><span>Problemi</span></button>
+    <button class="bn" role="tab" data-tab="schede" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="14" height="14" rx="2"/><path d="M7 7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/></svg><span>Schede</span></button>
+  </nav>
+
+  <div id="toasts" class="toasts" role="status" aria-live="polite"></div>
   <div id="live" class="sr" aria-live="polite"></div>
+
+  <dialog id="dlg-set" class="dlg" aria-labelledby="dlg-set-t">
+    <form method="dialog" class="dlg-in">
+      <div class="dlg-head"><h2 id="dlg-set-t">Impostazioni</h2><button class="icon-btn" value="x" aria-label="Chiudi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="field"><span class="lab" id="th-l">Tema</span>
+        <div class="seg-ctl" role="radiogroup" aria-labelledby="th-l" id="th-ctl">
+          <button type="button" role="radio" data-th="auto" aria-checked="true">Automatico</button>
+          <button type="button" role="radio" data-th="light" aria-checked="false">Chiaro</button>
+          <button type="button" role="radio" data-th="dark" aria-checked="false">Scuro</button>
+        </div>
+      </div>
+      <div class="field"><h3>Salva o sposta i progressi</h3>
+        <p class="muted" id="xfer-p">I progressi stanno solo in questo browser. Per portarli su un altro dispositivo copia il testo qui sotto e incollalo nell'altro.</p>
+        <div class="row"><button type="button" class="btn ghost small" id="exp">Mostra / copia</button><button type="button" class="btn ghost small" id="imp">Importa dal testo</button></div>
+        <textarea id="xfer" aria-label="Progressi" hidden spellcheck="false"></textarea>
+        <p class="hint" id="xfer-msg" aria-live="polite"></p>
+      </div>
+      <p class="hint">Dati aggiornati al <span id="agg"></span>.</p>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-date" class="dlg small" aria-labelledby="dlg-date-t">
+    <form method="dialog" class="dlg-in" id="date-form">
+      <div class="dlg-head"><h2 id="dlg-date-t">Data d'esame</h2><button class="icon-btn" value="x" aria-label="Chiudi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <p class="muted" id="date-sub"></p>
+      <label for="date-in">Data<input type="date" id="date-in"></label>
+      <div class="row end"><button type="button" class="btn ghost" id="date-clear">Rimuovi</button><button type="submit" class="btn" value="ok" id="date-save">Salva</button></div>
+    </form>
+  </dialog>
 </div>
