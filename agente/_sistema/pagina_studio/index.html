@@ -561,6 +561,12 @@ details[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
 @media (max-width: 820px) { .mat-pick { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .preset[disabled] { opacity: .5; cursor: not-allowed; transform: none !important; box-shadow: none; }
 
+/* disegni delle domande */
+.figs { display: grid; gap: 10px; margin: 10px 0; justify-items: start; }
+.figs a { display: block; max-width: 100%; }
+.figs img { display: block; max-width: 100%; max-height: 360px; height: auto; width: auto; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 8px; }
+.face .figs img { max-height: 240px; }
+
 </style>
 <script>
 /* Lingua e tema impostati subito, prima del primo disegno, per evitare lampi di colore. */
@@ -1066,6 +1072,8 @@ const say = t => { const l = $('#live'); if (l) { l.textContent = ''; setTimeout
 const RM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
 const raf2 = f => requestAnimationFrame(() => requestAnimationFrame(f));
 function inline(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`(.+?)`/g, '<code>$1</code>'); }
+/* disegni delle domande (scaricati dal sito esami): cliccando si aprono a grandezza intera */
+const figs = l => (l && l.length) ? '<div class="figs">' + l.map(s => `<a href="${esc(s)}" target="_blank" rel="noopener"><img src="${esc(s)}" alt="Disegno della domanda" loading="lazy"></a>`).join('') + '</div>' : '';
 function fmt(t) {
   let h = '', ul = false;
   for (const l of String(t).split('\n')) {
@@ -1424,7 +1432,7 @@ function renderQ() {
   const q = Q.list[Q.i], n = Q.list.length; Q.answered = false;
   $('#q-count').textContent = `Domanda ${Q.i + 1} di ${n}`; $('#q-src').textContent = `${q.prova} · ${q.theme}`;
   $('#q-prog').style.setProperty('--p', (Q.i / n).toFixed(3)); $('#q-progbox').setAttribute('aria-valuenow', Q.i);
-  $('#qbody').innerHTML = `<div class="q-slide"><div class="q-text">${fmt(q.q)}</div><div class="opts" role="group" aria-label="Risposte">${q.o.map((o, k) => `<button class="opt" data-k="${k + 1}"><span class="n">${k + 1}</span><span>${esc(o)}</span></button>`).join('')}</div></div>`;
+  $('#qbody').innerHTML = `<div class="q-slide"><div class="q-text">${fmt(q.q)}</div>${figs(q.img)}<div class="opts" role="group" aria-label="Risposte">${q.o.map((o, k) => `<button class="opt" data-k="${k + 1}"><span class="n">${k + 1}</span><span>${esc(o)}</span></button>`).join('')}</div></div>`;
   $('#q-fbk').innerHTML = '';
   $$('.opt').forEach(b => b.addEventListener('click', () => answer(+b.dataset.k)));
   const nx = $('#q-next'); nx.disabled = true; nx.innerHTML = (Q.i + 1 === n ? 'Vedi il risultato' : 'Avanti') + ' ' + IC.arrow;
@@ -1442,7 +1450,7 @@ function answer(k) {
   $('.opts').classList.add('answered');
   $$('.opt').forEach(b => { b.disabled = true; const n = +b.dataset.k; if (Q.fb) { if (n === q.a) b.classList.add('ok'); else if (n === k) b.classList.add('ko'); } else if (n === k) b.classList.add('sel'); });
   if (Q.fb) {
-    $('#q-fbk').innerHTML = `<div class="fold" id="fold"><div class="fold-in"><div class="explain" style="display:grid;gap:10px;padding-top:2px"><div class="note ${ok ? 'ok' : 'bad'}"><strong>${ok ? 'Giusto.' : 'Sbagliato: la risposta è la ' + q.a + '.'}</strong> ${esc(q.s)}${ok ? '' : chapterHint(q.theme, q.m)}</div>${q.w ? `<div class="note warn"><strong>Attenzione, possibile errore nella soluzione ufficiale:</strong> ${esc(q.w)}</div>` : ''}</div></div></div>`;
+    $('#q-fbk').innerHTML = `<div class="fold" id="fold"><div class="fold-in"><div class="explain" style="display:grid;gap:10px;padding-top:2px"><div class="note ${ok ? 'ok' : 'bad'}"><strong>${ok ? 'Giusto.' : 'Sbagliato: la risposta è la ' + q.a + '.'}</strong> ${esc(q.s)}${figs(q.imgf)}${ok ? '' : chapterHint(q.theme, q.m)}</div>${q.w ? `<div class="note warn"><strong>Attenzione, possibile errore nella soluzione ufficiale:</strong> ${esc(q.w)}</div>` : ''}</div></div></div>`;
     raf2(() => { const f = $('#fold'); if (f) f.classList.add('open'); });
     say(ok ? 'Giusto' : 'Sbagliato, la risposta è la ' + q.a);
   } else say('Risposta registrata');
@@ -1461,7 +1469,7 @@ function endQuiz() {
     <p class="res-msg">${msg}</p>
     <p class="res-sub">in ${Math.floor(s / 60)} min ${s % 60} s · ${esc(q0.label)}${q0.sim && answered < n ? ' · ' + (n - answered) + ' senza risposta' : ''}</p>
     <div class="res-actions">${q0.wrong.length && !done ? '<button class="btn soft" id="q-redo">Rifai solo gli errori</button>' : ''}<button class="btn" id="q-again">${done ? 'Concludi la sessione' : 'Un altro quiz'}</button></div>
-    ${q0.wrong.length ? '<div class="review"><h3>Da rivedere</h3>' + q0.wrong.map(q => `<details class="rev"><summary><span>${esc(String(q.q).split('\n')[0])}</span></summary><div class="rev-in"><div class="q-text" style="font-size:1rem">${fmt(q.q)}</div><div class="note ok"><strong>Risposta ${q.a}:</strong> ${esc(q.o[q.a - 1])}</div><p>${esc(q.s)}</p>${chapterHint(q.theme, q.m)}${q.w ? '<p><em>Possibile errore nella soluzione ufficiale: ' + esc(q.w) + '</em></p>' : ''}</div></details>`).join('') + '</div>' : '<p class="res-sub">Nessun errore da rivedere.</p>'}</div>`;
+    ${q0.wrong.length ? '<div class="review"><h3>Da rivedere</h3>' + q0.wrong.map(q => `<details class="rev"><summary><span>${esc(String(q.q).split('\n')[0])}</span></summary><div class="rev-in"><div class="q-text" style="font-size:1rem">${fmt(q.q)}</div>${figs(q.img)}<div class="note ok"><strong>Risposta ${q.a}:</strong> ${esc(q.o[q.a - 1])}</div><p>${esc(q.s)}</p>${figs(q.imgf)}${chapterHint(q.theme, q.m)}${q.w ? '<p><em>Possibile errore nella soluzione ufficiale: ' + esc(q.w) + '</em></p>' : ''}</div></details>`).join('') + '</div>' : '<p class="res-sub">Nessun errore da rivedere.</p>'}</div>`;
   animateRings($('#quiz-run')); countUp($('#res-score'), q0.score, 900, v => v + '/' + n);
   $('#q-again').addEventListener('click', () => { $('#quiz-run').hidden = true; $('#quiz-setup').hidden = false; setupQuiz(); if (done) done(); });
   const rd = $('#q-redo'); if (rd) rd.addEventListener('click', () => startQuiz(false, { list: q0.wrong.slice(), label: 'errori da rifare', fb: true }));
@@ -1567,8 +1575,8 @@ function renderCard() {
   $('#c-count-l').innerHTML = `<b>${C.i + 1}</b> di ${n}`; $('#c-prog').style.setProperty('--p', (C.i / n).toFixed(3));
   const pb = $('.cr-bar'); pb.setAttribute('aria-valuemax', n); pb.setAttribute('aria-valuenow', C.i);
   $('#c-body').innerHTML = `<div class="stage" id="c-stage" style="--c:var(--s${subjIdx(c.m) % 4})"><span class="swipe-badge l" id="sb-l" aria-hidden="true">Da rivedere</span><span class="swipe-badge r" id="sb-r" aria-hidden="true">Bene</span>
-    <div class="swipe" id="c-swipe"><div class="flip" id="c-flip"><div class="face front" id="c-front"><span class="tape">${esc(c.m)}</span><div class="ft">${esc(c.t)}</div><div class="fb">${fmt(c.d)}</div><span class="turn" aria-hidden="true">tocca per girare ${IC.turn}</span></div>
-    <div class="face back" id="c-back" aria-hidden="true"><span class="tape">Risposta</span><div class="fb">${fmt(c.r)}</div></div></div></div></div>
+    <div class="swipe" id="c-swipe"><div class="flip" id="c-flip"><div class="face front" id="c-front"><span class="tape">${esc(c.m)}</span><div class="ft">${esc(c.t)}</div><div class="fb">${fmt(c.d)}${figs(c.img)}</div><span class="turn" aria-hidden="true">tocca per girare ${IC.turn}</span></div>
+    <div class="face back" id="c-back" aria-hidden="true"><span class="tape">Risposta</span><div class="fb">${fmt(c.r)}${figs(c.imgf)}</div></div></div></div></div>
     <div class="cta-slot" style="margin-top:16px"><button class="btn xl" id="c-show">Mostra la risposta <span class="kbd kbd-only">Invio</span></button><div class="grades" id="c-grades" hidden role="group" aria-label="Quanto la sapevi?">${GRADES.map(x => `<button class="grade ${x.c}" data-g="${x.g}"><span class="kk kbd-only">${x.g + 1}</span><b>${x.l}</b><small>${previewInterval(c, x.g)}</small></button>`).join('')}</div></div>`;
   $('#c-show').addEventListener('click', showCardAnswer); $('#c-show').focus({ preventScroll: true });
   $('#c-flip').addEventListener('click', () => { if (!C.dragged) showCardAnswer(); });

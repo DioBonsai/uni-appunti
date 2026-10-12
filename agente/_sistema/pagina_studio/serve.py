@@ -9,6 +9,7 @@ Se il sito è già in esecuzione apre solo il browser.
 """
 import argparse
 import json
+import re
 import socket
 import subprocess
 import sys
@@ -52,6 +53,11 @@ def make_handler(port):
             path = self.path.split("?")[0]
             if path == "/api/stato":
                 return self._send(200, STATO.read_bytes() if STATO.exists() else b"{}", "application/json; charset=utf-8")
+            mi = re.match(r"^/img/([a-z0-9_\-]+\.(png|jpe?g|gif|webp))$", path)
+            if mi:  # disegni delle domande (scaricati dal sito esami)
+                f = PAG / "img" / mi.group(1)
+                tipo = {"png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg", "gif": "image/gif", "webp": "image/webp"}[mi.group(2)]
+                return self._send(200, f.read_bytes(), tipo) if f.exists() else self._send(404, b"manca")
             if path in FILES:
                 name, ctype = FILES[path]
                 f = PAG / name

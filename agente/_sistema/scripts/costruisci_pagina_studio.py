@@ -275,6 +275,11 @@ def main():
     for c in cards:   # i quiz del sito sono bilingui: tengo l'italiano, titoli puliti
         if c["m"] == "Fondamenti Info":
             c["d"], c["r"], c["t"] = solo_it(c["d"]), solo_it(c["r"]), titolo_it(solo_it(c["t"]))
+    from quiz_banche import chiave_testo, immagini_per_testo
+    imm = immagini_per_testo()   # disegni scaricati dal sito esami, collegati alle schede dallo stesso testo
+    for c in cards:
+        if c["m"] == "Fondamenti Info" and c["da_quiz"] and chiave_testo(c["d"]) in imm:
+            c["img"], c["imgf"] = imm[chiave_testo(c["d"])]
     cards = [c for c in cards if not inglese(c["d"] + " " + c["r"])]   # solo italiano: via le schede scritte solo in inglese
     n_cards = len(cards)   # schede ricavate dai quiz del sito di Fondamenti: tolte quelle su argomenti non ancora trattati
     cards = [c for c in cards if not (c["m"] == "Fondamenti Info" and c["da_quiz"]) or cop.get((c["m"], tema_fondamenti(c["d"] + " " + c["r"], c["t"])), 0) >= 3]

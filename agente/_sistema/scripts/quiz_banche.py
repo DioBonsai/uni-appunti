@@ -66,6 +66,18 @@ def inglese(t):
     return e >= 4 and e > 3 * i
 
 
+def _carica_mappa_img():
+    p = BASE / "pagina_studio" / "img" / "mappa.json"
+    try:
+        import json
+        return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+    except Exception:
+        return {}
+
+
+MAPPA_IMG = _carica_mappa_img()   # {id domanda: {"q": [file], "f": [file], "a": [file]}} scaricati dal sito esami
+
+
 def parse_numbered(path, materia, temi, prefix_prova):
     """Formato '## [id] argomenti: tag' + testo + '1. ' ... '5. ' + RISPOSTA + SPIEGAZIONE (+ ATTENZIONE)."""
     out = []
@@ -149,7 +161,9 @@ def parse_fondamenti():
             continue
         testo = solo_it("\n".join(pre[:first]).strip())
         opts = [solo_it(re.sub(r"^- ([a-z]\.\s)?", "", l).strip()) for l in pre[first:] if l.startswith("- ")]
-        if len(opts) < 2 or FIG.search(testo) or any(FIG.search(o) for o in opts) or len(set(opts)) != len(opts) or inglese(testo):
+        im = MAPPA_IMG.get(qid, {})
+        figura = FIG.search(testo) or any(FIG.search(o) for o in opts)
+        if len(opts) < 2 or (figura and not im.get("q")) or len(set(opts)) != len(opts) or inglese(testo):
             continue
         hit = [i for i, o in enumerate(opts) if _norm(o) == _norm(solo_it(risp.group(1)))]
         if len(hit) != 1:
@@ -159,7 +173,29 @@ def parse_fondamenti():
         if s.startswith("(nessuna"):
             s = ""
         out.append(dict(id=qid, m="Fondamenti Info", theme=tema_fondamenti(testo + " " + " ".join(opts), arg), prova=titolo_it(quiz), args=[arg.split("(")[0].strip()],
-                        q=re.sub(r"\\\(|\\\)", "", testo), o=opts, a=hit[0] + 1, s=s or "Nessuna spiegazione sul sito: la risposta corretta è «" + opts[hit[0]] + "».", w=""))
+                        q=re.sub(r"\\\(|\\\)", "", testo), o=opts, a=hit[0] + 1, s=s or "Nessuna spiegazione sul sito: la risposta corretta è «" + opts[hit[0]] + "».", w="", img=["img/" + n for n in im.get("q", [])], imgf=["img/" + n for n in im.get("f", [])]))
+    return out
+
+
+def chiave_testo(t):
+    """Chiave per collegare una scheda alla domanda del sito da cui deriva (prime parole del testo italiano)."""
+    return re.sub(r"[^a-z0-9]+", "", solo_it(re.sub(r"\\\(|\\\)", "", t)).lower())[:70]
+
+
+def immagini_per_testo():
+    """{chiave del testo: (img domanda, img spiegazione)} per le domande del sito che hanno disegni scaricati."""
+    out = {}
+    p = ESAMI / "fondamenti_quiz.md"
+    if not p.exists() or not MAPPA_IMG:
+        return out
+    for blk in re.split(r"(?m)^(?=## \[)", p.read_text(encoding="utf-8")):
+        m = re.match(r"## \[([^\]]+)\]", blk.splitlines()[0] if blk.strip() else "")
+        if not m or m.group(1) not in MAPPA_IMG:
+            continue
+        body = blk.split("\n", 1)[1] if "\n" in blk else ""
+        testo = re.split(r"\n- [a-z]\.\s|\n- Vero|\nRISPOSTA:", body)[0]
+        im = MAPPA_IMG[m.group(1)]
+        out[chiave_testo(testo)] = (["img/" + n for n in im.get("q", [])], ["img/" + n for n in im.get("f", [])])
     return out
 
 
