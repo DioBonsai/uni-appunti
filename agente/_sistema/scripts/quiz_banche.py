@@ -24,6 +24,11 @@ TEMI_FND = {"binario": "Rappresentazione binaria", "complemento-eccesso": "Rappr
             "compressione": "Compressione ed errori", "errori-hamming": "Compressione ed errori"}
 
 
+TEMI_MAT = {"insiemi": "Insiemi", "appartenenza-inclusione": "Insiemi", "operazioni-insiemi": "Insiemi", "prodotto-cartesiano": "Insiemi",
+            "induzione": "Numeri naturali e induzione", "partizioni": "Partizioni e relazioni", "relazioni": "Partizioni e relazioni", "equivalenze": "Partizioni e relazioni",
+            "funzioni": "Funzioni", "iniettiva-suriettiva-inversa": "Funzioni", "composizione": "Funzioni"}
+
+
 def parse_numbered(path, materia, temi, prefix_prova):
     """Formato '## [id] argomenti: tag' + testo + '1. ' ... '5. ' + RISPOSTA + SPIEGAZIONE (+ ATTENZIONE)."""
     out = []
@@ -119,4 +124,5 @@ def tutte(mate_quiz):
     alg = parse_numbered(ESAMI / "banca_algebra.md", "Algebra lineare", TEMI_ALGEBRA, "Esercizi di Algebra lineare")
     prg = parse_numbered(ESAMI / "banca_programmazione.md", "Programmazione", TEMI_PROG, "Esercizi di Programmazione")
     fnd = parse_numbered(ESAMI / "banca_fondamenti.md", "Fondamenti Info", TEMI_FND, "Esercizi di Fondamenti")
-    return mate_quiz + alg + parse_fondamenti() + fnd + prg
+    mat = parse_numbered(ESAMI / "banca_mate.md", "Matematica discreta", TEMI_MAT, "Esercizi dai tuoi appunti")
+    return mate_quiz + mat + alg + parse_fondamenti() + fnd + prg

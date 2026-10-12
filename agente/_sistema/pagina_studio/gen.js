@@ -218,15 +218,68 @@ const GEN = (() => {
     return build({ kind: 'memoria', theme: 'Circuiti e memoria', q: `Quanti bit servono per indirizzare ${2 ** k} celle di memoria?`, correct: String(k), wrong: [k + 1, k - 1, 2 ** k, k * 2, 2 ** (k - 1)].map(String), filler: () => String(ri(4, 30)), s: `Servono k bit con 2^k ≥ ${2 ** k}: k = ${k}.` });
   }
 
+  /* ---------- Matematica discreta: insiemi e funzioni (argomenti già trattati) ---------- */
+  const lin = (a, b, v) => { // testo di a·v + b
+    const A = a === 1 ? v : a === -1 ? '−' + v : (a < 0 ? '−' + Math.abs(a) : a) + v;
+    if (a === 0) return String(b < 0 ? '−' + Math.abs(b) : b);
+    if (b === 0) return A;
+    return `${A} ${b < 0 ? '−' : '+'} ${Math.abs(b)}`;
+  };
+  function q_comp() {
+    const a = pick([-3, -2, -1, 1, 2, 3, 4]), b = ri(-5, 5), c = pick([-3, -2, -1, 2, 3]), d = ri(-6, 6), A = c * a, B = c * b + d;
+    return build({ kind: 'composizione', theme: 'Funzioni', q: `Siano f, g : ℤ → ℤ le funzioni f(n) = ${lin(a, b, 'n')} e g(n) = ${lin(c, d, 'n')}. Allora (g ∘ f)(n) =`, correct: lin(A, B, 'n'),
+      wrong: [lin(A, a * d + b, 'n'), lin(A, c * b - d, 'n'), lin(c + a, B, 'n'), lin(A, c * b, 'n'), lin(A + 1, B, 'n')], filler: () => lin(ri(-12, 12) || 2, ri(-12, 12), 'n'),
+      s: `(g ∘ f)(n) = g(f(n)) = ${c < 0 ? c : c}·(${lin(a, b, 'n')}) ${d < 0 ? '−' : '+'} ${Math.abs(d)} = ${lin(A, B, 'n')}. Si applica prima f, poi g (f ∘ g darebbe ${lin(A, a * d + b, 'n')}).` });
+  }
+  function q_invaff() {
+    const a = pick([2, 3, 4, 5, -2, -3]), b = pick([-7, -5, -3, -1, 2, 4, 6]), x0 = ri(-6, 6), k = a * x0 + b;
+    return build({ kind: 'iniettiva-suriettiva-inversa', theme: 'Funzioni', q: `Sia f : ℝ → ℝ la funzione biettiva f(x) = ${lin(a, b, 'x')}. Allora f⁻¹(${k < 0 ? '−' + Math.abs(k) : k}) =`, correct: String(x0).replace('-', '−'),
+      wrong: [x0 + 1, x0 - 1, -x0, a * k + b, k - b].map(v => String(v).replace('-', '−')), filler: () => String(ri(-20, 20)).replace('-', '−'),
+      s: `f⁻¹(k) è l'unico x con f(x) = k: ${lin(a, b, 'x')} = ${k} ⟹ x = (${k} ${b < 0 ? '+' : '−'} ${Math.abs(b)})/${a} = ${x0}.` });
+  }
+  function q_class() {
+    const a = pick([-3, -2, -1, 1, 2, 3, 5, 0]), b = ri(-5, 5);
+    const inj = a !== 0, sur = Math.abs(a) === 1;
+    const lab = ['iniettiva e suriettiva', 'iniettiva ma non suriettiva', 'suriettiva ma non iniettiva', 'né iniettiva né suriettiva', 'non è una funzione'];
+    const correct = inj ? (sur ? lab[0] : lab[1]) : lab[3];
+    return build({ kind: 'iniettiva-suriettiva-inversa', theme: 'Funzioni', q: `La funzione f : ℤ → ℤ, f(n) = ${lin(a, b, 'n')}, è`, correct, wrong: lab.filter(x => x !== correct), filler: () => lab[ri(0, 4)],
+      s: a === 0 ? `f è costante: due interi diversi hanno la stessa immagine (non iniettiva) e l'immagine è un solo valore (non suriettiva).` : (sur ? `f è iniettiva (da ${a}x + b = ${a}y + b segue x = y) e ogni intero m è immagine di ${a === 1 ? 'm − b' : 'b − m'}, intero: biettiva.` : `f è iniettiva, ma i valori assunti sono solo ${lin(a, b, 'n').replace('n', 'k')} con k intero: non si raggiunge ogni intero (si dividerebbe per ${Math.abs(a)} uscendo da ℤ), quindi non è suriettiva.`) });
+  }
+  function q_preim() {
+    const k = ri(2, 6), m = ri(0, k - 1), correct = m === 0 ? `[−${k}, ${k}]` : `[−${k}, −${m}] ∪ [${m}, ${k}]`;
+    return build({ kind: 'iniettiva-suriettiva-inversa', theme: 'Funzioni', q: `Sia f : ℝ → ℝ, f(x) = x². Allora f⁻¹([${m * m}, ${k * k}]) è`, correct, wrong: [`[${m}, ${k}]`, `[${m * m}, ${k * k}]`, `[−${k}, ${k}]`, `[${m}, ${k}] ∪ [${m * m}, ${k * k}]`, `[−${k * k}, −${m * m}] ∪ [${m * m}, ${k * k}]`], filler: () => `[−${ri(1, 9)}, ${ri(1, 9)}]`,
+      s: `x² ∈ [${m * m}, ${k * k}] equivale a ${m} ≤ |x| ≤ ${k}, cioè x ∈ ${correct}: la controimmagine contiene sia i valori positivi sia i negativi.` });
+  }
+  function q_card() {
+    const n = ri(2, 8), m = ri(2, 8);
+    if (Math.random() < 0.5) return build({ kind: 'prodotto-cartesiano', theme: 'Insiemi', q: `Se |A| = ${n} e |B| = ${m}, quanti elementi ha il prodotto cartesiano A × B?`, correct: String(n * m), wrong: [n + m, n ** m, m ** n, n * m + n, n * m - 1].map(String), filler: () => String(ri(2, 70)), s: `Le coppie (a, b) sono ${n}·${m} = ${n * m}.` });
+    return build({ kind: 'insiemi', theme: 'Insiemi', q: `Quanti sottoinsiemi (vuoto e insieme stesso compresi) ha un insieme di ${n} elementi?`, correct: String(2 ** n), wrong: [2 * n, n * n, 2 ** n - 1, 2 ** (n - 1), 2 ** (n + 1)].map(String), filler: () => String(ri(3, 300)), s: `Ogni elemento sta dentro o fuori dal sottoinsieme: 2${sup(n)} = ${2 ** n} scelte.` });
+  }
+  const stext = a => (a.length ? '{' + a.join(', ') + '}' : '∅');
+  function q_setop() {
+    const U = [1, 2, 3, 4, 5, 6, 7, 8, 9], A = U.filter(() => Math.random() < 0.5), B = U.filter(() => Math.random() < 0.5), op = pick(['∪', '∩', '∖']);
+    if (!A.length || !B.length) return null;
+    const f = { '∪': (x, y) => U.filter(v => x.includes(v) || y.includes(v)), '∩': (x, y) => U.filter(v => x.includes(v) && y.includes(v)), '∖': (x, y) => x.filter(v => !y.includes(v)) };
+    const correct = stext(f[op](A, B));
+    return build({ kind: 'operazioni-insiemi', theme: 'Insiemi', q: `Siano A = ${stext(A)} e B = ${stext(B)}. Allora A ${op} B =`, correct, wrong: [f['∪'](A, B), f['∩'](A, B), f['∖'](A, B), f['∖'](B, A), A.filter(v => !B.includes(v)).concat(B.filter(v => !A.includes(v))).sort((x, y) => x - y)].map(stext), filler: () => stext(U.filter(() => Math.random() < 0.4)),
+      s: `${op === '∪' ? "A ∪ B contiene gli elementi che stanno in A o in B." : (op === '∩' ? "A ∩ B contiene gli elementi che stanno sia in A sia in B." : "A ∖ B contiene gli elementi di A che non stanno in B.")} Risultato: ${correct}.` });
+  }
+
   const BYMAT = {
-    'Matematica discreta': [q_perm, q_perm, q_perm, q_cong, q_inverso, q_phi, q_nongen, q_pow, q_base2, q_conteggio, q_dispos],
+    'Matematica discreta': [q_comp, q_comp, q_invaff, q_class, q_class, q_preim, q_card, q_setop, q_setop,
+      q_perm, q_perm, q_perm, q_cong, q_inverso, q_phi, q_nongen, q_pow, q_base2, q_conteggio, q_dispos],
     'Algebra lineare': [q_cxmul, q_cxdiv, q_cxmod, q_cxinv, q_cxipow, q_cxsq, q_cx1i],
     'Fondamenti Info': [q_bin2dec, q_hex, q_c2, q_c2, q_hamming, q_parita, q_mem, q_base2],
   };
   const MAKERS = BYMAT['Matematica discreta'];
-  const make = mat => { const ms = BYMAT[mat || 'Matematica discreta']; if (!ms) return null; for (let i = 0; i < 20; i++) { const q = pick(ms)(); if (q) return q; } return null; };
-  const many = (n, mat) => { const out = []; for (let i = 0; i < n * 4 && out.length < n; i++) { const q = make(mat); if (q) out.push(q); } return out; };
-  const disponibile = mat => !!BYMAT[mat];
+  /* covered = insieme dei temi già trattati nei Word (se omesso, tutti): le domande di temi non coperti vengono scartate */
+  const make = (mat, covered) => {
+    const ms = BYMAT[mat || 'Matematica discreta']; if (!ms) return null;
+    for (let i = 0; i < 80; i++) { const q = pick(ms)(); if (q && (!covered || covered.has(q.theme))) return q; }
+    return null;
+  };
+  const many = (n, mat, covered) => { const out = []; for (let i = 0; i < n * 6 && out.length < n; i++) { const q = make(mat, covered); if (q) out.push(q); } return out; };
+  const disponibile = (mat, covered) => !!BYMAT[mat] && (!covered || BYMAT[mat].some(f => { for (let i = 0; i < 6; i++) { const q = f(); if (q && covered.has(q.theme)) return true; } return false; }));
 
   return { make, many, disponibile, _t: { gcd, lcm, phi, mod, powmod, inv, compose, cycleToPerm, cyclesOf, orderOf, parityOf, typeOf, C, factorial, MAKERS } };
 })();

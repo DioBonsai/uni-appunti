@@ -308,11 +308,12 @@ const SIM = { 'Matematica discreta': { n: 10, min: 30 }, 'Algebra lineare': { n:
 let QM = (() => { try { const m = localStorage.getItem('quaderno-qmat'); return MATS.includes(m) ? m : MATS[0]; } catch (e) { return MATS[0]; } })();
 const quizPool = () => DATA.quiz.filter(q => q.m === QM);
 const poolWeak = () => { const th = new Set(quizPool().map(q => q.theme)); return weakThemes().filter(e => th.has(e[0])); };
-const canGen = () => GEN.disponibile(QM);
+const cov = m => new Set((DATA.coperti || {})[m] || []);
+const canGen = () => GEN.disponibile(QM, cov(QM));
 function setupQuiz() {
   if (!MATS.includes(QM)) QM = MATS[0];
   const pool = quizPool(), counts = {}; pool.forEach(q => counts[q.theme] = (counts[q.theme] || 0) + 1);
-  $('#mat-pick').innerHTML = MATS.map((m, i) => { const n = DATA.quiz.filter(q => q.m === m).length; return `<button type="button" class="mp" role="radio" aria-checked="${m === QM}" data-m="${esc(m)}" style="--c:var(--s${i})"><span class="mp-n">${esc(m)}</span><span class="mp-c">${n} domande${GEN.disponibile(m) ? ' · + esercizi generati' : ''}</span></button>`; }).join('');
+  $('#mat-pick').innerHTML = MATS.map((m, i) => { const n = DATA.quiz.filter(q => q.m === m).length; return `<button type="button" class="mp" role="radio" aria-checked="${m === QM}" data-m="${esc(m)}" style="--c:var(--s${i})"><span class="mp-n">${esc(m)}</span><span class="mp-c">${n} domande${GEN.disponibile(m, cov(m)) ? ' · + esercizi generati' : ''}</span></button>`; }).join('');
   $$('#mat-pick .mp').forEach(b => b.addEventListener('click', () => { QM = b.dataset.m; try { localStorage.setItem('quaderno-qmat', QM); } catch (e) {} setupQuiz(); }));
   const cur = $('#q-topic').value;
   $('#q-topic').innerHTML = '<option value="">Tutti i temi (' + pool.length + ' domande)</option>' + (canGen() ? '<option value="__gen__">Esercizi generati (senza limite)</option>' : '') + Object.keys(counts).sort().map(a => `<option value="${esc(a)}">${esc(a)} (${counts[a]})</option>`).join('');
@@ -321,6 +322,8 @@ function setupQuiz() {
   $('#q-weak').hidden = !w;
   $('#pr-weak').disabled = !w;
   $('#pr-weak-s').textContent = w ? `Solo i temi dove sbagli (${w})` : 'Ancora nessun errore in questa materia';
+  const nasc = (DATA.nascoste || {})[QM] || {}, nn = Object.values(nasc).reduce((x, y) => x + y, 0);
+  $('#q-hidden').textContent = nn ? `Mostro solo gli argomenti già trattati nei tuoi Word. Non ancora disponibili: ${nn} domande su ${Object.keys(nasc).join(', ')} (compaiono da sole quando il Word le copre).` : 'Tutti gli argomenti presenti nel Word sono coperti.';
   const sm = SIM[QM]; $('#pr-exam-s').textContent = `${sm.n} domande a tempo, ${sm.min} minuti`;
   $('#pr-gen').disabled = !canGen(); $('#pr-gen-s').textContent = canGen() ? '10 nuovi, mai gli stessi' : 'Non ancora disponibili per questa materia';
   $('#pr-fast').disabled = !pool.length;
@@ -356,7 +359,7 @@ function startQuiz(weak, opts = {}) {
   let list, label = topic || 'tutti i temi';
   if (!opts.list) label = QM + ' · ' + (topic === '__gen__' ? 'esercizi generati' : (weak ? 'punti deboli' : label));
   if (opts.list) { list = opts.list; label = opts.label || label; }
-  else if (topic === '__gen__') { list = GEN.many(n, QM); }
+  else if (topic === '__gen__') { list = GEN.many(n, QM, cov(QM)); }
   else if (weak) { list = pickQuiz(n, { weak: true }); }
   else list = pickQuiz(n, { theme: topic, ignoreDue: mode === 'sim' });
   if (!list.length) { toast('Nessuna domanda disponibile per questa scelta'); return; }
@@ -591,7 +594,7 @@ function startSession(short) {
   const finishQuiz = () => { setPhase(3); showTab('oggi'); say('Sessione completata'); toast('Sessione completata'); setTimeout(() => { if (!$('#phase').hidden && $$('#phase li.on')[0] && $$('#phase li.on')[0].dataset.p === '3') setPhase(0); }, 4000); };
   const quizPhase = () => {
     setPhase(2); showTab('quiz');
-    const list = pickQuiz(short ? 2 : 6, {}).concat((canGen() ? GEN.many(short ? 1 : 3, QM) : []));
+    const list = pickQuiz(short ? 2 : 6, {}).concat((canGen() ? GEN.many(short ? 1 : 3, QM, cov(QM)) : []));
     startQuiz(false, { list, label: 'sessione di oggi', fb: true, onEnd: finishQuiz });
   };
   startCards(short ? 5 : 10, quizPhase);

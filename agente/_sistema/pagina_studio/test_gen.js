@@ -4,6 +4,7 @@ const sup = { '⁰': 0, '¹': 1, '²': 2, '³': 3, '⁴': 4, '⁵': 5, '⁶': 6,
 const sub = { '₀': 0, '₁': 1, '₂': 2, '₃': 3, '₄': 4, '₅': 5, '₆': 6, '₇': 7, '₈': 8, '₉': 9 };
 const num = (s, m) => Number([...s].map(c => m[c]).join(''));
 const gcd = (a, b) => (b ? gcd(b, a % b) : a);
+const pl = t => { t = t.replace(/−/g, '-').replace(/\s+/g, ''); const k = t.match(/^(-?\d*)n([+-]\d+)?$/); if (k) return [k[1] === '' ? 1 : (k[1] === '-' ? -1 : +k[1]), k[2] ? +k[2] : 0]; return [0, +t]; };
 let bad = 0, n = 0; const kinds = {};
 function fail(q, why) { bad++; if (bad < 8) console.log('ERRORE', why, JSON.stringify(q, null, 1)); }
 function check(q) {
@@ -49,6 +50,24 @@ function check(q) {
     const k = +m[1], t = +m[2]; if (ans !== `${t}${[...String(k)].map(d => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]).join('')}`) return fail(q, 'rip');
   } else if ((m = txt.match(/far sedere (\d+) persone in una fila di (\d+) sedie/))) {
     if (ans !== `${m[2]}!/${m[2] - m[1]}!`) return fail(q, 'sem');
+  } else if ((m = txt.match(/^Siano f, g : ℤ → ℤ le funzioni f\(n\) = (.*) e g\(n\) = (.*)\. Allora \(g ∘ f\)\(n\) =$/))) {
+    const F = pl(m[1]), G = pl(m[2]), R = pl(ans); for (let n = -6; n <= 6; n++) if (G[0] * (F[0] * n + F[1]) + G[1] !== R[0] * n + R[1]) return fail(q, 'comp');
+  } else if ((m = txt.match(/^Sia f : ℝ → ℝ la funzione biettiva f\(x\) = (.*)\. Allora f⁻¹\((.*)\) =$/))) {
+    const F = pl(m[1].replace(/x/g, 'n')), k = +m[2].replace('−', '-'), v = +ans.replace('−', '-'); if (F[0] * v + F[1] !== k) return fail(q, 'invaff');
+  } else if ((m = txt.match(/^La funzione f : ℤ → ℤ, f\(n\) = (.*), è$/))) {
+    const F = pl(m[1]), a = F[0]; const exp = a === 0 ? 'né iniettiva né suriettiva' : (Math.abs(a) === 1 ? 'iniettiva e suriettiva' : 'iniettiva ma non suriettiva');
+    let inj = true, img = new Set(); for (let n = -50; n <= 50; n++) { const v = a * n + F[1]; if (img.has(v)) inj = false; img.add(v); } let sur = true; for (let t = -20; t <= 20; t++) if (!img.has(t)) sur = false;
+    const real = !inj ? (sur ? 'suriettiva ma non iniettiva' : 'né iniettiva né suriettiva') : (sur ? 'iniettiva e suriettiva' : 'iniettiva ma non suriettiva');
+    if (ans !== real || ans !== exp) return fail(q, 'class ' + real);
+  } else if ((m = txt.match(/^Sia f : ℝ → ℝ, f\(x\) = x²\. Allora f⁻¹\(\[(\d+), (\d+)\]\) è$/))) {
+    const lo = +m[1], hi = +m[2], iv = ans.split(' ∪ ').map(t => t.match(/\[(−?\d+), (−?\d+)\]/).slice(1).map(v => +v.replace('−', '-')));
+    for (let x = -40; x <= 40; x += 0.25) { const inA = iv.some(([p, r]) => x >= p && x <= r), real = x * x >= lo && x * x <= hi; if (inA !== real) return fail(q, 'preim x=' + x); }
+  } else if ((m = txt.match(/^Se \|A\| = (\d+) e \|B\| = (\d+), quanti elementi ha il prodotto cartesiano A × B\?$/))) { if (+ans !== m[1] * m[2]) return fail(q, 'prod'); }
+  else if ((m = txt.match(/^Quanti sottoinsiemi \(vuoto e insieme stesso compresi\) ha un insieme di (\d+) elementi\?$/))) { if (+ans !== 2 ** +m[1]) return fail(q, 'parti'); }
+  else if ((m = txt.match(/^Siano A = (.*) e B = (.*)\. Allora A (∪|∩|∖) B =$/))) {
+    const ps = t => t === '∅' ? [] : t.replace(/[{}]/g, '').split(', ').map(Number), A = ps(m[1]), B = ps(m[2]); const U = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    const r = m[3] === '∪' ? U.filter(v => A.includes(v) || B.includes(v)) : m[3] === '∩' ? U.filter(v => A.includes(v) && B.includes(v)) : A.filter(v => !B.includes(v));
+    if (ans !== (r.length ? '{' + r.join(', ') + '}' : '∅')) return fail(q, 'setop');
   } else return fail(q, 'domanda non riconosciuta: ' + txt);
 }
 for (let i = 0; i < 6000; i++) { const q = GEN.make(); if (!q) { fail({ q: 'null' }, 'null'); continue; } n++; kinds[q.args[0]] = (kinds[q.args[0]] || 0) + 1; check(q); }

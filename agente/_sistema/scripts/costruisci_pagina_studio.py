@@ -70,6 +70,34 @@ PESO_TEMA = {"Permutazioni": 0.0, "Aritmetica modulare e ℤ_N": 0.0, "Gruppi e 
 PESO_FREQ = {"Permutazioni": [0, 6], "Aritmetica modulare e ℤ_N": [1, 2, 7], "Gruppi e omomorfismi": [3, 5], "Combinatoria": [4], "Funzioni": [8], "Insiemi": [9, 10], "Partizioni e relazioni": [11]}
 
 
+# Copertura: un tema di quiz compare solo se il Word di quella materia lo tratta (almeno 3 occorrenze delle parole chiave).
+# Così i quiz seguono le lezioni fatte: quando si aggiungono capitoli sul tema, le domande compaiono da sole.
+COPERTURA_RX = {
+    ("Matematica discreta", "Insiemi"): r"appartenenza|inclusione|prodotto cartesiano",
+    ("Matematica discreta", "Partizioni e relazioni"): r"partizion|equivalenz",
+    ("Matematica discreta", "Funzioni"): r"iniettiv",
+    ("Matematica discreta", "Numeri naturali e induzione"): r"induzione",
+    ("Matematica discreta", "Permutazioni"): r"permutazion|cicli disgiunti",
+    ("Matematica discreta", "Aritmetica modulare e ℤ_N"): r"congruenz|aritmetica modulare|classi di resto",
+    ("Matematica discreta", "Gruppi e omomorfismi"): r"omomorfism|sottogruppo|gruppo ciclico|struttura di gruppo",
+    ("Matematica discreta", "Combinatoria"): r"coefficient[ei] binomial|combinazion|disposizion",
+    ("Matematica discreta", "Binario"): r"notazione binaria|scrittura in base|base 2",
+    ("Algebra lineare", "Campi"): r"\bcamp[oi]\b", ("Algebra lineare", "Numeri complessi"): r"numeri complessi", ("Algebra lineare", "Coniugato e modulo"): r"coniugat",
+    ("Algebra lineare", "Forma polare"): r"polare", ("Algebra lineare", "Potenze e radici"): r"radic[ei] n-esim|moivre|potenz", ("Algebra lineare", "Vettori"): r"vettor",
+    ("Fondamenti Info", "Rappresentazione binaria"): r"binari|complemento a due|esadecimal", ("Fondamenti Info", "Circuiti e memoria"): r"flip-flop|\bram\b|memoria",
+    ("Fondamenti Info", "Compressione ed errori"): r"compressione|hamming", ("Fondamenti Info", "Logica e dimostrazioni"): r"quantificator|inferenza|tautologi|tavol[ae] di verit",
+    ("Fondamenti Info", "Automi e grammatiche"): r"\bautom[ai]\b|grammatic", ("Fondamenti Info", "Insiemi e relazioni"): r"relazion[ei] di equivalenza|prodotto cartesiano",
+    ("Programmazione", "Algoritmi"): r"algoritm", ("Programmazione", "Assembly e macchina"): r"assembly", ("Programmazione", "Tipi e memoria"): r"memoria",
+    ("Programmazione", "Variabili e assegnamento"): r"assegnament", ("Programmazione", "Operatori"): r"operator", ("Programmazione", "Puntatori"): r"puntator",
+    ("Programmazione", "Input e output"): r"scanf|printf", ("Programmazione", "Compilazione e terminale"): r"gcc|compilazion", ("Programmazione", "Controllo di flusso"): r"\bfor\b|\bwhile\b|\bif\b",
+}
+
+
+def copertura(texts):
+    """{(materia, tema): occorrenze nel Word}; i temi senza espressione (es. «Altro») non sono mai coperti."""
+    return {k: len(re.findall(rx, texts.get(k[0], ""), re.I)) for k, rx in COPERTURA_RX.items()}
+
+
 def parse_quizzes():
     out = []
     for f in sorted((BASE / "esami").glob("quiz_*.md")):
@@ -190,6 +218,9 @@ def avanzamento():
         nota = f"Studiati: {rng(done)}." + (f" In parte: {rng(part)}." if part else "") + (f" Da studiare: {rng(todo)}." if todo else " Tutto studiato.")
         out[mat] = dict(capitoli=len(res), studiati=len(done), lezioni=LEZIONI[mat], prossimo=nota,
                         elenco=[dict(n=n, t=t, s=s, hl=hl, tot=tot) for n, t, s, hl, tot in res])
+    lab = UNI / "Riassunto Laboratorio.docx"   # il laboratorio fa parte di ciò che è stato trattato per Programmazione
+    if lab.exists() and "Programmazione" in texts:
+        texts["Programmazione"] += "\n" + chapters(lab)[1]
     return out, texts
 
 
@@ -231,6 +262,20 @@ def main():
     from quiz_banche import tutte
     quiz, probs, cards = tutte(mate), parse_problems(), parse_all_cards()
     avanz, texts = avanzamento()
+    cop = copertura(texts)
+    visibili, nascoste = [], {}
+    for q in quiz:
+        if cop.get((q["m"], q["theme"]), 0) >= 3:
+            visibili.append(q)
+        else:
+            nascoste.setdefault(q["m"], {}).setdefault(q["theme"], 0)
+            nascoste[q["m"]][q["theme"]] += 1
+    quiz = visibili
+    from quiz_banche import tema_fondamenti
+    n_cards = len(cards)   # schede ricavate dai quiz del sito di Fondamenti: tolte quelle su argomenti non ancora trattati
+    cards = [c for c in cards if not (c["m"] == "Fondamenti Info" and c["lungo"]) or cop.get((c["m"], tema_fondamenti(c["d"] + " " + c["r"], c["t"])), 0) >= 3]
+    print(f"  schede: {len(cards)} (nascoste {n_cards - len(cards)} su argomenti non ancora trattati)")
+    coperti = {m: sorted(t for (mm, t), n in cop.items() if mm == m and n >= 3) for m in WORD}
     if "--diff" in sys.argv:
         diff_evidenziazioni(avanz)
     mate_txt = texts.get("Matematica discreta", "")
@@ -241,7 +286,7 @@ def main():
     mx = max(pesi.values()) or 1
     pesi = {k: round(v / mx, 3) for k, v in pesi.items()}
     data = dict(oggi=str(date.today()), quiz=quiz, problemi=probs, cards=cards, materie=avanz, freq=freq,
-                tagTema=TAG_TEMA, priorita=PRIORITA, temi=TEMI, pesi=pesi, piano=piano(), esami=ESAMI)
+                tagTema=TAG_TEMA, priorita=PRIORITA, temi=TEMI, pesi=pesi, piano=piano(), esami=ESAMI, nascoste=nascoste, coperti=coperti)
     (PAG / "data.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
     head = (PAG / "template.html").read_text(encoding="utf-8").split('<div class="app">')[0]
@@ -252,6 +297,7 @@ def main():
     for m, x in avanz.items():
         print(f"  {m}: {x['studiati']}/{x['capitoli']} studiati. {x['prossimo']}")
     print("  nel Word:", [f[0][:18] for f in freq if f[3]])
+    print("  quiz visibili:", {m: sum(1 for q in quiz if q["m"] == m) for m in WORD}, "| nascosti (argomenti non ancora trattati):", nascoste)
 
 
 if __name__ == "__main__":
