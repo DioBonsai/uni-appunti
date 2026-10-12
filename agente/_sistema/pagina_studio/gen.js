@@ -140,10 +140,94 @@ const GEN = (() => {
   function sub(n) { return String(n).split('').map(d => '₀₁₂₃₄₅₆₇₈₉'[d]).join(''); }
   function sup(n) { return String(n).split('').map(d => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]).join(''); }
 
-  const MAKERS = [q_perm, q_perm, q_perm, q_cong, q_inverso, q_phi, q_nongen, q_pow, q_base2, q_conteggio, q_dispos];
-  const make = () => { for (let i = 0; i < 20; i++) { const q = pick(MAKERS)(); if (q) return q; } return null; };
-  const many = n => { const out = []; for (let i = 0; i < n * 4 && out.length < n; i++) { const q = make(); if (q) out.push(q); } return out; };
+  /* ---------- Algebra lineare: numeri complessi ---------- */
+  const cx = (a, b) => { // testo di a + bi, con segni e coefficienti 1/0 sistemati
+    const im = b === 0 ? '' : (Math.abs(b) === 1 ? 'i' : Math.abs(b) + 'i');
+    if (b === 0) return String(a);
+    if (a === 0) return (b < 0 ? '−' : '') + im;
+    return `${a < 0 ? '−' + Math.abs(a) : a} ${b < 0 ? '−' : '+'} ${im}`;
+  };
+  const cxOpts = (a, b, extra) => [cx(a, -b), cx(-a, b), cx(-a, -b), cx(b, a), ...(extra || [])];
+  const T = 'Numeri complessi';
+  function q_cxmul() {
+    const a = ri(-5, 5), b = ri(-5, 5) || 2, c = ri(-5, 5), d = ri(-5, 5) || 3, re = a * c - b * d, im = a * d + b * c;
+    return build({ kind: 'numeri-complessi', theme: T, q: `Il prodotto (${cx(a, b)})·(${cx(c, d)}) è`, correct: cx(re, im), wrong: [cx(a * c + b * d, a * d - b * c), cx(a * c - b * d, a * d - b * c), cx(a * c + b * d, a * d + b * c), cx(re, -im), cx(a * c, b * d)], filler: () => cx(ri(-20, 20), ri(-20, 20)),
+      s: `(${cx(a, b)})(${cx(c, d)}) = ${a * c} + ${a * d}i + ${b * c}i + ${b * d}i² = (${a * c} − ${b * d}) + (${a * d} + ${b * c})i = ${cx(re, im)}.` });
+  }
+  function q_cxdiv() {
+    const x = ri(-4, 4), y = ri(-4, 4) || 1, c = ri(-3, 3) || 2, d = ri(-3, 3) || 1, re = x * c - y * d, im = x * d + y * c;
+    return build({ kind: 'numeri-complessi', theme: T, q: `Il quoziente (${cx(re, im)}) / (${cx(c, d)}) è`, correct: cx(x, y), wrong: [cx(x, -y), cx(-x, y), cx(y, x), cx(-x, -y), cx(x + 1, y)], filler: () => cx(ri(-6, 6), ri(-6, 6)),
+      s: `Si moltiplica numeratore e denominatore per il coniugato ${cx(c, -d)}: il denominatore diventa ${c * c + d * d} e il risultato è ${cx(x, y)} (verifica: (${cx(x, y)})(${cx(c, d)}) = ${cx(re, im)}).` });
+  }
+  function q_cxmod() {
+    const tr = pick([[3, 4], [5, 12], [8, 15], [6, 8], [7, 24], [9, 12]]), sg = () => (Math.random() < 0.5 ? -1 : 1), a = tr[0] * sg(), b = tr[1] * sg(), n = a * a + b * b, m = Math.sqrt(n);
+    return build({ kind: 'coniugato-modulo', theme: 'Coniugato e modulo', q: `Il modulo di z = ${cx(a, b)} è`, correct: String(m), wrong: [String(n), String(Math.abs(a) + Math.abs(b)), String(Math.abs(a * b)), `√${m}`, String(m + 1)], filler: () => String(ri(2, 30)),
+      s: `|z| = √(${a}² + ${b}²) = √${n} = ${m}.` });
+  }
+  function q_cxinv() {
+    const a = ri(-4, 4) || 2, b = ri(-4, 4) || 3, n = a * a + b * b, f = (x, y) => `(${cx(x, y)})/${n}`;
+    return build({ kind: 'coniugato-modulo', theme: 'Coniugato e modulo', q: `L'inverso moltiplicativo di z = ${cx(a, b)} è`, correct: f(a, -b), wrong: [f(a, b), f(-a, b), f(-a, -b), `(${cx(a, -b)})/${Math.sqrt(n) % 1 ? n + 1 : n - 1}`, f(b, a)], filler: () => `(${cx(ri(-5, 5), ri(-5, 5))})/${ri(2, 30)}`,
+      s: `1/z = z̄/|z|² = (${cx(a, -b)})/${n}, perché z·z̄ = a² + b² = ${n}.` });
+  }
+  function q_cxipow() {
+    const n = ri(3, 99), r = n % 4, correct = ['1', 'i', '−1', '−i'][r];
+    return build({ kind: 'potenze-radici', theme: 'Potenze e radici', q: `Il valore di i${sup(n)} è`, correct, wrong: ['1', 'i', '−1', '−i', '0'].filter(x => x !== correct), filler: () => String(ri(2, 9)),
+      s: `Le potenze di i si ripetono con periodo 4 (i⁰ = 1, i¹ = i, i² = −1, i³ = −i): ${n} = 4·${Math.floor(n / 4)} + ${r}, quindi i${sup(n)} = ${correct}.` });
+  }
+  function q_cxsq() {
+    const a = ri(-6, 6) || 3, b = ri(-6, 6) || 2, re = a * a - b * b, im = 2 * a * b;
+    return build({ kind: 'numeri-complessi', theme: T, q: `(${cx(a, b)})² =`, correct: cx(re, im), wrong: [cx(a * a + b * b, im), cx(re, -im), cx(re, im + 2), cx(a * a, b * b), cx(a * a - b * b, a * b)], filler: () => cx(ri(-30, 30), ri(-30, 30)),
+      s: `(a + bi)² = a² − b² + 2abi = ${re} + ${im}i ⟹ ${cx(re, im)}.` });
+  }
+  function q_cx1i() {
+    const k = pick([4, 8, 12]), v = (-4) ** (k / 4);
+    return build({ kind: 'potenze-radici', theme: 'Potenze e radici', q: `Quanto vale (1 + i)${sup(k)}?`, correct: String(v), wrong: [String(-v), String(2 ** k), String(2 ** (k / 2)), String(v * 2), '0'], filler: () => String(ri(-80, 80)),
+      s: `(1 + i)² = 2i, quindi (1 + i)⁴ = (2i)² = −4 e (1 + i)${sup(k)} = (−4)${sup(k / 4)} = ${v}.` });
+  }
 
-  return { make, many, _t: { gcd, lcm, phi, mod, powmod, inv, compose, cycleToPerm, cyclesOf, orderOf, parityOf, typeOf, C, factorial, MAKERS } };
+  /* ---------- Fondamenti: binario, complemento a due, Hamming, memoria ---------- */
+  const TF = 'Rappresentazione binaria';
+  const bits = (v, n) => (v >>> 0).toString(2).padStart(n, '0').slice(-n);
+  function q_bin2dec() {
+    const v = ri(20, 255), b = v.toString(2);
+    return build({ kind: 'binario', theme: TF, q: `Il numero binario ${b} vale in decimale`, correct: String(v), wrong: [v + 1, v - 1, v ^ 1, parseInt(b.split('').reverse().join(''), 2), v + ri(2, 9)].map(String), filler: () => String(ri(20, 255)),
+      s: `${b}₂ = ${b.split('').map((c, i) => (c === '1' ? 2 ** (b.length - 1 - i) : null)).filter(x => x !== null).join(' + ')} = ${v}.` });
+  }
+  function q_hex() {
+    const v = ri(32, 4095), h = v.toString(16).toUpperCase(), up = Math.random() < 0.5;
+    if (up) return build({ kind: 'binario', theme: TF, q: `Il numero decimale ${v} in esadecimale è`, correct: h, wrong: [(v + 1).toString(16), (v - 1).toString(16), (v ^ 16).toString(16), (v + 16).toString(16)].map(x => x.toUpperCase()), filler: () => ri(32, 4095).toString(16).toUpperCase(), s: `${v} = ${h}₁₆ (si divide per 16 e si leggono i resti dal basso).` });
+    return build({ kind: 'binario', theme: TF, q: `Il numero esadecimale ${h} vale in decimale`, correct: String(v), wrong: [v + 1, v - 1, v + 16, v - 16, v ^ 256].map(String), filler: () => String(ri(32, 4095)), s: `${h}₁₆ = ${[...h].map((c, i) => parseInt(c, 16) + '·16' + sup(h.length - 1 - i)).join(' + ')} = ${v}.` });
+  }
+  function q_c2() {
+    const n = ri(1, 127), neg = Math.random() < 0.6, N = 8;
+    if (neg) { const c = bits(256 - n, N); return build({ kind: 'complemento-eccesso', theme: TF, q: `In complemento a due su 8 bit, −${n} si scrive`, correct: c, wrong: ['1' + bits(n, 7), bits(~n & 255, N), bits(n, N), bits(256 - n + 1, N), bits(256 - n - 1, N)], filler: () => bits(ri(0, 255), N), s: `${n} = ${bits(n, N)}; si invertono i bit (${bits(~n & 255, N)}) e si somma 1: ${c}.` }); }
+    const c = bits(ri(128, 255), N), v = parseInt(c, 2) - 256;
+    return build({ kind: 'complemento-eccesso', theme: TF, q: `Il pattern ${c}, letto in complemento a due su 8 bit, rappresenta il numero`, correct: String(v), wrong: [String(parseInt(c, 2)), String(-(parseInt(c, 2) - 128)), String(v + 1), String(v - 1), String(-v)], filler: () => String(ri(-128, 127)), s: `Il bit più a sinistra è 1, quindi il numero è negativo: ${parseInt(c, 2)} − 256 = ${v}.` });
+  }
+  function q_hamming() {
+    const n = ri(6, 10), x = ri(0, 2 ** n - 1), y = ri(0, 2 ** n - 1), a = bits(x, n), b = bits(y, n), d = [...a].filter((c, i) => c !== b[i]).length;
+    return build({ kind: 'errori-hamming', theme: 'Compressione ed errori', q: `Qual è la distanza di Hamming tra ${a} e ${b}?`, correct: String(d), wrong: [d + 1, d - 1, d + 2, n - d, n].map(String).filter(x => +x >= 0), filler: () => String(ri(0, n)), s: `La distanza di Hamming è il numero di posizioni in cui i due pattern differiscono: ${d}.` });
+  }
+  function q_parita() {
+    const n = 7, x = ri(0, 127), a = bits(x, n), ones = [...a].filter(c => c === '1').length, bit = ones % 2, correct = a + bit;
+    return build({ kind: 'errori-hamming', theme: 'Compressione ed errori', q: `Aggiungendo in fondo un bit di parità pari al pattern ${a}, si ottiene`, correct, wrong: [a + (1 - bit), bits(x ^ 1, n) + bit, (1 - bit) + a, a.slice(1) + a[0] + bit], filler: () => bits(ri(0, 255), 8), s: `Il pattern contiene ${ones} uni; per avere un numero pari di uni complessivo il bit aggiunto è ${bit}: ${correct}.` });
+  }
+  function q_mem() {
+    const k = ri(8, 20);
+    if (Math.random() < 0.5) return build({ kind: 'memoria', theme: 'Circuiti e memoria', q: `Una memoria principale ha indirizzi di ${k} bit e celle da 1 byte. Quante celle ha?`, correct: `2${sup(k)} = ${2 ** k}`, wrong: [`${k}²`, `2·${k}`, `2${sup(k - 1)}`, `2${sup(k + 1)}`, `${k}!`].map(x => x), filler: () => `2${sup(ri(4, 24))}`, s: `Con ${k} bit si formano 2${sup(k)} indirizzi diversi, quindi ${2 ** k} celle.` });
+    return build({ kind: 'memoria', theme: 'Circuiti e memoria', q: `Quanti bit servono per indirizzare ${2 ** k} celle di memoria?`, correct: String(k), wrong: [k + 1, k - 1, 2 ** k, k * 2, 2 ** (k - 1)].map(String), filler: () => String(ri(4, 30)), s: `Servono k bit con 2^k ≥ ${2 ** k}: k = ${k}.` });
+  }
+
+  const BYMAT = {
+    'Matematica discreta': [q_perm, q_perm, q_perm, q_cong, q_inverso, q_phi, q_nongen, q_pow, q_base2, q_conteggio, q_dispos],
+    'Algebra lineare': [q_cxmul, q_cxdiv, q_cxmod, q_cxinv, q_cxipow, q_cxsq, q_cx1i],
+    'Fondamenti Info': [q_bin2dec, q_hex, q_c2, q_c2, q_hamming, q_parita, q_mem, q_base2],
+  };
+  const MAKERS = BYMAT['Matematica discreta'];
+  const make = mat => { const ms = BYMAT[mat || 'Matematica discreta']; if (!ms) return null; for (let i = 0; i < 20; i++) { const q = pick(ms)(); if (q) return q; } return null; };
+  const many = (n, mat) => { const out = []; for (let i = 0; i < n * 4 && out.length < n; i++) { const q = make(mat); if (q) out.push(q); } return out; };
+  const disponibile = mat => !!BYMAT[mat];
+
+  return { make, many, disponibile, _t: { gcd, lcm, phi, mod, powmod, inv, compose, cycleToPerm, cyclesOf, orderOf, parityOf, typeOf, C, factorial, MAKERS } };
 })();
 if (typeof module !== 'undefined') module.exports = GEN;

@@ -53,4 +53,47 @@ function check(q) {
 }
 for (let i = 0; i < 6000; i++) { const q = GEN.make(); if (!q) { fail({ q: 'null' }, 'null'); continue; } n++; kinds[q.args[0]] = (kinds[q.args[0]] || 0) + 1; check(q); }
 console.log(`${n} domande generate, ${bad} errori`, kinds);
+
+// ---------- Algebra lineare e Fondamenti ----------
+const supd = s => Number([...s].map(c => '⁰¹²³⁴⁵⁶⁷⁸⁹'.indexOf(c)).join(''));
+const pc = s => { // "3 − 2i", "−i", "5", "i" -> [re, im]
+  s = s.replace(/−/g, '-').replace(/\s+/g, '').replace(/^\(|\)$/g, '');
+  const m = s.match(/^(-?\d+)?(?:([+-])(\d*)i)?$/); if (m && (m[1] !== undefined || m[2])) return [m[1] ? +m[1] : 0, m[2] ? (m[2] === '-' ? -1 : 1) * (m[3] === '' ? 1 : +m[3]) : 0];
+  const k = s.match(/^(-?)(\d*)i$/); if (k) return [0, (k[1] ? -1 : 1) * (k[2] === '' ? 1 : +k[2])];
+  throw new Error('cx? ' + s);
+};
+const mul = (p, q) => [p[0] * q[0] - p[1] * q[1], p[0] * q[1] + p[1] * q[0]];
+const eq = (p, q) => Math.abs(p[0] - q[0]) < 1e-9 && Math.abs(p[1] - q[1]) < 1e-9;
+function checkAlg(q) {
+  const t = q.q, ans = q.o[q.a - 1]; let m;
+  if (new Set(q.o).size !== 5) return fail(q, 'alg opzioni duplicate');
+  if ((m = t.match(/^Il prodotto \((.*)\)·\((.*)\) è$/))) { if (!eq(mul(pc(m[1]), pc(m[2])), pc(ans))) return fail(q, 'mul'); }
+  else if ((m = t.match(/^Il quoziente \((.*)\) \/ \((.*)\) è$/))) { if (!eq(mul(pc(ans), pc(m[2])), pc(m[1]))) return fail(q, 'div'); }
+  else if ((m = t.match(/^Il modulo di z = (.*) è$/))) { const z = pc(m[1]); if (Math.abs(Math.hypot(z[0], z[1]) - +ans) > 1e-9) return fail(q, 'mod'); }
+  else if ((m = t.match(/^L'inverso moltiplicativo di z = (.*) è$/))) { const mm = ans.match(/^\((.*)\)\/(\d+)$/); const w = pc(mm[1]); w[0] /= +mm[2]; w[1] /= +mm[2]; if (!eq(mul(pc(m[1]), w), [1, 0])) return fail(q, 'inv'); }
+  else if ((m = t.match(/^Il valore di i([⁰¹²³⁴⁵⁶⁷⁸⁹]+) è$/))) { let z = [1, 0]; for (let i = 0; i < supd(m[1]); i++) z = mul(z, [0, 1]); if (!eq(z, pc(ans === '0' ? '0' : ans))) return fail(q, 'ipow'); }
+  else if ((m = t.match(/^\((.*)\)² =$/))) { const z = pc(m[1]); if (!eq(mul(z, z), pc(ans))) return fail(q, 'sq'); }
+  else if ((m = t.match(/^Quanto vale \(1 \+ i\)([⁰¹²³⁴⁵⁶⁷⁸⁹]+)\?$/))) { let z = [1, 0]; for (let i = 0; i < supd(m[1]); i++) z = mul(z, [1, 1]); if (!eq(z, [+ans.replace('−', '-'), 0])) return fail(q, '1+i'); }
+  else return fail(q, 'alg non riconosciuta: ' + t);
+}
+const tc = s => { const v = s.replace(/−/g, '-'); return +v; };
+function checkFond(q) {
+  const t = q.q, ans = q.o[q.a - 1]; let m;
+  if (new Set(q.o).size !== 5) return fail(q, 'fond opzioni duplicate');
+  if ((m = t.match(/^Il numero binario ([01]+) vale in decimale$/))) { if (parseInt(m[1], 2) !== +ans) return fail(q, 'bin2dec'); }
+  else if ((m = t.match(/^Il numero decimale (\d+) in esadecimale è$/))) { if (parseInt(ans, 16) !== +m[1] || ans !== ans.toUpperCase()) return fail(q, 'dec2hex'); }
+  else if ((m = t.match(/^Il numero esadecimale ([0-9A-F]+) vale in decimale$/))) { if (parseInt(m[1], 16) !== +ans) return fail(q, 'hex2dec'); }
+  else if ((m = t.match(/^In complemento a due su 8 bit, −(\d+) si scrive$/))) { const v = parseInt(ans, 2); if (ans.length !== 8 || ((v + +m[1]) & 255) !== 0) return fail(q, 'c2 neg'); }
+  else if ((m = t.match(/^Il pattern ([01]{8}), letto in complemento a due su 8 bit, rappresenta il numero$/))) { let v = parseInt(m[1], 2); if (v > 127) v -= 256; if (v !== tc(ans)) return fail(q, 'c2 pos'); }
+  else if ((m = t.match(/^Qual è la distanza di Hamming tra ([01]+) e ([01]+)\?$/))) { let d = 0; for (let i = 0; i < m[1].length; i++) if (m[1][i] !== m[2][i]) d++; if (d !== +ans) return fail(q, 'hamming'); }
+  else if ((m = t.match(/^Aggiungendo in fondo un bit di parità pari al pattern ([01]+), si ottiene$/))) { const ones = [...ans].filter(c => c === '1').length; if (!ans.startsWith(m[1]) || ans.length !== m[1].length + 1 || ones % 2 !== 0) return fail(q, 'parita'); }
+  else if ((m = t.match(/^Una memoria principale ha indirizzi di (\d+) bit e celle da 1 byte\. Quante celle ha\?$/))) { if (!ans.endsWith('= ' + 2 ** +m[1])) return fail(q, 'celle'); }
+  else if ((m = t.match(/^Quanti bit servono per indirizzare (\d+) celle di memoria\?$/))) { if (2 ** +ans !== +m[1]) return fail(q, 'bit indirizzi'); }
+  else if ((m = t.match(/scrittura di (\d+) in base 2/))) { if (parseInt(ans, 2) !== +m[1]) return fail(q, 'base2'); }
+  else return fail(q, 'fond non riconosciuta: ' + t);
+}
+let na = 0, nf = 0;
+for (let i = 0; i < 4000; i++) { const q = GEN.make('Algebra lineare'); if (!q) { fail({ q: 'null' }, 'alg null'); continue; } na++; checkAlg(q); }
+for (let i = 0; i < 4000; i++) { const q = GEN.make('Fondamenti Info'); if (!q) { fail({ q: 'null' }, 'fond null'); continue; } nf++; checkFond(q); }
+console.log(`Algebra: ${na}, Fondamenti: ${nf} domande generate; errori totali ${bad}; Programmazione generabile: ${GEN.disponibile('Programmazione')}`);
 process.exit(bad ? 1 : 0);

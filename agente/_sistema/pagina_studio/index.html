@@ -549,6 +549,18 @@ details[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
   .hero-act .btn.ghost { flex: 1 1 100%; }
 }
 
+/* selettore della materia nei quiz */
+.mat-pick { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.mp { appearance: none; text-align: left; display: grid; gap: 2px; padding: 12px 14px; min-height: 64px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; cursor: pointer; border-top: 4px solid var(--c); transition: transform .2s var(--ease), box-shadow .2s var(--ease), background-color .2s, border-color .2s; }
+.mp:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.mp:active { transform: scale(.98); }
+.mp[aria-checked="true"] { background: color-mix(in srgb, var(--c) 12%, var(--surface)); border-color: var(--c); box-shadow: 0 0 0 1px var(--c) inset; }
+.mp-n { font: 700 .98rem var(--font-display); line-height: 1.2; }
+.mp-c { font-size: .78rem; color: var(--muted); line-height: 1.3; }
+.mp[aria-checked="true"] .mp-n { color: var(--c); }
+@media (max-width: 820px) { .mat-pick { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.preset[disabled] { opacity: .5; cursor: not-allowed; transform: none !important; box-shadow: none; }
+
 </style>
 <script>
 /* Lingua e tema impostati subito, prima del primo disegno, per evitare lampi di colore. */
@@ -631,12 +643,13 @@ details[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
     <!-- QUIZ -->
     <section id="tab-quiz" class="view narrow" role="tabpanel" aria-label="Quiz" aria-labelledby="t-quiz" hidden>
       <div id="quiz-setup" class="stack">
-        <div class="view-head"><h1>Quiz</h1><p class="muted">Domande vere delle prove 2024-2026 a 5 risposte, più esercizi generati senza limite e verificati col computer. Le soluzioni ufficiali in PDF hanno qualche errore: dove l'ho trovato lo segnalo.</p></div>
+        <div class="view-head"><h1>Quiz</h1><p class="muted" id="q-sub"></p></div>
+        <div class="mat-pick" id="mat-pick" role="radiogroup" aria-label="Materia del quiz"></div>
         <div class="presets" id="presets">
           <button class="preset p-blue" id="pr-fast"><span class="pr-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span><span class="pr-t">Veloce</span><span class="pr-s">5 domande, correzione subito</span></button>
-          <button class="preset p-red" id="pr-exam"><span class="pr-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></span><span class="pr-t">Come all'esame</span><span class="pr-s">10 domande a tempo, 30 minuti</span></button>
+          <button class="preset p-red" id="pr-exam"><span class="pr-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg></span><span class="pr-t">Come all'esame</span><span class="pr-s" id="pr-exam-s">10 domande a tempo, 30 minuti</span></button>
           <button class="preset p-orange" id="pr-weak"><span class="pr-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12l6-6"/></svg></span><span class="pr-t">I miei punti deboli</span><span class="pr-s" id="pr-weak-s">Solo i temi dove sbagli</span></button>
-          <button class="preset p-green" id="pr-gen"><span class="pr-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span><span class="pr-t">Esercizi generati</span><span class="pr-s">10 nuovi, mai gli stessi</span></button>
+          <button class="preset p-green" id="pr-gen"><span class="pr-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3L20 9M20 4v5h-5M20 12a8 8 0 0 1-14 5.3L4 15M4 20v-5h5"/></svg></span><span class="pr-t">Esercizi generati</span><span class="pr-s" id="pr-gen-s">10 nuovi, mai gli stessi</span></button>
         </div>
         <details class="card custom" id="q-custom">
           <summary><span>Personalizza</span><span class="sum-hint">tema, numero, modalità, minuti</span></summary>
@@ -863,11 +876,95 @@ const GEN = (() => {
   function sub(n) { return String(n).split('').map(d => '₀₁₂₃₄₅₆₇₈₉'[d]).join(''); }
   function sup(n) { return String(n).split('').map(d => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]).join(''); }
 
-  const MAKERS = [q_perm, q_perm, q_perm, q_cong, q_inverso, q_phi, q_nongen, q_pow, q_base2, q_conteggio, q_dispos];
-  const make = () => { for (let i = 0; i < 20; i++) { const q = pick(MAKERS)(); if (q) return q; } return null; };
-  const many = n => { const out = []; for (let i = 0; i < n * 4 && out.length < n; i++) { const q = make(); if (q) out.push(q); } return out; };
+  /* ---------- Algebra lineare: numeri complessi ---------- */
+  const cx = (a, b) => { // testo di a + bi, con segni e coefficienti 1/0 sistemati
+    const im = b === 0 ? '' : (Math.abs(b) === 1 ? 'i' : Math.abs(b) + 'i');
+    if (b === 0) return String(a);
+    if (a === 0) return (b < 0 ? '−' : '') + im;
+    return `${a < 0 ? '−' + Math.abs(a) : a} ${b < 0 ? '−' : '+'} ${im}`;
+  };
+  const cxOpts = (a, b, extra) => [cx(a, -b), cx(-a, b), cx(-a, -b), cx(b, a), ...(extra || [])];
+  const T = 'Numeri complessi';
+  function q_cxmul() {
+    const a = ri(-5, 5), b = ri(-5, 5) || 2, c = ri(-5, 5), d = ri(-5, 5) || 3, re = a * c - b * d, im = a * d + b * c;
+    return build({ kind: 'numeri-complessi', theme: T, q: `Il prodotto (${cx(a, b)})·(${cx(c, d)}) è`, correct: cx(re, im), wrong: [cx(a * c + b * d, a * d - b * c), cx(a * c - b * d, a * d - b * c), cx(a * c + b * d, a * d + b * c), cx(re, -im), cx(a * c, b * d)], filler: () => cx(ri(-20, 20), ri(-20, 20)),
+      s: `(${cx(a, b)})(${cx(c, d)}) = ${a * c} + ${a * d}i + ${b * c}i + ${b * d}i² = (${a * c} − ${b * d}) + (${a * d} + ${b * c})i = ${cx(re, im)}.` });
+  }
+  function q_cxdiv() {
+    const x = ri(-4, 4), y = ri(-4, 4) || 1, c = ri(-3, 3) || 2, d = ri(-3, 3) || 1, re = x * c - y * d, im = x * d + y * c;
+    return build({ kind: 'numeri-complessi', theme: T, q: `Il quoziente (${cx(re, im)}) / (${cx(c, d)}) è`, correct: cx(x, y), wrong: [cx(x, -y), cx(-x, y), cx(y, x), cx(-x, -y), cx(x + 1, y)], filler: () => cx(ri(-6, 6), ri(-6, 6)),
+      s: `Si moltiplica numeratore e denominatore per il coniugato ${cx(c, -d)}: il denominatore diventa ${c * c + d * d} e il risultato è ${cx(x, y)} (verifica: (${cx(x, y)})(${cx(c, d)}) = ${cx(re, im)}).` });
+  }
+  function q_cxmod() {
+    const tr = pick([[3, 4], [5, 12], [8, 15], [6, 8], [7, 24], [9, 12]]), sg = () => (Math.random() < 0.5 ? -1 : 1), a = tr[0] * sg(), b = tr[1] * sg(), n = a * a + b * b, m = Math.sqrt(n);
+    return build({ kind: 'coniugato-modulo', theme: 'Coniugato e modulo', q: `Il modulo di z = ${cx(a, b)} è`, correct: String(m), wrong: [String(n), String(Math.abs(a) + Math.abs(b)), String(Math.abs(a * b)), `√${m}`, String(m + 1)], filler: () => String(ri(2, 30)),
+      s: `|z| = √(${a}² + ${b}²) = √${n} = ${m}.` });
+  }
+  function q_cxinv() {
+    const a = ri(-4, 4) || 2, b = ri(-4, 4) || 3, n = a * a + b * b, f = (x, y) => `(${cx(x, y)})/${n}`;
+    return build({ kind: 'coniugato-modulo', theme: 'Coniugato e modulo', q: `L'inverso moltiplicativo di z = ${cx(a, b)} è`, correct: f(a, -b), wrong: [f(a, b), f(-a, b), f(-a, -b), `(${cx(a, -b)})/${Math.sqrt(n) % 1 ? n + 1 : n - 1}`, f(b, a)], filler: () => `(${cx(ri(-5, 5), ri(-5, 5))})/${ri(2, 30)}`,
+      s: `1/z = z̄/|z|² = (${cx(a, -b)})/${n}, perché z·z̄ = a² + b² = ${n}.` });
+  }
+  function q_cxipow() {
+    const n = ri(3, 99), r = n % 4, correct = ['1', 'i', '−1', '−i'][r];
+    return build({ kind: 'potenze-radici', theme: 'Potenze e radici', q: `Il valore di i${sup(n)} è`, correct, wrong: ['1', 'i', '−1', '−i', '0'].filter(x => x !== correct), filler: () => String(ri(2, 9)),
+      s: `Le potenze di i si ripetono con periodo 4 (i⁰ = 1, i¹ = i, i² = −1, i³ = −i): ${n} = 4·${Math.floor(n / 4)} + ${r}, quindi i${sup(n)} = ${correct}.` });
+  }
+  function q_cxsq() {
+    const a = ri(-6, 6) || 3, b = ri(-6, 6) || 2, re = a * a - b * b, im = 2 * a * b;
+    return build({ kind: 'numeri-complessi', theme: T, q: `(${cx(a, b)})² =`, correct: cx(re, im), wrong: [cx(a * a + b * b, im), cx(re, -im), cx(re, im + 2), cx(a * a, b * b), cx(a * a - b * b, a * b)], filler: () => cx(ri(-30, 30), ri(-30, 30)),
+      s: `(a + bi)² = a² − b² + 2abi = ${re} + ${im}i ⟹ ${cx(re, im)}.` });
+  }
+  function q_cx1i() {
+    const k = pick([4, 8, 12]), v = (-4) ** (k / 4);
+    return build({ kind: 'potenze-radici', theme: 'Potenze e radici', q: `Quanto vale (1 + i)${sup(k)}?`, correct: String(v), wrong: [String(-v), String(2 ** k), String(2 ** (k / 2)), String(v * 2), '0'], filler: () => String(ri(-80, 80)),
+      s: `(1 + i)² = 2i, quindi (1 + i)⁴ = (2i)² = −4 e (1 + i)${sup(k)} = (−4)${sup(k / 4)} = ${v}.` });
+  }
 
-  return { make, many, _t: { gcd, lcm, phi, mod, powmod, inv, compose, cycleToPerm, cyclesOf, orderOf, parityOf, typeOf, C, factorial, MAKERS } };
+  /* ---------- Fondamenti: binario, complemento a due, Hamming, memoria ---------- */
+  const TF = 'Rappresentazione binaria';
+  const bits = (v, n) => (v >>> 0).toString(2).padStart(n, '0').slice(-n);
+  function q_bin2dec() {
+    const v = ri(20, 255), b = v.toString(2);
+    return build({ kind: 'binario', theme: TF, q: `Il numero binario ${b} vale in decimale`, correct: String(v), wrong: [v + 1, v - 1, v ^ 1, parseInt(b.split('').reverse().join(''), 2), v + ri(2, 9)].map(String), filler: () => String(ri(20, 255)),
+      s: `${b}₂ = ${b.split('').map((c, i) => (c === '1' ? 2 ** (b.length - 1 - i) : null)).filter(x => x !== null).join(' + ')} = ${v}.` });
+  }
+  function q_hex() {
+    const v = ri(32, 4095), h = v.toString(16).toUpperCase(), up = Math.random() < 0.5;
+    if (up) return build({ kind: 'binario', theme: TF, q: `Il numero decimale ${v} in esadecimale è`, correct: h, wrong: [(v + 1).toString(16), (v - 1).toString(16), (v ^ 16).toString(16), (v + 16).toString(16)].map(x => x.toUpperCase()), filler: () => ri(32, 4095).toString(16).toUpperCase(), s: `${v} = ${h}₁₆ (si divide per 16 e si leggono i resti dal basso).` });
+    return build({ kind: 'binario', theme: TF, q: `Il numero esadecimale ${h} vale in decimale`, correct: String(v), wrong: [v + 1, v - 1, v + 16, v - 16, v ^ 256].map(String), filler: () => String(ri(32, 4095)), s: `${h}₁₆ = ${[...h].map((c, i) => parseInt(c, 16) + '·16' + sup(h.length - 1 - i)).join(' + ')} = ${v}.` });
+  }
+  function q_c2() {
+    const n = ri(1, 127), neg = Math.random() < 0.6, N = 8;
+    if (neg) { const c = bits(256 - n, N); return build({ kind: 'complemento-eccesso', theme: TF, q: `In complemento a due su 8 bit, −${n} si scrive`, correct: c, wrong: ['1' + bits(n, 7), bits(~n & 255, N), bits(n, N), bits(256 - n + 1, N), bits(256 - n - 1, N)], filler: () => bits(ri(0, 255), N), s: `${n} = ${bits(n, N)}; si invertono i bit (${bits(~n & 255, N)}) e si somma 1: ${c}.` }); }
+    const c = bits(ri(128, 255), N), v = parseInt(c, 2) - 256;
+    return build({ kind: 'complemento-eccesso', theme: TF, q: `Il pattern ${c}, letto in complemento a due su 8 bit, rappresenta il numero`, correct: String(v), wrong: [String(parseInt(c, 2)), String(-(parseInt(c, 2) - 128)), String(v + 1), String(v - 1), String(-v)], filler: () => String(ri(-128, 127)), s: `Il bit più a sinistra è 1, quindi il numero è negativo: ${parseInt(c, 2)} − 256 = ${v}.` });
+  }
+  function q_hamming() {
+    const n = ri(6, 10), x = ri(0, 2 ** n - 1), y = ri(0, 2 ** n - 1), a = bits(x, n), b = bits(y, n), d = [...a].filter((c, i) => c !== b[i]).length;
+    return build({ kind: 'errori-hamming', theme: 'Compressione ed errori', q: `Qual è la distanza di Hamming tra ${a} e ${b}?`, correct: String(d), wrong: [d + 1, d - 1, d + 2, n - d, n].map(String).filter(x => +x >= 0), filler: () => String(ri(0, n)), s: `La distanza di Hamming è il numero di posizioni in cui i due pattern differiscono: ${d}.` });
+  }
+  function q_parita() {
+    const n = 7, x = ri(0, 127), a = bits(x, n), ones = [...a].filter(c => c === '1').length, bit = ones % 2, correct = a + bit;
+    return build({ kind: 'errori-hamming', theme: 'Compressione ed errori', q: `Aggiungendo in fondo un bit di parità pari al pattern ${a}, si ottiene`, correct, wrong: [a + (1 - bit), bits(x ^ 1, n) + bit, (1 - bit) + a, a.slice(1) + a[0] + bit], filler: () => bits(ri(0, 255), 8), s: `Il pattern contiene ${ones} uni; per avere un numero pari di uni complessivo il bit aggiunto è ${bit}: ${correct}.` });
+  }
+  function q_mem() {
+    const k = ri(8, 20);
+    if (Math.random() < 0.5) return build({ kind: 'memoria', theme: 'Circuiti e memoria', q: `Una memoria principale ha indirizzi di ${k} bit e celle da 1 byte. Quante celle ha?`, correct: `2${sup(k)} = ${2 ** k}`, wrong: [`${k}²`, `2·${k}`, `2${sup(k - 1)}`, `2${sup(k + 1)}`, `${k}!`].map(x => x), filler: () => `2${sup(ri(4, 24))}`, s: `Con ${k} bit si formano 2${sup(k)} indirizzi diversi, quindi ${2 ** k} celle.` });
+    return build({ kind: 'memoria', theme: 'Circuiti e memoria', q: `Quanti bit servono per indirizzare ${2 ** k} celle di memoria?`, correct: String(k), wrong: [k + 1, k - 1, 2 ** k, k * 2, 2 ** (k - 1)].map(String), filler: () => String(ri(4, 30)), s: `Servono k bit con 2^k ≥ ${2 ** k}: k = ${k}.` });
+  }
+
+  const BYMAT = {
+    'Matematica discreta': [q_perm, q_perm, q_perm, q_cong, q_inverso, q_phi, q_nongen, q_pow, q_base2, q_conteggio, q_dispos],
+    'Algebra lineare': [q_cxmul, q_cxdiv, q_cxmod, q_cxinv, q_cxipow, q_cxsq, q_cx1i],
+    'Fondamenti Info': [q_bin2dec, q_hex, q_c2, q_c2, q_hamming, q_parita, q_mem, q_base2],
+  };
+  const MAKERS = BYMAT['Matematica discreta'];
+  const make = mat => { const ms = BYMAT[mat || 'Matematica discreta']; if (!ms) return null; for (let i = 0; i < 20; i++) { const q = pick(ms)(); if (q) return q; } return null; };
+  const many = (n, mat) => { const out = []; for (let i = 0; i < n * 4 && out.length < n; i++) { const q = make(mat); if (q) out.push(q); } return out; };
+  const disponibile = mat => !!BYMAT[mat];
+
+  return { make, many, disponibile, _t: { gcd, lcm, phi, mod, powmod, inv, compose, cycleToPerm, cyclesOf, orderOf, parityOf, typeOf, C, factorial, MAKERS } };
 })();
 if (false && typeof module !== 'undefined') module.exports = GEN;
 
@@ -1003,7 +1100,8 @@ function capInterval(days, mat) { // a ridosso dell'esame gli intervalli si acco
   return Math.max(1, Math.min(days, Math.floor(left / 3)));
 }
 function bumpTheme(theme, ok) { S.th[theme] = Math.max(0, (S.th[theme] || 0) + (ok ? -0.5 : 1)); }
-function chapterHint(theme) {
+function chapterHint(theme, mat) {
+  if (mat && mat !== 'Matematica discreta') return '';
   const t = DATA.temi[theme];
   if (!t) return '';
   return t.capitoli ? `<p class="hint">Rivedi: Matematica discreta, ${esc(t.capitoli)} del tuo Word.</p>` : '<p class="hint">Tema non ancora nel Word: arriva con le prossime lezioni.</p>';
@@ -1175,37 +1273,50 @@ function renderStorico() {
 
 /* ---------- Quiz ---------- */
 let Q = null, timer = null;
+const MATS = ['Matematica discreta', 'Algebra lineare', 'Fondamenti Info', 'Programmazione'];
+const SIM = { 'Matematica discreta': { n: 10, min: 30 }, 'Algebra lineare': { n: 10, min: 30 }, 'Fondamenti Info': { n: 9, min: 45 }, 'Programmazione': { n: 10, min: 30 } };
+let QM = (() => { try { const m = localStorage.getItem('quaderno-qmat'); return MATS.includes(m) ? m : MATS[0]; } catch (e) { return MATS[0]; } })();
+const quizPool = () => DATA.quiz.filter(q => q.m === QM);
+const poolWeak = () => { const th = new Set(quizPool().map(q => q.theme)); return weakThemes().filter(e => th.has(e[0])); };
+const canGen = () => GEN.disponibile(QM);
 function setupQuiz() {
-  const counts = {}; DATA.quiz.forEach(q => counts[q.theme] = (counts[q.theme] || 0) + 1);
+  if (!MATS.includes(QM)) QM = MATS[0];
+  const pool = quizPool(), counts = {}; pool.forEach(q => counts[q.theme] = (counts[q.theme] || 0) + 1);
+  $('#mat-pick').innerHTML = MATS.map((m, i) => { const n = DATA.quiz.filter(q => q.m === m).length; return `<button type="button" class="mp" role="radio" aria-checked="${m === QM}" data-m="${esc(m)}" style="--c:var(--s${i})"><span class="mp-n">${esc(m)}</span><span class="mp-c">${n} domande${GEN.disponibile(m) ? ' · + esercizi generati' : ''}</span></button>`; }).join('');
+  $$('#mat-pick .mp').forEach(b => b.addEventListener('click', () => { QM = b.dataset.m; try { localStorage.setItem('quaderno-qmat', QM); } catch (e) {} setupQuiz(); }));
   const cur = $('#q-topic').value;
-  $('#q-topic').innerHTML = '<option value="">Tutti i temi (' + DATA.quiz.length + ' domande)</option><option value="__gen__">Esercizi generati (senza limite)</option>' + Object.keys(counts).sort().map(a => `<option value="${esc(a)}">${esc(a)} (${counts[a]})</option>`).join('');
-  if (cur) $('#q-topic').value = cur;
-  const w = weakThemes().length;
+  $('#q-topic').innerHTML = '<option value="">Tutti i temi (' + pool.length + ' domande)</option>' + (canGen() ? '<option value="__gen__">Esercizi generati (senza limite)</option>' : '') + Object.keys(counts).sort().map(a => `<option value="${esc(a)}">${esc(a)} (${counts[a]})</option>`).join('');
+  if (cur && [...$('#q-topic').options].some(o => o.value === cur)) $('#q-topic').value = cur;
+  const w = poolWeak().length;
   $('#q-weak').hidden = !w;
   $('#pr-weak').disabled = !w;
-  $('#pr-weak-s').textContent = w ? `Solo i temi dove sbagli (${w})` : 'Ancora nessun errore registrato';
+  $('#pr-weak-s').textContent = w ? `Solo i temi dove sbagli (${w})` : 'Ancora nessun errore in questa materia';
+  const sm = SIM[QM]; $('#pr-exam-s').textContent = `${sm.n} domande a tempo, ${sm.min} minuti`;
+  $('#pr-gen').disabled = !canGen(); $('#pr-gen-s').textContent = canGen() ? '10 nuovi, mai gli stessi' : 'Non ancora disponibili per questa materia';
+  $('#pr-fast').disabled = !pool.length;
+  $('#q-sub').textContent = pool.length ? `${QM}: ${pool.length} domande${pool.some(q => /^20\d\d-|^2[345]\d\d-/.test(q.id)) ? ' dalle prove 2024-2026 a 5 risposte' : ''}${canGen() ? ', più esercizi generati senza limite e verificati col computer' : ''}. Le soluzioni ufficiali in PDF hanno qualche errore: dove l'ho trovato lo segnalo.` : `${QM}: nessuna domanda disponibile.`;
   $('#q-min-l').hidden = $('#q-mode').value !== 'sim';
 }
 $('#q-mode').addEventListener('change', () => { $('#q-min-l').hidden = $('#q-mode').value !== 'sim'; });
 $('#pr-fast').addEventListener('click', () => startQuiz(false, { topic: '', n: 5, mode: '1' }));
-$('#pr-exam').addEventListener('click', () => startQuiz(false, { topic: '', n: 10, mode: 'sim', min: 30 }));
+$('#pr-exam').addEventListener('click', () => startQuiz(false, { topic: '', n: SIM[QM].n, mode: 'sim', min: SIM[QM].min }));
 $('#pr-weak').addEventListener('click', () => startQuiz(true, { n: 10, mode: '1' }));
 $('#pr-gen').addEventListener('click', () => startQuiz(false, { topic: '__gen__', n: 10, mode: '1' }));
 const NOSHUF = /nessun|precedent|tutte le|entrambe|nessuna/i;
 function prepare(q) { // mescola le opzioni (tranne "nessuna delle precedenti") così non si impara la posizione
   if (q.gen || q.o.some(o => NOSHUF.test(o)) || /opzion|risposta [1-5]/i.test(q.q)) return Object.assign({}, q);
-  const idx = shuffle([0, 1, 2, 3, 4]);
+  const idx = shuffle([...q.o.keys()]);
   return Object.assign({}, q, { o: idx.map(i => q.o[i]), a: idx.indexOf(q.a - 1) + 1 });
 }
 function pickQuiz(n, { theme, weak, ignoreDue } = {}) {
-  let pool = DATA.quiz;
-  if (weak) { const w = weakThemes().map(e => e[0]); pool = pool.filter(q => w.includes(q.theme)); }
+  let pool = quizPool();
+  if (weak) { const w = poolWeak().map(e => e[0]); pool = pool.filter(q => w.includes(q.theme)); }
   else if (theme) pool = pool.filter(q => q.theme === theme);
   const today = todayStr();
   const scored = pool.map(q => {
     const s = S.qs[q.id]; let sc = s ? (s.due <= today ? 3 + Math.min(s.wrong || 0, 3) * 0.3 : -1) : 1.5;
     if (ignoreDue) sc = s && s.due > today ? 0 : 1;
-    sc += themeWeak(q.theme) * 0.8 + (DATA.pesi[q.theme] || 0) * 1.2 + Math.random();
+    sc += themeWeak(q.theme) * 0.8 + (DATA.pesi[q.theme] ?? 0.4) * 1.2 + Math.random();
     return [sc, q];
   }).sort((a, b) => b[0] - a[0]);
   return scored.slice(0, n).map(x => x[1]);
@@ -1213,9 +1324,10 @@ function pickQuiz(n, { theme, weak, ignoreDue } = {}) {
 function startQuiz(weak, opts = {}) {
   const topic = opts.topic !== undefined ? opts.topic : $('#q-topic').value, mode = opts.mode !== undefined ? opts.mode : $('#q-mode').value, n = opts.n || +$('#q-n').value;
   let list, label = topic || 'tutti i temi';
+  if (!opts.list) label = QM + ' · ' + (topic === '__gen__' ? 'esercizi generati' : (weak ? 'punti deboli' : label));
   if (opts.list) { list = opts.list; label = opts.label || label; }
-  else if (topic === '__gen__') { list = GEN.many(n); label = 'esercizi generati'; }
-  else if (weak) { list = pickQuiz(n, { weak: true }); label = 'punti deboli'; }
+  else if (topic === '__gen__') { list = GEN.many(n, QM); }
+  else if (weak) { list = pickQuiz(n, { weak: true }); }
   else list = pickQuiz(n, { theme: topic, ignoreDue: mode === 'sim' });
   if (!list.length) { toast('Nessuna domanda disponibile per questa scelta'); return; }
   const sim = !opts.list && mode === 'sim';
@@ -1264,13 +1376,13 @@ function answer(k) {
   if (!Q || Q.answered) return; Q.answered = true; const q = Q.list[Q.i]; const ok = k === q.a;
   if (ok) Q.score++; else Q.wrong.push(q);
   bumpTheme(q.theme, ok);
-  if (!q.gen) { const s = S.qs[q.id] || { box: 0, wrong: 0 }; if (ok) { s.box = Math.min(s.box + 1, 4); s.due = addDays(todayStr(), capInterval([1, 3, 7, 14, 30][s.box], 'Matematica discreta')); } else { s.box = 0; s.wrong = (s.wrong || 0) + 1; s.due = todayStr(); } S.qs[q.id] = s; }
+  if (!q.gen) { const s = S.qs[q.id] || { box: 0, wrong: 0 }; if (ok) { s.box = Math.min(s.box + 1, 4); s.due = addDays(todayStr(), capInterval([1, 3, 7, 14, 30][s.box], q.m)); } else { s.box = 0; s.wrong = (s.wrong || 0) + 1; s.due = todayStr(); } S.qs[q.id] = s; }
   mark(); save();
   $('#q-prog').style.setProperty('--p', ((Q.i + 1) / Q.list.length).toFixed(3));
   $('.opts').classList.add('answered');
   $$('.opt').forEach(b => { b.disabled = true; const n = +b.dataset.k; if (Q.fb) { if (n === q.a) b.classList.add('ok'); else if (n === k) b.classList.add('ko'); } else if (n === k) b.classList.add('sel'); });
   if (Q.fb) {
-    $('#q-fbk').innerHTML = `<div class="fold" id="fold"><div class="fold-in"><div class="explain" style="display:grid;gap:10px;padding-top:2px"><div class="note ${ok ? 'ok' : 'bad'}"><strong>${ok ? 'Giusto.' : 'Sbagliato: la risposta è la ' + q.a + '.'}</strong> ${esc(q.s)}${ok ? '' : chapterHint(q.theme)}</div>${q.w ? `<div class="note warn"><strong>Attenzione, possibile errore nella soluzione ufficiale:</strong> ${esc(q.w)}</div>` : ''}</div></div></div>`;
+    $('#q-fbk').innerHTML = `<div class="fold" id="fold"><div class="fold-in"><div class="explain" style="display:grid;gap:10px;padding-top:2px"><div class="note ${ok ? 'ok' : 'bad'}"><strong>${ok ? 'Giusto.' : 'Sbagliato: la risposta è la ' + q.a + '.'}</strong> ${esc(q.s)}${ok ? '' : chapterHint(q.theme, q.m)}</div>${q.w ? `<div class="note warn"><strong>Attenzione, possibile errore nella soluzione ufficiale:</strong> ${esc(q.w)}</div>` : ''}</div></div></div>`;
     raf2(() => { const f = $('#fold'); if (f) f.classList.add('open'); });
     say(ok ? 'Giusto' : 'Sbagliato, la risposta è la ' + q.a);
   } else say('Risposta registrata');
@@ -1289,7 +1401,7 @@ function endQuiz() {
     <p class="res-msg">${msg}</p>
     <p class="res-sub">in ${Math.floor(s / 60)} min ${s % 60} s · ${esc(q0.label)}${q0.sim && answered < n ? ' · ' + (n - answered) + ' senza risposta' : ''}</p>
     <div class="res-actions">${q0.wrong.length && !done ? '<button class="btn soft" id="q-redo">Rifai solo gli errori</button>' : ''}<button class="btn" id="q-again">${done ? 'Concludi la sessione' : 'Un altro quiz'}</button></div>
-    ${q0.wrong.length ? '<div class="review"><h3>Da rivedere</h3>' + q0.wrong.map(q => `<details class="rev"><summary><span>${esc(String(q.q).split('\n')[0])}</span></summary><div class="rev-in"><div class="q-text" style="font-size:1rem">${fmt(q.q)}</div><div class="note ok"><strong>Risposta ${q.a}:</strong> ${esc(q.o[q.a - 1])}</div><p>${esc(q.s)}</p>${chapterHint(q.theme)}${q.w ? '<p><em>Possibile errore nella soluzione ufficiale: ' + esc(q.w) + '</em></p>' : ''}</div></details>`).join('') + '</div>' : '<p class="res-sub">Nessun errore da rivedere.</p>'}</div>`;
+    ${q0.wrong.length ? '<div class="review"><h3>Da rivedere</h3>' + q0.wrong.map(q => `<details class="rev"><summary><span>${esc(String(q.q).split('\n')[0])}</span></summary><div class="rev-in"><div class="q-text" style="font-size:1rem">${fmt(q.q)}</div><div class="note ok"><strong>Risposta ${q.a}:</strong> ${esc(q.o[q.a - 1])}</div><p>${esc(q.s)}</p>${chapterHint(q.theme, q.m)}${q.w ? '<p><em>Possibile errore nella soluzione ufficiale: ' + esc(q.w) + '</em></p>' : ''}</div></details>`).join('') + '</div>' : '<p class="res-sub">Nessun errore da rivedere.</p>'}</div>`;
   animateRings($('#quiz-run')); countUp($('#res-score'), q0.score, 900, v => v + '/' + n);
   $('#q-again').addEventListener('click', () => { $('#quiz-run').hidden = true; $('#quiz-setup').hidden = false; setupQuiz(); if (done) done(); });
   const rd = $('#q-redo'); if (rd) rd.addEventListener('click', () => startQuiz(false, { list: q0.wrong.slice(), label: 'errori da rifare', fb: true }));
@@ -1449,7 +1561,7 @@ function startSession(short) {
   const finishQuiz = () => { setPhase(3); showTab('oggi'); say('Sessione completata'); toast('Sessione completata'); setTimeout(() => { if (!$('#phase').hidden && $$('#phase li.on')[0] && $$('#phase li.on')[0].dataset.p === '3') setPhase(0); }, 4000); };
   const quizPhase = () => {
     setPhase(2); showTab('quiz');
-    const list = pickQuiz(short ? 2 : 6, {}).concat(GEN.many(short ? 1 : 3));
+    const list = pickQuiz(short ? 2 : 6, {}).concat((canGen() ? GEN.many(short ? 1 : 3, QM) : []));
     startQuiz(false, { list, label: 'sessione di oggi', fb: true, onEnd: finishQuiz });
   };
   startCards(short ? 5 : 10, quizPhase);
@@ -1472,7 +1584,7 @@ $('#imp').addEventListener('click', () => {
 document.addEventListener('keydown', e => {
   const tag = (e.target && e.target.tagName) || ''; if (/INPUT|TEXTAREA|SELECT/.test(tag) || e.ctrlKey || e.metaKey || e.altKey || document.querySelector('dialog[open]')) return;
   if (Q && !$('#quiz-run').hidden) {
-    if (/^[1-5]$/.test(e.key) && !Q.answered) { if (+e.key <= Q.list[Q.i].o.length) answer(+e.key); }
+    if (/^[1-8]$/.test(e.key) && !Q.answered) { if (+e.key <= Q.list[Q.i].o.length) answer(+e.key); }
     else if ((e.key === 'Enter' || e.key === ' ') && Q.answered && document.activeElement !== $('#q-next')) { e.preventDefault(); nextQ(); }
   } else if (C && !$('#cards-run').hidden) {
     if ((e.key === 'Enter' || e.key === ' ') && $('#c-show') && !$('#c-show').hidden && document.activeElement !== $('#c-show')) { e.preventDefault(); showCardAnswer(); }
@@ -1485,7 +1597,7 @@ function boot(d) {
   DATA = d;
   $('#agg').textContent = itDate(DATA.oggi);
   if (SERVER) { const m = $('#xfer-p'); if (m) m.textContent = 'I progressi sono salvati anche nel file progressi.json del computer, quindi restano cambiando browser. Qui puoi comunque copiarli a mano.'; }
-  DATA.quiz.forEach(q => { q.theme = themeOf(q.args); });
+  DATA.quiz.forEach(q => { if (!q.theme) q.theme = themeOf(q.args); });
   DATA.problemi.forEach(p => { p.theme = themeOf(p.args); });
   $('#skel').hidden = true; $('#bento').hidden = false;
   let first = (location.hash || '').replace('#', '') || pending;

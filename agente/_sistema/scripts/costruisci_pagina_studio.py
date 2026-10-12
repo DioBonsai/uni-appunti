@@ -204,7 +204,12 @@ def piano():
 
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
-    quiz, probs, cards = parse_quizzes(), parse_problems(), parse_all_cards()
+    mate = parse_quizzes()
+    for q in mate:  # tema = primo tema per priorità tra i tag della domanda
+        q["m"] = "Matematica discreta"
+        q["theme"] = next((t for t in PRIORITA if any(TAG_TEMA.get(x) == t for x in q["args"])), TAG_TEMA.get(q["args"][0], "Altro") if q["args"] else "Altro")
+    from quiz_banche import tutte
+    quiz, probs, cards = tutte(mate), parse_problems(), parse_all_cards()
     avanz, texts = avanzamento()
     mate_txt = texts.get("Matematica discreta", "")
     freq = [[t, q, p, len(re.findall(rx, mate_txt, re.I)) >= 2] for (t, q, p, rx) in FREQ]

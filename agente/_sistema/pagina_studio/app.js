@@ -130,7 +130,8 @@ function capInterval(days, mat) { // a ridosso dell'esame gli intervalli si acco
   return Math.max(1, Math.min(days, Math.floor(left / 3)));
 }
 function bumpTheme(theme, ok) { S.th[theme] = Math.max(0, (S.th[theme] || 0) + (ok ? -0.5 : 1)); }
-function chapterHint(theme) {
+function chapterHint(theme, mat) {
+  if (mat && mat !== 'Matematica discreta') return '';
   const t = DATA.temi[theme];
   if (!t) return '';
   return t.capitoli ? `<p class="hint">Rivedi: Matematica discreta, ${esc(t.capitoli)} del tuo Word.</p>` : '<p class="hint">Tema non ancora nel Word: arriva con le prossime lezioni.</p>';
@@ -302,37 +303,50 @@ function renderStorico() {
 
 /* ---------- Quiz ---------- */
 let Q = null, timer = null;
+const MATS = ['Matematica discreta', 'Algebra lineare', 'Fondamenti Info', 'Programmazione'];
+const SIM = { 'Matematica discreta': { n: 10, min: 30 }, 'Algebra lineare': { n: 10, min: 30 }, 'Fondamenti Info': { n: 9, min: 45 }, 'Programmazione': { n: 10, min: 30 } };
+let QM = (() => { try { const m = localStorage.getItem('quaderno-qmat'); return MATS.includes(m) ? m : MATS[0]; } catch (e) { return MATS[0]; } })();
+const quizPool = () => DATA.quiz.filter(q => q.m === QM);
+const poolWeak = () => { const th = new Set(quizPool().map(q => q.theme)); return weakThemes().filter(e => th.has(e[0])); };
+const canGen = () => GEN.disponibile(QM);
 function setupQuiz() {
-  const counts = {}; DATA.quiz.forEach(q => counts[q.theme] = (counts[q.theme] || 0) + 1);
+  if (!MATS.includes(QM)) QM = MATS[0];
+  const pool = quizPool(), counts = {}; pool.forEach(q => counts[q.theme] = (counts[q.theme] || 0) + 1);
+  $('#mat-pick').innerHTML = MATS.map((m, i) => { const n = DATA.quiz.filter(q => q.m === m).length; return `<button type="button" class="mp" role="radio" aria-checked="${m === QM}" data-m="${esc(m)}" style="--c:var(--s${i})"><span class="mp-n">${esc(m)}</span><span class="mp-c">${n} domande${GEN.disponibile(m) ? ' · + esercizi generati' : ''}</span></button>`; }).join('');
+  $$('#mat-pick .mp').forEach(b => b.addEventListener('click', () => { QM = b.dataset.m; try { localStorage.setItem('quaderno-qmat', QM); } catch (e) {} setupQuiz(); }));
   const cur = $('#q-topic').value;
-  $('#q-topic').innerHTML = '<option value="">Tutti i temi (' + DATA.quiz.length + ' domande)</option><option value="__gen__">Esercizi generati (senza limite)</option>' + Object.keys(counts).sort().map(a => `<option value="${esc(a)}">${esc(a)} (${counts[a]})</option>`).join('');
-  if (cur) $('#q-topic').value = cur;
-  const w = weakThemes().length;
+  $('#q-topic').innerHTML = '<option value="">Tutti i temi (' + pool.length + ' domande)</option>' + (canGen() ? '<option value="__gen__">Esercizi generati (senza limite)</option>' : '') + Object.keys(counts).sort().map(a => `<option value="${esc(a)}">${esc(a)} (${counts[a]})</option>`).join('');
+  if (cur && [...$('#q-topic').options].some(o => o.value === cur)) $('#q-topic').value = cur;
+  const w = poolWeak().length;
   $('#q-weak').hidden = !w;
   $('#pr-weak').disabled = !w;
-  $('#pr-weak-s').textContent = w ? `Solo i temi dove sbagli (${w})` : 'Ancora nessun errore registrato';
+  $('#pr-weak-s').textContent = w ? `Solo i temi dove sbagli (${w})` : 'Ancora nessun errore in questa materia';
+  const sm = SIM[QM]; $('#pr-exam-s').textContent = `${sm.n} domande a tempo, ${sm.min} minuti`;
+  $('#pr-gen').disabled = !canGen(); $('#pr-gen-s').textContent = canGen() ? '10 nuovi, mai gli stessi' : 'Non ancora disponibili per questa materia';
+  $('#pr-fast').disabled = !pool.length;
+  $('#q-sub').textContent = pool.length ? `${QM}: ${pool.length} domande${pool.some(q => /^20\d\d-|^2[345]\d\d-/.test(q.id)) ? ' dalle prove 2024-2026 a 5 risposte' : ''}${canGen() ? ', più esercizi generati senza limite e verificati col computer' : ''}. Le soluzioni ufficiali in PDF hanno qualche errore: dove l'ho trovato lo segnalo.` : `${QM}: nessuna domanda disponibile.`;
   $('#q-min-l').hidden = $('#q-mode').value !== 'sim';
 }
 $('#q-mode').addEventListener('change', () => { $('#q-min-l').hidden = $('#q-mode').value !== 'sim'; });
 $('#pr-fast').addEventListener('click', () => startQuiz(false, { topic: '', n: 5, mode: '1' }));
-$('#pr-exam').addEventListener('click', () => startQuiz(false, { topic: '', n: 10, mode: 'sim', min: 30 }));
+$('#pr-exam').addEventListener('click', () => startQuiz(false, { topic: '', n: SIM[QM].n, mode: 'sim', min: SIM[QM].min }));
 $('#pr-weak').addEventListener('click', () => startQuiz(true, { n: 10, mode: '1' }));
 $('#pr-gen').addEventListener('click', () => startQuiz(false, { topic: '__gen__', n: 10, mode: '1' }));
 const NOSHUF = /nessun|precedent|tutte le|entrambe|nessuna/i;
 function prepare(q) { // mescola le opzioni (tranne "nessuna delle precedenti") così non si impara la posizione
   if (q.gen || q.o.some(o => NOSHUF.test(o)) || /opzion|risposta [1-5]/i.test(q.q)) return Object.assign({}, q);
-  const idx = shuffle([0, 1, 2, 3, 4]);
+  const idx = shuffle([...q.o.keys()]);
   return Object.assign({}, q, { o: idx.map(i => q.o[i]), a: idx.indexOf(q.a - 1) + 1 });
 }
 function pickQuiz(n, { theme, weak, ignoreDue } = {}) {
-  let pool = DATA.quiz;
-  if (weak) { const w = weakThemes().map(e => e[0]); pool = pool.filter(q => w.includes(q.theme)); }
+  let pool = quizPool();
+  if (weak) { const w = poolWeak().map(e => e[0]); pool = pool.filter(q => w.includes(q.theme)); }
   else if (theme) pool = pool.filter(q => q.theme === theme);
   const today = todayStr();
   const scored = pool.map(q => {
     const s = S.qs[q.id]; let sc = s ? (s.due <= today ? 3 + Math.min(s.wrong || 0, 3) * 0.3 : -1) : 1.5;
     if (ignoreDue) sc = s && s.due > today ? 0 : 1;
-    sc += themeWeak(q.theme) * 0.8 + (DATA.pesi[q.theme] || 0) * 1.2 + Math.random();
+    sc += themeWeak(q.theme) * 0.8 + (DATA.pesi[q.theme] ?? 0.4) * 1.2 + Math.random();
     return [sc, q];
   }).sort((a, b) => b[0] - a[0]);
   return scored.slice(0, n).map(x => x[1]);
@@ -340,9 +354,10 @@ function pickQuiz(n, { theme, weak, ignoreDue } = {}) {
 function startQuiz(weak, opts = {}) {
   const topic = opts.topic !== undefined ? opts.topic : $('#q-topic').value, mode = opts.mode !== undefined ? opts.mode : $('#q-mode').value, n = opts.n || +$('#q-n').value;
   let list, label = topic || 'tutti i temi';
+  if (!opts.list) label = QM + ' · ' + (topic === '__gen__' ? 'esercizi generati' : (weak ? 'punti deboli' : label));
   if (opts.list) { list = opts.list; label = opts.label || label; }
-  else if (topic === '__gen__') { list = GEN.many(n); label = 'esercizi generati'; }
-  else if (weak) { list = pickQuiz(n, { weak: true }); label = 'punti deboli'; }
+  else if (topic === '__gen__') { list = GEN.many(n, QM); }
+  else if (weak) { list = pickQuiz(n, { weak: true }); }
   else list = pickQuiz(n, { theme: topic, ignoreDue: mode === 'sim' });
   if (!list.length) { toast('Nessuna domanda disponibile per questa scelta'); return; }
   const sim = !opts.list && mode === 'sim';
@@ -391,13 +406,13 @@ function answer(k) {
   if (!Q || Q.answered) return; Q.answered = true; const q = Q.list[Q.i]; const ok = k === q.a;
   if (ok) Q.score++; else Q.wrong.push(q);
   bumpTheme(q.theme, ok);
-  if (!q.gen) { const s = S.qs[q.id] || { box: 0, wrong: 0 }; if (ok) { s.box = Math.min(s.box + 1, 4); s.due = addDays(todayStr(), capInterval([1, 3, 7, 14, 30][s.box], 'Matematica discreta')); } else { s.box = 0; s.wrong = (s.wrong || 0) + 1; s.due = todayStr(); } S.qs[q.id] = s; }
+  if (!q.gen) { const s = S.qs[q.id] || { box: 0, wrong: 0 }; if (ok) { s.box = Math.min(s.box + 1, 4); s.due = addDays(todayStr(), capInterval([1, 3, 7, 14, 30][s.box], q.m)); } else { s.box = 0; s.wrong = (s.wrong || 0) + 1; s.due = todayStr(); } S.qs[q.id] = s; }
   mark(); save();
   $('#q-prog').style.setProperty('--p', ((Q.i + 1) / Q.list.length).toFixed(3));
   $('.opts').classList.add('answered');
   $$('.opt').forEach(b => { b.disabled = true; const n = +b.dataset.k; if (Q.fb) { if (n === q.a) b.classList.add('ok'); else if (n === k) b.classList.add('ko'); } else if (n === k) b.classList.add('sel'); });
   if (Q.fb) {
-    $('#q-fbk').innerHTML = `<div class="fold" id="fold"><div class="fold-in"><div class="explain" style="display:grid;gap:10px;padding-top:2px"><div class="note ${ok ? 'ok' : 'bad'}"><strong>${ok ? 'Giusto.' : 'Sbagliato: la risposta è la ' + q.a + '.'}</strong> ${esc(q.s)}${ok ? '' : chapterHint(q.theme)}</div>${q.w ? `<div class="note warn"><strong>Attenzione, possibile errore nella soluzione ufficiale:</strong> ${esc(q.w)}</div>` : ''}</div></div></div>`;
+    $('#q-fbk').innerHTML = `<div class="fold" id="fold"><div class="fold-in"><div class="explain" style="display:grid;gap:10px;padding-top:2px"><div class="note ${ok ? 'ok' : 'bad'}"><strong>${ok ? 'Giusto.' : 'Sbagliato: la risposta è la ' + q.a + '.'}</strong> ${esc(q.s)}${ok ? '' : chapterHint(q.theme, q.m)}</div>${q.w ? `<div class="note warn"><strong>Attenzione, possibile errore nella soluzione ufficiale:</strong> ${esc(q.w)}</div>` : ''}</div></div></div>`;
     raf2(() => { const f = $('#fold'); if (f) f.classList.add('open'); });
     say(ok ? 'Giusto' : 'Sbagliato, la risposta è la ' + q.a);
   } else say('Risposta registrata');
@@ -416,7 +431,7 @@ function endQuiz() {
     <p class="res-msg">${msg}</p>
     <p class="res-sub">in ${Math.floor(s / 60)} min ${s % 60} s · ${esc(q0.label)}${q0.sim && answered < n ? ' · ' + (n - answered) + ' senza risposta' : ''}</p>
     <div class="res-actions">${q0.wrong.length && !done ? '<button class="btn soft" id="q-redo">Rifai solo gli errori</button>' : ''}<button class="btn" id="q-again">${done ? 'Concludi la sessione' : 'Un altro quiz'}</button></div>
-    ${q0.wrong.length ? '<div class="review"><h3>Da rivedere</h3>' + q0.wrong.map(q => `<details class="rev"><summary><span>${esc(String(q.q).split('\n')[0])}</span></summary><div class="rev-in"><div class="q-text" style="font-size:1rem">${fmt(q.q)}</div><div class="note ok"><strong>Risposta ${q.a}:</strong> ${esc(q.o[q.a - 1])}</div><p>${esc(q.s)}</p>${chapterHint(q.theme)}${q.w ? '<p><em>Possibile errore nella soluzione ufficiale: ' + esc(q.w) + '</em></p>' : ''}</div></details>`).join('') + '</div>' : '<p class="res-sub">Nessun errore da rivedere.</p>'}</div>`;
+    ${q0.wrong.length ? '<div class="review"><h3>Da rivedere</h3>' + q0.wrong.map(q => `<details class="rev"><summary><span>${esc(String(q.q).split('\n')[0])}</span></summary><div class="rev-in"><div class="q-text" style="font-size:1rem">${fmt(q.q)}</div><div class="note ok"><strong>Risposta ${q.a}:</strong> ${esc(q.o[q.a - 1])}</div><p>${esc(q.s)}</p>${chapterHint(q.theme, q.m)}${q.w ? '<p><em>Possibile errore nella soluzione ufficiale: ' + esc(q.w) + '</em></p>' : ''}</div></details>`).join('') + '</div>' : '<p class="res-sub">Nessun errore da rivedere.</p>'}</div>`;
   animateRings($('#quiz-run')); countUp($('#res-score'), q0.score, 900, v => v + '/' + n);
   $('#q-again').addEventListener('click', () => { $('#quiz-run').hidden = true; $('#quiz-setup').hidden = false; setupQuiz(); if (done) done(); });
   const rd = $('#q-redo'); if (rd) rd.addEventListener('click', () => startQuiz(false, { list: q0.wrong.slice(), label: 'errori da rifare', fb: true }));
@@ -576,7 +591,7 @@ function startSession(short) {
   const finishQuiz = () => { setPhase(3); showTab('oggi'); say('Sessione completata'); toast('Sessione completata'); setTimeout(() => { if (!$('#phase').hidden && $$('#phase li.on')[0] && $$('#phase li.on')[0].dataset.p === '3') setPhase(0); }, 4000); };
   const quizPhase = () => {
     setPhase(2); showTab('quiz');
-    const list = pickQuiz(short ? 2 : 6, {}).concat(GEN.many(short ? 1 : 3));
+    const list = pickQuiz(short ? 2 : 6, {}).concat((canGen() ? GEN.many(short ? 1 : 3, QM) : []));
     startQuiz(false, { list, label: 'sessione di oggi', fb: true, onEnd: finishQuiz });
   };
   startCards(short ? 5 : 10, quizPhase);
@@ -599,7 +614,7 @@ $('#imp').addEventListener('click', () => {
 document.addEventListener('keydown', e => {
   const tag = (e.target && e.target.tagName) || ''; if (/INPUT|TEXTAREA|SELECT/.test(tag) || e.ctrlKey || e.metaKey || e.altKey || document.querySelector('dialog[open]')) return;
   if (Q && !$('#quiz-run').hidden) {
-    if (/^[1-5]$/.test(e.key) && !Q.answered) { if (+e.key <= Q.list[Q.i].o.length) answer(+e.key); }
+    if (/^[1-8]$/.test(e.key) && !Q.answered) { if (+e.key <= Q.list[Q.i].o.length) answer(+e.key); }
     else if ((e.key === 'Enter' || e.key === ' ') && Q.answered && document.activeElement !== $('#q-next')) { e.preventDefault(); nextQ(); }
   } else if (C && !$('#cards-run').hidden) {
     if ((e.key === 'Enter' || e.key === ' ') && $('#c-show') && !$('#c-show').hidden && document.activeElement !== $('#c-show')) { e.preventDefault(); showCardAnswer(); }
@@ -612,7 +627,7 @@ function boot(d) {
   DATA = d;
   $('#agg').textContent = itDate(DATA.oggi);
   if (SERVER) { const m = $('#xfer-p'); if (m) m.textContent = 'I progressi sono salvati anche nel file progressi.json del computer, quindi restano cambiando browser. Qui puoi comunque copiarli a mano.'; }
-  DATA.quiz.forEach(q => { q.theme = themeOf(q.args); });
+  DATA.quiz.forEach(q => { if (!q.theme) q.theme = themeOf(q.args); });
   DATA.problemi.forEach(p => { p.theme = themeOf(p.args); });
   $('#skel').hidden = true; $('#bento').hidden = false;
   let first = (location.hash || '').replace('#', '') || pending;
