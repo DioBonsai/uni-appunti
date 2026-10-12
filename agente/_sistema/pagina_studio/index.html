@@ -1232,7 +1232,7 @@ function renderHero() {
   $('#sessione-card').innerHTML = `
     <div class="greet"><span class="hand">${greeting()} Emanuele</span><span class="date">${esc(dl)}</span></div>
     <div class="hero-main">
-      ${ring(pct, 150, 12, { cls: perc >= 100 ? 'ok' : '', label: `Capitoli studiati in totale: ${done} su ${allc}, ${perc}%`, center: `<b data-count="${perc}" data-suffix="%">0%</b><span>${done} di ${allc} capitoli studiati</span>` })}
+      ${ring(pct, 150, 12, { cls: perc >= 100 ? 'ok' : '', label: `Capitoli studiati in totale: ${done} su ${allc}, ${perc}%`, center: `<b data-count="${perc}" data-suffix="%">0%</b><span>${done} di ${allc}<br>capitoli studiati</span>` })}
       <div class="stats">
         <div class="stat"><span class="v mono" data-count="${nc}">0</span><span class="k">schede da ripassare</span></div>
         <div class="stat"><span class="v mono" data-count="${nq}">0</span><span class="k">domande da rivedere</span></div>
