@@ -9,6 +9,7 @@ Il Word ha 9 capitoli (aggiunti 7-9 l'8 ott). Prossima numerazione: **10**.
 | L1 | 30 set | Vettori/mappe lineari, insiemi numerici, campi | ✅ cap. 1-2 | appunti, nota, audio, dispense cap.1 |
 | L2 | 5 ott | Complessi: forma algebrica, campo, coniugato/modulo/inverso, piano di Argand | ✅ cap. 3-6 | appunti (foto quaderno), audio 2A/2B, dispense cap.2 |
 | L3 | 7 ott | Coordinate polari, e^{iθ}, prodotto, inverso, potenze, radici n-esime | ✅ cap. 7-9 | appunti, scheda, dispense cap.3 (audio non presente) |
+| L4 | 12 ott | Polinomi: monomi, grado, ℝ[x]/ℂ[x]/ℝₖ[x], divisione con resto, radici e molteplicità, al più n radici (induzione), discriminante, teorema fondamentale dell'algebra | ⬜ in attesa degli appunti | audio 4A/4B trascritti (84 min), dispense cap.4 |
 Dispense: 26 lezioni; prossime L4 Polinomi, L5-7 Spazi vettoriali.
 
 ## Matematica discreta (Mori) – `Riassunto Matematica discreta.docx`
