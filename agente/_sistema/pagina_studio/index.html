@@ -631,10 +631,10 @@ details[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
           <article class="card" aria-labelledby="h-weak"><h2 id="h-weak">Temi da rivedere</h2><div id="deboli"></div></article>
           <article class="card" aria-labelledby="h-hist"><h2 id="h-hist">Ultime prove</h2><div id="storico"></div></article>
         </div>
-        <article class="card b-freq" aria-labelledby="h-freq">
-          <div class="sec-head tight"><h2 id="h-freq">Cosa chiede l'esame</h2><p class="muted">Matematica discreta, 15 prove (150 quiz e 30 problemi, 2024-2026). Più la barra è lunga, più il tema ricorre.</p></div>
-          <div class="freq" id="freq"></div>
-        </article>
+        <details class="card plan b-freq" id="freq-card"><summary><span class="hand">Cosa chiede l'esame</span><span class="sum-hint">tocca per aprire o chiudere</span></summary>
+          <div class="plan-body"><p class="muted">Matematica discreta, 15 prove (150 quiz e 30 problemi, 2024-2026). Più la barra è lunga, più il tema ricorre.</p>
+          <div class="freq" id="freq"></div></div>
+        </details>
         <details class="card plan b-plan" id="piano-card" hidden><summary><span class="hand">Piano di oggi</span><span class="sum-hint">tocca per aprire o chiudere</span></summary><div id="piano" class="plan-body"></div></details>
       </div>
     </section>
@@ -1676,5 +1676,8 @@ $('#reset-btn').addEventListener('click', () => {
   delete b.dataset.sure; b.textContent = 'Azzera tutti i progressi';
   S = newState(); fixS(); save(); renderOggi(); toast('Progressi azzerati');
 });
+
+/* le barre dentro l'elenco ripiegabile partono quando lo apri (l'osservatore non scatta sugli elementi nascosti) */
+$('#freq-card').addEventListener('toggle', () => { if ($('#freq-card').open) requestAnimationFrame(() => $$('#freq .fr').forEach((el, i) => setTimeout(() => el.classList.add('in'), i * 40))); });
 
 </script>

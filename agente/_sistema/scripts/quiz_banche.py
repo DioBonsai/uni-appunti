@@ -29,6 +29,43 @@ TEMI_MAT = {"insiemi": "Insiemi", "appartenenza-inclusione": "Insiemi", "operazi
             "funzioni": "Funzioni", "iniettiva-suriettiva-inversa": "Funzioni", "composizione": "Funzioni"}
 
 
+MESI = {"Gen": "gennaio", "Feb": "febbraio", "Mar": "marzo", "Apr": "aprile", "Mag": "maggio", "Giu": "giugno", "Lug": "luglio", "Ago": "agosto", "Set": "settembre", "Ott": "ottobre", "Nov": "novembre", "Dic": "dicembre"}
+LEZIONI_IT = [("Bits and their storage (flip-flops)", "I bit e la loro memorizzazione (flip-flop)"), ("Bits and their storage", "I bit e la loro memorizzazione"),
+              ("Hexadecimal Notation", "Notazione esadecimale"), ("Main Memory", "Memoria principale"), ("Mass Storage", "Memoria di massa"),
+              ("The Binary System", "Il sistema binario"), ("Storing Integers", "Memorizzare gli interi"), ("Eccess Notation", "Notazione in eccesso"),
+              ("floating point notation", "Notazione in virgola mobile"), ("Compression and Comunication Errors", "Compressione ed errori di comunicazione")]
+RIPULISCI = re.compile(r"\s*\((?:circuiti e rappresentazione binaria|logica proposizionale e quantificatori|prove con quantificatori|sequenze e relazioni|logica sequenziale, automi, grammatiche|esami \d{4}|simulazioni d'esame 2023)\)?|\s*\(risposta sì/no\)|\s*\(copia\)|\s*\(SENZA VALORE LEGALE\)", re.I)
+
+
+def titolo_it(t):
+    """Titoli dei quiz del sito in italiano, brevi e leggibili (niente inglese né diciture burocratiche)."""
+    t = RIPULISCI.sub("", t).strip()
+    m = re.match(r"(\d{4})(Gen|Feb|Mar|Apr|Mag|Giu|Lug|Ago|Set|Ott|Nov|Dic)(\d{2})\b.*?Turno ?(\w+)", t)
+    if m:
+        turno = "turno unico" if m.group(4).lower() == "unico" else "turno " + m.group(4)
+        return f"Esame del {int(m.group(3))} {MESI[m.group(2)]} {m.group(1)} ({turno})"
+    m = re.match(r"TURNO ([IVX]+) (\d\d)/(\d\d)/(\d\d)", t)
+    if m:
+        return f"Prova del {m.group(2)}/{m.group(3)}/20{m.group(4)} (turno {m.group(1)})"
+    m = re.match(r"Simulazione (\d)", t)
+    if m:
+        return f"Simulazione d'esame {m.group(1)}"
+    for en, it in LEZIONI_IT:
+        t = t.replace(en, it)
+    t = re.sub(r"\s*\bQuiz$", "", t)
+    return re.sub(r"\s+", " ", t).strip(" .")
+
+
+_EN = re.compile(r"\b(the|of|and|is|are|which|following|consider|given|assume|choose|that|with|from|this|these|be|then|an)\b", re.I)
+_IT = re.compile(r"\b(il|lo|la|le|gli|di|del|della|che|con|per|una|nel|nella|quale|quali|è|sono|come|dei|delle|se|allora|si)\b", re.I)
+
+
+def inglese(t):
+    """True se il testo è scritto (quasi) solo in inglese."""
+    e, i = len(_EN.findall(t)), len(_IT.findall(t))
+    return e >= 4 and e > 3 * i
+
+
 def parse_numbered(path, materia, temi, prefix_prova):
     """Formato '## [id] argomenti: tag' + testo + '1. ' ... '5. ' + RISPOSTA + SPIEGAZIONE (+ ATTENZIONE)."""
     out = []
@@ -37,7 +74,7 @@ def parse_numbered(path, materia, temi, prefix_prova):
     prova = prefix_prova
     for blk in re.split(r"(?m)^(?=#{1,2} )", path.read_text(encoding="utf-8")):
         if blk.startswith("# "):
-            prova = blk.splitlines()[0][2:].strip() or prefix_prova
+            prova = prefix_prova if path.name.startswith("banca_") else (blk.splitlines()[0][2:].strip() or prefix_prova)
             continue
         if not blk.startswith("## ["):
             continue
@@ -72,7 +109,7 @@ def solo_it(s):
 
 FIG = re.compile(r"qui sopra|qui sotto|\bsopra\b|seguente circuito|nella figura|in figura|figura|immagine|diagramma|automa (qui|seguente)|tabella (qui|seguente)|seguente (tabella|automa)", re.I)
 TEMI_FOND = [  # (tema, espressione): il primo che corrisponde vince
-    ("Automi e grammatiche", re.compile(r"automa|grammatica|linguaggio|regolare|derivazion|macchina di turing", re.I)),
+    ("Automi e grammatiche", re.compile(r"automa|grammatica|linguaggi|linguaggio|regolare|derivazion|macchina di turing|stati finiti", re.I)),
     ("Logica e dimostrazioni", re.compile(r"logic|implica|quantific|∀|∃|inferenza|tautolog|proposizion|equivalen|valid[ao]|dimostr|induzion|invarian", re.I)),
     ("Rappresentazione binaria", re.compile(r"binar|\bbit\b|complemento|floating|virgola|ottal|esadecim|\bbyte|ascii|unicode|eccesso|mantissa|compress|hamming|parit", re.I)),
     ("Circuiti e memoria", re.compile(r"circuit|porta|nand|\bnor\b|xor|flip|memoria|disco|\bram\b|cache|ssd|\bcd\b|dvd|nastro", re.I)),
@@ -112,7 +149,7 @@ def parse_fondamenti():
             continue
         testo = solo_it("\n".join(pre[:first]).strip())
         opts = [solo_it(re.sub(r"^- ([a-z]\.\s)?", "", l).strip()) for l in pre[first:] if l.startswith("- ")]
-        if len(opts) < 2 or FIG.search(testo) or any(FIG.search(o) for o in opts) or len(set(opts)) != len(opts):
+        if len(opts) < 2 or FIG.search(testo) or any(FIG.search(o) for o in opts) or len(set(opts)) != len(opts) or inglese(testo):
             continue
         hit = [i for i, o in enumerate(opts) if _norm(o) == _norm(solo_it(risp.group(1)))]
         if len(hit) != 1:
@@ -121,7 +158,7 @@ def parse_fondamenti():
         s = re.sub(r"\\\(|\\\)", "", s)
         if s.startswith("(nessuna"):
             s = ""
-        out.append(dict(id=qid, m="Fondamenti Info", theme=tema_fondamenti(testo + " " + " ".join(opts), arg), prova=re.sub(r"\s*\(risposta sì/no\)|\s*Quiz$", "", quiz).strip(), args=[arg.split("(")[0].strip()],
+        out.append(dict(id=qid, m="Fondamenti Info", theme=tema_fondamenti(testo + " " + " ".join(opts), arg), prova=titolo_it(quiz), args=[arg.split("(")[0].strip()],
                         q=re.sub(r"\\\(|\\\)", "", testo), o=opts, a=hit[0] + 1, s=s or "Nessuna spiegazione sul sito: la risposta corretta è «" + opts[hit[0]] + "».", w=""))
     return out
 

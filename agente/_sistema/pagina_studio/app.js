@@ -649,3 +649,6 @@ $('#reset-btn').addEventListener('click', () => {
   delete b.dataset.sure; b.textContent = 'Azzera tutti i progressi';
   S = newState(); fixS(); save(); renderOggi(); toast('Progressi azzerati');
 });
+
+/* le barre dentro l'elenco ripiegabile partono quando lo apri (l'osservatore non scatta sugli elementi nascosti) */
+$('#freq-card').addEventListener('toggle', () => { if ($('#freq-card').open) requestAnimationFrame(() => $$('#freq .fr').forEach((el, i) => setTimeout(() => el.classList.add('in'), i * 40))); });

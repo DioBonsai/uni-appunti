@@ -160,7 +160,7 @@ def parse_all_cards():
                 if cid in seen:
                     continue
                 seen.add(cid)
-                out.append(dict(id=cid, m=mat, t=t, d=q, r=a, lungo=len(a) > 400))
+                out.append(dict(id=cid, m=mat, t=t, d=q, r=a, lungo=len(a) > 400, da_quiz=p.name.endswith(".quiz.md")))
     return out
 
 
@@ -271,12 +271,13 @@ def main():
             nascoste.setdefault(q["m"], {}).setdefault(q["theme"], 0)
             nascoste[q["m"]][q["theme"]] += 1
     quiz = visibili
-    from quiz_banche import tema_fondamenti, solo_it
-    for c in cards:   # i quiz del sito sono bilingui: tengo l'italiano
+    from quiz_banche import tema_fondamenti, solo_it, titolo_it, inglese
+    for c in cards:   # i quiz del sito sono bilingui: tengo l'italiano, titoli puliti
         if c["m"] == "Fondamenti Info":
-            c["d"], c["r"], c["t"] = solo_it(c["d"]), solo_it(c["r"]), solo_it(c["t"])
+            c["d"], c["r"], c["t"] = solo_it(c["d"]), solo_it(c["r"]), titolo_it(solo_it(c["t"]))
+    cards = [c for c in cards if not inglese(c["d"] + " " + c["r"])]   # solo italiano: via le schede scritte solo in inglese
     n_cards = len(cards)   # schede ricavate dai quiz del sito di Fondamenti: tolte quelle su argomenti non ancora trattati
-    cards = [c for c in cards if not (c["m"] == "Fondamenti Info" and c["lungo"]) or cop.get((c["m"], tema_fondamenti(c["d"] + " " + c["r"], c["t"])), 0) >= 3]
+    cards = [c for c in cards if not (c["m"] == "Fondamenti Info" and c["da_quiz"]) or cop.get((c["m"], tema_fondamenti(c["d"] + " " + c["r"], c["t"])), 0) >= 3]
     print(f"  schede: {len(cards)} (nascoste {n_cards - len(cards)} su argomenti non ancora trattati)")
     coperti = {m: sorted(t for (mm, t), n in cop.items() if mm == m and n >= 3) for m in WORD}
     if "--diff" in sys.argv:
