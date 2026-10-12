@@ -152,7 +152,7 @@ def chapters(path):
     for p in doc.paragraphs:
         txt = p.text.strip()
         text.append(txt)
-        if p.style.name.lower().startswith(("heading 1", "titolo 1")):
+        if txt and p.style.name.lower().startswith(("heading 1", "titolo 1")):   # ignora titoli vuoti
             m = re.match(r"(?:Capitolo\s+)?(\d+)[.:]?\s*(.*)", txt)
             cur = [int(m.group(1)) if m else len(chs) + 1, (m.group(2) if m else txt), 0, 0]
             chs.append(cur)

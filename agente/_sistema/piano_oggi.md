@@ -1,25 +1,19 @@
-# Piano di ripasso — 2026-10-12
+# Piano di ripasso — 2026-10-12 (per domani, martedì 13 ottobre)
 
-⚠ **Attenzione prima di tutto**: le cartelle delle materie (`Algebra lineare/`, `Matematica discreta/`, `Fondamenti Info/`, `Programmazione/`) non ci sono più in `UNI\`: i Word sono ora file sciolti nella cartella `UNI\` (es. `Riassunto Algebra lineare.docx`), e le dispense PDF (Algebra, slide Programmazione) risultano cancellate dal repo. Il contenuto dei Word è lo stesso (stesso hash) tranne Matematica discreta, che ha **32 nuove evidenziazioni gialle** non ancora salvate con un commit (bene: segno che hai studiato altro, ma va verificato). Gli script (`aggiungi_capitolo.py`, `verifica_word.py`, `backup_onedrive.py`) puntano ancora ai vecchi percorsi con sottocartella: finché non confermi se questo spostamento è voluto, i prossimi `/riassunto` potrebbero fallire o scrivere nel posto sbagliato. Prima di lanciare un nuovo `/riassunto`, conferma con Emanuele dove devono stare i Word e fai `git add -A && git commit` per mettere in sicurezza lo stato attuale (compresi i cap. già scritti il 9 ott, non ancora committati... verificare).
+Date d'esame non ancora note (né su Moodle né inserite nel Quaderno): priorità per rotazione e per peso all'esame.
 
-Date d'esame non ancora note (Moodle oggi ha fatto login correttamente, 0 novità). Priorità basata su rotazione (8 ott Mate discreta, 9 ott Fondamenti, 10 ott Programmazione → oggi tocca Algebra lineare) e su capitoli non ancora studiati.
+## Oggi
+**Resoconto di oggi**: hai sottolineato Fondamenti Info cap. 6 «Codifica e rappresentazione dei dati» (+18 paragrafi) e cap. 7 «Il sistema numerico binario e aritmetica» (+8), dopo il cap. 5 (16 paragrafi). Con questi **Fondamenti Info è tutto studiato (11 capitoli su 11)**. Restano da studiare: Matematica discreta 14 capitoli su 19 (cap. 4-5, 8-19), Programmazione 5 su 12 (cap. 5, 9-12), Algebra lineare 9 su 9. Dal Quaderno: nessun dato (progressi azzerati stamattina; nessuna scheda, quiz o problema fatto).
 
-## Oggi (max 90', 3 blocchi da 30')
+**Blocco 1 (30') — Matematica discreta, cap. 8 «Relazioni binarie, proprietà fondamentali e relazioni di equivalenza»** (e, se avanza tempo, cap. 9 «Classi di equivalenza, teorema fondamentale e concetto insiemistico di funzione»). File: `Riassunto Matematica discreta.docx`. Sono la base dei cap. 10-19 sulle funzioni (33 quiz su 150 nelle prove passate); sottolinea man mano.
 
-**Blocco 1 (30') — Algebra lineare, cap. 1 "Numeri reali: vettori, campi"**
-File: `Riassunto Algebra lineare.docx` (ex `Algebra lineare/Riassunto Algebra lineare.docx`). Nessun capitolo di Algebra è ancora evidenziato (cap. 1-9 tutti da studiare): si parte dal cap. 1.
+**Blocco 2 (30') — Fondamenti Info nel Quaderno**: tab Quiz, materia Fondamenti Info, tema «Rappresentazione binaria» (26 domande + esercizi generati su conversioni e complemento a due), poi 15 schede (tab Schede). Hai appena studiato i cap. 5-7: è il momento giusto per fissarli.
 
-**Blocco 2 (30') — Matematica discreta: prima simulazione, `/esame quiz` su funzioni e appartenenza/inclusione**
-`errori.md` è ancora vuoto: non hai mai fatto una simulazione. Tra gli argomenti già nel Word, "funzioni, composizione, iniettiva/suriettiva" (33 domande nei quiz passati) e "appartenenza e inclusione" (17 domande) sono i più frequenti all'esame (vedi `MAPPA_ESAMI.md`): a parità di materiale già pronto, sono quelli con più punti attesi.
-
-**Blocco 3 (30') — Preparazione Algebra lineare L4 "Polinomi"**
-Le dispense sono pronte da giorni (vedi `COPERTURA.md`), manca solo l'ok per `/riassunto algebra 4`. Rileggi le fonti e segna i macro-argomenti da proporre, così il prossimo riassunto parte subito dopo il tuo ok — a patto di aver chiarito prima il punto sulle cartelle qui sopra.
+**Blocco 3 (30') — Programmazione, cap. 5 «Dal linguaggio macchina al C e la filiera di compilazione»** (38 paragrafi), il primo capitolo di Programmazione non ancora sottolineato; poi, quando vuoi, i cap. 9-12 (referenziamento, scanf, puntatori).
 
 ## Da tenere aggiornato
-- **Struttura cartelle**: vedi avviso in cima — da chiarire con Emanuele prima di altri `/riassunto`.
-- **Lezioni senza riassunto**: Algebra L4-L26 (L4 Polinomi pronta, manca l'ok); Mate discreta oltre L5 (prossima quando esce); Fondamenti oltre il cap. 1 del libro (servono le lezioni 07-35 del programma reale, vedi `COPERTURA.md`); Programmazione Lab02 (non ancora uscito).
-- **Audio da trascrivere**: nessuno — i 21 audio in `_sistema/audio` hanno tutti la trascrizione corrispondente in `_sistema/trascrizioni`.
-- **Novità Moodle**: controllo tornato a funzionare oggi (login ok, 0 novità) dopo 3 giorni di sessione scaduta. Restano aperti da prima: link Webex "Lezione 3: Numeri Complessi, II" di Algebra che punta a una registrazione 2025 (da verificare col docente) e le registrazioni Webex di Fondamenti non ancora scaricate. Ancora nessuna data d'esame pubblicata.
-- **Task automatici fermi**: nessuno al momento — `moodle-controllo-giornaliero` ha ripreso a funzionare oggi.
-
-Piano pronto: Algebra lineare
+- **Lezioni senza riassunto**: Algebra lineare L4 «Polinomi» (materiale pronto, manca il tuo ok per `/riassunto algebra 4`); Matematica discreta oltre la L5; Fondamenti Info lezioni 07-35 del programma (logica, induzione, automi: vedi COPERTURA.md); Programmazione Lab02 (non ancora uscito).
+- **Audio da trascrivere**: nessuno (tutti gli audio in `_sistema/audio` hanno la trascrizione).
+- **Novità Moodle**: ultimo controllo il 12 ott alle 08:12, nessuna novità. Restano aperti il link Webex «Lezione 3: Numeri Complessi, II» di Algebra (punta a una registrazione 2025) e le registrazioni Webex di Fondamenti non scaricate.
+- **Task automatici**: `moodle-controllo-giornaliero` e `piano-ripasso-giornaliero` attivi.
+- **Quaderno aggiornato**: 314 domande (Mate 150, Fondamenti 84, Algebra 40, Programmazione 40), 30 problemi, 429 schede; avanzamento: Algebra 0/9, Mate 5/19, Fondamenti 11/11, Programmazione 7/12 capitoli.
