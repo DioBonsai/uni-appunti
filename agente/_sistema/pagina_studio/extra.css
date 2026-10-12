@@ -176,7 +176,7 @@ details[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
 .bento { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
 .b-hero, .b-streak, .b-exams, .b-subj, .b-side, .b-freq, .b-plan { min-width: 0; }
 @media (min-width: 960px) {
-  .bento { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; grid-template-areas: "hero hero hero hero hero hero hero hero streak streak streak streak" "exams exams exams exams exams exams exams exams exams exams exams exams" "subj subj subj subj subj subj subj subj subj subj subj subj" "freq freq freq freq freq freq freq side side side side side" "plan plan plan plan plan plan plan plan plan plan plan plan"; }
+  .bento { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; grid-template-areas: "hero hero hero hero hero hero hero hero hero hero hero hero" "exams exams exams exams exams exams exams exams exams exams exams exams" "subj subj subj subj subj subj subj subj subj subj subj subj" "freq freq freq freq freq freq freq side side side side side" "plan plan plan plan plan plan plan plan plan plan plan plan"; }
   .b-hero { grid-area: hero; } .b-streak { grid-area: streak; } .b-exams { grid-area: exams; } .b-subj { grid-area: subj; } .b-freq { grid-area: freq; } .b-side { grid-area: side; } .b-plan { grid-area: plan; }
 }
 .b-side { display: grid; gap: 16px; align-content: start; }

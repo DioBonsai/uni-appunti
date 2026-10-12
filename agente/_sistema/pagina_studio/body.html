@@ -40,11 +40,10 @@
     <!-- OGGI -->
     <section id="tab-oggi" class="view" role="tabpanel" aria-label="Oggi" aria-labelledby="t-oggi">
       <div class="bento skel-wrap" id="skel" aria-hidden="true">
-        <div class="sk sk-hero"></div><div class="sk sk-side"></div><div class="sk sk-wide"></div><div class="sk sk-wide2"></div>
+        <div class="sk sk-hero"></div><div class="sk sk-wide"></div><div class="sk sk-wide2"></div>
       </div>
       <div class="bento" id="bento" hidden>
         <article class="card b-hero" id="sessione-card"></article>
-        <article class="card b-streak" id="serie-card"></article>
         <section class="b-exams" aria-labelledby="h-exams">
           <div class="sec-head"><h2 id="h-exams">Esami</h2><p class="muted">Con la data, gli intervalli di ripasso si accorciano per arrivare pronto.</p></div>
           <div class="exam-row" id="exams"></div>
@@ -143,6 +142,10 @@
         <div class="row"><button type="button" class="btn ghost small" id="exp">Mostra / copia</button><button type="button" class="btn ghost small" id="imp">Importa dal testo</button></div>
         <textarea id="xfer" aria-label="Progressi" hidden spellcheck="false"></textarea>
         <p class="hint" id="xfer-msg" aria-live="polite"></p>
+      </div>
+      <div class="field"><h3>Ricomincia da zero</h3>
+        <p class="muted">Cancella schede, domande, problemi, errori e date d'esame salvati (da questo browser e dal file progressi.json). Serve se i dati sono di prova.</p>
+        <div class="row"><button type="button" class="btn ghost small" id="reset-btn">Azzera tutti i progressi</button></div>
       </div>
       <p class="hint">Dati aggiornati al <span id="agg"></span>.</p>
     </form>

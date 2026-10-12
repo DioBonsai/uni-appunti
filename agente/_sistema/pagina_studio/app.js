@@ -182,7 +182,7 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => move
 const dueCards = (mat) => DATA.cards.filter(c => (!mat || mat === '*' || c.m === mat) && isDue(c));
 let PLAN_INIT = false;
 function renderOggi() {
-  renderHero(); renderStreak(); renderExams(); renderMaterie(); renderFreq(); renderDeboli(); renderStorico();
+  renderHero(); renderExams(); renderMaterie(); renderFreq(); renderDeboli(); renderStorico();
   if (DATA.piano) {
     const pc = $('#piano-card'); pc.hidden = false; $('#piano').innerHTML = fmt(DATA.piano);
     if (!PLAN_INIT) { PLAN_INIT = true; pc.open = window.matchMedia('(min-width: 960px)').matches; }
@@ -197,7 +197,7 @@ function renderHero() {
   $('#sessione-card').innerHTML = `
     <div class="greet"><span class="hand">${greeting()} Emanuele</span><span class="date">${esc(dl)}</span></div>
     <div class="hero-main">
-      ${ring(pct, 150, 12, { cls: cnt >= GOAL ? 'ok' : '', label: `Obiettivo di oggi: ${cnt} attività su ${GOAL}`, center: `<b data-count="${cnt}">0</b><span>su ${GOAL} oggi</span>` })}
+      ${ring(pct, 150, 12, { cls: cnt >= GOAL ? 'ok' : '', label: `Oggi hai fatto ${cnt} tra schede, domande e problemi; l'obiettivo è ${GOAL}`, center: `<b data-count="${cnt}">0</b><span>oggi · obiettivo ${GOAL}</span>` })}
       <div class="stats">
         <div class="stat"><span class="v mono" data-count="${nc}">0</span><span class="k">schede da ripassare</span></div>
         <div class="stat"><span class="v mono" data-count="${nq}">0</span><span class="k">domande da rivedere</span></div>
@@ -638,4 +638,11 @@ $('#load-retry').addEventListener('click', () => location.reload());
 loadServerState().then(() => fetch('data.json')).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(boot).catch(err => {
   $('#skel').hidden = true; TABS.forEach(t => { $('#tab-' + t).hidden = true; });
   const e = $('#load-err'); e.hidden = false; $('#load-err-t').textContent = 'Non riesco a caricare i dati (' + err.message + '). Ricarica la pagina; se resta così, controlla che il sito sia acceso (apri_quaderno.bat).';
+});
+
+$('#reset-btn').addEventListener('click', () => {
+  const b = $('#reset-btn');
+  if (!b.dataset.sure) { b.dataset.sure = '1'; b.textContent = 'Sicuro? Premi di nuovo per cancellare tutto'; setTimeout(() => { delete b.dataset.sure; b.textContent = 'Azzera tutti i progressi'; }, 5000); return; }
+  delete b.dataset.sure; b.textContent = 'Azzera tutti i progressi';
+  S = newState(); fixS(); save(); renderOggi(); toast('Progressi azzerati');
 });
