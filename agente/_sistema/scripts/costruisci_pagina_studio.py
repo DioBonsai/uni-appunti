@@ -162,7 +162,7 @@ def chapters(path):
                 cur[2] += 1
     res = []
     for n, t, hl, tot in chs:
-        res.append((n, t, 2 if hl >= 3 else (1 if hl else 0)))   # le evidenziazioni sono a pezzi: da 3 paragrafi in su = studiato
+        res.append((n, t, 2 if hl >= 3 else (1 if hl else 0), hl, tot))   # le evidenziazioni sono a pezzi: da 3 paragrafi in su = studiato
     return res, "\n".join(text)
 
 
@@ -175,9 +175,9 @@ def avanzamento():
             continue
         res, text = chapters(p)
         texts[mat] = text
-        done = [n for n, _, s in res if s == 2]
-        part = [n for n, _, s in res if s == 1]
-        todo = [n for n, _, s in res if s == 0]
+        done = [n for n, _, s, *_ in res if s == 2]
+        part = [n for n, _, s, *_ in res if s == 1]
+        todo = [n for n, _, s, *_ in res if s == 0]
         def rng(l):
             if not l:
                 return "nessuno"
@@ -189,7 +189,7 @@ def avanzamento():
             return ", ".join(parts)
         nota = f"Studiati: {rng(done)}." + (f" In parte: {rng(part)}." if part else "") + (f" Da studiare: {rng(todo)}." if todo else " Tutto studiato.")
         out[mat] = dict(capitoli=len(res), studiati=len(done), lezioni=LEZIONI[mat], prossimo=nota,
-                        elenco=[dict(n=n, t=t, s=s) for n, t, s in res])
+                        elenco=[dict(n=n, t=t, s=s, hl=hl, tot=tot) for n, t, s, hl, tot in res])
     return out, texts
 
 
@@ -202,6 +202,26 @@ def piano():
     return m.group(1).strip() if m else ""
 
 
+def diff_evidenziazioni(avanz):
+    """Confronta le evidenziazioni gialle di oggi con l'ultimo controllo (evidenziazioni.json) e scrive evidenziazioni_oggi.md."""
+    import json as _j
+    snap = BASE / "evidenziazioni.json"
+    prev = _j.loads(snap.read_text(encoding="utf-8")) if snap.exists() else {}
+    cur = {m: {str(c["n"]): [c["hl"], c["tot"], c["t"]] for c in x["elenco"]} for m, x in avanz.items()}
+    righe = []
+    for m, caps in cur.items():
+        for n, (hl, tot, t) in caps.items():
+            old = (prev.get("materie", {}).get(m, {}).get(n) or [0])[0]
+            if hl != old:
+                stato = "studiato" if hl >= 3 else "iniziato"
+                righe.append(f"- {m}, cap. {n} «{t}»: {'+' if hl > old else ''}{hl - old} paragrafi evidenziati (ora {hl} su {tot}, {stato})")
+    out = [f"# Evidenziazioni: cambiamenti dall'ultimo controllo ({prev.get('data', 'primo controllo')})", ""]
+    out += righe or ["Nessun cambiamento."]
+    (BASE / "evidenziazioni_oggi.md").write_text("\n".join(out) + "\n", encoding="utf-8")
+    snap.write_text(_j.dumps(dict(data=str(date.today()), materie=cur), ensure_ascii=False), encoding="utf-8")
+    print("\n".join(out))
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     mate = parse_quizzes()
@@ -211,6 +231,8 @@ def main():
     from quiz_banche import tutte
     quiz, probs, cards = tutte(mate), parse_problems(), parse_all_cards()
     avanz, texts = avanzamento()
+    if "--diff" in sys.argv:
+        diff_evidenziazioni(avanz)
     mate_txt = texts.get("Matematica discreta", "")
     freq = [[t, q, p, len(re.findall(rx, mate_txt, re.I)) >= 2] for (t, q, p, rx) in FREQ]
     pesi = {}
