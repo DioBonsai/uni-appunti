@@ -1,3 +1,3 @@
-# Controllo Moodle — 2026-10-12 08:12 (automatico, dopo login manuale)
+# Controllo Moodle — 2026-10-13 08:12 (automatico)
 
-Nessuna novita'.
+Login scaduto: serve il login a mano di Emanuele nel browser pane. Nessun controllo effettuato.
