@@ -508,3 +508,35 @@ def quoziente_generale():
         ax.add_patch(FancyArrowPatch((3.5, y), (9.2, y), arrowstyle="-|>", mutation_scale=11, color=cols[k], lw=1.3, zorder=1))
     ax.text(6.2, 0.15, "ogni blocco della partizione diventa un elemento di Q", ha="center", fontsize=9, color=GRIGIO)
     return _salva(fig, "mate/ch07_quoziente_generale")
+
+
+def partizione_relazione():
+    """Corrispondenza tra partizioni e relazioni di equivalenza: S = {1..5}, blocchi {1,2} {3} {4,5}; x R y se stesso blocco."""
+    blocchi = [[1, 2], [3], [4, 5]]; cols = [BLU, ROSSO, VERDE]
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(7.4, 3.3), gridspec_kw=dict(width_ratios=[1, 1.05], wspace=0.45))
+    a1.set_aspect("equal"); a1.axis("off"); a1.set_xlim(0, 8); a1.set_ylim(0, 6.2)
+    a1.add_patch(Rectangle((0.2, 0.3), 7.6, 5.0, fill=False, ec="black", lw=1.6)); a1.text(0.45, 5.0, "S", fontsize=12, style="italic", va="center")
+    pos = [(1.6, 3.0, 2.4, 2.2), (4.2, 1.5, 1.2, 1.4), (6.3, 3.0, 2.4, 2.2)]
+    # blocchi come ovali
+    cen = [(2.0, 3.1), (4.2, 1.5), (6.0, 3.4)]; dim = [(3.0, 2.0), (1.5, 1.8), (3.0, 2.0)]
+    pt = {1: (1.3, 3.1), 2: (2.8, 3.1), 3: (4.2, 1.5), 4: (5.2, 3.4), 5: (6.7, 3.4)}
+    for (cx, cy), (w, h), c, b in zip(cen, dim, cols, blocchi):
+        a1.add_patch(Ellipse((cx, cy), w, h, fill=False, ec=c, lw=2))
+    for k, (x, y) in pt.items():
+        a1.plot(x, y, "o", color="black", ms=5); a1.text(x, y + 0.35, str(k), ha="center", fontsize=11)
+    a1.set_title("partizione di S", fontsize=10.5)
+    # matrice della relazione
+    n = 5; a2.set_aspect("equal"); a2.set_xlim(0, n); a2.set_ylim(0, n)
+    blk = {x: i for i, b in enumerate(blocchi) for x in b}
+    for x in range(1, n + 1):
+        for y in range(1, n + 1):
+            same = blk[x] == blk[y]
+            a2.add_patch(Rectangle((x - 1, n - y), 1, 1, fc=cols[blk[x]] if same else "white", ec="#888", lw=0.8, alpha=0.75 if same else 1))
+    a2.set_xticks([i + 0.5 for i in range(n)]); a2.set_xticklabels(range(1, n + 1)); a2.set_yticks([i + 0.5 for i in range(n)]); a2.set_yticklabels(range(n, 0, -1))
+    a2.xaxis.tick_top(); a2.tick_params(length=0)
+    for s in a2.spines.values():
+        s.set_visible(False)
+    a2.set_title("relazione di equivalenza R\n(casella colorata = x R y)", fontsize=10.5, pad=24)
+    fig.text(0.485, 0.5, "⇄", ha="center", va="center", fontsize=26)
+    fig.text(0.485, 0.2, "stesso blocco\n⟺ x R y", ha="center", va="center", fontsize=8.5, color=GRIGIO)
+    return _salva(fig, "mate/ch09_partizione_relazione")
