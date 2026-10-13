@@ -3,7 +3,7 @@
 Uso:
     python inserisci_figure.py "Riassunto Matematica discreta.docx" figure/mate/piano.json [--dry-run] [--copia DEST.docx]
 
-piano.json: lista di {dopo: indice paragrafo (python-docx), figura: percorso relativo a _sistema/, didascalia, larghezza (cm)}.
+piano.json: lista di {dopo: indice paragrafo (python-docx), ancora: (consigliato) inizio del testo di quel paragrafo, figura: percorso relativo a _sistema/, didascalia, larghezza (cm)}.
 Sicurezza: backup in _sistema/backup/, rifiuta se il Word e' aperto, confronta testi ed evidenziazioni prima/dopo
 (se qualcosa cambia non salva), poi verifica_word.py e backup_onedrive.py.
 """
@@ -67,6 +67,11 @@ def main():
         print("ATTENZIONE: il Word contiene gia' immagini; controllo che gli indici del piano siano ancora validi.")
     prima = firma(doc)
     for f in piano:
+        if f.get("ancora") and not pars[f["dopo"]].text.startswith(f["ancora"]):   # il Word e' cambiato: cerco il paragrafo giusto
+            cand = [i for i, p in enumerate(pars) if p.text.startswith(f["ancora"])]
+            if len(cand) != 1:
+                sys.exit(f"Ancora «{f['ancora'][:40]}» non trovata in modo univoco ({len(cand)} paragrafi): aggiorna il piano.")
+            f["dopo"] = cand[0]
         if not (0 <= f["dopo"] < len(pars)):
             sys.exit(f"Indice {f['dopo']} fuori dal documento ({len(pars)} paragrafi)")
         if not (BASE / f["figura"]).exists():
