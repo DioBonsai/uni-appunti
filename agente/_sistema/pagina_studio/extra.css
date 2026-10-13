@@ -556,3 +556,12 @@ details[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
 .figs a { display: block; max-width: 100%; }
 .figs img { display: block; max-width: 100%; max-height: 360px; height: auto; width: auto; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 8px; }
 .face .figs img { max-height: 240px; }
+
+/* scelta di più temi nel quiz */
+.field-wide { grid-column: 1 / -1; display: grid; gap: 8px; }
+.field-wide .lbl small { font-weight: 400; opacity: .7; }
+.tchips { display: flex; flex-wrap: wrap; gap: 8px; }
+.tchip { font: inherit; font-size: .9rem; padding: 7px 13px; border-radius: 999px; border: 1px solid var(--line, rgba(128,128,128,.35)); background: transparent; color: inherit; cursor: pointer; transition: background .15s, border-color .15s, transform .1s; }
+.tchip:hover { border-color: var(--accent, #6aa9ff); }
+.tchip:active { transform: scale(.97); }
+.tchip[aria-pressed="true"] { background: var(--accent, #3b82f6); border-color: var(--accent, #3b82f6); color: #fff; }

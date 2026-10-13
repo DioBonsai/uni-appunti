@@ -312,14 +312,18 @@ const quizPool = () => DATA.quiz.filter(q => q.m === QM);
 const poolWeak = () => { const th = new Set(quizPool().map(q => q.theme)); return weakThemes().filter(e => th.has(e[0])); };
 const cov = m => new Set((DATA.coperti || {})[m] || []);
 const canGen = () => GEN.disponibile(QM, cov(QM));
+let QT = new Set();
 function setupQuiz() {
   if (!MATS.includes(QM)) QM = MATS[0];
   const pool = quizPool(), counts = {}; pool.forEach(q => counts[q.theme] = (counts[q.theme] || 0) + 1);
   $('#mat-pick').innerHTML = MATS.map((m, i) => { const n = DATA.quiz.filter(q => q.m === m).length; return `<button type="button" class="mp" role="radio" aria-checked="${m === QM}" data-m="${esc(m)}" style="--c:var(--s${i})"><span class="mp-n">${esc(m)}</span><span class="mp-c">${n} domande${GEN.disponibile(m, cov(m)) ? ' · + esercizi generati' : ''}</span></button>`; }).join('');
   $$('#mat-pick .mp').forEach(b => b.addEventListener('click', () => { QM = b.dataset.m; try { localStorage.setItem('quaderno-qmat', QM); } catch (e) {} setupQuiz(); }));
-  const cur = $('#q-topic').value;
-  $('#q-topic').innerHTML = '<option value="">Tutti i temi (' + pool.length + ' domande)</option>' + (canGen() ? '<option value="__gen__">Esercizi generati (senza limite)</option>' : '') + Object.keys(counts).sort().map(a => `<option value="${esc(a)}">${esc(a)} (${counts[a]})</option>`).join('');
-  if (cur && [...$('#q-topic').options].some(o => o.value === cur)) $('#q-topic').value = cur;
+  const valid = new Set(['__gen__', ...Object.keys(counts)]); QT = new Set([...QT].filter(k => valid.has(k)));
+  const chip = (v, t) => `<button type="button" class="tchip" data-v="${esc(v)}" aria-pressed="false">${esc(t)}</button>`;
+  $('#q-topic').innerHTML = chip('', 'Tutti i temi (' + pool.length + ')') + (canGen() ? chip('__gen__', 'Esercizi generati') : '') + Object.keys(counts).sort().map(a => chip(a, `${a} (${counts[a]})`)).join('');
+  const paint = () => $$('#q-topic .tchip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.v === '' ? QT.size === 0 : QT.has(c.dataset.v))));
+  $$('#q-topic .tchip').forEach(c => c.addEventListener('click', () => { const v = c.dataset.v; if (v === '') QT.clear(); else if (QT.has(v)) QT.delete(v); else QT.add(v); paint(); }));
+  paint();
   const w = poolWeak().length;
   $('#q-weak').hidden = !w;
   $('#pr-weak').disabled = !w;
@@ -346,7 +350,7 @@ function prepare(q) { // mescola le opzioni (tranne "nessuna delle precedenti") 
 function pickQuiz(n, { theme, weak, ignoreDue } = {}) {
   let pool = quizPool();
   if (weak) { const w = poolWeak().map(e => e[0]); pool = pool.filter(q => w.includes(q.theme)); }
-  else if (theme) pool = pool.filter(q => q.theme === theme);
+  else if (theme && theme.length) { const ts = [].concat(theme); pool = pool.filter(q => ts.includes(q.theme)); }
   const today = todayStr();
   const scored = pool.map(q => {
     const s = S.qs[q.id]; let sc = s ? (s.due <= today ? 3 + Math.min(s.wrong || 0, 3) * 0.3 : -1) : 1.5;
@@ -357,13 +361,15 @@ function pickQuiz(n, { theme, weak, ignoreDue } = {}) {
   return scored.slice(0, n).map(x => x[1]);
 }
 function startQuiz(weak, opts = {}) {
-  const topic = opts.topic !== undefined ? opts.topic : $('#q-topic').value, mode = opts.mode !== undefined ? opts.mode : $('#q-mode').value, n = opts.n || +$('#q-n').value;
-  let list, label = topic || 'tutti i temi';
-  if (!opts.list) label = QM + ' · ' + (topic === '__gen__' ? 'esercizi generati' : (weak ? 'punti deboli' : label));
+  const raw = opts.topic !== undefined ? opts.topic : [...QT], topics = [].concat(raw).filter(Boolean), gen = topics.includes('__gen__'), themes = topics.filter(t => t !== '__gen__');
+  const mode = opts.mode !== undefined ? opts.mode : $('#q-mode').value, n = opts.n || +$('#q-n').value;
+  let list, label = themes.length ? themes.join(' + ') : 'tutti i temi';
+  if (!opts.list) label = QM + ' · ' + (gen && !themes.length ? 'esercizi generati' : (weak ? 'punti deboli' : (gen ? label + ' + esercizi generati' : label)));
   if (opts.list) { list = opts.list; label = opts.label || label; }
-  else if (topic === '__gen__') { list = GEN.many(n, QM, cov(QM)); }
+  else if (gen && !themes.length) { list = GEN.many(n, QM, cov(QM)); }
   else if (weak) { list = pickQuiz(n, { weak: true }); }
-  else list = pickQuiz(n, { theme: topic, ignoreDue: mode === 'sim' });
+  else if (gen) { const g = Math.ceil(n / 2); list = pickQuiz(n - g, { theme: themes, ignoreDue: mode === 'sim' }).concat(GEN.many(g, QM, cov(QM))); }
+  else list = pickQuiz(n, { theme: themes, ignoreDue: mode === 'sim' });
   if (!list.length) { toast('Nessuna domanda disponibile per questa scelta'); return; }
   const sim = !opts.list && mode === 'sim';
   Q = { list: list.map(prepare), i: 0, score: 0, wrong: [], fb: opts.fb !== undefined ? opts.fb : (!sim && mode === '1'), label: sim ? 'simulazione · ' + label : label, t0: Date.now(), answered: false, sim, limit: sim ? (opts.min || +$('#q-min').value) * 60 : 0, onEnd: opts.onEnd || null };
