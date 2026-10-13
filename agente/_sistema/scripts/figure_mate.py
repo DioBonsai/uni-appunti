@@ -548,3 +548,13 @@ def inclusione_canonica():
     ov = [dict(nome="S", elems=[1, 2], cx=2.2, w=2.2, h=1.9), dict(nome="A", elems=[3, 1, 2, 4], cx=7.8, w=2.4, h=4.8)]
     ovali_ax(ax, ov, [dict(da=(0, 1), a=(1, 1)), dict(da=(0, 2), a=(1, 2))], titolo="inclusione canonica j : S → A,  j(s) = s", fs=12)
     return _salva(fig, "mate/ch10_inclusione_canonica")
+
+
+def restrizione_frecce():
+    """f : A -> B e la restrizione f|S (S sottoinsieme di A): stesse frecce, ma solo quelle che partono da S."""
+    A, B = [1, 2, 3, 4], ["a", "b", "c"]; f = {1: "a", 2: "b", 3: "b", 4: "c"}; S = {1, 2}
+    fig, ax = plt.subplots(figsize=(5.4, 3.5))
+    ov = [dict(nome="A", elems=A, cx=2.2, w=2.4, h=4.6, evid=S, sub="S", col=BLU), dict(nome="B", elems=B, cx=7.8, w=2.4, h=4.2)]
+    fr = [dict(da=(0, a), a=(1, f[a]), col=BLU if a in S else "#c3cad1", tratt=a not in S) for a in A]
+    ovali_ax(ax, ov, fr, titolo="f (tutte le frecce) e f|S (solo le frecce blu)", fs=12)
+    return _salva(fig, "mate/ch10_restrizione_frecce")
