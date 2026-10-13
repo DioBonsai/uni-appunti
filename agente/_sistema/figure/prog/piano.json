@@ -1,0 +1,74 @@
+[
+ {
+  "dopo": 27,
+  "figura": "figure/prog/ch02_flow_moltiplicazione.png",
+  "didascalia": "Diagramma di flusso della moltiplicazione per somme ripetute.",
+  "larghezza": 8.0
+ },
+ {
+  "dopo": 40,
+  "figura": "figure/prog/ch03_tre_strutture.png",
+  "didascalia": "Sequenza, selezione e iterazione.",
+  "larghezza": 14.0
+ },
+ {
+  "dopo": 78,
+  "figura": "figure/prog/ch04_memoria_aree.png",
+  "didascalia": "La memoria centrale: area del programma e area dei dati.",
+  "larghezza": 8.0
+ },
+ {
+  "dopo": 112,
+  "figura": "figure/prog/ch05_esecuzione_somma.png",
+  "didascalia": "Come la CPU esegue la somma A + B: due LOAD, ADD, STORE.",
+  "larghezza": 11.0
+ },
+ {
+  "dopo": 135,
+  "figura": "figure/prog/ch05_compilazione.png",
+  "didascalia": "Il C è compilato: il sorgente viene tradotto in codice macchina prima di essere eseguito.",
+  "larghezza": 11.5
+ },
+ {
+  "dopo": 181,
+  "figura": "figure/prog/ch06_variabile_quaterna.png",
+  "didascalia": "Ogni variabile ha nome, tipo, indirizzo e valore.",
+  "larghezza": 11.0
+ },
+ {
+  "dopo": 228,
+  "figura": "figure/prog/ch07_stack_fp_sp.png",
+  "didascalia": "Lo stack con FP e SP dopo tre dichiarazioni.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 266,
+  "figura": "figure/prog/ch08_esecuzione_z.png",
+  "didascalia": "Esecuzione di z = x + y: due LOAD, ADD, STORE.",
+  "larghezza": 11.0
+ },
+ {
+  "dopo": 323,
+  "figura": "figure/prog/ch09_indirizzi_xyz.png",
+  "didascalia": "Gli indirizzi di x, y e z nello schema del corso.",
+  "larghezza": 9.5
+ },
+ {
+  "dopo": 349,
+  "figura": "figure/prog/ch10_scanf_memoria.png",
+  "didascalia": "Lo stato della memoria durante l'esecuzione del programma con scanf.",
+  "larghezza": 11.0
+ },
+ {
+  "dopo": 413,
+  "figura": "figure/prog/ch11_puntatore.png",
+  "didascalia": "Il puntatore pX contiene l'indirizzo di x.",
+  "larghezza": 9.5
+ },
+ {
+  "dopo": 460,
+  "figura": "figure/prog/ch12_aliasing.png",
+  "didascalia": "Aliasing: due puntatori alla stessa variabile.",
+  "larghezza": 9.5
+ }
+]

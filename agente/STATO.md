@@ -25,12 +25,12 @@ Fonti: appunti a mano, schede, libro Mori (scansione), audio L1-L2 (manca L3).
 Nota: negli appunti del 2 ott la condizione delle partizioni è scritta `Ai ∩ Aj ≠ ∅` (typo, deve essere `= ∅`).
 
 ## Fondamenti dell'Informatica (Brookshear) – `Riassunto Fondamenti Informatica.docx`
-Word con 15 capitoli (cap. 12-15 aggiunti il 12 ott: logica proposizionale, lezione 4 del corso) (rinumerati l'8 ott: era "6." due volte). Contenuto duplicato unito l'8 ott: memoria di massa solo nel cap. 3 (con i dettagli del cap. 5 aggiunti), ASCII/Unicode e RGB solo nel cap. 4; i cap. 5 e 6 rimandano. Refusi corretti l'8 ott. Cap. 3-4 e 8-10 hanno le evidenziazioni di Emanuele (non toccarle).
+Word con 15 capitoli (cap. 12-15 aggiunti il 12 ott: logica proposizionale, lezione 4 del corso) (rinumerati l'8 ott: era "6." due volte). Contenuto duplicato unito l'8 ott: memoria di massa solo nel cap. 3 (con i dettagli del cap. 5 aggiunti), ASCII/Unicode e RGB solo nel cap. 4; i cap. 5 e 6 rimandano. Refusi corretti l'8 ott. Cap. 3-4 e 8-10 hanno le evidenziazioni di Emanuele (non toccarle). Il 13 ott 2026 (su richiesta di Emanuele) inserite 13 figure (`figure_info.py`, piano in `_sistema/figure/fond/piano.json`); testo ed evidenziazioni invariati.
 Coperti: 1.1-1.7, 1.9, 1.10. La sez. 1.8 (Python) è OMESSA dal docente nel 2026: nulla da fare. Audio L1, L3.
 | L4 (corso) | 12 ott | Logica proposizionale: proposizioni, connettivi (and, or, xor, not, equivalenza), tavole di verità, equivalenze, tautologie e contraddizioni (PDF «Parte 2, 1.2 Propositions» + audio) | ✅ cap. 12-15 (restano da fare: implicazione e regole di inferenza, prossima lezione) |
 
 ## Programmazione I (Amparore) – `Riassunto Programmazione.docx`
-Word ha 12 capitoli (aggiunti 9-12 il 9 ott: referenziamento, scanf avanzato, puntatori, dereferenziamento/alias/NULL, dalle slide 02C). Prossima numerazione: **13**. Resta Lab01 (laboratorio) da decidere.
+Word ha 12 capitoli (aggiunti 9-12 il 9 ott: referenziamento, scanf avanzato, puntatori, dereferenziamento/alias/NULL, dalle slide 02C). Prossima numerazione: **13**. Resta Lab01 (laboratorio) da decidere. Il 13 ott 2026 (su richiesta di Emanuele) inserite 12 figure (`figure_info.py`, piano in `_sistema/figure/prog/piano.json`); testo ed evidenziazioni invariati.
 Corretti l'8 ott: ALU (Arithmetic Logic Unit) e titoli dei capitoli 6-7 ("Capitolo N:"). I numeri spuri visti nell'XML non erano nel testo visibile.
 
 ## Programmazione, Laboratorio – `Riassunto Laboratorio.docx` (riassunto a parte, numerazione propria)

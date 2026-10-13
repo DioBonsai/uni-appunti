@@ -1,0 +1,80 @@
+[
+ {
+  "dopo": 34,
+  "figura": "figure/fond/ch02_blocchi_esadecimale.png",
+  "didascalia": "Da binario a esadecimale: blocchi da 4 bit, ciascuno diventa una cifra.",
+  "larghezza": 10.0
+ },
+ {
+  "dopo": 50,
+  "figura": "figure/fond/ch03_hdd_tracce_settori.png",
+  "didascalia": "Piatto di un disco rigido: tracce concentriche divise in settori, e la testina.",
+  "larghezza": 8.0
+ },
+ {
+  "dopo": 62,
+  "figura": "figure/fond/ch03_cd_spirale.png",
+  "didascalia": "In un CD i dati stanno su un'unica traccia a spirale.",
+  "larghezza": 7.0
+ },
+ {
+  "dopo": 86,
+  "figura": "figure/fond/ch04_rgb_esadecimale.png",
+  "didascalia": "Un colore RGB a 24 bit scritto con 6 cifre esadecimali.",
+  "larghezza": 10.0
+ },
+ {
+  "dopo": 94,
+  "figura": "figure/fond/ch05_porte_logiche.png",
+  "didascalia": "Le porte logiche AND, OR, XOR e NOT con le loro tavole di verità.",
+  "larghezza": 14.0
+ },
+ {
+  "dopo": 106,
+  "figura": "figure/fond/ch05_celle_memoria.png",
+  "didascalia": "La memoria come sequenza di celle numerate; dentro la cella, il bit più significativo (MSB) a sinistra e il meno significativo (LSB) a destra.",
+  "larghezza": 11.0
+ },
+ {
+  "dopo": 125,
+  "figura": "figure/fond/ch06_bitmap_bn.png",
+  "didascalia": "Immagine in bianco e nero: ogni pixel è un bit.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 136,
+  "figura": "figure/fond/ch06_campionamento.png",
+  "didascalia": "Campionamento: si misura l'ampiezza dell'onda a intervalli regolari.",
+  "larghezza": 10.5
+ },
+ {
+  "dopo": 160,
+  "figura": "figure/fond/ch07_pesi_binari.png",
+  "didascalia": "Da binario a decimale: ogni bit uguale a 1 contribuisce con il suo peso.",
+  "larghezza": 10.0
+ },
+ {
+  "dopo": 172,
+  "figura": "figure/fond/ch07_divisioni_successive.png",
+  "didascalia": "Da decimale a binario: i resti delle divisioni per 2, letti dal basso verso l'alto.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 187,
+  "figura": "figure/fond/ch07_somma_binaria.png",
+  "didascalia": "La somma binaria 11010 + 11011, con i riporti.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 208,
+  "figura": "figure/fond/ch08_complemento_a_due.png",
+  "didascalia": "Complemento a due su 4 bit: i numeri con bit di segno 1 sono negativi.",
+  "larghezza": 9.5
+ },
+ {
+  "dopo": 280,
+  "figura": "figure/fond/ch11_distanza_hamming.png",
+  "didascalia": "Con distanza minima 3 un errore si corregge, due si rilevano.",
+  "larghezza": 11.0
+ }
+]
