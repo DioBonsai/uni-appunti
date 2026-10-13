@@ -26,7 +26,8 @@ from pathlib import Path
 from docx import Document
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.shared import Pt, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.shared import Cm, Pt, RGBColor
 
 BASE = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -180,6 +181,24 @@ def main():
             p.paragraph_format.line_spacing = 1.0
             continue
         if not line.strip():
+            continue
+        im = re.match(r"^!\[(.*?)\]\((.+?)\)\s*$", line.strip())
+        if im:                     # figura: ![didascalia](figure/nome.png|larghezza_cm), percorso relativo a _sistema/
+            didascalia, spec = im.group(1).strip(), im.group(2).strip()
+            percorso, _, larg = spec.partition("|")
+            img = Path(percorso)
+            if not img.is_absolute():
+                img = BASE / img
+            if not img.exists():
+                sys.exit(f"Figura non trovata: {img}")
+            pf = doc.add_paragraph(); n_par += 1
+            pf.alignment = WD_ALIGN_PARAGRAPH.CENTER
+            pf.paragraph_format.keep_with_next = bool(didascalia)
+            pf.add_run().add_picture(str(img), width=Cm(float(larg) if larg.strip() else 11))
+            if didascalia:
+                pc = doc.add_paragraph(); n_par += 1
+                pc.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                rc = pc.add_run(didascalia); rc.italic = True; rc.font.size = Pt(9)
             continue
         p = doc.add_paragraph()
         n_par += 1
