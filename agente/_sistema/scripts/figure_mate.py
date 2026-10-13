@@ -489,3 +489,22 @@ def tutte():
 if __name__ == "__main__":
     p = tutte()
     print(len(p), "figure in", OUT / "mate")
+
+
+def quoziente_generale():
+    """S diviso in blocchi A1..A4 (partizione) e l'insieme quoziente Q = {A1, ..., A4} (ogni blocco diventa un elemento)."""
+    fig, ax = plt.subplots(figsize=(6.0, 3.4)); ax.set_aspect("equal"); ax.axis("off"); ax.set_xlim(0, 12.4); ax.set_ylim(0, 7)
+    cols = [BLU, ROSSO, VERDE, ARANCIO]
+    ax.add_patch(Ellipse((3.0, 3.5), 5.6, 5.6, fill=False, ec="black", lw=2))
+    ys = [5.6, 4.2, 2.8, 1.4]
+    for yb in (2.1, 3.5, 4.9):
+        dx = math.sqrt(max(2.8 ** 2 - (yb - 3.5) ** 2, 0)); ax.plot([3.0 - dx, 3.0 + dx], [yb, yb], color="black", lw=1.3)
+    for k, y in enumerate(ys):
+        ax.text(2.4, y, f"A$_{k + 1}$", ha="center", va="center", fontsize=14, color=cols[k], style="italic")
+    ax.text(3.0, 6.75, "S", ha="center", fontsize=13, style="italic")
+    ax.add_patch(Ellipse((9.9, 3.5), 3.2, 5.6, fill=False, ec="black", lw=2)); ax.text(9.9, 6.75, "Q", ha="center", fontsize=13, style="italic")
+    for k, y in enumerate(ys):
+        ax.plot(9.4, y, "o", color=cols[k], ms=7); ax.text(9.75, y, f"A$_{k + 1}$", va="center", fontsize=13, color=cols[k], style="italic")
+        ax.add_patch(FancyArrowPatch((3.5, y), (9.2, y), arrowstyle="-|>", mutation_scale=11, color=cols[k], lw=1.3, zorder=1))
+    ax.text(6.2, 0.15, "ogni blocco della partizione diventa un elemento di Q", ha="center", fontsize=9, color=GRIGIO)
+    return _salva(fig, "mate/ch07_quoziente_generale")
