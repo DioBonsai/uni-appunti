@@ -45,11 +45,11 @@ Creato il 9 ott 2026 dalle slide `Lab01 - Introduzione` (laboratorio n. 1). 5 ca
 - [x] Git + GitHub privato (DioBonsai/uni-appunti) [8 ott]
 
 ## Cosa ha già studiato Emanuele (le evidenziazioni gialle nei Word = studiato a mano)
-Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai rimuovere né spostare le evidenziazioni; il testo nuovo si aggiunge SENZA evidenziazione. Stato ricontrollato il 12 ott 2026 (verifica diretta delle evidenziazioni nei Word, capitolo per capitolo):
-- **Algebra lineare**: nessun segno → cap. 1-13 ancora da studiare (10-13 appena scritti).
-- **Matematica discreta**: studiati cap. 1-4 e 6-7 (insiemi, operazioni avanzate, ricoprimenti e partizioni). Da studiare: 5 (induzione), 8-9 (relazioni, equivalenze) e 10-19 (funzioni, composizione, iniettività/suriettività).
-- **Fondamenti Info**: studiati tutti i cap. 1-11 (cap. 5, 6 e 7 evidenziati il 12 ott 2026; il cap. 11 lo era già). Da studiare: 12-15 (logica proposizionale, appena scritti).
-- **Programmazione**: studiati cap. 1-8 (cap. 5 evidenziato il 12 ott). Da studiare: 9-12 (referenziamento, scanf, puntatori, dereferenziamento).
+Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai rimuovere né spostare le evidenziazioni; il testo nuovo si aggiunge SENZA evidenziazione. Stato ricontrollato il 13 ott 2026 (verifica diretta delle evidenziazioni nei Word, capitolo per capitolo):
+- **Algebra lineare**: 0/13 studiati. Nessun segno → cap. 1-13 ancora da studiare (10-13 sui polinomi).
+- **Matematica discreta**: 7/19 studiati (cap. 1-7, compreso il cap. 5 «Induzione», evidenziato il 13 ott con +16 paragrafi). Da studiare: 8-19 (relazioni, equivalenze, funzioni, composizione, iniettività/suriettività).
+- **Fondamenti Info**: 11/15 studiati (cap. 1-11). Da studiare: 12-15 (logica proposizionale, appena scritti).
+- **Programmazione**: 8/12 studiati (cap. 1-8). Da studiare: 9-12 (referenziamento, scanf, puntatori, dereferenziamento).
 - **Programmazione, Laboratorio**: nessun segno → cap. 1-5 ancora da studiare.
 
 ## Novita' Moodle

@@ -1,19 +1,19 @@
-# Piano di ripasso — 2026-10-12 (per domani, martedì 13 ottobre)
+# Piano di ripasso — 2026-10-13 (per domani, mercoledì 14 ottobre)
 
 Date d'esame non ancora note (né su Moodle né inserite nel Quaderno): priorità per rotazione e per peso all'esame.
 
 ## Oggi
-**Resoconto di oggi**: hai sottolineato Matematica discreta cap. 3 (+5) e cap. 4 «Operazioni avanzate sugli insiemi» (+19), Programmazione cap. 5 «Dal linguaggio macchina al C» (+16) e Fondamenti Info cap. 6 «Codifica e rappresentazione dei dati» (+18 paragrafi) e cap. 7 «Il sistema numerico binario e aritmetica» (+8), dopo il cap. 5 (16 paragrafi). Con questi i **cap. 1-11 di Fondamenti Info sono studiati** (restano i nuovi cap. 12-15 sulla logica proposizionale). Restano da studiare: Matematica discreta 13 capitoli su 19 (cap. 5, 8-19), Programmazione 4 su 12 (cap. 9-12), Algebra lineare 13 su 13 (cap. 10-13 sui polinomi appena scritti), Fondamenti Info 4 su 15 (cap. 12-15). Dal Quaderno: nessun dato (progressi azzerati stamattina; nessuna scheda, quiz o problema fatto).
+**Resoconto di oggi**: hai sottolineato Matematica discreta cap. 5 «Costruzione assiomatica dei numeri naturali e principio di induzione» (+16 paragrafi, ora 16/47, studiato). Con questo **Matematica discreta è a 7/19 capitoli studiati** (1-7). Nessuna attività nel Quaderno (progressi azzerati: 0 schede, 0 domande, 0 problemi fatti) e nessun errore registrato, quindi nessun tema debole da segnalare. Nessuna novità su Moodle (ultimo controllo stamattina). Date d'esame non ancora note.
 
-**Blocco 1 (30') — Matematica discreta, cap. 5 «Costruzione assiomatica dei naturali e principio di induzione», poi cap. 8 «Relazioni binarie, proprietà fondamentali e relazioni di equivalenza»** (e, se avanza tempo, cap. 9 «Classi di equivalenza, teorema fondamentale e concetto insiemistico di funzione»). File: `Riassunto Matematica discreta.docx`. Sono la base dei cap. 10-19 sulle funzioni (33 quiz su 150 nelle prove passate); sottolinea man mano.
+**Blocco 1 (30') — Algebra lineare, cap. 1 «Vettori e mappe lineari, insiemi numerici, campi»**. File: `Riassunto Algebra lineare.docx`. È la materia più indietro (0/13 capitoli studiati, mai iniziata) mentre il Word ha già 13 capitoli pronti: conviene partire dal cap. 1 prima che si accumulino altri capitoli. Sottolinea i paragrafi mentre studi.
 
-**Blocco 2 (30') — Fondamenti Info nel Quaderno**: tab Quiz, materia Fondamenti Info, tema «Rappresentazione binaria» (26 domande + esercizi generati su conversioni e complemento a due), poi 15 schede (tab Schede). Hai appena studiato i cap. 5-7: è il momento giusto per fissarli.
+**Blocco 2 (30') — Fondamenti Info nel Quaderno**: tab Quiz, materia Fondamenti Info, sui capitoli già studiati (1-11, 54 domande visibili). Nessun errore registrato su cui insistere, quindi ripassa la materia con più capitoli studiati (11/15) e mai ancora ripassata nel Quaderno.
 
-**Blocco 3 (30') — Programmazione, cap. 9 «Il referenziamento e l'indirizzo delle variabili»** (33 paragrafi), poi i cap. 10-12 (scanf, puntatori, dereferenziamento).
+**Blocco 3 (30') — Matematica discreta, Quaderno > Problemi**: scegli un problema (tab Problemi, 30 disponibili sui cap. 1-7). Non hai ancora tentato nessun problema quest'anno: è il momento di iniziare, prima di arrivare a permutazioni/aritmetica modulare dove i problemi valgono di più.
 
 ## Da tenere aggiornato
-- **Lezioni senza riassunto**: Algebra lineare L4 «Polinomi» (materiale pronto, manca il tuo ok per `/riassunto algebra 4`); Matematica discreta oltre la L5; Fondamenti Info lezioni 07-35 del programma (logica, induzione, automi: vedi COPERTURA.md); Programmazione Lab02 (non ancora uscito).
-- **Audio da trascrivere**: nessuno (tutti gli audio in `_sistema/audio` hanno la trascrizione).
-- **Novità Moodle**: ultimo controllo il 12 ott alle 08:12, nessuna novità. Restano aperti il link Webex «Lezione 3: Numeri Complessi, II» di Algebra (punta a una registrazione 2025) e le registrazioni Webex di Fondamenti non scaricate.
-- **Task automatici**: `moodle-controllo-giornaliero` e `piano-ripasso-giornaliero` attivi.
-- **Quaderno aggiornato**: 239 domande visibili sugli argomenti già trattati (Mate 105, Fondamenti 54, Algebra 40, Programmazione 40), 30 problemi, 429 schede; avanzamento: Algebra 0/13, Mate 6/19, Fondamenti 11/15, Programmazione 8/12 capitoli.
+- **Lezioni senza riassunto**: Algebra lineare L5-L7 (Spazi vettoriali, dispense pronte, mancano appunti/audio); Matematica discreta oltre la L5; Fondamenti Info lezioni 16-35 del programma (induzione, algebre di Boole, automi: vedi COPERTURA.md) e il resto della L4 (implicazione, regole di inferenza, quantificatori, prossima lezione); Programmazione Lab02 (non ancora uscito).
+- **Audio da trascrivere**: nessuno (tutti gli audio in `_sistema/audio` hanno la trascrizione corrispondente).
+- **Novità Moodle**: ultimo controllo il 13 ott, nessuna novità. Restano aperti il link Webex «Lezione 3: Numeri Complessi, II» di Algebra (punta a una registrazione 2025) e le registrazioni Webex di Fondamenti non scaricate.
+- **Task automatici**: `moodle-controllo-giornaliero` e `piano-ripasso-giornaliero` attivi, nessuno fermo.
+- **Quaderno aggiornato**: 239 domande, 30 problemi, 240 schede; avanzamento: Algebra lineare 0/13, Matematica discreta 7/19, Fondamenti Info 11/15, Programmazione 8/12 capitoli.

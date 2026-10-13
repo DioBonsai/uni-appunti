@@ -42,7 +42,7 @@ Nota: oltre ai 4 Word delle materie esiste `../Riassunto Laboratorio.docx` (rias
 
 ## Altre regole operative
 9. Dopo ogni inserimento nel Word: `aggiungi_capitolo.py` esegue da solo `verifica_word.py` e `backup_onedrive.py`; se segnala ERRORE, correggere prima di proseguire.
-10. Il repo Git (in `UNI\`) ha il remoto GitHub privato `uni-appunti`: dopo un lavoro concluso, `git add -A && git commit` e `git push`. Mai pubblicare in repo pubblici.
+10. Il repo Git (in `UNI\`) ha il remoto GitHub `uni-appunti`, **reso pubblico da Emanuele il 13 ott 2026** (https://github.com/DioBonsai/uni-appunti): dopo un lavoro concluso, `git add -A && git commit` e `git push`. Tutto ciò che si committa è visibile a chiunque: non aggiungere password, token, email di lavoro, dati personali o file con copyright non necessari (le esclusioni sono in `.git/info/exclude`). `_sistema/progressi.json` contiene i progressi di studio ed è pubblico finché resta tracciato.
 11. Mai scrivere sui Word che sono aperti in Word (file di blocco `~$`): avvisare Emanuele di chiuderli.
 12. Convenzione permutazioni (Mate discreta): composizione da destra a sinistra.
 
