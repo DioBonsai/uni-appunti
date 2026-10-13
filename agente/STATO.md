@@ -3,7 +3,7 @@
 Legenda: ✅ nel Word | ⏳ da fare | ❓ da decidere
 
 ## Algebra lineare (Buzano/Radeschi) – `Riassunto Algebra lineare.docx`
-Il Word ha 13 capitoli (aggiunti 10-13 il 12 ott). Prossima numerazione: **14**.
+Il Word ha 13 capitoli (aggiunti 10-13 il 12 ott). Prossima numerazione: **14**. Il 13 ott 2026 (su richiesta di Emanuele) sono state inserite 14 figure nei capitoli 1-13 (`_sistema/scripts/figure_alg.py` + `inserisci_figure.py`, piano in `_sistema/figure/alg/piano.json`); testo invariato.
 | Lez. | Data | Argomenti | Word | Fonti disponibili |
 |---|---|---|---|---|
 | L1 | 30 set | Vettori/mappe lineari, insiemi numerici, campi | ✅ cap. 1-2 | appunti, nota, audio, dispense cap.1 |

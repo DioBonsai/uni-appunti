@@ -1,0 +1,86 @@
+[
+ {
+  "dopo": 4,
+  "figura": "figure/alg/ch01_parallelogramma.png",
+  "didascalia": "La somma di due vettori con la regola del parallelogramma.",
+  "larghezza": 8.0
+ },
+ {
+  "dopo": 48,
+  "figura": "figure/alg/ch03_insiemi_numerici.png",
+  "didascalia": "Gli insiemi numerici come scatole una dentro l'altra.",
+  "larghezza": 9.0
+ },
+ {
+  "dopo": 132,
+  "figura": "figure/alg/ch06_somma_complessi.png",
+  "didascalia": "La somma di due numeri complessi nel piano di Argand-Gauss.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 134,
+  "figura": "figure/alg/ch06_piano_complesso.png",
+  "didascalia": "z = a + bi nel piano complesso: il modulo è la lunghezza del vettore, il coniugato è il simmetrico rispetto all'asse reale.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 147,
+  "figura": "figure/alg/ch07_polari.png",
+  "didascalia": "Coordinate polari di un punto: distanza r dall'origine e angolo θ.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 158,
+  "figura": "figure/alg/ch07_quadranti.png",
+  "didascalia": "Quale formula usare per θ a seconda del quadrante.",
+  "larghezza": 9.5
+ },
+ {
+  "dopo": 168,
+  "figura": "figure/alg/ch07_circonferenza_unitaria.png",
+  "didascalia": "I punti della circonferenza unitaria sono i numeri cos θ + i sen θ.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 196,
+  "figura": "figure/alg/ch08_prodotto.png",
+  "didascalia": "(1 + i)² = 2i: il modulo passa da √2 a 2, l'argomento da π/4 a π/2.",
+  "larghezza": 8.0
+ },
+ {
+  "dopo": 202,
+  "figura": "figure/alg/ch08_coniugato_inverso.png",
+  "didascalia": "Coniugato e inverso in forma polare.",
+  "larghezza": 9.0
+ },
+ {
+  "dopo": 234,
+  "figura": "figure/alg/ch09_radici_di_8.png",
+  "didascalia": "Le radici terze di 8 sono i vertici di un triangolo equilatero di raggio 2.",
+  "larghezza": 7.5
+ },
+ {
+  "dopo": 238,
+  "figura": "figure/alg/ch09_radici_di_meno8.png",
+  "didascalia": "Le soluzioni di z³ = −8: stesso triangolo, ruotato di π/3.",
+  "larghezza": 7.5
+ },
+ {
+  "dopo": 239,
+  "figura": "figure/alg/ch09_radici_unita.png",
+  "didascalia": "Le radici seste dell'unità formano un esagono regolare.",
+  "larghezza": 7.5
+ },
+ {
+  "dopo": 313,
+  "figura": "figure/alg/ch12_radice_doppia.png",
+  "didascalia": "Una radice doppia: il grafico tocca l'asse x senza attraversarlo.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 336,
+  "figura": "figure/alg/ch13_discriminante.png",
+  "didascalia": "I tre casi del discriminante per un polinomio di grado 2.",
+  "larghezza": 14.0
+ }
+]
