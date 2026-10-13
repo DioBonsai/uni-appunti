@@ -1,0 +1,236 @@
+[
+ {
+  "dopo": 20,
+  "figura": "figure/mate/ch01_venn_insieme.png",
+  "didascalia": "Un insieme come diagramma di Venn: 1, 2, 3 ∈ A e 5 ∉ A.",
+  "larghezza": 6.5
+ },
+ {
+  "dopo": 32,
+  "figura": "figure/mate/ch02_sottoinsieme.png",
+  "didascalia": "S ⊆ T: la regione di S sta dentro quella di T.",
+  "larghezza": 8.0
+ },
+ {
+  "dopo": 49,
+  "figura": "figure/mate/ch02_scatole_cinesi.png",
+  "didascalia": "Le scatole cinesi: A è un elemento di B, ma gli elementi di A non lo sono di B.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 60,
+  "figura": "figure/mate/ch03_unione_intersezione.png",
+  "didascalia": "Intersezione e unione di due insiemi X e Y (regioni in azzurro).",
+  "larghezza": 11.0
+ },
+ {
+  "dopo": 88,
+  "figura": "figure/mate/ch03_prodotto_cartesiano.png",
+  "didascalia": "Il prodotto cartesiano A × B come griglia di coppie ordinate.",
+  "larghezza": 8.0
+ },
+ {
+  "dopo": 95,
+  "figura": "figure/mate/ch04_differenza.png",
+  "didascalia": "La differenza non è commutativa: A ∖ B ≠ B ∖ A.",
+  "larghezza": 11.0
+ },
+ {
+  "dopo": 97,
+  "figura": "figure/mate/ch04_complementare.png",
+  "didascalia": "Il complementare di S rispetto all'universo A.",
+  "larghezza": 7.5
+ },
+ {
+  "dopo": 111,
+  "figura": "figure/mate/ch04_de_morgan.png",
+  "didascalia": "Leggi di De Morgan: in ogni riga le due regioni azzurre coincidono.",
+  "larghezza": 11.0
+ },
+ {
+  "dopo": 141,
+  "figura": "figure/mate/ch04_insieme_parti.png",
+  "didascalia": "L'insieme delle parti di {a, b, c}: 8 sottoinsiemi ordinati per inclusione.",
+  "larghezza": 10.0
+ },
+ {
+  "dopo": 167,
+  "figura": "figure/mate/ch05_domino.png",
+  "didascalia": "L'effetto domino: la base fa cadere la prima tessera, il passo induttivo le fa cadere tutte.",
+  "larghezza": 12.0
+ },
+ {
+  "dopo": 204,
+  "figura": "figure/mate/ch06_ricoprimento.png",
+  "didascalia": "Un ricoprimento di ℕ: A₁ e A₂ si sovrappongono tra 100 e 1000.",
+  "larghezza": 11.0
+ },
+ {
+  "dopo": 222,
+  "figura": "figure/mate/ch06_partizione_pari_dispari.png",
+  "didascalia": "Una partizione di ℕ: pari e dispari non si sovrappongono e coprono tutto.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 227,
+  "figura": "figure/mate/ch06_non_partizione.png",
+  "didascalia": "Un ricoprimento che non è una partizione: 3 sta in entrambi i blocchi.",
+  "larghezza": 8.0
+ },
+ {
+  "dopo": 253,
+  "figura": "figure/mate/ch07_insieme_quoziente.png",
+  "didascalia": "Dalla partizione all'insieme quoziente: ogni blocco diventa un elemento di Q.",
+  "larghezza": 11.0
+ },
+ {
+  "dopo": 266,
+  "figura": "figure/mate/ch08_relazione_divisibilita.png",
+  "didascalia": "La divisibilità su {1, 2, 3, 6} come grafo orientato: una freccia da m a n se m divide n.",
+  "larghezza": 9.0
+ },
+ {
+  "dopo": 315,
+  "figura": "figure/mate/ch09_classi_equivalenza.png",
+  "didascalia": "Esempio di classi di equivalenza: disgiunte e con unione uguale all'insieme.",
+  "larghezza": 11.5
+ },
+ {
+  "dopo": 345,
+  "figura": "figure/mate/ch09_esistenza_unicita.png",
+  "didascalia": "Esistenza e unicità: la prima è una funzione, le altre due no.",
+  "larghezza": 12.0
+ },
+ {
+  "dopo": 351,
+  "figura": "figure/mate/ch10_scacchiera.png",
+  "didascalia": "Il grafico Γ come caselle segnate nella scacchiera A × B: una casella per ogni elemento di A.",
+  "larghezza": 8.0
+ },
+ {
+  "dopo": 354,
+  "figura": "figure/mate/ch10_non_funzione.png",
+  "didascalia": "Due modi in cui Γ non definisce una funzione (caselle in rosso: l'unicità fallisce).",
+  "larghezza": 12.0
+ },
+ {
+  "dopo": 361,
+  "figura": "figure/mate/ch10_frecce.png",
+  "didascalia": "La stessa funzione con il diagramma a frecce.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 368,
+  "figura": "figure/mate/ch10_f_uguale_g.png",
+  "didascalia": "f e g hanno lo stesso grafico su {0, 1, 2} ma sono diverse su ℝ.",
+  "larghezza": 9.5
+ },
+ {
+  "dopo": 375,
+  "figura": "figure/mate/ch11_identita.png",
+  "didascalia": "La funzione identità: ogni elemento resta dov'è.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 377,
+  "figura": "figure/mate/ch11_costante.png",
+  "didascalia": "Una funzione costante: tutti gli elementi vanno nello stesso punto.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 382,
+  "figura": "figure/mate/ch11_proiezioni.png",
+  "didascalia": "Le proiezioni dal piano sugli assi.",
+  "larghezza": 8.0
+ },
+ {
+  "dopo": 394,
+  "figura": "figure/mate/ch11_restrizione.png",
+  "didascalia": "Funzioni con grafici diversi ma uguali ristrette a [a, b].",
+  "larghezza": 9.5
+ },
+ {
+  "dopo": 407,
+  "figura": "figure/mate/ch12_quoziente_non_ben_definita.png",
+  "didascalia": "La regola F([x]) = [2x] manda la stessa classe in due classi diverse.",
+  "larghezza": 11.5
+ },
+ {
+  "dopo": 416,
+  "figura": "figure/mate/ch13_immagine_controimmagine.png",
+  "didascalia": "A sinistra l'immagine di un sottoinsieme S, a destra la controimmagine di T.",
+  "larghezza": 12.0
+ },
+ {
+  "dopo": 432,
+  "figura": "figure/mate/ch13_parabola.png",
+  "didascalia": "La controimmagine di T = [0, 4] tramite x² è [−2, 2].",
+  "larghezza": 9.0
+ },
+ {
+  "dopo": 447,
+  "figura": "figure/mate/ch14_tre_funzioni.png",
+  "didascalia": "Le tre situazioni: iniettiva, suriettiva, biettiva.",
+  "larghezza": 12.0
+ },
+ {
+  "dopo": 451,
+  "figura": "figure/mate/ch14_x2_iniettiva_suriettiva.png",
+  "didascalia": "Con f(x) = x² su ℝ: nessuna intersezione per y = −4, due per y = 1.",
+  "larghezza": 9.0
+ },
+ {
+  "dopo": 462,
+  "figura": "figure/mate/ch15_composizione.png",
+  "didascalia": "La composizione: si applica prima f e poi g.",
+  "larghezza": 11.5
+ },
+ {
+  "dopo": 471,
+  "figura": "figure/mate/ch15_inversa.png",
+  "didascalia": "Una funzione biettiva e la sua inversa: le frecce si invertono.",
+  "larghezza": 9.0
+ },
+ {
+  "dopo": 481,
+  "figura": "figure/mate/ch16_proiezione_non_iniettiva.png",
+  "didascalia": "La proiezione non è iniettiva: (a, b) e (a, b′) hanno la stessa immagine.",
+  "larghezza": 8.0
+ },
+ {
+  "dopo": 487,
+  "figura": "figure/mate/ch16_retta_affine.png",
+  "didascalia": "La retta y = 2x − 1: ogni retta orizzontale la taglia una volta.",
+  "larghezza": 8.5
+ },
+ {
+  "dopo": 490,
+  "figura": "figure/mate/ch16_2n_piu_1.png",
+  "didascalia": "f(n) = 2n + 1 su ℤ: i numeri pari non vengono mai raggiunti.",
+  "larghezza": 9.5
+ },
+ {
+  "dopo": 500,
+  "figura": "figure/mate/ch17_x2_restrizione.png",
+  "didascalia": "Cambiando codominio e dominio si passa da suriettiva a biettiva.",
+  "larghezza": 11.5
+ },
+ {
+  "dopo": 505,
+  "figura": "figure/mate/ch17_seno.png",
+  "didascalia": "La funzione seno ristretta a [−π/2, π/2] con codominio [−1, 1].",
+  "larghezza": 10.0
+ },
+ {
+  "dopo": 534,
+  "figura": "figure/mate/ch18_non_commutativa.png",
+  "didascalia": "Le due composizioni sono funzioni diverse.",
+  "larghezza": 9.0
+ },
+ {
+  "dopo": 570,
+  "figura": "figure/mate/ch19_controesempio.png",
+  "didascalia": "Il controesempio: g ∘ f biettiva senza che f sia suriettiva né g iniettiva.",
+  "larghezza": 11.0
+ }
+]

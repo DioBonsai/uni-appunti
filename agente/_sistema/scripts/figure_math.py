@@ -206,3 +206,103 @@ def polinomio(coeff, xmin, xmax, nome, titolo=None):
     if titolo:
         ax.set_title(titolo, fontsize=11)
     return _salva(fig, nome)
+
+
+# ======================================================================================
+# Blocchi di costruzione generali (usati da figure_mate.py): disegni su un asse `ax`
+# ======================================================================================
+def _salva(fig, nome):  # versione con sottocartelle (nome può contenere "mate/…")
+    p = OUT / f"{nome}.png"
+    p.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(p, dpi=200, bbox_inches="tight", facecolor="white")
+    plt.close(fig)
+    return f"figure/{nome}.png"
+
+
+def ovali_ax(ax, ovali, frecce=(), titolo=None, xlim=(0, 10), ylim=(0, 6.4), fs=12):
+    """Ovali con elementi e frecce.
+    ovali:  lista di dict(nome, elems, cx, cy=3.1, w=2.8, h=5.0, evid=set() sottoinsieme evidenziato, col=BLU, sub=nome del sottoinsieme)
+    frecce: lista di dict(da=(i, elem), a=(j, elem), col=BLU, tratt=False, rad=0.0, lab=None)"""
+    ax.set_xlim(*xlim); ax.set_ylim(*ylim); ax.axis("off")
+    pos = {}
+    for i, o in enumerate(ovali):
+        cx, cy, w, h = o["cx"], o.get("cy", 3.1), o.get("w", 2.8), o.get("h", 5.0)
+        ax.add_patch(Ellipse((cx, cy), w, h, fill=False, ec="black", lw=1.4))
+        ax.text(cx, cy + h / 2 + 0.28, o["nome"], ha="center", va="center", fontsize=fs + 1, style="italic")
+        els = list(o["elems"]); n = len(els)
+        ys = np.linspace(cy + h * 0.30, cy - h * 0.30, n) if n > 1 else [cy]
+        ev = o.get("evid", set()); col = o.get("col", ARANCIO)
+        if ev:   # ellisse attorno agli elementi evidenziati
+            yy = [y for e, y in zip(els, ys) if e in ev]
+            ax.add_patch(Ellipse((cx, (min(yy) + max(yy)) / 2), w * 0.78, (max(yy) - min(yy)) + 0.95, fc=col, ec=col, alpha=0.18, lw=1.4))
+            ax.add_patch(Ellipse((cx, (min(yy) + max(yy)) / 2), w * 0.78, (max(yy) - min(yy)) + 0.95, fill=False, ec=col, lw=1.4, ls="--"))
+            if o.get("sub"):
+                ax.text(cx + w * 0.5 + 0.1, (min(yy) + max(yy)) / 2, o["sub"], color=col, fontsize=fs, va="center", ha="left")
+        for e, y in zip(els, ys):
+            ax.plot(cx, y, "o", color="black", ms=4); ax.text(cx + 0.28, y, str(e), va="center", fontsize=fs)
+            pos[(i, e)] = (cx, y)
+    for fr in frecce:
+        p0, p1 = pos[fr["da"]], pos[fr["a"]]
+        ax.add_patch(FancyArrowPatch((p0[0] + 0.12, p0[1]), (p1[0] - 0.12, p1[1]), arrowstyle="-|>", mutation_scale=12, color=fr.get("col", BLU), lw=1.5,
+                                     linestyle="--" if fr.get("tratt") else "-", connectionstyle=f"arc3,rad={fr.get('rad', 0.0)}", shrinkA=16, shrinkB=16))
+        if fr.get("lab"):
+            ax.text((p0[0] + p1[0]) / 2, (p0[1] + p1[1]) / 2 + 0.25, fr["lab"], color=fr.get("col", BLU), ha="center", fontsize=fs - 1, style="italic")
+    if titolo:
+        ax.set_title(titolo, fontsize=fs, pad=2)
+
+
+def coppia_ovali(A, B, mappa, nomeA="A", nomeB="B", extra=None, **kw):
+    """Costruisce (ovali, frecce) per una funzione/relazione A -> B; mappa: dict elem -> elem oppure lista di (a, b)."""
+    coppie = list(mappa.items()) if isinstance(mappa, dict) else list(mappa)
+    ovali = [dict(nome=nomeA, elems=A, cx=2.3), dict(nome=nomeB, elems=B, cx=7.7)]
+    frecce = [dict(da=(0, a), a=(1, b), col=BLU) for a, b in coppie]
+    return ovali, frecce
+
+
+def pannelli(nome, disegni, ncols=None, larghezza=3.6, altezza=2.9, wspace=0.15):
+    """disegni: lista di callable(ax). Restituisce il percorso del PNG."""
+    n = len(disegni); ncols = ncols or n; nrows = math.ceil(n / ncols)
+    fig, axs = plt.subplots(nrows, ncols, figsize=(larghezza * ncols, altezza * nrows)); axs = np.atleast_1d(axs).ravel()
+    for ax, f in zip(axs, disegni):
+        f(ax)
+    for ax in axs[n:]:
+        ax.axis("off")
+    fig.subplots_adjust(wspace=wspace)
+    return _salva(fig, nome)
+
+
+def venn_ax(ax, insiemi, evidenzia=None, universo=False, titolo=None, mostra_elementi=True, fs=11, nomi_pos=None):
+    """Diagramma di Venn su un asse. insiemi: dict nome -> set; evidenzia(masks) -> maschera booleana sulle regioni."""
+    nomi = list(insiemi); n = len(nomi)
+    ax.set_aspect("equal"); ax.axis("off")
+    centri = {1: [(0, 0)], 2: [(-0.6, 0), (0.6, 0)], 3: [(-0.6, 0.35), (0.6, 0.35), (0, -0.6)]}[n]
+    R = 1.0 if n == 1 else 1.1
+    if evidenzia:
+        gx, gy = np.meshgrid(np.linspace(-2.2, 2.2, 300), np.linspace(-2, 2, 300))
+        masks = {nm: (gx - c[0]) ** 2 + (gy - c[1]) ** 2 <= R * R for nm, c in zip(nomi, centri)}
+        ax.imshow(np.where(evidenzia(masks), 1.0, np.nan), extent=(-2.2, 2.2, -2, 2), origin="lower", cmap="Blues", vmin=0, vmax=2, alpha=0.6, zorder=0)
+    cols = [BLU, ROSSO, VERDE]
+    for (cx, cy), nm, col in zip(centri, nomi, cols):
+        ax.add_patch(Circle((cx, cy), R, fill=False, ec=col, lw=2, zorder=2))
+        dx = -0.95 if cx < 0 else (0.95 if cx > 0 else 0.0); dy = (0.95 if (n < 3 or cy > 0) else -1.0)
+        ax.text(cx + dx, cy + dy, nm, color=col, fontsize=fs + 2, ha="center", style="italic")
+    if mostra_elementi:
+        regs = {}
+        for e in sorted(set().union(*insiemi.values()), key=str):
+            regs.setdefault(tuple(nm for nm in nomi if e in insiemi[nm]), []).append(e)
+        for chiave, els in regs.items():
+            if not chiave:
+                x, y = -1.8, -1.6
+            else:
+                pts = [centri[nomi.index(nm)] for nm in chiave]
+                mx, my = sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)
+                if len(chiave) == 1 and n > 1:
+                    cxm = sum(p[0] for p in centri) / n; cym = sum(p[1] for p in centri) / n
+                    mx, my = mx + (mx - cxm) * 0.55, my + (my - cym) * 0.55
+                x, y = mx, my
+            ax.text(x, y, ", ".join(str(e) for e in els), ha="center", va="center", fontsize=fs, zorder=3)
+    if universo:
+        ax.add_patch(Rectangle((-2.2, -2.0), 4.4, 4.0, fill=False, ec="black", lw=1, zorder=1)); ax.text(2.1, 1.8, "U", ha="right", va="top", fontsize=fs + 1)
+    ax.set_xlim(-2.3, 2.3); ax.set_ylim(-2.1, 2.1)
+    if titolo:
+        ax.set_title(titolo, fontsize=fs + 1, pad=2)

@@ -13,7 +13,7 @@ Il Word ha 13 capitoli (aggiunti 10-13 il 12 ott). Prossima numerazione: **14**.
 Dispense: 26 lezioni; prossime L4 Polinomi, L5-7 Spazi vettoriali.
 
 ## Matematica discreta (Mori) – `Riassunto Matematica discreta.docx`
-Il Word ha 19 capitoli. Prossima numerazione: **20**.
+Il Word ha 19 capitoli. Prossima numerazione: **20**. Il 13 ott 2026 (su richiesta di Emanuele) sono state inserite 39 figure nei capitoli 1-19 con `_sistema/scripts/inserisci_figure.py` (piano in `_sistema/figure/mate/piano.json`, generatore `figure_mate.py`); testo ed evidenziazioni invariati.
 | Lez. | Data | Argomenti | Word |
 |---|---|---|---|
 | L1 | 1 ott | Insiemi, operazioni, prodotto cartesiano | ✅ cap. 1-3 |
