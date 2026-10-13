@@ -1,34 +1,71 @@
 {
-  "ultimo_controllo": "2026-10-12T08:12:00",
+  "ultimo_controllo": "2026-10-13T09:25:00",
   "corsi": {
     "3829": {
       "nome": "Matematica Discreta, Algebra e Geometria - Parte 1",
       "materia": "Matematica discreta",
-      "risorse_viste": [302743, 304911, 304913, 304917, 304919, 305311, 304909, 305315],
+      "risorse_viste": [
+        302743,
+        304911,
+        304913,
+        304917,
+        304919,
+        305311,
+        304909,
+        305315,
+        305484,
+        305488
+      ],
       "annunci_visti": []
     },
     "3831": {
       "nome": "Algebra e Geometria - Parte 2",
       "materia": "Algebra lineare",
-      "risorse_viste": [303541, 305283],
-      "annunci_visti": []
+      "risorse_viste": [
+        303541,
+        305283
+      ],
+      "annunci_visti": [
+        48222
+      ]
     },
     "3747": {
       "nome": "Fondamenti B 2026-2027",
       "materia": "Fondamenti Info",
-      "risorse_viste": [304417, 298073],
-      "annunci_visti": [48201, 48139, 48101],
+      "risorse_viste": [
+        304417,
+        298073
+      ],
+      "annunci_visti": [
+        48217,
+        48201,
+        48139,
+        48101
+      ],
       "webex_viste": [
         "cc01b5db52f2f1447b4581e543e54c0e",
         "b5d81b8ef4249da9da56c6ea2c14143d",
         "2017f0e0c51c9f2dd9bce4649b37bd1b",
-        "0bbca2b5bdb28901880b691d148a7848"
+        "0bbca2b5bdb28901880b691d148a7848",
+        "a10111f157aade14d4d88d38c0f97f0c",
+        "e0508faf3372a2d0a033091232a1f9dd"
       ]
     },
     "3773": {
       "nome": "Programmazione I (B) [E-O]",
       "materia": "Programmazione",
-      "risorse_viste": [298797, 298803, 298805, 298807, 298811, 298813, 305113],
+      "risorse_viste": [
+        298797,
+        298803,
+        298805,
+        298807,
+        298811,
+        298813,
+        305113,
+        305425,
+        298841,
+        298843
+      ],
       "annunci_visti": []
     }
   }

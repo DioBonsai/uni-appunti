@@ -1,5 +1,6 @@
 PDF senza testo (scansioni/appunti a mano): trascrivere a mano o con lettura visiva.
 
+Fondamenti Info\L4_Parte2_1-2_Propositions.pdf  (11 pagine, ~0 car/pagina)
 Fondamenti Info\slide_1-1 Bits And Their storage.pdf  (15 pagine, ~0 car/pagina)
 Fondamenti Info\slide_1-10 Communication Errors.pdf  (4 pagine, ~0 car/pagina)
 Fondamenti Info\slide_1-2 Main Memory.pdf  (7 pagine, ~0 car/pagina)
@@ -8,6 +9,8 @@ Fondamenti Info\slide_1-4 Representing Information as Bit Patterns.pdf  (6 pagin
 Fondamenti Info\slide_1-5 The binary System.pdf  (6 pagine, ~0 car/pagina)
 Fondamenti Info\slide_1-6 Storing Integers.pdf  (9 pagine, ~0 car/pagina)
 Fondamenti Info\slide_1-7 Storing Fractions.pdf  (9 pagine, ~0 car/pagina)
-Fondamenti Info\slide_1-9 Data Compression.pdf  (9 pagine, ~0 car/pagina)
+Fondamenti Info\slide_1-9 Data Compression.pdf  (6 pagine, ~0 car/pagina)
+Matematica discreta\L4_appunti_8ott.pdf  (1 pagine, ~0 car/pagina)
 Matematica discreta\libro_Mori.pdf  (185 pagine, ~0 car/pagina)
 Matematica discreta\RiassuntoLezione1.pdf  (3 pagine, ~0 car/pagina)
+Matematica discreta\RiassuntoLezione2.pdf  (12 pagine, ~0 car/pagina)

@@ -8,3 +8,4 @@
 - 2026-10-12 (automatico) | login scaduto | 0 novita' | file scaricati: nessuno | annunci importanti: no
 - 2026-10-12 08:12 | ok | 0 novita' | file scaricati: nessuno | annunci importanti: no
 - 2026-10-13 08:12 | login scaduto | 0 novita' | file scaricati: nessuno | annunci importanti: no
+- 2026-10-13 09:25 | ok | 7 novita' | file scaricati: RiassuntoLezione2.pdf, Lab02 - Operatori e Tipi.pdf, slide_tabella_tipi_e_specificatori_conversione.pdf | annunci importanti: no

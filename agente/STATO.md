@@ -54,3 +54,4 @@ Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai r
 
 ## Novita' Moodle
 - 8 ott 2026: prima esecuzione controllo automatico. Scaricati `RiassuntoLezione1.pdf` e `ProspettoCorsoB.pdf` (Mate discreta), `20260928-Presentazione-Testo-Fondamenti-Pearson.pdf` (Fondamenti). ⚠ Il link Moodle "Lezione 3: Numeri Complessi, II" (Algebra) punta a una registrazione Webex del 2025, non del 2026: verificare con il docente.
+- 13 ott 2026: scaricati `RiassuntoLezione2.pdf` (Mate, scansione da trascrivere), `Lab02 - Operatori e Tipi.pdf` e `slide_tabella_tipi_e_specificatori_conversione.pdf` (Programmazione). Webex Fondamenti L07 (12 ott) x2 da non scaricare; `codice_di_partenza.zip` da scaricare a mano.
