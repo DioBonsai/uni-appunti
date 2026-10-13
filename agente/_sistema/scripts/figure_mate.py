@@ -540,3 +540,11 @@ def partizione_relazione():
     fig.text(0.485, 0.5, "⇄", ha="center", va="center", fontsize=26)
     fig.text(0.485, 0.2, "stesso blocco\n⟺ x R y", ha="center", va="center", fontsize=8.5, color=GRIGIO)
     return _salva(fig, "mate/ch09_partizione_relazione")
+
+
+def inclusione_canonica():
+    """j : S -> A, j(s) = s, con S = {1, 2} contenuto in A = {1, 2, 3, 4}."""
+    fig, ax = plt.subplots(figsize=(5.0, 3.3))
+    ov = [dict(nome="S", elems=[1, 2], cx=2.2, w=2.2, h=1.9), dict(nome="A", elems=[3, 1, 2, 4], cx=7.8, w=2.4, h=4.8)]
+    ovali_ax(ax, ov, [dict(da=(0, 1), a=(1, 1)), dict(da=(0, 2), a=(1, 2))], titolo="inclusione canonica j : S → A,  j(s) = s", fs=12)
+    return _salva(fig, "mate/ch10_inclusione_canonica")
