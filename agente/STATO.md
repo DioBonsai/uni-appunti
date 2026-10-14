@@ -3,7 +3,7 @@
 Legenda: ✅ nel Word | ⏳ da fare | ❓ da decidere
 
 ## Algebra lineare (Buzano/Radeschi) – `Riassunto Algebra lineare.docx`
-Il Word ha 13 capitoli (aggiunti 10-13 il 12 ott). Prossima numerazione: **14**. Il 13 ott 2026 (su richiesta di Emanuele) sono state inserite 14 figure nei capitoli 1-13 (`_sistema/scripts/figure_alg.py` + `inserisci_figure.py`, piano in `_sistema/figure/alg/piano.json`); testo invariato.
+Il Word ha 18 capitoli (aggiunti 10-13 il 12 ott; 14-18 il 14 ott dalla L5 «Spazi vettoriali I»: ℝⁿ, somma e prodotto per scalare, proprietà e gruppi, spazi vettoriali, zero/opposto/esempi; fonti: dispense cap. 5 + lavagne e audio della registrazione 2025 su Moodle, vedi `fonti_testo/Algebra lineare/L5_*`). Prossima numerazione: **19** (L6 Spazi vettoriali II). Il 13 ott 2026 (su richiesta di Emanuele) sono state inserite 14 figure nei capitoli 1-13 (`_sistema/scripts/figure_alg.py` + `inserisci_figure.py`, piano in `_sistema/figure/alg/piano.json`); testo invariato.
 | Lez. | Data | Argomenti | Word | Fonti disponibili |
 |---|---|---|---|---|
 | L1 | 30 set | Vettori/mappe lineari, insiemi numerici, campi | ✅ cap. 1-2 | appunti, nota, audio, dispense cap.1 |

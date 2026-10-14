@@ -205,6 +205,50 @@ def discriminante():
     return _salva(fig, "alg/ch13_discriminante")
 
 
+# ---------------------------------------------------------------- lezione 5 (spazi vettoriali)
+def punto_R2_R3():
+    """Un vettore di R^2 come punto e freccia, un vettore di R^3 come punto e freccia."""
+    fig = plt.figure(figsize=(7.6, 3.6))
+    ax = fig.add_subplot(1, 2, 1); ax.set_aspect("equal"); ax.set_xlim(-0.6, 5); ax.set_ylim(-0.6, 3.6)
+    ax.axhline(0, color="black", lw=0.9); ax.axvline(0, color="black", lw=0.9); ax.grid(True, color="#e3e3e3", lw=0.6)
+    for sp in ("top", "right", "left", "bottom"):
+        ax.spines[sp].set_visible(False)
+    ax.annotate("", xy=(3, 2), xytext=(0, 0), arrowprops=dict(arrowstyle="-|>", color=BLU, lw=2, shrinkA=0, shrinkB=0))
+    ax.plot([3, 3], [0, 2], ls="--", color=GRIGIO, lw=1); ax.plot([0, 3], [2, 2], ls="--", color=GRIGIO, lw=1)
+    ax.plot(3, 2, "o", color=BLU, ms=6, zorder=5); ax.text(3.15, 2.1, "P = (3, 2)", color=BLU, fontsize=10)
+    ax.set_xticks([1, 2, 3, 4]); ax.set_yticks([1, 2, 3]); ax.set_title("in ℝ²: il vettore (3, 2)", fontsize=10)
+    ax.text(4.9, -0.45, "x", fontsize=10, ha="right"); ax.text(-0.5, 3.5, "y", fontsize=10)
+    a3 = fig.add_subplot(1, 2, 2, projection="3d"); a3.view_init(elev=22, azim=-62)
+    a3.plot([0, 5], [0, 0], [0, 0], color="black", lw=1); a3.plot([0, 0], [0, 5], [0, 0], color="black", lw=1); a3.plot([0, 0], [0, 0], [0, 3.5], color="black", lw=1)
+    a3.plot([3, 3], [0, 4], [0, 0], ls="--", color=GRIGIO, lw=1); a3.plot([0, 3], [4, 4], [0, 0], ls="--", color=GRIGIO, lw=1); a3.plot([3, 3], [4, 4], [0, 2], ls="--", color=GRIGIO, lw=1)
+    a3.plot([0, 3], [0, 4], [0, 2], color=BLU, lw=2); a3.scatter([3], [4], [2], color=BLU, s=30)
+    a3.text(3.2, 4.1, 2.2, "P = (3, 4, 2)", color=BLU, fontsize=9); a3.text(5.2, 0, 0, "x", fontsize=10); a3.text(0, 5.2, 0, "y", fontsize=10); a3.text(0, 0, 3.7, "z", fontsize=10)
+    a3.set_xlim(0, 5); a3.set_ylim(0, 5); a3.set_zlim(0, 3.5); a3.set_axis_off(); a3.set_title("in ℝ³: il vettore (3, 4, 2)", fontsize=10)
+    fig.subplots_adjust(wspace=0.05)
+    return _salva(fig, "alg/ch14_R2_R3")
+
+
+def somma_prodotto_R2():
+    """Somma di vettori (regola del parallelogramma) e prodotto per scalare in R^2."""
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(8.0, 3.6))
+    for ax in (a1, a2):
+        ax.set_aspect("equal"); ax.axhline(0, color="black", lw=0.9); ax.axvline(0, color="black", lw=0.9); ax.grid(True, color="#e3e3e3", lw=0.6)
+        for sp in ("top", "right", "left", "bottom"):
+            ax.spines[sp].set_visible(False)
+    v, w = C(3, 1), C(1, 2); s_ = v + w
+    a1.set_xlim(-0.6, 5.2); a1.set_ylim(-0.6, 3.8)
+    freccia(a1, v, BLU); freccia(a1, w, ROSSO); freccia(a1, s_, VERDE, lw=2.2)
+    a1.plot([v.real, s_.real], [v.imag, s_.imag], ls="--", color=GRIGIO, lw=1); a1.plot([w.real, s_.real], [w.imag, s_.imag], ls="--", color=GRIGIO, lw=1)
+    a1.text(3.1, 0.55, "v = (3, 1)", color=BLU, fontsize=9); a1.text(0.1, 2.15, "w = (1, 2)", color=ROSSO, fontsize=9); a1.text(2.9, 3.2, "v + w = (4, 3)", color=VERDE, fontsize=9)
+    a1.set_title("somma: regola del parallelogramma", fontsize=10); a1.set_xticks([1, 2, 3, 4]); a1.set_yticks([1, 2, 3])
+    a2.set_xlim(-6.4, 6.8); a2.set_ylim(-2.6, 2.6)
+    freccia(a2, C(3, 1), BLU); freccia(a2, C(6, 2), VERDE, lw=2.2); freccia(a2, C(-3, -1), ROSSO)
+    a2.text(2.4, -0.45, "v = (3, 1)", color=BLU, fontsize=9); a2.text(4.1, 2.15, "2v = (6, 2)", color=VERDE, fontsize=9); a2.text(-6.2, -1.9, "−v = (−3, −1)", color=ROSSO, fontsize=9)
+    a2.set_title("prodotto per scalare: 2v e −v", fontsize=10)
+    fig.subplots_adjust(wspace=0.1)
+    return _salva(fig, "alg/ch15_somma_prodotto")
+
+
 def tutte():
     plan = [
         (4, somma_vettori, "La somma di due vettori con la regola del parallelogramma.", 8.0),
@@ -222,6 +266,7 @@ def tutte():
         (313, polinomio_radice_doppia, "Una radice doppia: il grafico tocca l'asse x senza attraversarlo.", 8.5),
         (336, discriminante, "I tre casi del discriminante per un polinomio di grado 2.", 14.0),
     ]
+    plan = plan  # le figure della lezione 5 si generano a parte (vedi sotto)
     PIANO = []
     for dopo, fn, did, larg in plan:
         PIANO.append(dict(dopo=dopo, figura=fn(), didascalia=did, larghezza=larg))
@@ -232,3 +277,4 @@ def tutte():
 
 if __name__ == "__main__":
     tutte()
+    punto_R2_R3(); somma_prodotto_R2()
