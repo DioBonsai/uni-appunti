@@ -550,3 +550,67 @@ def conversioni_divisione():
         freccia(ax, (18.5, y), (20.1, y))
         box(ax, 20.2, y - 0.8, 8.8, 1.6, ris, fc="#f6c6c0" if col == ROSSO else "#d4ecda", fs=10, style="square,pad=0", bold=True)
     return _salva(fig, "prog/ch16_conversioni_divisione")
+
+
+def tavole_booleane():
+    """Tavole di verita' di AND, OR, NOT con gli operatori del C."""
+    fig, ax = vuoto(7.2, 2.8, (0, 30), (-4.0, 5.2))
+    tab = [("condizione1 && condizione2", [(0, 0, 0), (0, 1, 0), (1, 0, 0), (1, 1, 1)], 0.0),
+           ("condizione1 || condizione2", [(0, 0, 0), (0, 1, 1), (1, 0, 1), (1, 1, 1)], 11.0),
+           ("!condizione", [(0, 1), (1, 0)], 22.0)]
+    for tit, righe, x0 in tab:
+        ax.text(x0 + 3.6, 4.4, tit, ha="center", fontsize=8.6, family="monospace", fontweight="bold", color=BLU)
+        n = len(righe[0]); w = 2.4
+        for j, h in enumerate(("c1", "c2", "ris") if n == 3 else ("c", "!c")):
+            ax.text(x0 + 0.2 + j * w + w / 2 - 0.1, 3.2, h, ha="center", fontsize=9, color=GRIGIO)
+        for i, r in enumerate(righe):
+            for j, v in enumerate(r):
+                ris = j == n - 1
+                box(ax, x0 + 0.2 + j * w, 2.0 - i * 1.15 - 0.45, w - 0.2, 0.95, str(v), fc=("#f6c6c0" if (ris and v) else CH), fs=11, bold=ris, style="square,pad=0")
+    ax.text(15, -3.3, "1 = vero, 0 = falso", ha="center", fontsize=8.5, color=GRIGIO)
+    return _salva(fig, "prog/ch17_tavole_booleane")
+
+
+def intervalli():
+    """I quattro tipi di intervallo sulla retta, con la loro espressione in C."""
+    righe = [("chiuso", "min <= x && x <= max", True, True), ("semiaperto sinistro", "min <= x && x < max", True, False),
+             ("semiaperto destro", "min < x && x <= max", False, True), ("aperto", "min < x && x < max", False, False)]
+    fig, ax = vuoto(7.0, 3.6, (-8, 24), (-1.2, 14.2))
+    for r, (nome, expr, a, b) in enumerate(righe):
+        y = 12.0 - r * 3.6
+        ax.text(-7.5, y, nome, ha="left", va="center", fontsize=9.5, color=BLU)
+        ax.plot([3, 20], [y, y], color="#bbb", lw=1)
+        ax.plot([6, 16], [y, y], color=BLU, lw=4, solid_capstyle="butt")
+        for x, chiuso in ((6, a), (16, b)):
+            ax.add_patch(Circle((x, y), 0.45, fc=BLU if chiuso else "white", ec=BLU, lw=1.8, zorder=4))
+        ax.text(6, y - 0.95, "min", ha="center", va="top", fontsize=8, color=GRIGIO); ax.text(16, y - 0.95, "max", ha="center", va="top", fontsize=8, color=GRIGIO)
+        ax.text(21, y, expr, ha="left", va="center", fontsize=8.6, family="monospace")
+    ax.set_xlim(-8, 36)
+    return _salva(fig, "prog/ch18_intervalli")
+
+
+def flusso_if():
+    """Diagrammi di flusso di if, if-else e if-else if-else."""
+    fig, axs = plt.subplots(1, 3, figsize=(8.8, 3.6)); [a.set_aspect("equal") or a.axis("off") for a in axs]
+    ax = axs[0]; ax.set_xlim(-2.4, 2.4); ax.set_ylim(-5.0, 1.0); ax.set_title("if", fontsize=11)
+    fl_box(ax, 0, 0, 2.2, 1.2, "condizione?", "dec", 9); fl_box(ax, -0.2, -2.2, 1.8, 0.8, "blocco")
+    freccia(ax, (0, -0.6), (0, -1.8)); ax.text(0.15, -1.1, "sì", color=VERDE, fontsize=10)
+    ax.plot([1.1, 1.9, 1.9], [0, 0, -3.4], color="#333", lw=1.4); ax.text(1.3, 0.12, "no", color=ROSSO, fontsize=10)
+    ax.plot([0, 0], [-2.6, -3.4], color="#333", lw=1.4); ax.plot([1.9, 0], [-3.4, -3.4], color="#333", lw=1.4); freccia(ax, (0, -3.4), (0, -4.4))
+    ax = axs[1]; ax.set_xlim(-2.4, 2.4); ax.set_ylim(-5.0, 1.0); ax.set_title("if-else", fontsize=11)
+    fl_box(ax, 0, 0, 2.2, 1.2, "condizione?", "dec", 9); fl_box(ax, -1.3, -2.0, 1.7, 0.8, "blocco A"); fl_box(ax, 1.3, -2.0, 1.7, 0.8, "blocco B")
+    freccia(ax, (-0.7, -0.3), (-1.3, -1.6)); freccia(ax, (0.7, -0.3), (1.3, -1.6)); ax.text(-1.4, -0.7, "sì", color=VERDE, fontsize=10); ax.text(1.0, -0.7, "no", color=ROSSO, fontsize=10)
+    ax.plot([-1.3, -1.3, 0], [-2.4, -3.2, -3.2], color="#333", lw=1.4); ax.plot([1.3, 1.3, 0], [-2.4, -3.2, -3.2], color="#333", lw=1.4); freccia(ax, (0, -3.2), (0, -4.2))
+    ax = axs[2]; ax.set_xlim(-3.2, 3.4); ax.set_ylim(-6.6, 1.0); ax.set_title("if-else if-else", fontsize=11)
+    fl_box(ax, 0, 0, 2.2, 1.2, "cond. 1?", "dec", 9); fl_box(ax, -2.0, -1.9, 1.5, 0.7, "blocco 1", fs=8.5)
+    freccia(ax, (-0.7, -0.3), (-2.0, -1.5)); ax.text(-1.6, -0.5, "sì", color=VERDE, fontsize=9)
+    freccia(ax, (0.7, -0.3), (1.0, -1.5)); fl_box(ax, 1.0, -2.1, 2.0, 1.2, "cond. 2?", "dec", 8.5); ax.text(0.9, -0.8, "no", color=ROSSO, fontsize=9)
+    fl_box(ax, -0.1, -4.3, 1.5, 0.7, "blocco 2", fs=8.5); fl_box(ax, 2.3, -4.3, 1.8, 0.7, "default", fs=8.5)
+    freccia(ax, (0.6, -2.5), (-0.1, -3.9)); freccia(ax, (1.5, -2.7), (2.3, -3.9)); ax.text(-0.1, -3.0, "sì", color=VERDE, fontsize=9); ax.text(2.2, -3.2, "no", color=ROSSO, fontsize=9)
+    fig.subplots_adjust(wspace=0.05)
+    return _salva(fig, "prog/ch19_flusso_if")
+
+
+def scope_temp():
+    return stati_variabili("prog/ch20_scambio_condizionato", "if (y < x) { int temp = x; x = y; y = temp; }  con x = 10, y = 5", ["x", "y", "temp"],
+                           [("inizio", [10, 5, "—"]), ("entra", [10, 5, 10]), ("x = y;", [5, 5, 10]), ("y = temp;", [5, 10, 10]), ("esce", [5, 10, "—"])], 8.6)
