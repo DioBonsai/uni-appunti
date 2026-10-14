@@ -1,5 +1,5 @@
 {
-  "ultimo_controllo": "2026-10-13T09:25:00",
+  "ultimo_controllo": "2026-10-13T17:25:00",
   "corsi": {
     "3829": {
       "nome": "Matematica Discreta, Algebra e Geometria - Parte 1",
@@ -64,7 +64,10 @@
         305113,
         305425,
         298841,
-        298843
+        298843,
+        298825,
+        298827,
+        305506
       ],
       "annunci_visti": []
     }

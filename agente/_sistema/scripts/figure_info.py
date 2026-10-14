@@ -480,3 +480,73 @@ def tutte():
 
 if __name__ == "__main__":
     tutte()
+
+
+def stati_variabili(nome, titolo, nomi, colonne, larg=6.4):
+    """Tabella di istantanee della memoria: una colonna per passo. nomi: nomi delle variabili (righe);
+    colonne: [(intestazione, [valori...])]; in rosso le celle che cambiano rispetto alla colonna precedente."""
+    n = len(nomi); nc = len(colonne)
+    fig, ax = vuoto(larg, 0.9 + 0.55 * n, (-1.6, nc * 3.0 + 0.2), (-n * 1.4 - 0.2, 2.6))
+    for j, (c, vals) in enumerate(colonne):
+        x = j * 3.0
+        ax.text(x + 1.25, 1.65, c, ha="center", va="center", fontsize=9.5, color=BLU)
+        for i in range(n):
+            nuovo = j > 0 and vals[i] != colonne[j - 1][1][i]
+            box(ax, x, -i * 1.4 - 0.55, 2.5, 1.1, str(vals[i]), fc="#f6c6c0" if nuovo else CH, fs=15 if len(str(vals[i])) <= 3 else 9.5, bold=True, style="square,pad=0")
+    for i, n_ in enumerate(nomi):
+        ax.text(-0.15, -i * 1.4, n_, ha="right", va="center", fontsize=11, color=BLU, family="monospace")
+    ax.set_title(titolo, fontsize=10.5)
+    return _salva(fig, nome)
+
+
+def swap_naive():
+    return stati_variabili("prog/ch13_swap_ovvio", "x = y;  y = x;  (in rosso la cella appena scritta)", ["x", "y"],
+                           [("inizio", [5, 2]), ("dopo x = y;", [2, 2]), ("dopo y = x;", [2, 2])], 5.4)
+
+
+def swap_temp():
+    return stati_variabili("prog/ch13_swap_temp", "temp = x;  x = y;  y = temp;  (in rosso la cella appena scritta)", ["x", "y", "temp"],
+                           [("inizio", [5, 2, "?"]), ("temp = x;", [5, 2, 5]), ("x = y;", [2, 2, 5]), ("y = temp;", [2, 5, 5])], 7.0)
+
+
+def tazze():
+    return stati_variabili("prog/ch13_tazze", "Le tazze X e Y e la tazza ausiliaria A", ["X", "Y", "A"],
+                           [("inizio", ["tè verde", "tè nero", "vuota"]), ("passo 1", ["vuota", "tè nero", "tè verde"]),
+                            ("passo 2", ["tè nero", "vuota", "tè verde"]), ("passo 3", ["tè nero", "tè verde", "vuota"])], 7.0)
+
+
+def float_double_memoria():
+    """Tre variabili x, y, z come celle di larghezza proporzionale ai byte: float (4 B) e double (8 B)."""
+    righe = [("float x = 5, y = 2, z = x / y;", [("float x", "5.0", 4), ("float y", "2.0", 4), ("float z", "2.5", 4)]),
+             ("double x = 5, y = 2, z = x / y;", [("double x", "5.0", 8), ("double y", "2.0", 8), ("double z", "2.5", 8)]),
+             ("float x = 5, y = 2;  double z = x / y;", [("float x", "5.0", 4), ("float y", "2.0", 4), ("double z", "2.5", 8)])]
+    fig, ax = vuoto(6.6, 4.6, (0, 27), (-1.6, 14.2))
+    u = 1.05   # unita' di larghezza per byte
+    for r, (tit, celle) in enumerate(righe):
+        y = 12.2 - r * 4.6
+        ax.text(0, y + 1.3, tit, fontsize=9.5, family="monospace", va="center")
+        x = 0.0
+        for nome, val, byte in celle:
+            w = byte * u * 1.0
+            box(ax, x, y - 0.75, w, 1.5, val, fc="#fbeed3" if byte == 8 else CH, fs=12, bold=True, style="square,pad=0")
+            ax.text(x + w / 2, y - 1.1, f"{nome}\n{byte} B", ha="center", va="top", fontsize=8, color=BLU)
+            x += w
+    return _salva(fig, "prog/ch14_float_double_memoria")
+
+
+def conversioni_divisione():
+    """Tre calcoli di x / y con tipi diversi: dove si perde la parte frazionaria."""
+    righe = [("float z = x / y;", "int x = 5, int y = 2", "5 / 2  →  2", "divisione fra interi:\nla frazione si perde qui", "float z = 2.0", ROSSO),
+             ("int z = x / y;", "float x = 5, float y = 2", "5.0 / 2.0  →  2.5", "divisione fra reali:\nnessuna perdita", "int z = 2", ROSSO),
+             ("float z = x / (float)y;", "int x = 5, int y = 2", "5 / 2.0  →  2.5", "y diventa float, quindi\nx viene promosso a float", "float z = 2.5", VERDE)]
+    fig, ax = vuoto(7.2, 4.4, (0, 30), (-1, 14))
+    for r, (cod, op, calc, nota, ris, col) in enumerate(righe):
+        y = 11.2 - r * 4.4
+        ax.text(0, y + 1.6, cod, fontsize=10, family="monospace", va="center", fontweight="bold")
+        box(ax, 0, y - 0.8, 7.6, 1.6, op, fc=CH, fs=9, style="square,pad=0")
+        freccia(ax, (7.7, y), (9.3, y))
+        box(ax, 9.4, y - 0.8, 9.0, 1.6, calc, fc="#fbeed3", fs=10, style="square,pad=0", bold=True)
+        ax.text(13.9, y - 1.15, nota.replace("\n", "\n"), ha="center", va="top", fontsize=7.5, color=GRIGIO)
+        freccia(ax, (18.5, y), (20.1, y))
+        box(ax, 20.2, y - 0.8, 8.8, 1.6, ris, fc="#f6c6c0" if col == ROSSO else "#d4ecda", fs=10, style="square,pad=0", bold=True)
+    return _salva(fig, "prog/ch16_conversioni_divisione")

@@ -30,7 +30,7 @@ Coperti: 1.1-1.7, 1.9, 1.10. La sez. 1.8 (Python) è OMESSA dal docente nel 2026
 | L4 (corso) | 12 ott | Logica proposizionale: proposizioni, connettivi (and, or, xor, not, equivalenza), tavole di verità, equivalenze, tautologie e contraddizioni (PDF «Parte 2, 1.2 Propositions» + audio) | ✅ cap. 12-15 (restano da fare: implicazione e regole di inferenza, prossima lezione) |
 
 ## Programmazione I (Amparore) – `Riassunto Programmazione.docx`
-Word ha 12 capitoli (aggiunti 9-12 il 9 ott: referenziamento, scanf avanzato, puntatori, dereferenziamento/alias/NULL, dalle slide 02C). Prossima numerazione: **13**. Resta Lab01 (laboratorio) da decidere. Il 13 ott 2026 (su richiesta di Emanuele) inserite 12 figure (`figure_info.py`, piano in `_sistema/figure/prog/piano.json`); testo ed evidenziazioni invariati.
+Word con 15 capitoli (aggiunti 13-15 il 14 ott dalle slide 03A e 03B del 13 ott: scambio di variabili, float/double e formati, math.h; resta il 16 sulle conversioni di tipo). Prossima numerazione: **16**. Nota: la registrazione di Programmazione del 13 ott (ProgI-13ott.mp4, Moodle) ha l audio quasi vuoto, quindi non e usabile; trascrizione parziale in _sistema/trascrizioni. Resta Lab01 (laboratorio) da decidere. Il 13 ott 2026 (su richiesta di Emanuele) inserite 12 figure (`figure_info.py`, piano in `_sistema/figure/prog/piano.json`); testo ed evidenziazioni invariati.
 Corretti l'8 ott: ALU (Arithmetic Logic Unit) e titoli dei capitoli 6-7 ("Capitolo N:"). I numeri spuri visti nell'XML non erano nel testo visibile.
 
 ## Programmazione, Laboratorio – `Riassunto Laboratorio.docx` (riassunto a parte, numerazione propria)
@@ -55,3 +55,4 @@ Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai r
 ## Novita' Moodle
 - 8 ott 2026: prima esecuzione controllo automatico. Scaricati `RiassuntoLezione1.pdf` e `ProspettoCorsoB.pdf` (Mate discreta), `20260928-Presentazione-Testo-Fondamenti-Pearson.pdf` (Fondamenti). ⚠ Il link Moodle "Lezione 3: Numeri Complessi, II" (Algebra) punta a una registrazione Webex del 2025, non del 2026: verificare con il docente.
 - 13 ott 2026: scaricati `RiassuntoLezione2.pdf` (Mate, scansione da trascrivere), `Lab02 - Operatori e Tipi.pdf` e `slide_tabella_tipi_e_specificatori_conversione.pdf` (Programmazione). Webex Fondamenti L07 (12 ott) x2 da non scaricare; `codice_di_partenza.zip` da scaricare a mano.
+- 13 ott 2026 (sera): scaricate slide Programmazione `03A_scambio variabili.pdf` e `03B_floats.pdf`. Registrazione lezione ProgI-13ott (MP4, 65 MB) non scaricata. Da riassumere con /riassunto.
