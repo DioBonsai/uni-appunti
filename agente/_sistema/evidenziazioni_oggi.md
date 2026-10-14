@@ -1,6 +1,6 @@
 # Evidenziazioni: cambiamenti dall'ultimo controllo (2026-10-14)
 
-- Programmazione, cap. 13 «Scambio di Variabili e Variabile Temporanea»: +1 paragrafi evidenziati (ora 3 su 33, studiato)
-- Programmazione, cap. 17 «Espressioni Booleane e Operatori Logici»: +11 paragrafi evidenziati (ora 11 su 51, studiato)
-- Programmazione, cap. 18 «Intervalli, Cortocircuitazione e Semplificazione delle Condizioni»: +6 paragrafi evidenziati (ora 6 su 51, studiato)
-- Programmazione, cap. 19 «Il Controllo di Flusso e il Costrutto if»: +10 paragrafi evidenziati (ora 10 su 79, studiato)
+- Fondamenti Info, cap. 12 «Logica Proposizionale: Proposizioni e Valori di Verità»: +4 paragrafi evidenziati (ora 4 su 19, studiato)
+- Fondamenti Info, cap. 13 «I Connettivi: And, Or, Not, Xor ed Equivalenza»: +7 paragrafi evidenziati (ora 7 su 25, studiato)
+- Fondamenti Info, cap. 14 «Le Tavole di Verità»: +2 paragrafi evidenziati (ora 2 su 8, iniziato)
+- Fondamenti Info, cap. 15 «Equivalenze, Tautologie e Contraddizioni»: +3 paragrafi evidenziati (ora 3 su 23, studiato)
