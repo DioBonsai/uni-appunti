@@ -536,9 +536,9 @@ def float_double_memoria():
 
 def conversioni_divisione():
     """Tre calcoli di x / y con tipi diversi: dove si perde la parte frazionaria."""
-    righe = [("float z = x / y;", "int x = 5, int y = 2", "5 / 2  →  2", "divisione fra interi:\nla frazione si perde qui", "float z = 2.0", ROSSO),
-             ("int z = x / y;", "float x = 5, float y = 2", "5.0 / 2.0  →  2.5", "divisione fra reali:\nnessuna perdita", "int z = 2", ROSSO),
-             ("float z = x / (float)y;", "int x = 5, int y = 2", "5 / 2.0  →  2.5", "y diventa float, quindi\nx viene promosso a float", "float z = 2.5", VERDE)]
+    righe = [("float z = x / y;", "int x = 5, y = 2", "5 / 2  →  2", "divisione fra interi:\nla frazione si perde qui", "float z = 2.0", ROSSO),
+             ("int z = x / y;", "float x = 5, y = 2", "5.0 / 2.0  →  2.5", "divisione fra reali:\nnessuna perdita", "int z = 2", ROSSO),
+             ("float z = x / (float)y;", "int x = 5, y = 2", "5 / 2.0  →  2.5", "y diventa float, quindi\nx viene promosso a float", "float z = 2.5", VERDE)]
     fig, ax = vuoto(7.2, 4.4, (0, 30), (-1, 14))
     for r, (cod, op, calc, nota, ris, col) in enumerate(righe):
         y = 11.2 - r * 4.4
