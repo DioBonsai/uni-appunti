@@ -194,6 +194,15 @@ def chapters(path):
     return res, "\n".join(text)
 
 
+def _manuale():
+    """studiato_manuale.json: {"Materia": [numeri di capitolo]} segnati come studiati a mano (le evidenziazioni nei Word non si toccano)."""
+    f = BASE / "studiato_manuale.json"
+    try:
+        return json.loads(f.read_text(encoding="utf-8")) if f.exists() else {}
+    except Exception:
+        return {}
+
+
 def avanzamento():
     out, texts = {}, {}
     for mat in WORD:
@@ -203,6 +212,8 @@ def avanzamento():
             continue
         res, text = chapters(p)
         texts[mat] = text
+        manuali = set((_manuale().get(mat) or []))   # capitoli che Emanuele ha chiesto di segnare come studiati senza evidenziarli
+        res = [(n, t, 2 if n in manuali else s, hl, tot) for n, t, s, hl, tot in res]
         done = [n for n, _, s, *_ in res if s == 2]
         part = [n for n, _, s, *_ in res if s == 1]
         todo = [n for n, _, s, *_ in res if s == 0]
