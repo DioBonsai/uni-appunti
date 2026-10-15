@@ -1,5 +1,3 @@
-# Report Moodle
+# Report Moodle - 2026-10-15
 
-Controllo del 2026-10-14 09:21
-
-SERVE IL LOGIN: la sessione Moodle e' scaduta. Apri il browser pane e accedi a Moodle (login a carico di Emanuele). Nessun controllo eseguito.
+Serve il login: apri il browser pane e accedi a Moodle (https://informatica.i-learn.unito.it). Controllo non eseguito.

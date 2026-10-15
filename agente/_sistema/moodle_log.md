@@ -11,3 +11,5 @@
 - 2026-10-13 09:25 | ok | 7 novita' | file scaricati: RiassuntoLezione2.pdf, Lab02 - Operatori e Tipi.pdf, slide_tabella_tipi_e_specificatori_conversione.pdf | annunci importanti: no
 - 2026-10-13 17:25 | ok | 3 novita' | file scaricati: 03A_scambio variabili.pdf, 03B_floats.pdf | annunci importanti: no
 - 2026-10-14 09:21 | login scaduto | 0 novita' | file scaricati: nessuno | annunci importanti: no
+- 2026-10-15 10:26 | login scaduto | 0 novita' | file scaricati: nessuno | annunci importanti: no
+- 2026-10-15 19:15 | ok (controllo manuale) | Mate: nuovo Riassunto lezione 3 (PDF scansionato, 9 pag, scaricato); Lezione 06/07 non ancora in elenco. Fondamenti: registrazioni Webex L05-L08 presenti, annuncio 12 ott con docx tavole di verità (non scaricato) | annunci importanti: no
