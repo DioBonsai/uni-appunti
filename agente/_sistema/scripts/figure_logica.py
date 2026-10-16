@@ -63,6 +63,38 @@ def demorgan():
     return _salva(fig, "fond/logica_demorgan")
 
 
+def implicazione():
+    fig, ax = nuova(4.6, 3.0, (-0.2, 5.8), (-3.0, 1.2))
+    righe = [(1, 1, 1), (1, 0, 0), (0, 1, 1), (0, 0, 1)]
+    tavola(ax, 0.0, [[("p", "ipotesi"), ("q", "tesi")], [("p → q", "")]], righe, colori_gruppo=["black", BLU], cw=1.2)
+    ax.text(2.9, -2.85, "falsa solo con ipotesi vera e tesi falsa", ha="center", fontsize=8.5, color=ROSSO)
+    return _salva(fig, "fond/logica_implicazione")
+
+
+def contrapposta():
+    fig, ax = nuova(8.4, 3.0, (-0.2, 10.6), (-3.0, 1.2))
+    righe = [(1, 1, 0, 0, 1, 1), (1, 0, 0, 1, 0, 0), (0, 1, 1, 0, 1, 1), (0, 0, 1, 1, 1, 1)]
+    tavola(ax, 0.0, [[("p", ""), ("q", "")], [("¬p", ""), ("¬q", "")], [("p → q", ""), ("¬q → ¬p", "")]], righe, colori_gruppo=["black", GRIGIO, BLU], cw=1.4, evid=(4, 5))
+    ax.text(5.4, -2.85, "le due colonne in blu coincidono: p → q ≡ ¬q → ¬p", ha="center", fontsize=8.5, color=BLU)
+    return _salva(fig, "fond/logica_contrapposta")
+
+
+def bicondizionale():
+    fig, ax = nuova(10.0, 3.0, (-0.2, 12.9), (-3.0, 1.2))
+    righe = [(1, 1, 1, 1, 1, 1), (1, 0, 0, 1, 0, 0), (0, 1, 1, 0, 0, 0), (0, 0, 1, 1, 1, 1)]
+    tavola(ax, 0.0, [[("p", ""), ("q", "")], [("p → q", ""), ("q → p", "")], [("(p → q) ∧ (q → p)", ""), ("p ↔ q", "")]], righe, colori_gruppo=["black", GRIGIO, BLU], cw=1.95, evid=(4, 5))
+    ax.text(6.1, -2.85, "le due colonne in blu coincidono: p ↔ q ≡ (p → q) ∧ (q → p)", ha="center", fontsize=8.5, color=BLU)
+    return _salva(fig, "fond/logica_bicondizionale")
+
+
+def implicazione_disgiunzione():
+    fig, ax = nuova(6.8, 3.0, (-0.2, 8.6), (-3.0, 1.2))
+    righe = [(1, 1, 1, 0, 1), (1, 0, 0, 0, 0), (0, 1, 1, 1, 1), (0, 0, 1, 1, 1)]
+    tavola(ax, 0.0, [[("p", ""), ("q", "")], [("p → q", ""), ("¬p", ""), ("¬p ∨ q", "")]], righe, colori_gruppo=["black", BLU], cw=1.3, evid=(2, 4))
+    ax.text(4.3, -2.85, "le colonne in blu coincidono: p → q ≡ ¬p ∨ q", ha="center", fontsize=8.5, color=BLU)
+    return _salva(fig, "fond/logica_implicazione_disgiunzione")
+
+
 if __name__ == "__main__":
-    for f in (connettivi, formula, demorgan):
+    for f in (connettivi, formula, demorgan, implicazione, contrapposta, bicondizionale, implicazione_disgiunzione):
         print(f())

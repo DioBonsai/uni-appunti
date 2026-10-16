@@ -26,7 +26,7 @@ Nota: negli appunti del 2 ott la condizione delle partizioni è scritta `Ai ∩ 
 
 ## Fondamenti dell'Informatica (Brookshear) – `Riassunto Fondamenti Informatica.docx`
 Il 14 ott 2026 (su richiesta di Emanuele) le tavole di verità dei cap. 13-15, prima scritte a simboli, sono state sostituite con immagini (`figure_logica.py` + `sostituisci_tabelle_logica.py`); testo ed evidenziazioni invariati.
-Word con 15 capitoli (cap. 12-15 aggiunti il 12 ott: logica proposizionale, lezione 4 del corso) (rinumerati l'8 ott: era "6." due volte). Contenuto duplicato unito l'8 ott: memoria di massa solo nel cap. 3 (con i dettagli del cap. 5 aggiunti), ASCII/Unicode e RGB solo nel cap. 4; i cap. 5 e 6 rimandano. Refusi corretti l'8 ott. Cap. 3-4 e 8-10 hanno le evidenziazioni di Emanuele (non toccarle). Il 13 ott 2026 (su richiesta di Emanuele) inserite 13 figure (`figure_info.py`, piano in `_sistema/figure/fond/piano.json`); testo ed evidenziazioni invariati.
+Word con 18 capitoli (cap. 16-18 aggiunti il 16 ott dalla lezione 8 del 15 ott, capitolo 1.3 della Parte 2: implicazione; conversa, contrapposta, condizioni necessarie e sufficienti; bicondizionale e riscritture dell'implicazione; fonti: registrazione Webex 2026 + scheda; la lezione 9 del 16 ott (cap. 1.4, regole di inferenza) è da NON usare per ora, su richiesta di Emanuele). Prossima numerazione: **19**. Prima: Word con 15 capitoli (cap. 12-15 aggiunti il 12 ott: logica proposizionale, lezione 4 del corso) (rinumerati l'8 ott: era "6." due volte). Contenuto duplicato unito l'8 ott: memoria di massa solo nel cap. 3 (con i dettagli del cap. 5 aggiunti), ASCII/Unicode e RGB solo nel cap. 4; i cap. 5 e 6 rimandano. Refusi corretti l'8 ott. Cap. 3-4 e 8-10 hanno le evidenziazioni di Emanuele (non toccarle). Il 13 ott 2026 (su richiesta di Emanuele) inserite 13 figure (`figure_info.py`, piano in `_sistema/figure/fond/piano.json`); testo ed evidenziazioni invariati.
 Coperti: 1.1-1.7, 1.9, 1.10. La sez. 1.8 (Python) è OMESSA dal docente nel 2026: nulla da fare. Audio L1, L3.
 | L4 (corso) | 12 ott | Logica proposizionale: proposizioni, connettivi (and, or, xor, not, equivalenza), tavole di verità, equivalenze, tautologie e contraddizioni (PDF «Parte 2, 1.2 Propositions» + audio) | ✅ cap. 12-15 (restano da fare: implicazione e regole di inferenza, prossima lezione) |
 
@@ -46,12 +46,12 @@ Creato il 9 ott 2026 dalle slide `Lab01 - Introduzione` (laboratorio n. 1). 5 ca
 - [x] Git + GitHub privato (DioBonsai/uni-appunti) [8 ott]
 
 ## Cosa ha già studiato Emanuele (le evidenziazioni gialle nei Word = studiato a mano)
-Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai rimuovere né spostare le evidenziazioni; il testo nuovo si aggiunge SENZA evidenziazione. Stato ricontrollato il 13 ott 2026 (verifica diretta delle evidenziazioni nei Word, capitolo per capitolo):
-- **Algebra lineare**: 0/13 studiati. Nessun segno → cap. 1-13 ancora da studiare (10-13 sui polinomi).
-- **Matematica discreta**: 7/19 studiati (cap. 1-7, compreso il cap. 5 «Induzione», evidenziato il 13 ott con +16 paragrafi). Da studiare: 8-19 (relazioni, equivalenze, funzioni, composizione, iniettività/suriettività).
-- **Fondamenti Info**: 11/15 studiati (cap. 1-11). Da studiare: 12-15 (logica proposizionale, appena scritti).
-- **Programmazione**: 8/12 studiati (cap. 1-8). Da studiare: 9-12 (referenziamento, scanf, puntatori, dereferenziamento).
-- **Programmazione, Laboratorio**: nessun segno → cap. 1-5 ancora da studiare.
+Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai rimuovere né spostare le evidenziazioni; il testo nuovo si aggiunge SENZA evidenziazione. Stato ricontrollato il 16 ott 2026 (verifica diretta delle evidenziazioni nei Word, capitolo per capitolo):
+- **Algebra lineare**: 2/18 studiati (cap. 1-2; cap. 3 in parte, 1 paragrafo). Da studiare: 3-18.
+- **Matematica discreta**: 11/19 studiati (cap. 1-11). Da studiare: 12-19 (funzioni, composizione, iniettività/suriettività).
+- **Fondamenti Info**: 15/15 studiati (cap. 1-15). Tutto studiato.
+- **Programmazione**: 19/19 studiati (cap. 1-19). Tutto studiato.
+- **Programmazione, Laboratorio**: nessun segno → cap. 1-7 ancora da studiare.
 
 ## Novita' Moodle
 - 8 ott 2026: prima esecuzione controllo automatico. Scaricati `RiassuntoLezione1.pdf` e `ProspettoCorsoB.pdf` (Mate discreta), `20260928-Presentazione-Testo-Fondamenti-Pearson.pdf` (Fondamenti). ⚠ Il link Moodle "Lezione 3: Numeri Complessi, II" (Algebra) punta a una registrazione Webex del 2025, non del 2026: verificare con il docente.
