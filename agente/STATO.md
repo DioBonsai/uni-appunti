@@ -13,7 +13,7 @@ Il Word ha 18 capitoli (aggiunti 10-13 il 12 ott; 14-18 il 14 ott dalla L5 «Spa
 Dispense: 26 lezioni; prossime L4 Polinomi, L5-7 Spazi vettoriali.
 
 ## Matematica discreta (Mori) – `Riassunto Matematica discreta.docx`
-Il Word ha 24 capitoli (cap. 20-24 aggiunti il 16 ott dalle lezioni 6B, 7 e 8; fonti: libro Mori cap. 3, appunti a mano 15 e 16 ott in `fonti_testo/Matematica discreta/L7_*` e `L8_*`, audio; la **prima metà della lezione 6 manca** (nessun audio 6A, nessun appunto): l'inizio di L6 non è coperto. Figure in `scripts/figure_mate_comb.py`. Nota: nell'esempio dei film il libro dà 23 ma il calcolo corretto è 13). Prossima numerazione: **25** (combinazioni e coefficienti binomiali, prossima lezione). Il 13 ott 2026 (su richiesta di Emanuele) sono state inserite 39 figure nei capitoli 1-19 con `_sistema/scripts/inserisci_figure.py` (piano in `_sistema/figure/mate/piano.json`, generatore `figure_mate.py`); testo ed evidenziazioni invariati.
+Il Word ha 25 capitoli (cap. 20-25 aggiunti il 16 ott; il 25 = insiemi finiti, cardinalità, principio dei cassetti, dal libro cap. 3 pp. 39-45; confronto dei cap. 1-19 con il libro in `_sistema/audit/confronto_libro_mate.md`: 21 integrazioni/correzioni proposte, da fare come capitoli di complemento in coda perché i Word esistenti non si riscrivono dalle lezioni 6B, 7 e 8; fonti: libro Mori cap. 3, appunti a mano 15 e 16 ott in `fonti_testo/Matematica discreta/L7_*` e `L8_*`, audio; la **prima metà della lezione 6 manca** (nessun audio 6A, nessun appunto): l'inizio di L6 non è coperto. Figure in `scripts/figure_mate_comb.py`. Nota: nell'esempio dei film il libro dà 23 ma il calcolo corretto è 13). Prossima numerazione: **26** (combinazioni e coefficienti binomiali, prossima lezione). Il 13 ott 2026 (su richiesta di Emanuele) sono state inserite 39 figure nei capitoli 1-19 con `_sistema/scripts/inserisci_figure.py` (piano in `_sistema/figure/mate/piano.json`, generatore `figure_mate.py`); testo ed evidenziazioni invariati.
 | Lez. | Data | Argomenti | Word |
 |---|---|---|---|
 | L1 | 1 ott | Insiemi, operazioni, prodotto cartesiano | ✅ cap. 1-3 |
@@ -23,7 +23,7 @@ Il Word ha 24 capitoli (cap. 20-24 aggiunti il 16 ott dalle lezioni 6B, 7 e 8; f
 | L5 | 9 ott | Esempi inietti/suriett., rendere biettiva (x², seno), composizione e associatività, composte e inverse | ✅ cap. 16-19 (audio 5B incompleto: ~30 min mancanti coperti dagli appunti) |
 | L6 (2ª metà) | 13-14 ott | Funzioni inverse: esistenza e unicità, controesempi con una sola composizione identità | ✅ cap. 20 (manca la prima metà della lezione) |
 | L7 | 15 ott | Inclusione-esclusione (2 e 3 insiemi), prodotto cartesiano e scelte successive, ordinamenti | ✅ cap. 21-22 (e inizio cap. 23) |
-| L8 | 16 ott | Fattoriale, anagrammi, disposizioni con ripetizione e semplici, accenno alle combinazioni | ✅ cap. 23-24 |
+| L8 | 16 ott | Fattoriale, anagrammi, disposizioni con ripetizione e semplici, accenno alle combinazioni | ✅ cap. 23-24 (+ cap. 25 dal libro: insiemi finiti) |
 Fonti: appunti a mano, schede, libro Mori (scansione), audio L1-L2 (manca L3).
 Nota: negli appunti del 2 ott la condizione delle partizioni è scritta `Ai ∩ Aj ≠ ∅` (typo, deve essere `= ∅`).
 

@@ -233,9 +233,26 @@ def griglia_AxB():
     return _salva(fig, "mate/ch22_griglia")
 
 
+def diagonali():
+    fig, ax = plt.subplots(figsize=(4.6, 4.2))
+    ax.axis("off")
+    N = 5
+    ordine = sorted(((a, b) for a in range(N) for b in range(N) if a + b < N), key=lambda t: (t[0] + t[1], t[0]))
+    for k, (a, b) in enumerate(ordine):
+        ax.add_patch(Rectangle((b, -a), 0.9, 0.9, fc="#E8EFFA", ec=BLU, lw=1))
+        ax.text(b + 0.45, -a + 0.45, str(k), ha="center", va="center", fontsize=11)
+    for a in range(N):
+        ax.text(-0.25, -a + 0.45, str(a), ha="right", va="center", fontsize=10, color=BLU)
+        ax.text(a + 0.45, 1.15, str(a), ha="center", va="bottom", fontsize=10, color=ROSSO)
+    ax.text(-0.9, 1.2, "a ↓  b →", fontsize=9, ha="right")
+    ax.text(2.4, -4.55, "casella (a, b): posto nella lista", ha="center", fontsize=9)
+    ax.set_xlim(-1.8, 5.2); ax.set_ylim(-4.9, 1.9)
+    return _salva(fig, "mate/ch25_diagonali")
+
+
 def tutte():
     out = [una_composizione(), contributi_due(), numeri_3000(), venn3(), griglia_AxB(), albero_menu(),
-           albero_permutazioni(), albero_ripetizione(), albero_podio()]
+           albero_permutazioni(), albero_ripetizione(), albero_podio(), diagonali()]
     print("\n".join(out))
 
 
