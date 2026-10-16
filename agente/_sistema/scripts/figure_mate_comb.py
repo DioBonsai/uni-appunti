@@ -250,9 +250,31 @@ def diagonali():
     return _salva(fig, "mate/ch25_diagonali")
 
 
+def stessa_classe():
+    fig, ax = plt.subplots(figsize=(8.6, 4.4))
+    ax.axis("off"); ax.set_xlim(0, 12); ax.set_ylim(-1.0, 6.4)
+    # la classe (una cifra) con tre rappresentanti
+    ax.add_patch(Ellipse((2.6, 3.2), 3.6, 4.6, fc="#E8EFFA", ec=BLU, lw=2))
+    ax.text(2.6, 5.75, "una sola classe", ha="center", fontsize=11, color=BLU, weight="bold")
+    for y, n in [(4.3, 3), (3.2, 5), (2.1, 7)]:
+        ax.plot(1.7, y, "o", color="black", ms=5); ax.text(1.95, y, f"{n}", va="center", fontsize=13)
+        ax.text(3.2, y, f"[{n}]", va="center", fontsize=13, color=BLU)
+    ax.text(2.6, 0.55, "[3] = [5] = [7]", ha="center", fontsize=12, color=BLU)
+    # i valori diversi
+    for y, lab in [(4.7, "[6]\nuna cifra"), (1.7, "[10]\ndue cifre")]:
+        ax.add_patch(Ellipse((10.2, y), 2.8, 1.6, fc="#FBE9E7", ec=ROSSO, lw=2))
+        ax.text(10.2, y, lab, ha="center", va="center", fontsize=11)
+    for yi, yo, lab in [(4.3, 4.7, "F([3]) = [2 · 3]"), (3.2, 1.9, "F([5]) = [2 · 5]")]:
+        ax.add_patch(FancyArrowPatch((4.45, yi), (8.75, yo), arrowstyle="-|>", mutation_scale=16, color=ROSSO, lw=2,
+                                     connectionstyle="arc3,rad=0.0"))
+        ax.text(6.5, (yi + yo) / 2 + 0.5, lab, ha="center", fontsize=10.5, color=ROSSO, rotation=0)
+    ax.text(6.5, -0.35, "stessa classe, due scritture, due valori diversi:\nF non è una funzione", ha="center", fontsize=11, color=ROSSO, weight="bold")
+    return _salva(fig, "mate/ch12_stessa_classe")
+
+
 def tutte():
     out = [una_composizione(), contributi_due(), numeri_3000(), venn3(), griglia_AxB(), albero_menu(),
-           albero_permutazioni(), albero_ripetizione(), albero_podio(), diagonali()]
+           albero_permutazioni(), albero_ripetizione(), albero_podio(), diagonali(), stessa_classe()]
     print("\n".join(out))
 
 
