@@ -116,7 +116,11 @@ def solo_it(s):
     """I quiz del sito sono bilingui («🇮🇹 testo 🇬🇧 text»): tiene solo l'italiano."""
     if "🇮🇹" not in s:
         return s.strip()
-    return re.sub(r"\s+", " ", re.sub(r"🇬🇧.*?(?=🇮🇹|\Z)", "", s, flags=re.S).replace("🇮🇹", "")).strip()
+    def _tieni_formula(m):
+        # in alcune domande la formula segue il testo inglese («...table.\(A + B\)»): appartiene a entrambe le lingue, si tiene
+        f = re.search(r"(\\\(.*\\\))\s*$", m.group(0), flags=re.S)
+        return " " + f.group(1) if f else ""
+    return re.sub(r"\s+", " ", re.sub(r"🇬🇧.*?(?=🇮🇹|\Z)", _tieni_formula, s, flags=re.S).replace("🇮🇹", "")).strip()
 
 
 FIG = re.compile(r"qui sopra|qui sotto|\bsopra\b|seguente circuito|nella figura|in figura|figura|immagine|diagramma|automa (qui|seguente)|tabella (qui|seguente)|seguente (tabella|automa)", re.I)
