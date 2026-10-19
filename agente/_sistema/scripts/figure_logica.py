@@ -140,6 +140,45 @@ def argomenti_tavole():
     return _salva(fig, "fond/logica_argomenti_tavole")
 
 
+def quantificatori_dominio():
+    fig, ax = plt.subplots(figsize=(9.4, 4.0)); ax.axis("off"); ax.set_xlim(0, 12.2); ax.set_ylim(-0.4, 5.2)
+    ax.text(3.3, 4.75, "valori di P(x) nel dominio", ha="center", fontsize=10.5, color=GRIGIO)
+    ax.text(8.4, 4.75, "∀x P(x)", ha="center", fontsize=12, fontweight="bold", color=BLU)
+    ax.text(10.9, 4.75, "∃x P(x)", ha="center", fontsize=12, fontweight="bold", color=ROSSO)
+    casi = [([1, 1, 1, 1, 1, 1], "vero", "vero"), ([1, 1, 0, 1, 1, 0], "falso", "vero"), ([0, 0, 0, 0, 0, 0], "falso", "falso")]
+    etich = ["tutti veri", "alcuni veri, alcuni falsi", "tutti falsi"]
+    for r, ((vals, a, e), lab) in enumerate(zip(casi, etich)):
+        y = 3.5 - r * 1.55
+        for i, v in enumerate(vals):
+            ax.add_patch(Rectangle((0.5 + i * 0.95, y), 0.85, 0.85, fc=V1 if v else V0, ec="white", lw=1.6))
+            ax.text(0.5 + i * 0.95 + 0.425, y + 0.425, str(v), ha="center", va="center", fontsize=12, fontweight="bold", color="#14532d" if v else "#7f1d1d")
+        ax.text(0.5, y - 0.22, lab, fontsize=8.8, color=GRIGIO, va="top")
+        for xc, res in ((8.4, a), (10.9, e)):
+            ok = res == "vero"
+            ax.add_patch(Rectangle((xc - 0.6, y + 0.05), 1.2, 0.75, fc=V1 if ok else V0, ec="white", lw=1.6))
+            ax.text(xc, y + 0.425, res, ha="center", va="center", fontsize=11, fontweight="bold", color="#14532d" if ok else "#7f1d1d")
+    ax.text(6.1, -0.3, "∀ basta un falso per essere falso; ∃ basta un vero per essere vero", ha="center", fontsize=9, color=GRIGIO)
+    return _salva(fig, "fond/logica_quantificatori_dominio")
+
+
+def regole_quantificatori():
+    righe = [("∀x P(x)", "∴ P(d)  se d ∈ D", "istanziazione universale"),
+             ("P(d)  per ogni d ∈ D", "∴ ∀x P(x)", "generalizzazione universale"),
+             ("∃x P(x)", "∴ P(d)  per qualche d ∈ D", "istanziazione esistenziale"),
+             ("P(d)  per qualche d ∈ D", "∴ ∃x P(x)", "generalizzazione esistenziale")]
+    fig, ax = plt.subplots(figsize=(8.6, 4.0)); ax.axis("off"); ax.set_xlim(0, 8.6); ax.set_ylim(-0.5, 3.6)
+    ax.text(2.2, 3.3, "regola", ha="center", fontsize=11, fontweight="bold", color=BLU)
+    ax.text(6.4, 3.3, "nome", ha="center", fontsize=11, fontweight="bold", color=BLU)
+    for i, (pre, con, nome) in enumerate(righe):
+        y = 2.5 - i * 0.82
+        ax.add_patch(Rectangle((0.1, y - 0.3), 8.4, 0.74, fc="#F3F6FB" if i % 2 == 0 else "white", ec="#cdd8ee", lw=1))
+        ax.text(0.35, y + 0.2, pre, fontsize=11.5, va="center")
+        ax.plot([0.3, 3.3], [y + 0.0, y + 0.0], color="black", lw=1)
+        ax.text(0.35, y - 0.17, con, fontsize=11.5, va="center")
+        ax.text(6.4, y + 0.04, nome, fontsize=11, ha="center", va="center", style="italic", color=BLU)
+    return _salva(fig, "fond/logica_regole_quantificatori")
+
+
 if __name__ == "__main__":
-    for f in (connettivi, formula, demorgan, implicazione, contrapposta, bicondizionale, implicazione_disgiunzione, regole_inferenza, argomenti_tavole):
+    for f in (connettivi, formula, demorgan, implicazione, contrapposta, bicondizionale, implicazione_disgiunzione, regole_inferenza, argomenti_tavole, quantificatori_dominio, regole_quantificatori):
         print(f())
