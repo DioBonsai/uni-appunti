@@ -1,0 +1,122 @@
+[
+ {
+  "idx": 8,
+  "ancora": "Mentre gli spazi vettoriali fungono da contenitori dei dati,",
+  "testo": "In parole povere: una mappa lineare è una trasformazione \"ben educata\": se prima sommi due vettori e poi li trasformi, ottieni lo stesso risultato che trasformandoli separatamente e sommando dopo; lo stesso vale se allunghi un vettore di un fattore qualsiasi. Ruotare o ingrandire un'immagine sono esempi tipici."
+ },
+ {
+  "idx": 23,
+  "ancora": "Per \"tappare\" tutti questi buchi e completare la retta si co",
+  "testo": "In parole povere: un numero reale è un punto della retta che si può avvicinare quanto vuoi con frazioni sempre più precise. Un numero come π è il \"punto di arrivo\" di una sequenza di approssimazioni razionali (3; 3,1; 3,14; 3,141...) che si stringono sempre di più, anche se nessuna frazione lo raggiunge davvero."
+ },
+ {
+  "idx": 41,
+  "ancora": "In matematica, un qualsiasi insieme dotato di due operazioni",
+  "testo": "In parole povere: un campo è un insieme di numeri dentro cui puoi fare le quattro operazioni (somma, sottrazione, prodotto, divisione per numeri diversi da zero) con le solite regole, senza mai uscire dall'insieme. I razionali e i reali sono campi; gli interi no, perché dividendo 1 per 2 esci dagli interi."
+ },
+ {
+  "idx": 62,
+  "ancora": "i2 = -1",
+  "testo": "In parole povere: un numero complesso è una coppia di numeri reali scritta in modo speciale: una parte \"normale\" (a) e una parte che moltiplica i, una radice quadrata inventata di -1 (b). È come un punto del piano con due coordinate, dove la seconda è la parte immaginaria. Esempio: 3 + 2i ha parte reale 3 e parte immaginaria 2 (non 2i)."
+ },
+ {
+  "idx": 63,
+  "ancora": "I numeri reali costituiscono un sottoinsieme proprio dei num",
+  "testo": "In parole povere: i reali sono i numeri complessi \"senza parte immaginaria\" (stanno sull'asse orizzontale), mentre gli immaginari puri sono quelli \"senza parte reale\", come 5i, che stanno sull'asse verticale."
+ },
+ {
+  "idx": 104,
+  "ancora": "Il coniugio lascia inalterata la parte reale e cambia il seg",
+  "testo": "In parole povere: il coniugato è lo \"specchio\" di un numero complesso rispetto all'asse orizzontale: tieni la parte reale e cambi solo il segno di quella immaginaria. Il coniugato di 2 + 3i è 2 - 3i; specchiandolo due volte torni dov'eri."
+ },
+ {
+  "idx": 111,
+  "ancora": "Poiché a e b sono numeri reali, i loro quadrati a2 e b2 sono",
+  "testo": "In parole povere: il modulo è la distanza del numero dall'origine, calcolata con Pitagora: la parte reale e quella immaginaria sono i due cateti e il modulo è l'ipotenusa. Per 3 + 4i il modulo è 5. È sempre un numero reale maggiore o uguale a zero ed è zero solo per il numero zero."
+ },
+ {
+  "idx": 153,
+  "ancora": "θ (la lettera greca theta) è l'angolo, misurato in radianti,",
+  "testo": "In parole povere: invece di dire \"vai a destra di a e in alto di b\", si dice \"cammina per una distanza r in una direzione ruotata di un angolo θ rispetto all'asse orizzontale\". È come indicare un luogo con distanza e direzione (come una bussola) invece che con le coordinate della griglia."
+ },
+ {
+  "idx": 164,
+  "ancora": "per z = 0 l'argomento non è definito, perché l'origine non h",
+  "testo": "In parole povere: l'argomento di un numero complesso è l'angolo della direzione in cui sta, misurato in senso antiorario a partire dall'asse orizzontale positivo. Siccome un giro completo riporta nello stesso punto, l'angolo è ambiguo di giri interi (come le 25 sulle lancette sono le 1): per questo si fissa un intervallo. Per lo zero non c'è nessuna direzione, quindi l'argomento non esiste."
+ },
+ {
+  "idx": 178,
+  "ancora": "che si chiama rappresentazione polare (o esponenziale) di z.",
+  "testo": "In parole povere: la forma esponenziale è solo una scrittura abbreviata per \"distanza r, angolo θ\". Il simbolo e^(iθ) vuol dire semplicemente cos θ + i sen θ, cioè il punto sulla circonferenza di raggio 1 a quell'angolo; moltiplicandolo per r lo si porta alla distanza giusta."
+ },
+ {
+  "idx": 235,
+  "ancora": "Dato z0 ∈ ℂ, diciamo che w ∈ ℂ è una radice n-esima di z0 se",
+  "testo": "In parole povere: la radice n-esima di un numero è un numero che, elevato alla n, restituisce quello di partenza. Come per i reali, dove 4 ha due radici quadrate (2 e -2), qui ogni numero non nullo ha n radici n-esime, tutte diverse tra loro."
+ },
+ {
+  "idx": 273,
+  "ancora": "Non sono invece monomi sin(x), x/y e √x, perché sulle variab",
+  "testo": "In parole povere: un monomio è un \"mattoncino\" fatto da un numero moltiplicato per lettere elevate a potenze intere, come 4x o -2xy². Si può fare solo somma, sottrazione e prodotto sulle lettere: niente seni, niente divisioni per una lettera, niente radici di una lettera."
+ },
+ {
+  "idx": 279,
+  "ancora": "Un monomio di grado zero è semplicemente un numero.",
+  "testo": "In parole povere: il grado di un monomio si ottiene contando quante lettere vengono moltiplicate tra loro in totale (sommando le potenze). In 3x²y ci sono x, x e y, quindi il grado è 3."
+ },
+ {
+  "idx": 281,
+  "ancora": "Un polinomio è una somma di monomi, e il suo grado è il mass",
+  "testo": "In parole povere: un polinomio è una somma di mattoncini (monomi), e il suo grado è quello del mattoncino \"più alto\". Per esempio x³ - 2x + 5 è fatto da pezzi di grado 3, 1 e 0, quindi ha grado 3."
+ },
+ {
+  "idx": 288,
+  "ancora": "Si indica con ℝ[x] l'insieme di tutti i polinomi nella varia",
+  "testo": "In parole povere: R[x] è il \"contenitore\" di tutti i polinomi in x con coefficienti reali, C[x] lo stesso con coefficienti complessi. R_k[x] è il sottocontenitore dei polinomi che non superano il grado k: per esempio R_2[x] contiene x² - 3, 5x e il numero 7, ma non x³."
+ },
+ {
+  "idx": 312,
+  "ancora": "Con i numeri interi si dice che 9 divide 18 perché la divisi",
+  "testo": "In parole povere: come 3 divide 12 perché 12 è esattamente tre volte 4 senza resto, un polinomio d(x) divide p(x) quando p(x) si ottiene moltiplicando d(x) per un altro polinomio, senza nulla che avanza. Per esempio (x - 1) divide x² - 1 perché x² - 1 = (x - 1)(x + 1)."
+ },
+ {
+  "idx": 318,
+  "ancora": "Un numero a è una radice di p(x) se e solo se p(a) = 0. Dete",
+  "testo": "In parole povere: una radice di un polinomio è un valore che, messo al posto di x, fa diventare il polinomio uguale a zero. Per x² - 4 le radici sono 2 e -2, perché sostituendole viene 0."
+ },
+ {
+  "idx": 328,
+  "ancora": "Se a è una radice, si può dividere p(x) per (x − a) e, nel q",
+  "testo": "In parole povere: la molteplicità dice quante volte un fattore (x - a) compare nel polinomio. Se p(x) = (x - 1)²·x, la radice 1 ha molteplicità 2 (il fattore compare due volte) e la radice 0 ha molteplicità 1."
+ },
+ {
+  "idx": 384,
+  "ancora": "cioè come vettore colonna, con x1 in alto e xn in basso. Nel",
+  "testo": "In parole povere: R^n è l'insieme di tutte le liste ordinate di n numeri reali. Per n = 2 sono le coppie (x, y), cioè i punti del piano; per n = 3 le terne, i punti dello spazio; per n più grande non si disegna, ma si lavora allo stesso modo, come un elenco di n misure (per esempio altezza, peso, età: tre numeri)."
+ },
+ {
+  "idx": 386,
+  "ancora": "Il vettore con tutte le componenti nulle, (0, …, 0), si chia",
+  "testo": "In parole povere: un vettore di R^n è semplicemente una lista di n numeri, e ogni numero della lista è una sua componente. Nel piano (3, 2) è un vettore con prima componente 3 e seconda 2. L'origine è la lista fatta di soli zeri, il punto di partenza."
+ },
+ {
+  "idx": 418,
+  "ancora": "Definizione. Uno scalare è un numero o, più precisamente, un",
+  "testo": "In parole povere: gli scalari sono i numeri \"per cui si può moltiplicare\" un vettore, cioè le manopole con cui si allunga o si accorcia. Quali siano (reali, complessi...) va deciso all'inizio, e devono formare un campo."
+ },
+ {
+  "idx": 444,
+  "ancora": "3. inversi: per ogni a esiste a′ ∈ G con a ⋆ a′ = a′ ⋆ a = e",
+  "testo": "In parole povere: un gruppo è un insieme con una sola operazione che si comporta in modo \"ragionevole\": raggruppare le operazioni non cambia il risultato, esiste un elemento che non cambia nulla (come lo 0 per la somma) e ogni elemento può essere \"annullato\" da un altro (il suo opposto). Per esempio gli interi con la somma formano un gruppo."
+ },
+ {
+  "idx": 446,
+  "ancora": "Un gruppo si dice commutativo (o abeliano) se vale anche la ",
+  "testo": "In parole povere: in un gruppo abeliano l'ordine non conta: fare a poi b è come fare b poi a. La somma di numeri lo è; invece mettersi prima i calzini e poi le scarpe non si può invertire, e lo stesso vale per molte operazioni più complesse (come comporre permutazioni)."
+ },
+ {
+  "idx": 459,
+  "ancora": "le proprietà 5-8, dove gli scalari sono elementi di 𝕂.",
+  "testo": "In parole povere: uno spazio vettoriale è un insieme di oggetti (i vettori) che puoi sommare tra loro e allungare o accorciare con numeri presi da un campo, seguendo le solite regole di calcolo, e restando sempre dentro l'insieme. Non conta che cosa siano gli oggetti (frecce, liste di numeri, polinomi, funzioni): contano solo le due operazioni e le loro proprietà."
+ }
+]

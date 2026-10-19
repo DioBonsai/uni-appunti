@@ -1,0 +1,7 @@
+[
+ {
+  "idx": 486,
+  "ancora": "Quando si definisce una funzione su un insieme quoziente",
+  "testo": "In parole povere: una regola sulle classi è «ben definita» se il risultato non dipende da quale rappresentante della classe scegli per calcolarlo. Se due numeri stanno nella stessa classe, la regola deve dare la stessa risposta con l'uno e con l'altro. Esempio: «pari → 1, dispari → −1» funziona qualunque pari tu prenda; «il doppio, contato in cifre» no, perché 3 e 8 stanno nella stessa classe ma i loro doppi (6 e 16) no."
+ }
+]

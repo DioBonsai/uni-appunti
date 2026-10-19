@@ -1,0 +1,117 @@
+[
+ {
+  "idx": 491,
+  "ancora": "Sia f : A → B una funzione e a ∈ A. Il valore b = f(a) si ch",
+  "testo": "In parole povere: l'immagine di un elemento è semplicemente il risultato che la funzione ti restituisce quando le dai quell'elemento. Se la funzione è «raddoppia», l'immagine di 5 è 10. Non deve per forza essere un numero: può essere qualsiasi cosa che sta nell'insieme di arrivo."
+ },
+ {
+  "idx": 494,
+  "ancora": "cioè un sottoinsieme del codominio, non di S. Questo insieme",
+  "testo": "In parole povere: l'immagine di un sottoinsieme è la raccolta di tutti i risultati che escono se dai alla funzione, uno per uno, gli elementi di quel sottoinsieme. È un insieme dell'arrivo, non della partenza. Esempio: con la funzione «raddoppia» e S = {1, 2, 3}, l'immagine è {2, 4, 6}."
+ },
+ {
+  "idx": 499,
+  "ancora": "f-1(T) = {a ∈ A | f(a) ∈ T} ⊆ A.",
+  "testo": "In parole povere: la controimmagine fa il percorso al contrario: scegli alcuni elementi dell'insieme di arrivo e raccogli tutti gli elementi di partenza che la funzione manda proprio lì. Esempio: con la funzione «quadrato» sui numeri interi, la controimmagine di {4} è {−2, 2}. Se nessuno arriva lì, la controimmagine è l'insieme vuoto."
+ },
+ {
+  "idx": 500,
+  "ancora": "Se T = {b} ha un solo elemento si scrive f-1(b) = {a ∈ A | f",
+  "testo": "In parole povere: la fibra di un elemento b dell'arrivo è il «gruppo di quelli che finiscono in b», cioè la controimmagine di b da solo. Come i compagni di classe che prendono tutti lo stesso autobus: la fibra è l'insieme dei passeggeri di quell'autobus."
+ },
+ {
+  "idx": 523,
+  "ancora": "∀ b ∈ B, f-1(b) ≠ ∅: ogni elemento del codominio ha almeno u",
+  "testo": "In parole povere: suriettiva vuol dire che nessun elemento dell'arrivo resta senza visite: ogni elemento del codominio è il risultato di almeno un elemento di partenza. Se immagini le frecce che vanno dal dominio al codominio, in ogni elemento di arrivo ne entra almeno una. Esempio: «x diventa 2x» da numeri reali a numeri reali è suriettiva, perché ogni numero y si ottiene da x = y/2."
+ },
+ {
+  "idx": 527,
+  "ancora": "In termini di controimmagini: ∀ b ∈ B, |f-1(b)| ≤ 1, cioè ne",
+  "testo": "In parole povere: iniettiva vuol dire che due elementi diversi di partenza non finiscono mai nello stesso elemento di arrivo: nessun elemento dell'arrivo riceve due frecce. È come una fila di persone con un posto a sedere ciascuna: nessuno condivide la sedia. Esempio: «x diventa x + 1» è iniettiva; «x diventa x al quadrato» sui reali no, perché −2 e 2 vanno entrambi in 4."
+ },
+ {
+  "idx": 530,
+  "ancora": "f è biettiva (o corrispondenza biunivoca) se è sia iniettiva",
+  "testo": "In parole povere: biettiva significa «perfetto accoppiamento»: ogni elemento di partenza ha il suo partner nell'arrivo e ogni elemento di arrivo ha un solo partner, senza avanzi né doppioni. È come far ballare tutti con tutti a coppie, senza che nessuno resti solo o faccia coppia con due persone."
+ },
+ {
+  "idx": 550,
+  "ancora": "Prima si applica f, poi g: la scrittura va letta da destra a",
+  "testo": "In parole povere: comporre due funzioni vuol dire metterle in catena, come due macchine in fila: il risultato della prima diventa l'ingresso della seconda. Si può fare solo se quello che esce dalla prima è qualcosa che la seconda sa accettare. Esempio: «raddoppia» e poi «aggiungi 1» fa passare da 3 a 7."
+ },
+ {
+  "idx": 559,
+  "ancora": "Una funzione f : A → B è invertibile se esiste g : B → A tal",
+  "testo": "In parole povere: una funzione è invertibile se esiste una funzione «di ritorno» che annulla esattamente quello che la prima ha fatto, in entrambe le direzioni: se vai e poi torni ti ritrovi al punto di partenza, e lo stesso se torni e poi vai. Esempio: «aggiungi 3» e «togli 3»."
+ },
+ {
+  "idx": 561,
+  "ancora": "Se f è biettiva, la funzione g è unica; si chiama funzione i",
+  "testo": "In parole povere: la funzione inversa è quella «macchina al contrario»: se f manda a in b, l'inversa manda b di nuovo in a. Per ogni funzione che si può invertire ce n'è una sola. Esempio: l'inversa di «prendi il cubo» è «prendi la radice cubica»."
+ },
+ {
+  "idx": 613,
+  "ancora": "(g ∘ f)(a) = g(f(a)).",
+  "testo": "In parole povere: la funzione composta è una nuova funzione che fa tutto il viaggio in un colpo solo: prende un elemento di partenza, lo passa alla prima funzione e passa il risultato alla seconda. Si scrive con la seconda funzione a sinistra perché è quella che agisce per ultima."
+ },
+ {
+  "idx": 688,
+  "ancora": "Due funzioni f : A → B e g : B → A sono una l'inversa dell'a",
+  "testo": "In parole povere: due funzioni sono una l'inversa dell'altra solo se si annullano a vicenda in tutte e due i versi: andata e ritorno ti riportano al punto di partenza, ma anche ritorno e andata. Non basta che funzioni in un verso solo, come una strada che ti riporta a casa solo se parti dal lato giusto."
+ },
+ {
+  "idx": 776,
+  "ancora": "Ordinare significa dire quale elemento è il primo, quale il ",
+  "testo": "In parole povere: ordinare un insieme di n elementi vuol dire metterli in fila, assegnando il posto 1, il posto 2, fino al posto n, in modo che ogni elemento occupi esattamente un posto e ogni posto abbia esattamente un elemento. Come disporre n libri su uno scaffale senza lasciare buchi."
+ },
+ {
+  "idx": 783,
+  "ancora": "Definizione. Per n ∈ ℕ si pone 0! = 1 e n! = 1 · 2 · 3 · … ·",
+  "testo": "In parole povere: il fattoriale di n è il prodotto di tutti i numeri da 1 a n, e dice in quanti modi si possono mettere in fila n cose diverse. Esempio: 4! = 4·3·2·1 = 24 modi di sedere quattro amici su quattro sedie. Per convenzione 0! vale 1: esiste un solo modo di ordinare niente."
+ },
+ {
+  "idx": 788,
+  "ancora": "Un caso particolare di riordinamento è l'anagramma. Si parte",
+  "testo": "In parole povere: l'alfabeto è l'insieme dei simboli che puoi usare (lettere, cifre, segni) e una parola è una qualunque sequenza di questi simboli, anche senza senso. La lunghezza è semplicemente quanti simboli ci sono, contando la posizione di ciascuno. Esempio: TUZAAB è una parola di lunghezza 6."
+ },
+ {
+  "idx": 789,
+  "ancora": "In generale questa funzione non è biettiva: non è detto che ",
+  "testo": "In parole povere: un anagramma è un'altra parola formata con esattamente le stesse lettere, rimescolate, con lo stesso numero di copie di ciascuna. Se una lettera compare due volte, nell'anagramma deve comparire due volte. Esempio: da ORO si ottengono ORO, OOR e ROO."
+ },
+ {
+  "idx": 803,
+  "ancora": "Entrambe le situazioni sono disposizioni. Una disposizione d",
+  "testo": "In parole povere: una disposizione è scegliere alcuni elementi uno dopo l'altro tenendo conto dell'ordine, cioè chi viene scelto per primo è diverso da chi viene scelto per secondo. Come il podio di una gara: Anna prima e Marco secondo è un risultato diverso da Marco primo e Anna seconda."
+ },
+ {
+  "idx": 807,
+  "ancora": "Sia A un insieme con n elementi (nel problema dei colori, l'",
+  "testo": "In parole povere: una disposizione con ripetizione è una sequenza di k scelte in cui lo stesso elemento può essere scelto più volte. Come un codice a 4 cifre: puoi usare più volte la stessa cifra, come 7-7-3-7."
+ },
+ {
+  "idx": 815,
+  "ancora": "Una disposizione semplice di ordine k in A è una successione",
+  "testo": "In parole povere: una disposizione semplice è una sequenza di k scelte in cui ogni elemento si può usare una volta sola, quindi tutti gli elementi scelti sono diversi tra loro. Come estrarre tre palline numerate da un'urna senza rimetterle dentro, annotando l'ordine di uscita."
+ },
+ {
+  "idx": 831,
+  "ancora": "Definizione. Due insiemi A e B si dicono equipollenti se esi",
+  "testo": "In parole povere: due insiemi sono equipollenti se si possono accoppiare perfettamente, uno a uno, senza avanzi da nessuna parte; in tal caso si dice che hanno lo stesso numero di elementi, anche senza contarli. Come in una sala da ballo: se tutti ballano in coppia e nessuno resta fuori, i ballerini e le ballerine sono in numero uguale."
+ },
+ {
+  "idx": 837,
+  "ancora": "Definizione. Si scrive |A| ≤ |B| se esiste una funzione inie",
+  "testo": "In parole povere: dire che A ha al massimo tanti elementi quanti B significa poter assegnare a ogni elemento di A un elemento diverso di B, senza che due di A finiscano sullo stesso. In altre parole, B ha posti sufficienti per ospitare tutti quelli di A, uno ciascuno."
+ },
+ {
+  "idx": 840,
+  "ancora": "Definizione. Un insieme A si dice infinito se è equipollente",
+  "testo": "In parole povere: un insieme è infinito se riesce a «stare dentro» una sua parte più piccola, cioè esiste una funzione che lo schiaccia in una sua parte lasciando fuori qualcosa e senza mai far collassare due elementi insieme. Per i numeri naturali basta «n diventa n + 1»: lo 0 resta fuori. Un insieme è finito se questo trucco non è possibile: ogni funzione che non fonde due elementi li copre tutti."
+ },
+ {
+  "idx": 861,
+  "ancora": "Definizione. Un insieme X si dice numerabile se è equipollen",
+  "testo": "In parole povere: un insieme è numerabile se si può elencare in una lista infinita, primo, secondo, terzo, e così via, senza dimenticare nessuno. Cioè ha «tanti elementi quanti i numeri naturali». Esempio: gli interi si elencano come 0, 1, −1, 2, −2, 3, ..."
+ }
+]

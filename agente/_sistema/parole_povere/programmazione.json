@@ -1,0 +1,377 @@
+[
+ {
+  "idx": 19,
+  "ancora": "Terminazione: garanzia che la sequenza di operazioni si conc",
+  "testo": "In parole povere: un algoritmo è come una ricetta di cucina: una lista di passi chiari, uno dopo l'altro, senza «aggiungi un po' di sale a occhio». Parte dagli ingredienti (input), arriva al piatto (output) e prima o poi finisce. Se i passi sono giusti il piatto viene sempre bene (correttezza); se la ricetta non finisse mai non sarebbe un algoritmo (terminazione)."
+ },
+ {
+  "idx": 21,
+  "ancora": "La programmazione imperativa modellizza il calcolo come una ",
+  "testo": "In parole povere: in informatica una variabile non è una lettera che può valere qualsiasi cosa come in matematica, ma una scatola con un'etichetta: dentro c'è un valore alla volta e puoi buttarlo via e metterne un altro. Programmare in stile imperativo vuol dire dare ordini in fila («metti 5 nella scatola x, poi somma 1...») che cambiano via via il contenuto delle scatole."
+ },
+ {
+  "idx": 27,
+  "ancora": "Contatore (i): variabile inizializzata a 0 per tracciare il ",
+  "testo": "In parole povere: l'accumulatore è il «salvadanaio» in cui metti via via il risultato parziale (qui la somma che cresce); il contatore è il «segnapunti» che conta quanti giri hai già fatto. Per fare 4 × 3 sommi 4 per 3 volte: l'accumulatore tiene il totale (0, 4, 8, 12), il contatore ti dice quando fermarti."
+ },
+ {
+  "idx": 37,
+  "ancora": "La programmazione strutturata supera questo problema organiz",
+  "testo": "In parole povere: la programmazione strutturata è scrivere il programma a blocchi ordinati, uno dentro l'altro come scatole cinesi, invece di saltare a casaccio da una riga all'altra. L'indentazione è il rientro del testo: più sei rientrato, più sei «dentro» a un blocco, come i punti di un elenco puntato annidato."
+ },
+ {
+  "idx": 42,
+  "ancora": "Iterazione (ripetizione condizionata): la riesecuzione di un",
+  "testo": "In parole povere: ogni programma, anche il più complicato, si costruisce con tre soli mattoncini. Sequenza: fai le cose in fila. Selezione: scegli una strada o un'altra a seconda di una condizione («se piove prendo l'ombrello»). Iterazione: ripeti finché una condizione vale («continua a mescolare finché non è sciolto»)."
+ },
+ {
+  "idx": 47,
+  "ancora": "Pseudo-codice strutturato: descrive il procedimento in forma",
+  "testo": "In parole povere: lo pseudo-codice è scrivere l'algoritmo con parole quasi normali ma ordinate, come una ricetta ben impaginata con rientri per i punti dentro un ciclo o dentro una scelta. Non è un vero linguaggio e nessun computer lo esegue: serve a ragionare prima di scrivere il codice."
+ },
+ {
+  "idx": 48,
+  "ancora": "Diagramma di flusso (flow-chart): è una rappresentazione gra",
+  "testo": "In parole povere: il diagramma di flusso è la stessa idea disegnata: ogni passo è una scatolina, le frecce dicono qual è il passo dopo, e quando c'è una scelta la freccia si biforca (sì/no). È come una mappa stradale dell'algoritmo, utile per vedere subito dove si decide e dove si ripete."
+ },
+ {
+  "idx": 52,
+  "ancora": "Linguaggi di alto livello: come il C, Python o Java, espress",
+  "testo": "In parole povere: un linguaggio di programmazione è una lingua con poche parole e regole rigidissime, pensata perché una macchina capisca esattamente cosa fare. Basso livello vuol dire «parlare come parla la macchina» (bit o sigle legate a quella CPU): preciso ma faticoso. Alto livello (C, Python, Java) vuol dire «parlare in modo più umano», lasciando al compilatore il compito di tradurre."
+ },
+ {
+  "idx": 61,
+  "ancora": "Queste prime macchine erano macchine cablate (hard-wired). I",
+  "testo": "In parole povere: una macchina cablata ha il suo funzionamento «fisso nei fili»: fa un solo mestiere, come una calcolatrice che sa solo sommare. Per cambiarle compito bisogna rimontarla o ricollegare cavi e interruttori, perché non si può programmare."
+ },
+ {
+  "idx": 68,
+  "ancora": "Programma memorizzato: le istruzioni del programma sono cari",
+  "testo": "In parole povere: programma memorizzato significa che le istruzioni stanno nella memoria come se fossero dati, invece di essere fissate nei circuiti. Per fare un lavoro diverso basta caricare un altro elenco di istruzioni, non cambiare l'hardware: come inserire un'altra ricetta nello stesso forno."
+ },
+ {
+  "idx": 69,
+  "ancora": "Memoria unificata: la memoria principale ospita nello stesso",
+  "testo": "In parole povere: memoria unificata significa un unico grande scaffale con un solo sistema di numerazione delle caselle, dove stanno sia le istruzioni sia i dati. Per la macchina sono entrambi solo numeri in caselle; li distingue solo il modo in cui vengono usati."
+ },
+ {
+  "idx": 74,
+  "ancora": "Il bit è l'unità fondamentale dell'informazione e può assume",
+  "testo": "In parole povere: il bit è la più piccola quantità di informazione: un interruttore che può essere solo spento (0) o acceso (1). Si usa perché è facile costruire un circuito che distingue solo due stati senza sbagliare, mentre distinguerne dieci sarebbe delicatissimo."
+ },
+ {
+  "idx": 77,
+  "ancora": "La dimensione elementare della memoria si è standardizzata a",
+  "testo": "In parole povere: il byte è un gruppo di 8 interruttori (bit): con 8 on/off si possono fare 256 combinazioni diverse, da 0 a 255. La memoria è come una fila di caselle, ognuna grande un byte e numerata a partire da 0: quel numero di casella è il suo indirizzo, come il numero civico di una via."
+ },
+ {
+  "idx": 79,
+  "ancora": "Nonostante il byte sia l'unità di indirizzamento, elaborare ",
+  "testo": "In parole povere: la parola è il «boccone» che la CPU è in grado di mangiare in una volta sola. Una CPU a 64 bit lavora su blocchi da 8 byte alla volta, invece di spulciare un byte per volta: è come leggere una frase intera anziché lettera per lettera."
+ },
+ {
+  "idx": 87,
+  "ancora": "Memoria Principale (RAM - Random Access Memory): è la memori",
+  "testo": "In parole povere: la RAM è la lavagna su cui il computer scrive, mentre lavora, sia il programma sia i dati. È velocissima, ma «volatile»: se spegni il computer la lavagna si cancella."
+ },
+ {
+  "idx": 89,
+  "ancora": "Unità di Controllo (CU - Control Unit): coordina e pilota tu",
+  "testo": "In parole povere: l'unità di controllo è il direttore d'orchestra: legge l'istruzione dalla memoria, capisce di che cosa si tratta e dice agli altri componenti cosa fare. Non calcola, coordina."
+ },
+ {
+  "idx": 90,
+  "ancora": "Unità Aritmetico-Logica (ALU - Arithmetic Logic Unit): conti",
+  "testo": "In parole povere: l'ALU è la calcolatrice della CPU: fa le operazioni aritmetiche (somme, sottrazioni), i confronti e le operazioni logiche (AND, OR, NOT). Tutti i calcoli veri passano da qui."
+ },
+ {
+  "idx": 91,
+  "ancora": "Registri: memorie interne alla CPU ad altissima velocità e c",
+  "testo": "In parole povere: la CPU è il «cervello» che esegue le istruzioni un passo alla volta, al ritmo di un orologio interno (clock). I registri sono i suoi minuscoli appunti sul tavolo: pochissimi, ma a portata di mano e rapidissimi. La CPU non lavora direttamente sulla RAM: prende i numeri dalla RAM, li mette sul tavolo (registri), calcola e rimette il risultato in RAM."
+ },
+ {
+  "idx": 93,
+  "ancora": "Program Counter (PC): contiene l'indirizzo di memoria della ",
+  "testo": "In parole povere: il program counter è il segnalibro del programma: contiene l'indirizzo dell'istruzione da eseguire adesso. Dopo ogni istruzione di solito avanza di una posizione; un salto non fa altro che spostare il segnalibro in un altro punto."
+ },
+ {
+  "idx": 94,
+  "ancora": "Instruction Register (IR): memorizza il codice numerico dell",
+  "testo": "In parole povere: l'instruction register è la «scrivania» dove viene appoggiata l'istruzione che la CPU sta eseguendo in questo momento, dopo averla prelevata dalla RAM. Il program counter dice quale istruzione prendere, l'IR contiene quella presa."
+ },
+ {
+  "idx": 96,
+  "ancora": "Bus di Sistema: il canale di comunicazione fisico (linee ele",
+  "testo": "In parole povere: il bus di sistema è l'insieme di fili che fa da «strada» tra CPU, memoria e dispositivi di ingresso/uscita: su quella strada viaggiano indirizzi («vai a leggere la casella 400»), dati e segnali di controllo."
+ },
+ {
+  "idx": 97,
+  "ancora": "Storage Secondario (Hard Disk, SSD, Nastri): memoria non vol",
+  "testo": "In parole povere: lo storage secondario (disco fisso, SSD) è l'archivio o lo scaffale di casa: capiente e non si cancella quando spegni, ma più lento. Programmi e file stanno lì a lungo; quando servono vengono portati nella RAM, che è il tavolo da lavoro."
+ },
+ {
+  "idx": 99,
+  "ancora": "All'accensione del calcolatore, un programma di controllo re",
+  "testo": "In parole povere: il monitor è un piccolo programma sempre presente, l'antenato del sistema operativo, che all'accensione fa da «magazziniere»: prende il programma dal disco, lo mette in RAM dall'indirizzo 0 e poi dà il via alla CPU puntando il program counter all'indirizzo 0."
+ },
+ {
+  "idx": 103,
+  "ancora": "Execute (Esecuzione): la CU attiva i moduli fisici necessari",
+  "testo": "In parole povere: il ciclo fetch-decode-execute è ciò che la CPU fa all'infinito, come uno scrivano: fetch = va a prendere la prossima istruzione (guardando il program counter), decode = capisce cosa chiede, execute = la esegue. Poi ricomincia con la successiva."
+ },
+ {
+  "idx": 105,
+  "ancora": "Ogni singolo passo del ciclo modifica lo stato della macchin",
+  "testo": "In parole povere: lo stato della macchina è la «fotografia» di tutto ciò che c'è in memoria e nei registri in un dato istante. Deterministico significa che non c'è casualità: stessa fotografia di partenza e stesse istruzioni portano sempre alla stessa fotografia finale, come una ricetta seguita alla lettera."
+ },
+ {
+  "idx": 109,
+  "ancora": "I primi calcolatori venivano programmati direttamente in lin",
+  "testo": "In parole povere: il linguaggio macchina è l'unica lingua che il processore capisce davvero: istruzioni scritte come lunghe file di 0 e 1. Va benissimo per la macchina e malissimo per le persone, che sbagliano a scrivere o leggere sequenze del genere."
+ },
+ {
+  "idx": 110,
+  "ancora": "Ciascuna famiglia di CPU adotta un proprio insieme di istruz",
+  "testo": "In parole povere: ogni famiglia di CPU (x86, ARM, RISC-V) ha il suo «vocabolario» di istruzioni macchina, chiamato ISA. Un programma in codice macchina per un tipo di CPU non funziona su un'altra, come un libro in una lingua che il lettore non conosce."
+ },
+ {
+  "idx": 111,
+  "ancora": "Per superare questa barriera si è introdotto il linguaggio a",
+  "testo": "In parole povere: l'assembly è il linguaggio macchina con i nomi al posto dei numeri: invece di una fila di bit scrivi LOAD (carica), ADD (somma), STORE (salva), che si ricordano. Resta una riga per ogni istruzione della CPU: è lo stesso discorso, solo leggibile."
+ },
+ {
+  "idx": 112,
+  "ancora": "La traduzione dal codice assembly al codice macchina viene e",
+  "testo": "In parole povere: l'assembler (assemblatore) è il traduttore automatico che trasforma le sigle dell'assembly nelle sequenze di 0 e 1 che la CPU capisce. L'assembly è più comodo del binario, ma è ancora legato a quella specifica CPU."
+ },
+ {
+  "idx": 143,
+  "ancora": "Compilato: il codice sorgente testuale scritto dal programma",
+  "testo": "In parole povere: un linguaggio compilato funziona come un libro tradotto per intero prima di essere letto: il compilatore trasforma tutto il testo C in codice macchina in anticipo, e poi la macchina esegue direttamente il risultato, senza più bisogno del testo originale."
+ },
+ {
+  "idx": 148,
+  "ancora": "Fortemente tipizzato: ogni variabile o dato utilizzato deve ",
+  "testo": "In parole povere: fortemente tipizzato vuol dire che ogni variabile deve dichiarare in anticipo che «tipo» di cosa contiene (intero, decimale, carattere). È come etichettare le scatole: «solo viti», «solo bulloni». Il tipo decide quanto spazio occupa e come interpretare i bit che ci stanno dentro."
+ },
+ {
+  "idx": 158,
+  "ancora": "Compatibilità e conversione: l'insieme di regole implicite e",
+  "testo": "In parole povere: un tipo di dato dice al computer come interpretare una fila di bit: senza tipo sono solo 0 e 1, col tipo diventano per esempio un numero intero, un decimale o una lettera. Il tipo stabilisce anche quanto spazio occupa, quali valori ammette e quali operazioni hanno senso (sommare due interi sì, la radice quadrata di una lettera no)."
+ },
+ {
+  "idx": 161,
+  "ancora": "Un tipo nativo (o primitivo/built-in) è un tipo di dato forn",
+  "testo": "In parole povere: un tipo nativo è un tipo «di fabbrica», già fornito dal linguaggio senza che tu debba costruirlo: int, float, char sono i mattoncini base con cui poi si costruisce tutto il resto."
+ },
+ {
+  "idx": 171,
+  "ancora": "Per gli interi, il superamento dell'intervallo massimo gener",
+  "testo": "In parole povere: l'overflow capita quando il risultato di un calcolo è troppo grande per il numero di bit disponibili: è come il contachilometri che arriva a 99999 e ricomincia da 00000. Con un int a 32 bit, dopo il massimo si ripassa dai valori negativi, senza che il programma si lamenti."
+ },
+ {
+  "idx": 173,
+  "ancora": "L'assegnamento di un valore reale a una variabile intera cau",
+  "testo": "In parole povere: il troncamento è il «taglio con la forbice» della parte dopo la virgola: 8,89 diventa 8 (non 9, perché non si arrotonda). Succede quando metti un numero con la virgola in una variabile intera."
+ },
+ {
+  "idx": 179,
+  "ancora": "Per garantire la portabilità del codice su architetture hard",
+  "testo": "In parole povere: sizeof è un operatore che risponde alla domanda «quanti byte occupa questo tipo o questa variabile?». Serve perché la dimensione può cambiare da un computer all'altro, quindi invece di ricordarla a memoria la si chiede alla macchina."
+ },
+ {
+  "idx": 189,
+  "ancora": "Valore: il contenuto informativo espresso in bit memorizzato",
+  "testo": "In parole povere: una variabile è una porzione di memoria a cui dai un nome comodo. Ogni variabile ha quattro caratteristiche: il nome (l'etichetta sulla scatola), il tipo (cosa ci puoi mettere), l'indirizzo (dove sta lo scaffale, scelto dal compilatore) e il valore (cosa c'è dentro ora, che può cambiare). Il nome è un modo per non dover ricordare gli indirizzi."
+ },
+ {
+  "idx": 203,
+  "ancora": "La dichiarazione è l'istruzione formale con cui si comunica ",
+  "testo": "In parole povere: dichiarare una variabile è avvisare il compilatore «mi serve una scatola di questo tipo e la chiamo così»: lui riserva lo spazio in memoria. È come prenotare un tavolo al ristorante: il tavolo è tuo, ma non c'è ancora nessuno seduto."
+ },
+ {
+  "idx": 204,
+  "ancora": "Se una variabile locale viene dichiarata senza assegnarle un",
+  "testo": "In parole povere: inizializzare una variabile è metterci un valore al momento della dichiarazione. Se non lo fai, la scatola contiene quello che c'era prima, come una lavagna non cancellata: un valore casuale e imprevedibile, detto indeterminato (nei disegni si scrive «?»). Prima di usarla conviene sempre darle un valore."
+ },
+ {
+  "idx": 214,
+  "ancora": "Area Codice: una porzione di memoria a dimensione fissa che ",
+  "testo": "In parole povere: l'area codice è la parte di memoria che contiene le istruzioni del programma già tradotte in linguaggio macchina. Ha una grandezza fissa e il program counter parte dall'inizio di main(): è lo scaffale con il «libro delle istruzioni»."
+ },
+ {
+  "idx": 215,
+  "ancora": "Area Dati: una porzione di memoria riservata al mantenimento",
+  "testo": "In parole povere: l'area dati è la parte di memoria in cui il programma tiene le sue variabili mentre lavora: il suo banco di lavoro, dove legge e scrive."
+ },
+ {
+  "idx": 220,
+  "ancora": "All'interno dell'area dati, la sezione dedicata alla gestion",
+  "testo": "In parole povere: lo stack (pila) è la parte della memoria dove vengono messe le variabili locali, una sopra l'altra come una pila di piatti: l'ultima appoggiata è la prima a essere tolta. In questo modello si «riempie verso il basso», cioè verso indirizzi più bassi."
+ },
+ {
+  "idx": 222,
+  "ancora": "Frame Pointer (FP): conserva l'indirizzo base fisso da cui p",
+  "testo": "In parole povere: il frame pointer è la linea di partenza fissa dell'area di lavoro della funzione: da lì in giù vengono appoggiate le variabili. Non si muove finché si lavora in quella funzione."
+ },
+ {
+  "idx": 223,
+  "ancora": "Stack Pointer (SP): indica l'indirizzo dinamico a cui alloca",
+  "testo": "In parole povere: lo stack pointer è il dito che indica fino a dove la pila è piena: la prima casella libera. Ogni volta che dichiari una variabile scende di quanti byte servono; all'inizio coincide con il frame pointer perché non c'è ancora nulla."
+ },
+ {
+  "idx": 246,
+  "ancora": "Visibilità (Scope): indica la porzione di codice all'interno",
+  "testo": "In parole povere: lo scope è «da dove si vede» una variabile: una variabile locale esiste, per il codice, solo dentro le graffe del blocco in cui l'hai dichiarata. Fuori da quelle graffe il suo nome non si può usare, come un oggetto chiuso in una stanza che si usa solo se si è dentro."
+ },
+ {
+  "idx": 247,
+  "ancora": "Durata (Lifetime): definisce l'intervallo temporale di esecu",
+  "testo": "In parole povere: il lifetime (durata) è «per quanto tempo esiste davvero» una variabile in memoria: nasce quando viene dichiarata e muore quando si esce dal blocco, momento in cui lo spazio sullo stack torna libero. Lo scope dice dove puoi nominarla, il lifetime dice quando esiste: per le variabili locali coincidono."
+ },
+ {
+  "idx": 249,
+  "ancora": "Poiché lo spazio dell'area dati riservato allo stack ha una ",
+  "testo": "In parole povere: lo stack overflow è lo stack che «trabocca»: la pila ha una capienza massima e, se ci metti troppe variabili, esce dallo spazio concesso e il programma viene interrotto con un errore. È come impilare piatti fino a far cadere tutto."
+ },
+ {
+  "idx": 258,
+  "ancora": "Meccanismo esecutivo: una volta completata la valutazione de",
+  "testo": "In parole povere: l'assegnamento è l'azione «metti questo valore in quella scatola»: il valore di prima viene cancellato e sostituito. A sinistra del segno = ci vuole una scatola (lvalue: la variabile che riceve), a destra ciò che si calcola (rvalue: un numero o un'operazione). Prima si calcola il lato destro, poi il risultato viene copiato nella scatola di sinistra. Per questo 5 = x non ha senso: 5 non è una scatola."
+ },
+ {
+  "idx": 308,
+  "ancora": "Nel modello di Von Neumann ogni variabile è memorizzata nell",
+  "testo": "In parole povere: l'indirizzo di una variabile è il suo numero civico nella memoria: dice in quale casella (byte) comincia. Il valore dice che cosa c'è dentro la casa, l'indirizzo dice dove si trova la casa. Di solito si scrive in esadecimale."
+ },
+ {
+  "idx": 309,
+  "ancora": "Il linguaggio C permette di ottenere questo indirizzo tramit",
+  "testo": "In parole povere: l'operatore & (referenziamento) si pone davanti a una variabile e significa «dammi il suo indirizzo». Se x è una variabile, &x non è il contenuto della scatola ma l'indirizzo di dove sta la scatola."
+ },
+ {
+  "idx": 403,
+  "ancora": "Un puntatore è una variabile che memorizza l'indirizzo di me",
+  "testo": "In parole povere: un puntatore è una variabile speciale che non contiene un dato normale ma l'indirizzo di un'altra variabile. È come un biglietto con scritto «la chiave è al numero 12»: non è la chiave, ma ti dice dove andare a prenderla. La variabile a cui punta è quella «puntata»."
+ },
+ {
+  "idx": 407,
+  "ancora": "float* è il tipo dei puntatori a float.",
+  "testo": "In parole povere: per ogni tipo T esiste il tipo T*, «puntatore a T»: un puntatore a int può contenere solo indirizzi di variabili int, uno a float solo indirizzi di float. Il tipo ricorda al compilatore che genere di dato troverà arrivando a quell'indirizzo, come l'etichetta «qui si trovano uova» su uno scaffale."
+ },
+ {
+  "idx": 462,
+  "ancora": "Qui *pY accede alla stessa cella di memoria di y, perché pY ",
+  "testo": "In parole povere: dereferenziare un puntatore vuol dire «seguire il biglietto»: usare l'indirizzo che contiene per andare davvero alla variabile puntata. Se pY contiene l'indirizzo di y, *pY è y stessa: puoi leggerne il valore o cambiarlo. Il simbolo * davanti al puntatore significa «ciò che c'è a quell'indirizzo»."
+ },
+ {
+  "idx": 488,
+  "ancora": "Questo fenomeno si chiama aliasing. Quando si dichiara una v",
+  "testo": "In parole povere: aliasing vuol dire che la stessa variabile ha più «nomi» per raggiungerla: la variabile stessa (x) e tutti i puntatori che ne contengono l'indirizzo. È come una persona con un nome e un soprannome: se qualcuno cambia qualcosa passando dal soprannome, il cambiamento lo vedi anche chiamandola per nome, perché è la stessa persona."
+ },
+ {
+  "idx": 500,
+  "ancora": "NULL consente di inizializzare esplicitamente un puntatore, ",
+  "testo": "In parole povere: NULL è il valore «non punto a niente»: un biglietto lasciato volutamente in bianco, invece di uno con un indirizzo qualsiasi lasciato dal caso. Meglio un puntatore dichiaratamente vuoto che uno con un valore casuale, ma attenzione: provare a seguirlo (dereferenziarlo) manda in errore il programma."
+ },
+ {
+  "idx": 532,
+  "ancora": "3. si copia in y il valore conservato nella variabile d'appo",
+  "testo": "In parole povere: la variabile temporanea (o d'appoggio) è una scatola in più usata solo per parcheggiare un valore un momento, così non va perso quando ne sovrascrivi un altro. Come la tazza vuota per scambiare due tè: prima versi un tè nella tazza vuota, poi sposti l'altro, poi versi dalla tazza d'appoggio."
+ },
+ {
+  "idx": 559,
+  "ancora": "double: 64 bit (8 byte), circa 15-16 cifre decimali, valori ",
+  "testo": "In parole povere: float e double sono i tipi per numeri con la virgola. Il float usa 32 bit (circa 7 cifre giuste), il double 64 bit (circa 15-16 cifre giuste): il double è più preciso e arriva più lontano, ma occupa il doppio. Sono numeri «in virgola mobile»: la virgola si sposta, come nella notazione scientifica, e proprio per questo il numero è solo un'approssimazione."
+ },
+ {
+  "idx": 598,
+  "ancora": "La libreria fornisce una serie di funzioni utili, tra cui sq",
+  "testo": "In parole povere: una libreria è una cassetta degli attrezzi già pronta: tante funzioni scritte da altri (qui sqrt per la radice, pow per le potenze) che puoi usare senza riscriverle. Con #include dici al programma quale cassetta usare; math.h è quella della matematica."
+ },
+ {
+  "idx": 623,
+  "ancora": "le conversioni esplicite (dette cast), richieste in modo vol",
+  "testo": "In parole povere: la conversione di tipo è trasformare un valore da un tipo a un altro, come cambiare euro in dollari: il valore è «lo stesso» ma scritto in un altro formato, e spesso nel cambio si perde qualcosa. Implicita: la fa il compilatore da solo. Esplicita (cast): la chiedi tu."
+ },
+ {
+  "idx": 632,
+  "ancora": "conversioni non compatibili: il compilatore le segnala come ",
+  "testo": "In parole povere: nel casting implicito è il compilatore a convertire da solo, senza chiederti niente, quando mescoli tipi diversi. Passare da int a float è sicuro; da float a int taglia i decimali (3.7 diventa 3) senza avvisare. Il pericolo è proprio che non ti dice che ha perso qualcosa."
+ },
+ {
+  "idx": 636,
+  "ancora": "int + double viene promosso a double.",
+  "testo": "In parole povere: la promozione di tipo è la regola con cui il compilatore, davanti a un'operazione tra due tipi diversi, porta quello «più piccolo» al tipo più grande e preciso, così da non perdere informazioni: int + double dà double, char + int dà int. Come mettere entrambi nel contenitore più capiente prima di sommare."
+ },
+ {
+  "idx": 661,
+  "ancora": "Per decidere noi se e quando convertire si usa il cast espli",
+  "testo": "In parole povere: il cast esplicito è quando sei tu a dire al compilatore «tratta questo valore come di quest'altro tipo», scrivendo il tipo tra parentesi: (float)y. Riguarda solo l'espressione che sta subito a destra, e non cambia il tipo originale della variabile: ne usa una copia convertita."
+ },
+ {
+  "idx": 674,
+  "ancora": "Un programma non si limita a fare calcoli: deve anche prende",
+  "testo": "In parole povere: un'espressione booleana è una domanda a cui si risponde solo sì o no (vero o falso), per esempio «x è maggiore di 18?». I programmi la usano per decidere cosa fare: è il modo di scrivere le condizioni del tipo «se ... allora ...»."
+ },
+ {
+  "idx": 683,
+  "ancora": "! (NOT, negazione, ¬b): !(x > 0) inverte il valore logico de",
+  "testo": "In parole povere: gli operatori relazionali confrontano due valori (uguale, diverso, maggiore, minore...) e rispondono vero o falso. Gli operatori logici (AND, OR, NOT) combinano più risposte: AND vuole che siano vere entrambe («ho il biglietto E il documento»), OR ne basta una («pago in contanti O con carta»), NOT inverte. In C vero è 1 e falso è 0. Attenzione: == confronta, = assegna."
+ },
+ {
+  "idx": 687,
+  "ancora": "Le condizioni, nella logica di Boole, possono assumere solo ",
+  "testo": "In parole povere: la logica di Boole è la «matematica del sì e del no»: esistono solo due valori, vero e falso, e tre operazioni (AND, OR, NOT) per combinarli. È la base dei circuiti dei computer e delle condizioni dei programmi."
+ },
+ {
+  "idx": 690,
+  "ancora": "le costanti true e false.",
+  "testo": "In parole povere: bool è il tipo delle variabili che contengono solo vero o falso, come un interruttore a due posizioni o una casella da spuntare. In C vero è 1 e falso è 0; con stdbool.h si possono scrivere le parole true e false. Si usa per «ricordarsi» il risultato di una condizione, per esempio superato."
+ },
+ {
+  "idx": 715,
+  "ancora": "la negazione !condizione, che dà l'opposto del valore della ",
+  "testo": "In parole povere: AND (congiunzione) è vera solo se entrambe le condizioni sono vere; OR (disgiunzione) è vera se almeno una lo è; NOT (negazione) rovescia il risultato. Esempio: «entro se ho il biglietto E non è scaduto»; «sconto se sei minorenne O tesserato»; «NOT piove» è vero quando non piove."
+ },
+ {
+  "idx": 723,
+  "ancora": "Gli operatori si definiscono con le loro tavole di verità, l",
+  "testo": "In parole povere: la tavola di verità è una tabella che elenca tutte le combinazioni possibili di vero/falso per le condizioni e dice che cosa restituisce ogni operatore. È come il «libretto delle istruzioni» di AND, OR e NOT: guardando la riga giusta sai subito il risultato."
+ },
+ {
+  "idx": 736,
+  "ancora": "aperto (esclusivo), x ∈ (min, max): min < x && x < max.",
+  "testo": "In parole povere: un intervallo è l'insieme dei valori compresi fra un minimo e un massimo. Chiuso: gli estremi ci sono (come «dalle 9 alle 17 comprese»). Aperto: gli estremi sono esclusi. Semiaperto: ne includi uno e l'altro no. In C si scrive spezzando in due confronti collegati da && (min <= x && x <= max), non con la forma matematica."
+ },
+ {
+  "idx": 743,
+  "ancora": "con l'OR, se la prima condizione è vera il risultato è sicur",
+  "testo": "In parole povere: la cortocircuitazione è la pigrizia intelligente del C: se dopo la prima condizione il risultato è già deciso, non guarda la seconda. Con AND, se la prima è falsa, il totale è sicuramente falso; con OR, se la prima è vera, il totale è sicuramente vero. Come chi, per sapere se tutti hanno il biglietto, smette di controllare appena ne trova uno senza."
+ },
+ {
+  "idx": 781,
+  "ancora": "L'operatore ternario è un operatore condizionale compatto, c",
+  "testo": "In parole povere: l'operatore ternario è un mini «se... altrimenti» che dà direttamente un valore: condizione ? se_vero : se_falso. È come dire «se piove ombrello, altrimenti cappello» in una sola frase. Comodo per casi semplici, ma per scelte complicate meglio usare if-else."
+ },
+ {
+  "idx": 803,
+  "ancora": "La condizione fra parentesi è un'espressione booleana, di qu",
+  "testo": "In parole povere: il controllo di flusso condizionato è la possibilità del programma di prendere strade diverse in base a una condizione, come un bivio: se la condizione è vera va per una strada (esegue un blocco), altrimenti per un'altra o prosegue dritto."
+ },
+ {
+  "idx": 810,
+  "ancora": "Se la condizione è vera (1) il programma entra nel blocco; s",
+  "testo": "In parole povere: l'if è il «se» del programma: la condizione tra parentesi viene controllata; se è vera si esegue il blocco tra graffe, se è falsa lo si salta e si va avanti. È come «se hai la febbre, prendi la tachipirina»: la medicina si prende solo in quel caso."
+ },
+ {
+  "idx": 825,
+  "ancora": "Se la condizione è vera si entra nel blocco A, se è falsa ne",
+  "testo": "In parole povere: l'if-else è un bivio con due sole strade: un blocco se la condizione è vera, un altro se è falsa. Una delle due viene eseguita sempre, mai entrambe. Come «se piove prendo l'ombrello, altrimenti esco senza»."
+ },
+ {
+  "idx": 847,
+  "ancora": "Se la condizione1 è vera si entra nel blocco 1; altrimenti, ",
+  "testo": "In parole povere: if-else if-else è l'if con più alternative, controllate in ordine come una serie di porte: la prima condizione vera vince e le altre non si guardano più. L'else finale è il «tutti gli altri casi». Esempio: semaforo rosso, giallo, verde, e per qualsiasi altro colore «non valido»."
+ }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "idx": 19,
+  "ancora": "Si presenta come una finestra in cui l'utente vede un prompt",
+  "testo": "In parole povere: la CLI (riga di comando) è il modo di dare ordini al computer scrivendoli invece di cliccare: compare un cursore lampeggiante, scrivi un comando e premi INVIO, il computer risponde. Shell, terminale, prompt dei comandi, console sono quasi sinonimi: tutti nomi della stessa idea."
+ },
+ {
+  "idx": 25,
+  "ancora": "gli argomenti sono i dati o i file su cui il comando opera.",
+  "testo": "In parole povere: un comando è un ordine scritto: il nome dice che cosa fare, le opzioni dicono come farlo (per esempio «in modo dettagliato»), gli argomenti dicono su che cosa farlo (di solito un file). Come «copia» (nome) «con cautela» (opzione) «questo documento» (argomento)."
+ },
+ {
+  "idx": 36,
+  "ancora": "Alcuni comandi, detti integrati (built-in), sono riconosciut",
+  "testo": "In parole povere: un comando integrato è una funzione che la shell ha già «in tasca»; tutti gli altri sono programmi separati che la shell deve andare a cercare. Per trovarli guarda in un elenco di cartelle chiamato PATH, che è una variabile d'ambiente, cioè un'impostazione del sistema che i programmi possono leggere."
+ },
+ {
+  "idx": 46,
+  "ancora": "Entrambi rimuovono il file cosedafare.txt che si trova nella",
+  "testo": "In parole povere: il percorso assoluto è l'indirizzo completo di un file, come un indirizzo postale con città, via e numero: parte sempre dalla cartella principale (radice) e scende cartella dopo cartella fino al file. Vale sempre, ovunque tu sia."
+ },
+ {
+  "idx": 51,
+  "ancora": "Con C:\\Users\\jon_snow come cartella di lavoro, il comando de",
+  "testo": "In parole povere: la cartella di lavoro è «dove sei adesso» nel computer, come la stanza in cui ti trovi. Il percorso relativo indica un file partendo da lì, come «la seconda porta a sinistra» invece dell'indirizzo completo. È più corto, ma vale solo finché sei in quella cartella."
+ },
+ {
+  "idx": 91,
+  "ancora": "vicino all'hardware.",
+  "testo": "In parole povere: quelle parole descrivono come è fatto il C: procedurale imperativo vuol dire che dai istruzioni passo per passo, raggruppate in funzioni; strutturato che usi blocchi ordinati (cicli, if/else) e non salti; tipato che ogni dato ha un tipo dichiarato; con ricorsione che una funzione può richiamare sé stessa; vicino all'hardware che sa parlare quasi alla macchina, senza troppi strati in mezzo."
+ },
+ {
+  "idx": 110,
+  "ancora": "I file di testo con il programma in C devono avere estension",
+  "testo": "In parole povere: un file .c contiene il codice vero e proprio e ogni file .c è una unità di compilazione, cioè un pezzo che il compilatore traduce da solo; un file .h (header, di intestazione) contiene invece solo dichiarazioni di ciò che esiste, una sorta di indice che altri file possono includere."
+ },
+ {
+  "idx": 126,
+  "ancora": "In realtà dietro il comando gcc lavorano più programmi in se",
+  "testo": "In parole povere: dietro il comando gcc lavorano quattro programmi in fila come una catena di montaggio: il preprocessore prepara il testo (sistema gli #include), il compilatore lo traduce in assembly, l'assemblatore lo trasforma in codice macchina e il linker mette insieme i pezzi. Tu scrivi un solo comando, ma il lavoro passa per tutte queste fasi."
+ },
+ {
+  "idx": 128,
+  "ancora": "Il processo parte dai file sorgente, cioè il codice del prog",
+  "testo": "In parole povere: il file sorgente è il testo C scritto da te; il file oggetto è lo stesso programma già tradotto in linguaggio macchina ma incompleto, un «pezzo» di puzzle; l'eseguibile è il puzzle finito, pronto da lanciare. Il linker è chi incastra tutti i pezzi."
+ },
+ {
+  "idx": 148,
+  "ancora": "Si usano insieme, per esempio con gcc -Wall -Werror sorgente",
+  "testo": "In parole povere: un warning è un campanello d'allarme: il compilatore non dice «questo è sbagliato» ma «questo è sospetto, controlla». Con -Wall li attivi tutti, con -Werror li trasformi in errori veri e il programma non si compila finché non li correggi: come un professore severo che non accetta nemmeno le imprecisioni."
+ },
+ {
+  "idx": 159,
+  "ancora": "Il disassemblatore mostra una versione testuale del programm",
+  "testo": "In parole povere: il disassemblatore fa il percorso inverso del compilatore: prende il programma già pronto e lo mostra come assembly (testo leggibile per la macchina). Non ti restituisce il tuo codice C originale, perché nella traduzione quel testo si è perso: vedi solo le istruzioni che la CPU eseguirà."
+ },
+ {
+  "idx": 223,
+  "ancora": "Un esercizio chiede quali risultati si ottengono in C da tre",
+  "testo": "In parole povere: la precedenza degli operatori è l'ordine in cui il C esegue le operazioni, come in matematica: prima *, / e %, poi + e -. A parità di precedenza si va da sinistra a destra e le parentesi hanno sempre la priorità, partendo da quelle più interne. In caso di dubbio, le parentesi eliminano ogni ambiguità."
+ }
+]

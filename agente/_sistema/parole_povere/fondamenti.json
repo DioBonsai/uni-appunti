@@ -1,0 +1,487 @@
+[
+ {
+  "idx": 1,
+  "ancora": "A differenza dei circuiti combinatori, nei quali il segnale ",
+  "testo": "In parole povere: un circuito combinatorio è come una calcolatrice: guarda solo quello che premi adesso. Un circuito sequenziale è come un contatore con la memoria: la sua risposta dipende anche da quello che è successo prima, perché si porta dentro un ricordo (lo stato). Esempio: l'ascensore che si ricorda a che piano si trova."
+ },
+ {
+  "idx": 3,
+  "ancora": "Per conservare un'informazione nel tempo anziché lasciarla s",
+  "testo": "In parole povere: il feedback è un'uscita che viene rimandata all'ingresso, come quando il microfono capta il suono dell'altoparlante e lo ripete in continuazione. Questo girare in tondo del segnale è proprio ciò che permette al circuito di tenersi dentro un bit invece di lasciarlo scappare."
+ },
+ {
+  "idx": 4,
+  "ancora": "Volatilità della memoria: questa architettura costituisce la",
+  "testo": "In parole povere: volatile vuol dire che il ricordo dura solo finché c'è corrente, come un appunto scritto sulla sabbia con il mare che arriva. Se stacchi la spina il segnale smette di girare e il bit sparisce."
+ },
+ {
+  "idx": 6,
+  "ancora": "Il flip-flop è il circuito elettronico fondamentale utilizza",
+  "testo": "In parole povere: il flip-flop è un piccolo interruttore con memoria: ha due pulsanti, uno per mettere il bit a 1 e uno per metterlo a 0. Dopo che hai lasciato il pulsante, il circuito si ricorda l'ultimo valore scelto, come una levetta che resta su o giù finché qualcuno non la sposta."
+ },
+ {
+  "idx": 13,
+  "ancora": "Nella progettazione hardware si applica il principio dell'as",
+  "testo": "In parole povere: astrazione significa usare un oggetto sapendo cosa fa ma non com'è fatto dentro. Come guidare un'auto senza conoscere il motore: il progettista usa il flip-flop come una scatola nera che memorizza un bit e non pensa più alle porte logiche interne."
+ },
+ {
+  "idx": 18,
+  "ancora": "La notazione esadecimale (sistema numerico in base 16) nasce",
+  "testo": "In parole povere: il sistema esadecimale è un'abbreviazione per scrivere i bit: invece di scrivere quattro bit alla volta si scrive un solo simbolo (0-9 e A-F). Esempio: 1111 diventa F e 1010 diventa A, così una lunga fila di 0 e 1 diventa corta e leggibile. Il computer resta binario, è solo una comodità per noi."
+ },
+ {
+  "idx": 46,
+  "ancora": "Mentre la memoria principale (RAM) è volatile e richiede un ",
+  "testo": "In parole povere: la memoria secondaria (o di massa) è l'archivio del computer: dischi, chiavette, SSD. Costa poco, contiene tanto e non dimentica quando spegni, a differenza della RAM che è come il banco di lavoro che si svuota a fine giornata."
+ },
+ {
+  "idx": 49,
+  "ancora": "Svantaggio principale (Accesso Sequenziale): Per recuperare ",
+  "testo": "In parole povere: accesso sequenziale vuol dire che per arrivare a un dato devi passare per tutti quelli che lo precedono, come cercare una canzone su una cassetta riavvolgendo il nastro. L'accesso diretto, invece, permette di saltare subito al punto giusto, come scegliere una traccia su un CD."
+ },
+ {
+  "idx": 52,
+  "ancora": "Struttura fisica: Il dispositivo è composto da uno o più pia",
+  "testo": "In parole povere: immagina un disco di vinile: le tracce sono i cerchi concentrici, i settori sono le fette di torta in cui ogni cerchio viene tagliato (ogni fetta contiene una quantità fissa di dati), il cilindro è la pila delle tracce alla stessa distanza dal centro nei vari piatti, come una colonna di anelli uguali impilati."
+ },
+ {
+  "idx": 55,
+  "ancora": "Zoned-Bit Recording: per ottimizzare lo spazio nei dischi ad",
+  "testo": "In parole povere: le tracce esterne sono più lunghe di quelle interne, quindi ci stanno più dati. Con lo zoned-bit recording il disco sfrutta questa maggior lunghezza dando più settori alle tracce esterne, invece di sprecare spazio con lo stesso numero ovunque. È come mettere più posti a sedere nelle file più larghe di un teatro."
+ },
+ {
+  "idx": 59,
+  "ancora": "Tempo di ricerca (Seek Time): Il tempo necessario alla testi",
+  "testo": "In parole povere: il seek time è il tempo che la testina impiega a spostarsi sulla traccia giusta, come il braccio del giradischi che si posa sul solco voluto."
+ },
+ {
+  "idx": 60,
+  "ancora": "Latenza di rotazione (Latency): Il tempo impiegato dal disco",
+  "testo": "In parole povere: la latenza è l'attesa, dopo che la testina è arrivata sulla traccia, perché il disco giri finché il settore voluto le passa sotto. Pensa di aspettare che passi il tuo posto su una giostra che gira."
+ },
+ {
+  "idx": 61,
+  "ancora": "Tempo di accesso (Access Time): La somma di tempo di ricerca",
+  "testo": "In parole povere: è il tempo totale per raggiungere un dato: prima sposti la testina, poi aspetti che il disco giri. Quindi tempo di ricerca più latenza."
+ },
+ {
+  "idx": 62,
+  "ancora": "Velocità di trasferimento (Transfer Rate): la velocità con c",
+  "testo": "In parole povere: è la velocità con cui, una volta trovato il dato, questo scorre dal disco al computer (o viceversa), un po' come la portata di un rubinetto una volta aperto."
+ },
+ {
+  "idx": 78,
+  "ancora": "La tecnica del Wear-Leveling: Per prevenire il guasto di cel",
+  "testo": "In parole povere: se scrivi sempre sulle stesse celle quelle si consumano prima delle altre. Il wear-leveling è la tattica del controller dell'SSD di far girare le scritture su tutte le celle, come ruotare le gomme dell'auto per farle consumare in modo uniforme."
+ },
+ {
+  "idx": 85,
+  "ancora": "Codice ASCII: negli anni '40 e '50 esistevano molti codici t",
+  "testo": "In parole povere: ASCII è una tabella che associa a ogni lettera, cifra o segno un numero a 7 bit (poi esteso a 8), come un codice Morse in cui ogni carattere ha la sua sequenza. Esempio: la lettera A è sempre lo stesso pattern di bit, in tutti i computer che usano l'ASCII."
+ },
+ {
+  "idx": 87,
+  "ancora": "Unicode e UTF-8: Per superare questi vincoli è stato creato ",
+  "testo": "In parole povere: Unicode è una tabella enorme che dà un numero a ogni simbolo di ogni lingua del mondo (anche cinese ed emoji). UTF-8 è il modo di scrivere questi numeri in byte: le lettere inglesi occupano un solo byte, i simboli più rari ne occupano di più, così non si spreca spazio."
+ },
+ {
+  "idx": 89,
+  "ancora": "La digitalizzazione delle immagini grafiche si basa sulla su",
+  "testo": "In parole povere: un'immagine digitale è come un mosaico: i pixel sono le tessere minuscole, ciascuna di un solo colore. Messe una accanto all'altra formano la figura."
+ },
+ {
+  "idx": 90,
+  "ancora": "I tre canali cromatici (RGB): Per rappresentare le immagini ",
+  "testo": "In parole povere: ogni colore si ottiene mescolando luce rossa, verde e blu in quantità diverse, come i tre faretti di un palcoscenico. Per ogni faretto si usa un byte, cioè un numero da 0 (spento) a 255 (al massimo): 0,0,0 è nero, 255,255,255 è bianco."
+ },
+ {
+  "idx": 98,
+  "ancora": "Per manipolare e conservare i bit all'interno dei circuiti, ",
+  "testo": "In parole povere: un'operazione booleana è un'operazione tra valori che possono essere solo vero o falso (1 o 0), come le domande a cui si risponde solo sì o no. Il risultato è a sua volta un sì o un no."
+ },
+ {
+  "idx": 99,
+  "ancora": "AND: produce un output pari a 1 soltanto quando entrambi gli",
+  "testo": "In parole povere: AND dà 1 solo se tutti e due gli ingressi sono 1. Come due interruttori in serie: la lampadina si accende solo se li chiudi entrambi."
+ },
+ {
+  "idx": 100,
+  "ancora": "OR: produce un output pari a 1 quando almeno uno dei due ing",
+  "testo": "In parole povere: OR dà 1 se almeno uno dei due ingressi è 1. Come due interruttori in parallelo: basta chiuderne uno perché la lampadina si accenda."
+ },
+ {
+  "idx": 101,
+  "ancora": "XOR (Exclusive OR): produce un output pari a 1 quando gli in",
+  "testo": "In parole povere: XOR dà 1 quando i due ingressi sono diversi. Come i due interruttori di una scala: premendone uno si accende, premendo anche l'altro si spegne di nuovo."
+ },
+ {
+  "idx": 102,
+  "ancora": "NOT: è un'operazione unaria (ha un solo ingresso) e inverte ",
+  "testo": "In parole povere: NOT è il bottone del contrario: se entra 1 esce 0, se entra 0 esce 1. Ha un solo ingresso."
+ },
+ {
+  "idx": 106,
+  "ancora": "L'hardware esegue fisicamente queste operazioni tramite le p",
+  "testo": "In parole povere: una porta logica è una piccola scatola elettronica che calcola un'operazione booleana: i fili in ingresso portano tensione alta o bassa (cioè 1 o 0) e ne esce uno solo con il risultato. Con tante porte collegate si costruisce tutto il computer."
+ },
+ {
+  "idx": 111,
+  "ancora": "La memoria principale (o memoria centrale) di un computer è ",
+  "testo": "In parole povere: la memoria principale è il blocco di appunti su cui il computer lavora mentre i programmi girano: è fatta di tantissimi piccoli circuiti che ricordano un bit ciascuno."
+ },
+ {
+  "idx": 112,
+  "ancora": "Struttura a celle e Byte: la memoria è suddivisa in unità di",
+  "testo": "In parole povere: la memoria è come un condominio con tante caselle uguali: ogni cella è una casella e ognuna contiene 8 bit. Un gruppo di 8 bit si chiama byte; è la porzione minima che il computer sposta o legge."
+ },
+ {
+  "idx": 113,
+  "ancora": "MSB e LSB: all'interno di una cella da un byte, i bit sono o",
+  "testo": "In parole povere: in un numero scritto in cifre, la cifra più a sinistra conta di più (nelle migliaia, il 2 di 2000 pesa più del 5 di 5). Allo stesso modo in un byte il bit più a sinistra, MSB, è quello che pesa di più e quello più a destra, LSB, è quello che pesa di meno."
+ },
+ {
+  "idx": 115,
+  "ancora": "Per identificare e accedere alle singole celle, a ciascuna d",
+  "testo": "In parole povere: l'indirizzo è il numero civico di una cella: serve a dire al computer in quale cella andare a leggere o scrivere, come il numero di una casella postale."
+ },
+ {
+  "idx": 119,
+  "ancora": "Operazioni fondamentali: i circuiti esterni interagiscono co",
+  "testo": "In parole povere: leggere è guardare cosa c'è scritto nella cella con un certo indirizzo, senza cambiarlo; scrivere è cancellare il contenuto della cella e metterci un valore nuovo, come cambiare il biglietto dentro una cassetta."
+ },
+ {
+  "idx": 120,
+  "ancora": "RAM e DRAM: poiché l'architettura consente di accedere a qua",
+  "testo": "In parole povere: RAM vuol dire memoria a cui si accede in un punto qualsiasi, senza dover scorrere gli altri, e con la stessa velocità per tutti: come aprire direttamente la casella che vuoi senza passare dalle precedenti. La DRAM tiene i bit come cariche elettriche piccolissime che si scaricano, quindi bisogna ricaricarle di continuo (refresh)."
+ },
+ {
+  "idx": 122,
+  "ancora": "Storicamente, le dimensioni della memoria sono progettate in",
+  "testo": "In parole povere: un kilobyte in informatica non è 1000 byte ma 1024, perché si lavora con potenze di 2. Sono due modi di contare: 1024 è il numero tondo per i computer, 1000 quello tondo per noi."
+ },
+ {
+  "idx": 127,
+  "ancora": "Text File (File di testo puro): costituiti esclusivamente da",
+  "testo": "In parole povere: un file di testo puro contiene solo i caratteri, come un foglio scritto a macchina senza grassetti né colori. Lo apri con qualunque editor, anche il più semplice."
+ },
+ {
+  "idx": 136,
+  "ancora": "Nelle immagini bitmap, la figura viene suddivisa in una grig",
+  "testo": "In parole povere: un'immagine bitmap è come un disegno a quadretti: la figura è divisa in una griglia di puntini (pixel) e si salva il colore di ciascun quadretto, uno dopo l'altro."
+ },
+ {
+  "idx": 142,
+  "ancora": "Luminanza e Crominanza: un'alternativa al modello RGB consis",
+  "testo": "In parole povere: invece di dire quanto rosso, verde e blu c'è, si dice quanto è chiaro il punto (luminanza) e di che tinta è (crominanza). È come una foto in bianco e nero (la luminanza) a cui si aggiunge la tinta sopra. Serve soprattutto per comprimere meglio."
+ },
+ {
+  "idx": 145,
+  "ancora": "Grafica Vettoriale: evita il problema del ridimensionamento ",
+  "testo": "In parole povere: un'immagine vettoriale non memorizza i puntini, ma le istruzioni per disegnarla (tira una linea da qui a là, disegna un cerchio così). Il dispositivo la ridisegna alla grandezza che vuoi, quindi non diventa mai sgranata."
+ },
+ {
+  "idx": 150,
+  "ancora": "Il metodo generale consiste nel misurare l'ampiezza dell'ond",
+  "testo": "In parole povere: il campionamento consiste nel misurare il volume del suono a intervalli regolarissimi, come fare tante fotografie ravvicinate, e salvare i numeri trovati. Più misure al secondo fai, più il suono ricostruito è fedele."
+ },
+ {
+  "idx": 157,
+  "ancora": "Per evitare l'enorme occupazione di memoria richiesta dal ca",
+  "testo": "In parole povere: MIDI non salva il suono ma lo spartito: dice quale strumento suona, quale nota, quanto forte e per quanto tempo. È come mandare un foglio di musica a un pianista invece di una registrazione: occupa pochissimo, ma il suono finale dipende da chi suona."
+ },
+ {
+  "idx": 163,
+  "ancora": "Nel sistema decimale (base 10) comune, ogni posizione all'in",
+  "testo": "In parole povere: nella notazione posizionale il valore di una cifra dipende da dove sta. In base 10 ogni posto vale dieci volte il precedente (unità, decine, centinaia); in base 2 ogni posto vale il doppio del precedente (1, 2, 4, 8...) e le cifre sono solo 0 e 1."
+ },
+ {
+  "idx": 165,
+  "ancora": "Valore assoluto di una sequenza: il valore decimale equivale",
+  "testo": "In parole povere: per sapere che numero è una sequenza di bit, guardi dove stanno gli 1 e sommi i pesi di quelle posizioni. Esempio: 101 vuol dire 4 più 1, cioè 5."
+ },
+ {
+  "idx": 211,
+  "ancora": "Per estendere il sistema binario ai numeri reali o con virgo",
+  "testo": "In parole povere: il punto radice è la virgola dei numeri binari: a sinistra le potenze di 2 normali (1, 2, 4), a destra le metà successive (un mezzo, un quarto, un ottavo). Esempio: 0.1 in binario vale un mezzo."
+ },
+ {
+  "idx": 224,
+  "ancora": "Nei calcolatori moderni la rappresentazione dei numeri inter",
+  "testo": "In parole povere: è un modo di scrivere i numeri positivi e negativi con un numero fisso di bit, in cui per cambiare segno basta una semplice regola (copia i bit fino al primo 1, poi inverti il resto). I positivi iniziano per 0, i negativi per 1. Il vantaggio è che per sommare e sottrarre l'hardware usa un solo circuito."
+ },
+ {
+  "idx": 225,
+  "ancora": "Il bit situato all'estrema sinistra della sequenza, noto com",
+  "testo": "In parole povere: il bit di segno è il primo bit a sinistra e dice se il numero è positivo o zero (0) oppure negativo (1). Con 4 bit, 0101 è +5 e 1011 è un numero negativo."
+ },
+ {
+  "idx": 239,
+  "ancora": "Trattandosi di una rappresentazione su un numero finito di b",
+  "testo": "In parole povere: l'overflow succede quando il risultato non ci sta nei bit a disposizione, come cercare di scrivere 100 su un contatore a due cifre: il numero esce dalla scala e il calcolo dà un valore sbagliato. Con 4 bit il massimo è 7, quindi 5 più 4 non ci sta."
+ },
+ {
+  "idx": 245,
+  "ancora": "Un altro metodo ampiamente utilizzato per la memorizzazione ",
+  "testo": "In parole povere: si mette lo zero a metà della lista dei numeri in ordine e si conta in su (positivi) e in giù (negativi) da lì. È come i piani di un palazzo in cui il piano zero non è il primo: i piani sotto sono i negativi e quelli sopra i positivi."
+ },
+ {
+  "idx": 246,
+  "ancora": "I sistemi in eccesso vengono denominati in base al valore de",
+  "testo": "In parole povere: il nome dice quanto vale lo zero se letto come binario normale: se lo zero è 1000, che in binario vale 8, il sistema si chiama Excess-8. Per ottenere il numero vero si toglie 8 al valore binario."
+ },
+ {
+  "idx": 250,
+  "ancora": "A differenza dei numeri interi, la memorizzazione di valori ",
+  "testo": "In parole povere: è la notazione scientifica del computer: invece di tenere il numero con la virgola fissa si salvano le cifre significative e dove va messa la virgola, come 3,5 per 10 alla sesta. Così il numero può essere gigantesco o minuscolo senza occupare molto spazio."
+ },
+ {
+  "idx": 253,
+  "ancora": "Campo Esponente (Exponent Field - 3 bit): posizionato immedi",
+  "testo": "In parole povere: l'esponente dice di quanto spostare la virgola, cioè per quale potenza di 2 moltiplicare. Si salva in notazione in eccesso per avere anche esponenti negativi: è il numero che dice sposta a destra o sposta a sinistra."
+ },
+ {
+  "idx": 254,
+  "ancora": "Campo Mantissa (Mantissa Field - 4 bit): occupa le quattro p",
+  "testo": "In parole povere: la mantissa è il blocco di cifre significative del numero, quelle che contano, senza dire dove sta la virgola. È come le cifre 3,14 in 3,14 per 10 alla seconda: l'esponente le sposta, ma le cifre sono quelle."
+ },
+ {
+  "idx": 262,
+  "ancora": "Nonostante l'ampio intervallo dinamico offerto dalla virgola",
+  "testo": "In parole povere: i bit della mantissa sono pochi: se il numero ne richiede di più, quelli in eccesso vengono buttati via. Come scrivere 3,14159 su un foglio che ha posto solo per 3,14: perdi qualcosa e il valore salvato è un po' diverso da quello vero."
+ },
+ {
+  "idx": 269,
+  "ancora": "La compressione dei dati comprende l'insieme delle tecniche ",
+  "testo": "In parole povere: comprimere un file vuol dire riscriverlo in modo più corto, sfruttando ripetizioni e cose ridondanti, per occupare meno spazio e viaggiare più in fretta in rete. Come riassumere un racconto o fare le valigie piegando bene i vestiti."
+ },
+ {
+  "idx": 271,
+  "ancora": "Compressione Lossless (Senza Perdita): schemi che non compor",
+  "testo": "In parole povere: lossless significa senza perdita: dopo aver decompresso si riottiene il file identico all'originale, come una valigia che apri e ritrovi tutto uguale. Necessario per programmi, testi e conti."
+ },
+ {
+  "idx": 272,
+  "ancora": "Compressione Lossy (Con Perdita): schemi che accettano la pe",
+  "testo": "In parole povere: lossy significa con perdita: si butta via qualcosa che si nota poco, per risparmiare molto di più, e non si può recuperare. Come ridurre una foto: a occhio sembra uguale ma i dettagli minuscoli non ci sono più. Va bene per foto, musica e video."
+ },
+ {
+  "idx": 275,
+  "ancora": "Run-Length Encoding (RLE): è una tecnica lossless ideale per",
+  "testo": "In parole povere: se ci sono lunghe serie di valori uguali, invece di ripeterli si scrive quale valore e quante volte. Esempio: invece di AAAAAAAA scrivi 8 A. È lossless e va bene dove ci sono molte ripetizioni."
+ },
+ {
+  "idx": 276,
+  "ancora": "Codifica Dipendente dalla Frequenza (Codici di Huffman): è u",
+  "testo": "In parole povere: le cose che compaiono spesso ricevono codici brevi e quelle rare codici lunghi, come le abbreviazioni dei messaggi per le parole più comuni. Nel testo inglese la e ha un codice corto e la z uno lungo, così in media si risparmia."
+ },
+ {
+  "idx": 277,
+  "ancora": "Codifica Relativa o Differenziale: adatta per flussi di dati",
+  "testo": "In parole povere: se ogni elemento è quasi uguale al precedente (come due fotogrammi di un film), si salva solo ciò che è cambiato. Esempio: si dice nella scena cambia solo la posizione dell'attore invece di ridisegnare tutto lo sfondo."
+ },
+ {
+  "idx": 278,
+  "ancora": "Codifica a Dizionario e Algoritmo LZW: traduce il messaggio ",
+  "testo": "In parole povere: si crea un dizionario numerato di pezzi di messaggio (parole o gruppi di lettere) e il messaggio viene scritto con i numeri del dizionario. Come usare il numero di pagina di un libro invece di ricopiare il testo: il numero è più corto della parola."
+ },
+ {
+  "idx": 279,
+  "ancora": "Dizionari Adattivi (LZW - Lempel-Ziv-Welsh): variante dinami",
+  "testo": "In parole povere: è un dizionario che si costruisce mentre il testo scorre: parte con le lettere semplici e aggiunge i gruppi che si ripetono. Chi decomprime ripete lo stesso lavoro e ricostruisce il dizionario da solo, quindi non serve spedirlo insieme al file."
+ },
+ {
+  "idx": 294,
+  "ancora": "La strategia di rilevamento più semplice si basa sul princip",
+  "testo": "In parole povere: il bit di parità è un bit in più, messo alla fine di un gruppo di bit, che serve per controllare gli errori: si sceglie in modo che il numero di 1 sia sempre pari (o sempre dispari). Se all'arrivo il conto non torna, qualche bit si è rovinato per strada."
+ },
+ {
+  "idx": 295,
+  "ancora": "Parità Dispari (Odd Parity): il bit di parità viene impostat",
+  "testo": "In parole povere: si aggiunge 0 o 1 in modo che il totale degli 1 sia dispari. Se arriva un numero pari di 1 c'è sicuramente un errore. Esempio: 1101 ha tre 1, già dispari, quindi si aggiunge 0."
+ },
+ {
+  "idx": 296,
+  "ancora": "Parità Pari (Even Parity): il bit aggiuntivo viene configura",
+  "testo": "In parole povere: il contrario: il bit aggiunto serve a far venire un numero pari di 1. Esempio: 1101 ha tre 1, quindi si aggiunge un 1 per arrivare a quattro."
+ },
+ {
+  "idx": 300,
+  "ancora": "Mentre il bit di parità si limita a segnalare la presenza di",
+  "testo": "In parole povere: un bit di parità dice solo c'è stato un errore. Un codice correttore invece aggiunge tanti bit di controllo da capire anche dove sta l'errore, e quindi lo ripara da solo, senza dover rimandare il messaggio. Come il correttore automatico che sa quale lettera sbagliata sostituire."
+ },
+ {
+  "idx": 302,
+  "ancora": "La Distanza di Hamming tra due pattern binari della medesima",
+  "testo": "In parole povere: la distanza di Hamming conta in quante posizioni due stringhe di bit sono diverse, come in un gioco dei sette errori. Esempio: 1011 e 1001 differiscono in un solo posto, quindi distanza 1; 1011 e 0100 differiscono in quattro posti, distanza 4."
+ },
+ {
+  "idx": 314,
+  "ancora": "La logica proposizionale studia il modo più semplice di comb",
+  "testo": "In parole povere: una proposizione atomica è un'affermazione semplice, senza pezzi dentro, di cui interessa solo se è vera o falsa (come c'è un'automobile o è giorno). È il mattoncino da cui si costruiscono le frasi più complicate."
+ },
+ {
+  "idx": 315,
+  "ancora": "Una proposizione è dunque una frase che è vera oppure falsa,",
+  "testo": "In parole povere: una proposizione è una frase di cui ha senso dire che è vera oppure falsa (una cosa o l'altra). Non importa se non sai quale delle due. Esempio: sette è un numero primo è vera; Roma è in Francia è falsa."
+ },
+ {
+  "idx": 326,
+  "ancora": "Per indicare le proposizioni si usano variabili come p, q e ",
+  "testo": "In parole povere: una variabile proposizionale è un'etichetta (p, q, r) che sta per una proposizione qualsiasi, come in algebra x sta per un numero. Si usa per ragionare sulla forma delle frasi senza ripetere ogni volta il testo."
+ },
+ {
+  "idx": 328,
+  "ancora": "I valori di verità si chiamano anche valori booleani, dal no",
+  "testo": "In parole povere: valore booleano è un altro nome per vero e falso (1 e 0). Il nome ricorda George Boole, che trasformò la logica da filosofia a calcolo, e per questo si parla di logica booleana quando i valori sono solo due."
+ },
+ {
+  "idx": 334,
+  "ancora": "Un connettivo è un'operazione che prende uno o più valori di",
+  "testo": "In parole povere: un connettivo è una macchinetta che prende uno o più valori di verità e ne restituisce uno nuovo, come and, or e not. Prende le frasi vero/falso e le combina per formarne di più grandi. Esempio: piove E fa freddo."
+ },
+ {
+  "idx": 336,
+  "ancora": "La congiunzione p ∧ q si legge \"p e q\": è vera quando entram",
+  "testo": "In parole povere: la congiunzione è la e: vale vero solo se sono vere tutte e due le frasi. Basta una falsa e il risultato è falso. Esempio: ho fame e ho soldi: se manca uno dei due, non mangio."
+ },
+ {
+  "idx": 338,
+  "ancora": "La disgiunzione p ∨ q si legge \"p o q\" ed è la disgiunzione ",
+  "testo": "In parole povere: la disgiunzione è la o: basta che una delle due sia vera. Anche se sono vere tutte e due, è vera. Solo se sono entrambe false è falsa. Esempio: prendo il caffè o il tè: se prendo tutti e due non ho sbagliato."
+ },
+ {
+  "idx": 339,
+  "ancora": "Esiste anche la disgiunzione esclusiva (l'*aut* del latino, ",
+  "testo": "In parole povere: lo xor è la o dell'aut aut: o una o l'altra, ma non entrambe. Esempio: nel menu fisso scegli la carne o il pesce: se li prendi tutti e due hai sbagliato."
+ },
+ {
+  "idx": 343,
+  "ancora": "La negazione ¬p si legge \"non p\" e scambia il valore di veri",
+  "testo": "In parole povere: la negazione ribalta il valore: se la frase era vera diventa falsa e viceversa. Come dire non è vero che... davanti alla frase."
+ },
+ {
+  "idx": 345,
+  "ancora": "L'equivalenza (o uguaglianza tra booleani) è vera quando i d",
+  "testo": "In parole povere: l'equivalenza è vera quando i due valori sono uguali (tutti e due veri o tutti e due falsi) e falsa quando sono diversi. È il test sono uguali? applicato ai valori di verità."
+ },
+ {
+  "idx": 357,
+  "ancora": "Quando una formula contiene ¬, ∧ e ∨ senza parentesi, si val",
+  "testo": "In parole povere: la precedenza è l'ordine in cui si fanno le operazioni quando non ci sono parentesi, come in matematica dove si fa prima la moltiplicazione e poi la somma. Qui si valuta prima il not, poi l'and, poi l'or. Nel dubbio, metti le parentesi."
+ },
+ {
+  "idx": 361,
+  "ancora": "Una tavola di verità è un elenco di tutte le combinazioni po",
+  "testo": "In parole povere: una tavola di verità è una tabellina in cui metti tutte le combinazioni possibili di vero/falso delle frasi semplici e a fianco scrivi cosa viene alla frase composta. È come provare tutti i casi possibili uno per uno per vedere sempre il risultato."
+ },
+ {
+  "idx": 371,
+  "ancora": "Due formule sono equivalenti se hanno gli stessi valori di v",
+  "testo": "In parole povere: due formule sono equivalenti se in ogni caso possibile danno lo stesso risultato, cioè hanno la stessa tabella di verità. Sono scritte in modo diverso, ma si comportano allo stesso modo, come due modi diversi di dire la stessa cosa."
+ },
+ {
+  "idx": 383,
+  "ancora": "Una tautologia è una formula che è sempre vera, qualunque si",
+  "testo": "In parole povere: la tautologia è la frase che è sempre vera, qualunque cosa succeda: ad esempio piove oppure non piove. La contraddizione è l'opposto, una frase sempre falsa, come piove e non piove insieme. La negazione di una è l'altra."
+ },
+ {
+  "idx": 389,
+  "ancora": "p ∨ ¬p, chiamata terzo escluso. Se p è vera la disgiunzione ",
+  "testo": "In parole povere: il terzo escluso dice che una proposizione o è vera o è falsa, e non c'è una terza possibilità. Per questo p o non p è sempre vera: o piove oppure non piove."
+ },
+ {
+  "idx": 398,
+  "ancora": "Un esempio dal libro: \"se il Dipartimento di Matematica otti",
+  "testo": "In parole povere: l'implicazione materiale guarda solo se le due frasi sono vere o false, non se una è causa dell'altra. Quindi se piove allora la Terra è rotonda è una frase che in logica ha un valore preciso, anche se pioggia e Terra non c'entrano niente."
+ },
+ {
+  "idx": 401,
+  "ancora": "L'implicazione si scrive con una freccia: p → q si legge \"p ",
+  "testo": "In parole povere: p implica q è come una promessa: se succede p, prometto q. L'ipotesi è la condizione (il se), la tesi è la cosa promessa (il allora). La promessa si rompe, cioè è falsa, solo quando la condizione si avvera ma la cosa promessa non c'è."
+ },
+ {
+  "idx": 406,
+  "ancora": "Quando l'ipotesi è falsa l'implicazione è vera, qualunque si",
+  "testo": "In parole povere: se l'ipotesi è falsa la promessa non ha modo di essere violata, quindi si considera vera per comodità. Esempio: se vinco alla lotteria ti regalo un'auto: se non vinco, non ho mentito a nessuno."
+ },
+ {
+  "idx": 435,
+  "ancora": "la conversa (o reciproco, in inglese *converse*): q → p, che",
+  "testo": "In parole povere: la conversa si ottiene girando l'implicazione, cioè scambiando se e allora. Esempio: se piove, la strada è bagnata diventa se la strada è bagnata, piove. Non dice la stessa cosa: la strada può essere bagnata per altri motivi."
+ },
+ {
+  "idx": 436,
+  "ancora": "la contrapposta (in inglese *contrapositive*): ¬q → ¬p, che ",
+  "testo": "In parole povere: la contrapposta si ottiene scambiando e negando entrambi i pezzi: da se piove, la strada è bagnata si passa a se la strada non è bagnata, non piove. Dice esattamente la stessa cosa dell'originale."
+ },
+ {
+  "idx": 447,
+  "ancora": "A è una condizione necessaria per B significa che, quando B ",
+  "testo": "In parole povere: A è necessaria per B se, senza A, B non può esserci. Come il biglietto per entrare al cinema: ti serve, ma non basta da solo (se non hai A, sicuramente non hai B)."
+ },
+ {
+  "idx": 448,
+  "ancora": "A è una condizione sufficiente per B significa A → B: se A è",
+  "testo": "In parole povere: A è sufficiente per B se, quando c'è A, B c'è di sicuro. Come avere la laurea per essere laureati: basta quello. Ma B potrebbe esserci anche per altre strade."
+ },
+ {
+  "idx": 473,
+  "ancora": "Due formule sono logicamente equivalenti quando hanno la ste",
+  "testo": "In parole povere: due formule sono logicamente equivalenti se in ogni caso valgono la stessa cosa (stessa tavola di verità). Il bicondizionale p se e solo se q è il connettivo che dice sono uguali: è vero se le due frasi sono entrambe vere o entrambe false."
+ },
+ {
+  "idx": 506,
+  "ancora": "Questo processo, in cui da una sequenza di proposizioni si t",
+  "testo": "In parole povere: il ragionamento deduttivo è il ragionamento in cui parti da fatti che ti vengono dati (le ipotesi o premesse) e ne tiri fuori una conseguenza (la conclusione). L'argomento è l'insieme di queste premesse più la conclusione, come un piccolo mattone di dimostrazione."
+ },
+ {
+  "idx": 509,
+  "ancora": "Definizione. Un argomento è una successione di proposizioni ",
+  "testo": "In parole povere: un argomento è valido se, ogni volta che le ipotesi sono tutte vere, la conclusione deve essere vera per forza: non può succedere che le premesse siano vere e la conclusione falsa. Conta solo la forma, non se le frasi sono vere nella realtà. Esempio: se piove, la strada è bagnata; piove; quindi la strada è bagnata."
+ },
+ {
+  "idx": 512,
+  "ancora": "Un argomento più lungo si costruisce a passi, e ciascun pass",
+  "testo": "In parole povere: una regola di inferenza è un argomento valido già collaudato e riutilizzabile, come una mossa standard degli scacchi. Quando in un ragionamento ne riconosci la forma, puoi applicarla senza ricontrollare tutto."
+ },
+ {
+  "idx": 519,
+  "ancora": "Con la tavola (a sinistra nella figura) si osserva che ogni ",
+  "testo": "In parole povere: il modus ponens è la regola più naturale: sai che se p allora q, e sai che p è vera, quindi puoi dire che q è vera. Esempio: se studio, passo l'esame; ho studiato; quindi passo l'esame."
+ },
+ {
+  "idx": 537,
+  "ancora": "Se fosse valido, ogni volta che p → q e q sono vere dovrebbe",
+  "testo": "In parole povere: è l'errore di credere che da se p allora q e da q segua p. Esempio: se piove, la strada è bagnata; la strada è bagnata; quindi piove? No, magari è passata la spazzatrice. È lo stesso errore di scambiare un'implicazione con la sua conversa."
+ },
+ {
+  "idx": 556,
+  "ancora": "Definizione. Sia P(x) un enunciato che contiene la variabile",
+  "testo": "In parole povere: un predicato è una frase con un buco da riempire. Finché il buco è vuoto la frase non è né vera né falsa; appena metti un valore del dominio diventa vera o falsa. Il dominio è l'insieme dei valori che ci puoi mettere. Esempio: x è dispari con x = 3 è vera, con x = 8 è falsa."
+ },
+ {
+  "idx": 569,
+  "ancora": "Si chiama variabile libera una variabile non ancora assegnat",
+  "testo": "In parole povere: una variabile libera è una lettera ancora da riempire, quindi la frase non è vera né falsa. Una variabile legata è già sistemata: o le hai dato un valore preciso, o è sotto un per ogni oppure esiste che le dice di quali valori parlare. Esempio: x più 4 uguale a 6 ha la x libera; per ogni x, x più 0 uguale a x non ha variabili libere ed è vera o falsa."
+ },
+ {
+  "idx": 576,
+  "ancora": "Definizione. Sia P una funzione proposizionale con dominio D",
+  "testo": "In parole povere: il per ogni dice che la proprietà vale per tutti gli elementi del dominio, senza eccezioni. Per dire che è vero devi controllare che non ce ne sia nemmeno uno che sbaglia; per dire che è falso ne basta uno solo che sbaglia. Esempio: tutti gli studenti della classe hanno il libro: basta uno senza libro per renderla falsa."
+ },
+ {
+  "idx": 580,
+  "ancora": "Un valore di x del dominio che rende P(x) falsa si chiama co",
+  "testo": "In parole povere: un controesempio è un caso che smentisce un per ogni: un solo elemento del dominio per cui la proprietà non vale. Come dire tutti i cigni sono bianchi: un singolo cigno nero è sufficiente per smentirlo."
+ },
+ {
+  "idx": 611,
+  "ancora": "Definizione. Sia P una funzione proposizionale con dominio D",
+  "testo": "In parole povere: l'esiste dice che c'è almeno un elemento del dominio per cui la proprietà vale (anche uno solo, anche tanti). Per dire che è vero ne basta uno che funzioni; per dire che è falso devono sbagliare tutti. Esempio: c'è uno studente con il libro: se ne trovi uno, hai finito."
+ },
+ {
+  "idx": 627,
+  "ancora": "Poiché la definizione dell'uno diventa quella dell'altro sca",
+  "testo": "In parole povere: duali vuol dire che sono l'uno il rovescio dell'altro: se scambi vero con falso, il per ogni diventa esiste e viceversa. Succede lo stesso tra e e o. Un per ogni è come una lunga e di tante frasi, un esiste come una lunga o."
+ }
+]

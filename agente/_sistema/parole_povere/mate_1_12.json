@@ -1,0 +1,202 @@
+[
+ {
+  "idx": 6,
+  "ancora": "Un insieme viene definito formalmente come una collezione be",
+  "testo": "In parole povere: un insieme è un sacchetto di oggetti in cui per ogni oggetto si può dire senza dubbi se c'è dentro oppure no. Gli oggetti dentro si chiamano elementi e non si contano due volte. «Gli studenti presenti in aula» è un insieme; «gli attori bravi» no, perché «bravo» è un'opinione."
+ },
+ {
+  "idx": 15,
+  "ancora": "Rappresentazione Estensionale (per elencazione): consiste ne",
+  "testo": "In parole povere: descrivere un insieme per elencazione significa scrivere uno per uno tutti i suoi elementi tra graffe, come l'elenco della spesa. Va bene solo se sono pochi. Esempio: {2, 4, 6}."
+ },
+ {
+  "idx": 16,
+  "ancora": "Rappresentazione Intensionale (per proprietà / comprensione)",
+  "testo": "In parole povere: descrivere un insieme per proprietà significa non elencare nulla, ma dare la regola che decide chi entra. Si dice «tutti gli x dell'universo che rispettano questa condizione». Esempio: «i numeri naturali pari» al posto di 0, 2, 4, 6, ... che non finirebbe mai."
+ },
+ {
+  "idx": 26,
+  "ancora": "Nella teoria degli insiemi gioca un ruolo centrale l'insieme",
+  "testo": "In parole povere: l'insieme vuoto è la scatola senza niente dentro. Ne esiste una sola, perché due scatole vuote sono uguali: non c'è nulla che le distingua. Attenzione a non confonderlo con {∅}, che è una scatola con dentro una scatola vuota."
+ },
+ {
+  "idx": 27,
+  "ancora": "La cardinalità di un insieme A, indicata con la notazione |A",
+  "testo": "In parole povere: la cardinalità è semplicemente «quanti elementi ci sono», contati una volta sola ciascuno. Esempio: {a, b, c} ha cardinalità 3, l'insieme vuoto ha cardinalità 0."
+ },
+ {
+  "idx": 34,
+  "ancora": "S ⊆ T ⟺ ∀ x ∈ S, x ∈ T",
+  "testo": "In parole povere: S è sottoinsieme di T quando S sta tutto dentro T, cioè nessun elemento di S rimane fuori da T. Come «gli studenti di Informatica» rispetto a «gli studenti dell'università». Per vedere se NON è vero basta trovare un solo elemento di S che non sta in T."
+ },
+ {
+  "idx": 40,
+  "ancora": "Accanto al quantificatore universale ∀ («per ogni») compare ",
+  "testo": "In parole povere: «esiste» vuol dire che ne basta almeno uno. Per provare che una frase con «esiste» è vera ti serve un esempio; per provare che una frase con «per ogni» è vera non basta un esempio, serve un ragionamento che valga per tutti. Per smentire un «per ogni» basta un solo controesempio."
+ },
+ {
+  "idx": 48,
+  "ancora": "Sottoinsiemi Banali e Propri: Per un generico insieme non vu",
+  "testo": "In parole povere: ogni insieme ha sempre due sottoinsiemi «ovvi», quello vuoto e sé stesso, e si chiamano banali. Un sottoinsieme proprio è un pezzo vero e proprio, cioè dentro all'insieme ma diverso dall'insieme intero. Esempio: {1} è un sottoinsieme proprio di {1, 2}."
+ },
+ {
+  "idx": 50,
+  "ancora": "Due insiemi A e B sono uguali (A = B) se e solo se sono comp",
+  "testo": "In parole povere: due insiemi sono lo stesso insieme quando hanno esattamente gli stessi elementi, né uno di più né uno di meno. Non contano ordine e ripetizioni: {1, 2} e {2, 1, 1} sono uguali."
+ },
+ {
+  "idx": 66,
+  "ancora": "X ∩ Y = {x | x ∈ X ∧ x ∈ Y}",
+  "testo": "In parole povere: l'intersezione tiene solo ciò che le due scatole hanno in comune, cioè gli elementi che stanno in X e anche in Y. Esempio: tra {1, 2, 3} e {2, 3, 4} resta {2, 3}."
+ },
+ {
+  "idx": 67,
+  "ancora": "Se due insiemi non possiedono alcun elemento in comune (X ∩ ",
+  "testo": "In parole povere: due insiemi sono disgiunti quando non hanno niente in comune, come i numeri pari e i numeri dispari."
+ },
+ {
+  "idx": 69,
+  "ancora": "X ∪ Y = {x | x ∈ X ∨ x ∈ Y}",
+  "testo": "In parole povere: l'unione mette tutto insieme in un'unica scatola: ci finisce chi sta in X, in Y o in tutti e due, senza doppioni. Esempio: {1, 2} unito a {2, 3} dà {1, 2, 3}."
+ },
+ {
+  "idx": 94,
+  "ancora": "⋃i ∈ I Ai = {x | ∃ i ∈ I, x ∈ Ai}   e   ⋂i ∈ I Ai = {x | ∀ i",
+  "testo": "In parole povere: con tanti insiemi invece di due, l'unione raccoglie chi sta in almeno uno di essi, l'intersezione solo chi sta in tutti. Come dei gruppi di studio: l'unione sono gli studenti iscritti ad almeno un gruppo, l'intersezione quelli che sono in ogni gruppo."
+ },
+ {
+  "idx": 96,
+  "ancora": "Notazione degli intervalli. Per a < b si pone (a, b) = {x ∈ ",
+  "testo": "In parole povere: un intervallo è un tratto della retta dei numeri reali. Con le parentesi tonde gli estremi sono esclusi, con le quadre sono inclusi. Esempio: (0, 1) contiene 0,5 ma non 0 né 1, mentre [0, 1] contiene anche 0 e 1."
+ },
+ {
+  "idx": 100,
+  "ancora": "A × B = {(a, b) | a ∈ A ∧ b ∈ B}",
+  "testo": "In parole povere: il prodotto cartesiano è l'insieme di tutte le coppie che si possono formare prendendo il primo elemento da A e il secondo da B, in quest'ordine. Come le combinazioni primo piatto più secondo. Esempio: {1, 2} × {a, b} = {(1, a), (1, b), (2, a), (2, b)}."
+ },
+ {
+  "idx": 115,
+  "ancora": "A ∖ B = {x | x ∈ A ∧ x ∉ B}",
+  "testo": "In parole povere: A meno B è ciò che resta di A dopo aver tolto gli elementi che stanno anche in B. Esempio: {1, 2, 3} meno {2, 3, 4} fa {1}. L'ordine conta: B meno A darebbe {4}."
+ },
+ {
+  "idx": 120,
+  "ancora": "𝒞A(S) = {x ∈ A | x ∉ S}",
+  "testo": "In parole povere: il complementare è «tutto il resto»: fissato un universo, sono gli elementi che non stanno in S. Esempio: nell'universo dei numeri da 1 a 10, il complementare dei pari sono i dispari."
+ },
+ {
+  "idx": 161,
+  "ancora": "𝒫(A) = {S | S ⊆ A}",
+  "testo": "In parole povere: l'insieme delle parti è la scatola che contiene come elementi tutti i sottoinsiemi di A, compreso quello vuoto e A stesso. Esempio: per A = {a, b} i sottoinsiemi sono ∅, {a}, {b}, {a, b}, e l'insieme delle parti è proprio la scatola con questi quattro oggetti dentro."
+ },
+ {
+  "idx": 232,
+  "ancora": "⋃{i ∈ I} Ai = S",
+  "testo": "In parole povere: un ricoprimento è una famiglia di pezzi di S che, messi insieme, coprono tutto S senza lasciare fuori niente. I pezzi possono sovrapporsi, come tegole che coprono il tetto anche con un po' di sovrapposizione."
+ },
+ {
+  "idx": 247,
+  "ancora": "Ai ∩ Aj = ∅   ∀ i, j ∈ I   con  i ≠ j",
+  "testo": "In parole povere: una partizione è un ricoprimento «pulito»: S viene diviso in pezzi tutti non vuoti, che non si sovrappongono mai e insieme coprono tutto. Ogni elemento sta in uno e un solo pezzo, come gli studenti divisi in squadre. Esempio: pari e dispari dividono i naturali."
+ },
+ {
+  "idx": 248,
+  "ancora": "I singoli sottoinsiemi Ai che compongono la partizione vengo",
+  "testo": "In parole povere: i blocchi sono i singoli pezzi in cui la partizione ha diviso l'insieme, cioè le «squadre»."
+ },
+ {
+  "idx": 287,
+  "ancora": "Q = {Ai | i ∈ I}",
+  "testo": "In parole povere: l'insieme quoziente è l'elenco dei blocchi della partizione, ciascuno considerato come un unico oggetto. Si smette di guardare i singoli elementi e si guardano le squadre. Esempio: per pari e dispari il quoziente è {P, D} e ha solo 2 elementi."
+ },
+ {
+  "idx": 307,
+  "ancora": "R ⊆ S × S",
+  "testo": "In parole povere: una relazione binaria è una regola che dice quali coppie di elementi «sono collegate». La si descrive scegliendo, tra tutte le coppie possibili, quelle collegate. Esempio: la relazione «minore o uguale» sui numeri è l'insieme delle coppie (a, b) con a minore o uguale a b."
+ },
+ {
+  "idx": 320,
+  "ancora": "∀ x ∈ S,   x R x",
+  "testo": "In parole povere: una relazione è riflessiva se ogni elemento è collegato a sé stesso. Esempio: «avere lo stesso compleanno di» è riflessiva perché ognuno ha lo stesso compleanno di sé stesso."
+ },
+ {
+  "idx": 323,
+  "ancora": "∀ x, y ∈ S,   x R y ⟹ y R x",
+  "testo": "In parole povere: una relazione è simmetrica se il collegamento vale in entrambi i sensi: se x è collegato a y, allora anche y lo è a x. Esempio: «essere fratelli» è simmetrica, «essere più alto di» no."
+ },
+ {
+  "idx": 326,
+  "ancora": "∀ x, y ∈ S,   (x R y ∧ y R x) ⟹ x = y",
+  "testo": "In parole povere: una relazione è antisimmetrica se l'unico modo di essere collegati in entrambi i sensi è essere lo stesso elemento. Esempio: se a è minore o uguale a b e b è minore o uguale ad a, per forza a e b sono uguali."
+ },
+ {
+  "idx": 334,
+  "ancora": "∀ x, y, z ∈ S,   (x R y ∧ y R z) ⟹ x R z",
+  "testo": "In parole povere: una relazione è transitiva se i collegamenti si possono concatenare: se x porta a y e y porta a z, allora x porta direttamente a z. Esempio: «essere più alto di» è transitiva: se Anna è più alta di Bea e Bea di Carla, Anna è più alta di Carla."
+ },
+ {
+  "idx": 341,
+  "ancora": "Transitiva (∀ x, y, z ∈ S, (x R y ∧ y R z) ⟹ x R z)",
+  "testo": "In parole povere: una relazione di equivalenza è un modo di dire che due elementi sono «uguali sotto un certo punto di vista»: ognuno è equivalente a sé stesso, il rapporto vale nei due sensi e si può concatenare. Esempio: «avere la stessa parità» tra interi."
+ },
+ {
+  "idx": 352,
+  "ancora": "Cx = [x] = {y ∈ S | x R y}",
+  "testo": "In parole povere: la classe di equivalenza di x è il gruppo di tutti quelli che sono equivalenti a x, cioè «la sua squadra». Esempio: con la relazione «stessa parità», la classe di 3 è l'insieme di tutti i dispari."
+ },
+ {
+  "idx": 353,
+  "ancora": "Rappresentante della Classe: L'elemento x utilizzato per cos",
+  "testo": "In parole povere: il rappresentante è l'elemento che si sceglie per nominare la sua classe, come il capitano di una squadra. Si può scegliere uno qualsiasi della classe e il risultato non cambia."
+ },
+ {
+  "idx": 380,
+  "ancora": "S/R = {Cx | x ∈ S} ⊆ 𝒫(S)",
+  "testo": "In parole povere: l'insieme quoziente S/R è l'insieme delle classi di equivalenza, cioè l'elenco delle «squadre» in cui la relazione divide S, ognuna presa come un unico elemento. Esempio: con la parità, S/R ha due elementi, la classe dei pari e quella dei dispari."
+ },
+ {
+  "idx": 393,
+  "ancora": "Se la coppia ordinata (a, b) appartiene al grafico Γ, si ado",
+  "testo": "In parole povere: una funzione è una regola che a ogni elemento del dominio assegna uno e un solo elemento del codominio. Il dominio è l'insieme di partenza, il codominio quello di arrivo, e il grafico è l'elenco delle coppie (ingresso, uscita). Come un distributore: ogni tasto dà un solo prodotto, ma due tasti diversi possono dare lo stesso."
+ },
+ {
+  "idx": 415,
+  "ancora": "Dare una funzione significa dare tutti e tre gli oggetti (A,",
+  "testo": "In parole povere: due funzioni sono uguali solo se hanno lo stesso dominio, lo stesso codominio e gli stessi valori in ogni punto. Basta cambiare l'insieme di partenza o di arrivo per avere una funzione diversa, anche se la formula è identica."
+ },
+ {
+  "idx": 430,
+  "ancora": "Per ogni insieme A, la funzione identità idA : A → A è defin",
+  "testo": "In parole povere: la funzione identità lascia tutto com'è, ogni elemento viene mandato in sé stesso. Esiste una identità per ogni insieme."
+ },
+ {
+  "idx": 435,
+  "ancora": "Si scelgono due insiemi A e B e un elemento β ∈ B fissato. L",
+  "testo": "In parole povere: la funzione costante manda tutti gli elementi dello stesso valore fissato, come una macchina che qualunque cosa le dai risponde sempre con la stessa cosa."
+ },
+ {
+  "idx": 441,
+  "ancora": "la seconda proiezione p2 : A × B → B, con p2(a, b) = b (rest",
+  "testo": "In parole povere: una proiezione, data una coppia, ne restituisce una sola componente: la prima proiezione dà il primo elemento, la seconda il secondo. Esempio: dalla coppia (3, 7) la prima dà 3 e la seconda dà 7."
+ },
+ {
+  "idx": 446,
+  "ancora": "Se S ⊆ A, l'inclusione canonica j : S → A è definita da j(s)",
+  "testo": "In parole povere: l'inclusione canonica prende gli elementi di un sottoinsieme e li vede come elementi dell'insieme più grande, senza cambiarli. È come dire «uno studente di Informatica è anche uno studente dell'università»."
+ },
+ {
+  "idx": 450,
+  "ancora": "Se ∼ è una relazione di equivalenza su X e Q = X/∼ è l'insie",
+  "testo": "In parole povere: la funzione quoziente a ogni elemento associa la sua classe, cioè dice «tu appartieni a questa squadra». Elementi equivalenti finiscono nella stessa classe."
+ },
+ {
+  "idx": 454,
+  "ancora": "Dunque una successione non è altro che una funzione con domi",
+  "testo": "In parole povere: una successione è una lista infinita di numeri in cui ogni posto 0, 1, 2, ... ha il suo valore. Quindi è una funzione che a ogni numero naturale n associa il numero reale che sta al posto n. Esempio: la successione 1, 1, 2, 3, 5, ... di Fibonacci."
+ },
+ {
+  "idx": 457,
+  "ancora": "Sia f : A → B una funzione e sia S ⊆ A un sottoinsieme del d",
+  "testo": "In parole povere: la restrizione è la stessa funzione usata solo su una parte del dominio: si guardano soltanto gli ingressi di S e si ignorano gli altri. Le regole non cambiano, ma essendo il dominio più piccolo la funzione tecnicamente è un'altra."
+ }
+]
