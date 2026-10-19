@@ -23,7 +23,7 @@ Poiché √2 ∈ ℝ, per istanziazione universale si ottiene P(√2) → Q(√2
 **Sillogismo disgiuntivo con un quantificatore.** Si hanno le ipotesi: «tutti amano Microsoft o Apple» e «Lynn non ama Microsoft». Si vuole mostrare che «Lynn ama Apple». Con P(x) = «x ama Microsoft» e Q(x) = «x ama Apple», la prima ipotesi è ∀x (P(x) ∨ Q(x)); per istanziazione universale si ha P(Lynn) ∨ Q(Lynn). La seconda ipotesi è ¬P(Lynn): il sillogismo disgiuntivo dà Q(Lynn), cioè «Lynn ama Apple». La conclusione segue dalle ipotesi.
 
 ## Riepilogo: come si prova o si smentisce un quantificatore
-Le regole pratiche per dimostrare e smentire enunciati quantificati sono quattro, e conviene averle chiare perché sono il punto più usato negli esercizi.
+Le regole pratiche per dimostrare e smentire enunciati quantificati sono quattro, e riassumono quanto visto nei capitoli 21 e 22.
 - Per provare che ∀x P(x) è **vero**, bisogna mostrare che P(x) è vera per **ogni** x del dominio. Mostrare che P(x) è vera per un valore particolare **non** basta.
 - Per provare che ∃x P(x) è **vero**, basta trovare **un** valore di x del dominio per cui P(x) è vera.
 - Per provare che ∀x P(x) è **falso**, basta trovare **un** valore di x (un controesempio) per cui P(x) è falsa.
