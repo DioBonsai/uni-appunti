@@ -95,6 +95,51 @@ def implicazione_disgiunzione():
     return _salva(fig, "fond/logica_implicazione_disgiunzione")
 
 
+def regole_inferenza():
+    regole = [
+        (["p → q", "p"], "q", "modus ponens"),
+        (["p → q", "¬q"], "¬p", "modus tollens"),
+        (["p"], "p ∨ q", "addizione"),
+        (["p ∧ q"], "p", "semplificazione"),
+        (["p", "q"], "p ∧ q", "congiunzione"),
+        (["p → q", "q → r"], "p → r", "sillogismo ipotetico"),
+        (["p ∨ q", "¬p"], "q", "sillogismo disgiuntivo"),
+    ]
+    fig, ax = plt.subplots(figsize=(9.0, 6.0)); ax.axis("off"); ax.set_xlim(0, 9.0); ax.set_ylim(0, 6.0)
+    pos = [(0.25, 4.0), (3.2, 4.0), (6.15, 4.0), (0.25, 2.1), (3.2, 2.1), (6.15, 2.1), (0.25, 0.2)]
+    for (prem, concl, nome), (x, y) in zip(regole, pos):
+        ax.add_patch(Rectangle((x, y), 2.7, 1.75, fc="#F3F6FB", ec=BLU, lw=1.4))
+        n = len(prem)
+        for i, t in enumerate(prem):
+            ax.text(x + 0.3, y + 1.45 - i * 0.38, t, fontsize=13, va="center")
+        yl = y + 1.45 - n * 0.38 + 0.12
+        ax.plot([x + 0.25, x + 1.6], [yl, yl], color="black", lw=1.2)
+        ax.text(x + 0.3, yl - 0.27, "∴ " + concl, fontsize=13, va="center")
+        ax.text(x + 1.35, y + 0.12, nome, fontsize=9.5, ha="center", va="bottom", color=BLU, style="italic")
+    ax.text(6.15, 0.95, "ogni regola è un argomento valido:\nse le ipotesi sono vere, lo è la conclusione", fontsize=9.5, color=GRIGIO, va="center")
+    return _salva(fig, "fond/logica_regole_inferenza")
+
+
+def argomenti_tavole():
+    fig, axs = plt.subplots(1, 2, figsize=(10.4, 3.3))
+    for ax in axs:
+        ax.set_aspect("equal"); ax.axis("off")
+    # modus ponens: ipotesi p -> q e p, conclusione q
+    ax = axs[0]; ax.set_xlim(-0.2, 6.2); ax.set_ylim(-3.2, 1.5)
+    righe = [(1, 1, 1, 1, 1), (1, 0, 0, 1, 0), (0, 1, 1, 0, 1), (0, 0, 1, 0, 0)]
+    tavola(ax, 0.0, [[("p", ""), ("q", "")], [("p → q", "ipotesi"), ("p", "ipotesi")], [("q", "conclusione")]], righe, colori_gruppo=["black", BLU, ROSSO], cw=1.0, gap=0.3)
+    ax.add_patch(Rectangle((-0.05, -0.62), 6.0, 0.62, fc="none", ec=VERDE, lw=2.4, zorder=6))
+    ax.text(3.0, -3.0, "modus ponens: con le due ipotesi vere (prima riga) anche q è vera", ha="center", fontsize=8.3, color=VERDE)
+    # affermare il conseguente: ipotesi p -> q e q, conclusione p
+    ax = axs[1]; ax.set_xlim(-0.2, 6.2); ax.set_ylim(-3.2, 1.5)
+    righe = [(1, 1, 1, 1, 1), (1, 0, 0, 0, 1), (0, 1, 1, 1, 0), (0, 0, 1, 0, 0)]
+    tavola(ax, 0.0, [[("p", ""), ("q", "")], [("p → q", "ipotesi"), ("q", "ipotesi")], [("p", "conclusione")]], righe, colori_gruppo=["black", BLU, ROSSO], cw=1.0, gap=0.3)
+    ax.add_patch(Rectangle((-0.05, -1.86), 6.0, 0.62, fc="none", ec=ROSSO, lw=2.4, zorder=6))
+    ax.text(3.0, -3.0, "ipotesi vere e conclusione falsa (terza riga): argomento non valido", ha="center", fontsize=8.3, color=ROSSO)
+    fig.subplots_adjust(wspace=0.08)
+    return _salva(fig, "fond/logica_argomenti_tavole")
+
+
 if __name__ == "__main__":
-    for f in (connettivi, formula, demorgan, implicazione, contrapposta, bicondizionale, implicazione_disgiunzione):
+    for f in (connettivi, formula, demorgan, implicazione, contrapposta, bicondizionale, implicazione_disgiunzione, regole_inferenza, argomenti_tavole):
         print(f())
