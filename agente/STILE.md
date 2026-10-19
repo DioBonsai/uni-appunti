@@ -27,3 +27,4 @@
 - 1 ott 2026 (Algebra, NotebookLM): "troppo bullet point, non fare neanche un wall of text: elenchi solo quando servono, stile leggermente più discorsivo".
 - 5 ott 2026: i capitoli nuovi devono replicare struttura, tono e numerazione dei precedenti; un capitolo per volta; prima l'elenco dei macro-argomenti.
 - 7 ott 2026 (Fondamenti): "meno tutto a bullet point, stile un po' più discorsivo in generale".
+- 19 ott 2026 (regola permanente, tutte le materie): dopo ogni **definizione** scrivere subito una parentesi «In parole povere: …» con la spiegazione molto più comprensibile (1-3 frasi, linguaggio quotidiano, un esempio banale o un'immagine mentale).
