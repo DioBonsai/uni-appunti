@@ -565,3 +565,6 @@ details[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
 .tchip:hover { border-color: var(--accent, #6aa9ff); }
 .tchip:active { transform: scale(.97); }
 .tchip[aria-pressed="true"] { background: var(--accent, #3b82f6); border-color: var(--accent, #3b82f6); color: #fff; }
+
+/* sopralineatura (negazione booleana) nei quiz */
+.ov { display: inline-block; border-top: 1.5px solid currentColor; line-height: 1.05; padding: 0 .08em; }

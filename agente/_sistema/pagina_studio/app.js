@@ -38,7 +38,61 @@ const itDate = s => s.split('-').reverse().join('/');
 const say = t => { const l = $('#live'); if (l) { l.textContent = ''; setTimeout(() => { l.textContent = t; }, 30); } };
 const RM = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
 const raf2 = f => requestAnimationFrame(() => requestAnimationFrame(f));
-function inline(s) { return esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`(.+?)`/g, '<code>$1</code>'); }
+/* Mini convertitore LaTeX -> HTML/Unicode per i quiz (nessuna libreria, funziona offline).
+   Converte solo i comandi noti; i backslash di altro tipo (percorsi Windows, "\n" in C) restano com'e'. */
+const TEXSYM = {
+  wedge: '∧', land: '∧', vee: '∨', lor: '∨', neg: '¬', lnot: '¬', to: '→', rightarrow: '→', Rightarrow: '⇒', Leftrightarrow: '⟺',
+  leftrightarrow: '↔', implies: '⟹', iff: '⟺', forall: '∀', exists: '∃', in: '∈', notin: '∉', subseteq: '⊆', supseteq: '⊇', subset: '⊂',
+  cap: '∩', cup: '∪', times: '×', cdot: '·', ldots: '…', dots: '…', lambda: 'λ', sigma: 'σ', alpha: 'α', beta: 'β', gamma: 'γ',
+  delta: 'δ', epsilon: 'ε', varepsilon: 'ε', pi: 'π', omega: 'ω', theta: 'θ', mu: 'μ', emptyset: '∅', leq: '≤', le: '≤', geq: '≥',
+  ge: '≥', neq: '≠', ne: '≠', sim: '∼', mid: '∣', therefore: '∴', quad: '  ', qquad: '    ', oplus: '⊕', equiv: '≡', infty: '∞',
+  approx: '≈', circ: '∘', setminus: '∖', Sigma: 'Σ', Delta: 'Δ'
+};
+const TEXBB = { R: 'ℝ', N: 'ℕ', Z: 'ℤ', Q: 'ℚ', C: 'ℂ' };
+const TEXCAL = { P: '𝒫', A: '𝒜', C: '𝒞', F: 'ℱ', L: 'ℒ' };
+const TEXRE = /\\[(\[]|\\(?:overline|wedge|land|lor|vee|neg|lnot|to|rightarrow|Rightarrow|Leftrightarrow|leftrightarrow|implies|iff|forall|exists|subseteq|supseteq|cap|cup|times|cdot|ldots|lambda|sigma|mathbf|mathbb|mathcal|frac|therefore|emptyset|leq|geq|neq|mid|text|sim|oplus|equiv|setminus|circ)(?![a-zA-Z])/;
+function texGroup(s, i) {
+  while (s[i] === ' ') i++;
+  if (s[i] === '{') {
+    let d = 1, j = i + 1;
+    while (j < s.length && d) { if (s[j] === '{') d++; else if (s[j] === '}') d--; j++; }
+    return [s.slice(i + 1, d ? j : j - 1), j];
+  }
+  if (s[i] === '\\') { const m = /^\\[a-zA-Z]+/.exec(s.slice(i)); if (m) return [m[0], i + m[0].length]; }
+  return [s[i] || '', i + 1];
+}
+function texConv(s) {
+  let o = '', i = 0;
+  while (i < s.length) {
+    const c = s[i];
+    if (c === '\\') {
+      if ('()[]'.includes(s[i + 1] || 'x')) { i += 2; continue; }
+      const m = /^\\([a-zA-Z]+)/.exec(s.slice(i));
+      if (!m) { o += c; i++; continue; }
+      const n = m[1]; i += m[0].length;
+      if (n === 'overline') { const [g, j] = texGroup(s, i); i = j; o += '<span class="ov">' + texConv(g) + '</span>'; }
+      else if (n === 'mathbf' || n === 'textbf') { const [g, j] = texGroup(s, i); i = j; o += '<b>' + texConv(g) + '</b>'; }
+      else if (n === 'mathbb') { const [g, j] = texGroup(s, i); i = j; o += TEXBB[g] || texConv(g); }
+      else if (n === 'mathcal') { const [g, j] = texGroup(s, i); i = j; o += TEXCAL[g] || texConv(g); }
+      else if (n === 'text' || n === 'mathrm') { const [g, j] = texGroup(s, i); i = j; o += texConv(g); }
+      else if (n === 'frac') { const [a, j1] = texGroup(s, i); const [b, j2] = texGroup(s, j1); i = j2; const wrap = t => (t.length > 1 ? '(' + t + ')' : t); o += wrap(texConv(a)) + '/' + wrap(texConv(b)); }
+      else if (n === 'not') { const [g, j] = texGroup(s, i); const sym = { '\\in': '∉', '\\subseteq': '⊄', '\\supseteq': '⊉', '\\equiv': '≢' }[g]; if (sym) { i = j; o += sym; } else o += '¬'; }
+      else if (n === 'bf') { /* dichiarazione di grassetto: ignorata */ }
+      else if (TEXSYM[n]) o += TEXSYM[n];
+      else o += '\\' + n;
+    } else if ((c === '_' || c === '^') && s[i + 1] === '{') {
+      const [g, j] = texGroup(s, i + 1); i = j; o += (c === '_' ? '<sub>' : '<sup>') + texConv(g) + (c === '_' ? '</sub>' : '</sup>');
+    } else if (c === '_' && /[A-Za-z0-9]/.test(s[i + 1] || '') && /[A-Za-z)]/.test(s[i - 1] || '')) {
+      o += '<sub>' + s[i + 1] + '</sub>'; i += 2;
+    } else if (c === '{' || c === '}') { i++; }
+    else { o += c; i++; }
+  }
+  return o;
+}
+const tex = s => TEXRE.test(s) ? texConv(s) : s;
+const tx = s => tex(esc(s));
+
+function inline(s) { return tex(esc(s)).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/`(.+?)`/g, '<code>$1</code>'); }
 /* disegni delle domande (scaricati dal sito esami): cliccando si aprono a grandezza intera */
 const figs = l => (l && l.length) ? '<div class="figs">' + l.map(s => `<a href="${esc(s)}" target="_blank" rel="noopener"><img src="${esc(s)}" alt="Disegno della domanda" loading="lazy"></a>`).join('') + '</div>' : '';
 function fmt(t) {
@@ -405,7 +459,7 @@ function renderQ() {
   const q = Q.list[Q.i], n = Q.list.length; Q.answered = false;
   $('#q-count').textContent = `Domanda ${Q.i + 1} di ${n}`; $('#q-src').textContent = `${q.prova} · ${q.theme}`;
   $('#q-prog').style.setProperty('--p', (Q.i / n).toFixed(3)); $('#q-progbox').setAttribute('aria-valuenow', Q.i);
-  $('#qbody').innerHTML = `<div class="q-slide"><div class="q-text">${fmt(q.q)}</div>${figs(q.img)}<div class="opts" role="group" aria-label="Risposte">${q.o.map((o, k) => `<button class="opt" data-k="${k + 1}"><span class="n">${k + 1}</span><span>${esc(o)}</span></button>`).join('')}</div></div>`;
+  $('#qbody').innerHTML = `<div class="q-slide"><div class="q-text">${fmt(q.q)}</div>${figs(q.img)}<div class="opts" role="group" aria-label="Risposte">${q.o.map((o, k) => `<button class="opt" data-k="${k + 1}"><span class="n">${k + 1}</span><span>${tx(o)}</span></button>`).join('')}</div></div>`;
   $('#q-fbk').innerHTML = '';
   $$('.opt').forEach(b => b.addEventListener('click', () => answer(+b.dataset.k)));
   const nx = $('#q-next'); nx.disabled = true; nx.innerHTML = (Q.i + 1 === n ? 'Vedi il risultato' : 'Avanti') + ' ' + IC.arrow;
@@ -423,7 +477,7 @@ function answer(k) {
   $('.opts').classList.add('answered');
   $$('.opt').forEach(b => { b.disabled = true; const n = +b.dataset.k; if (Q.fb) { if (n === q.a) b.classList.add('ok'); else if (n === k) b.classList.add('ko'); } else if (n === k) b.classList.add('sel'); });
   if (Q.fb) {
-    $('#q-fbk').innerHTML = `<div class="fold" id="fold"><div class="fold-in"><div class="explain" style="display:grid;gap:10px;padding-top:2px"><div class="note ${ok ? 'ok' : 'bad'}"><strong>${ok ? 'Giusto.' : 'Sbagliato: la risposta è la ' + q.a + '.'}</strong> ${esc(q.s)}${figs(q.imgf)}${ok ? '' : chapterHint(q.theme, q.m)}</div>${q.w ? `<div class="note warn"><strong>Attenzione, possibile errore nella soluzione ufficiale:</strong> ${esc(q.w)}</div>` : ''}</div></div></div>`;
+    $('#q-fbk').innerHTML = `<div class="fold" id="fold"><div class="fold-in"><div class="explain" style="display:grid;gap:10px;padding-top:2px"><div class="note ${ok ? 'ok' : 'bad'}"><strong>${ok ? 'Giusto.' : 'Sbagliato: la risposta è la ' + q.a + '.'}</strong> ${tx(q.s)}${figs(q.imgf)}${ok ? '' : chapterHint(q.theme, q.m)}</div>${q.w ? `<div class="note warn"><strong>Attenzione, possibile errore nella soluzione ufficiale:</strong> ${tx(q.w)}</div>` : ''}</div></div></div>`;
     raf2(() => { const f = $('#fold'); if (f) f.classList.add('open'); });
     say(ok ? 'Giusto' : 'Sbagliato, la risposta è la ' + q.a);
   } else say('Risposta registrata');
@@ -442,7 +496,7 @@ function endQuiz() {
     <p class="res-msg">${msg}</p>
     <p class="res-sub">in ${Math.floor(s / 60)} min ${s % 60} s · ${esc(q0.label)}${q0.sim && answered < n ? ' · ' + (n - answered) + ' senza risposta' : ''}</p>
     <div class="res-actions">${q0.wrong.length && !done ? '<button class="btn soft" id="q-redo">Rifai solo gli errori</button>' : ''}<button class="btn" id="q-again">${done ? 'Concludi la sessione' : 'Un altro quiz'}</button></div>
-    ${q0.wrong.length ? '<div class="review"><h3>Da rivedere</h3>' + q0.wrong.map(q => `<details class="rev"><summary><span>${esc(String(q.q).split('\n')[0])}</span></summary><div class="rev-in"><div class="q-text" style="font-size:1rem">${fmt(q.q)}</div>${figs(q.img)}<div class="note ok"><strong>Risposta ${q.a}:</strong> ${esc(q.o[q.a - 1])}</div><p>${esc(q.s)}</p>${figs(q.imgf)}${chapterHint(q.theme, q.m)}${q.w ? '<p><em>Possibile errore nella soluzione ufficiale: ' + esc(q.w) + '</em></p>' : ''}</div></details>`).join('') + '</div>' : '<p class="res-sub">Nessun errore da rivedere.</p>'}</div>`;
+    ${q0.wrong.length ? '<div class="review"><h3>Da rivedere</h3>' + q0.wrong.map(q => `<details class="rev"><summary><span>${tx(String(q.q).split('\n')[0])}</span></summary><div class="rev-in"><div class="q-text" style="font-size:1rem">${fmt(q.q)}</div>${figs(q.img)}<div class="note ok"><strong>Risposta ${q.a}:</strong> ${esc(q.o[q.a - 1])}</div><p>${esc(q.s)}</p>${figs(q.imgf)}${chapterHint(q.theme, q.m)}${q.w ? '<p><em>Possibile errore nella soluzione ufficiale: ' + esc(q.w) + '</em></p>' : ''}</div></details>`).join('') + '</div>' : '<p class="res-sub">Nessun errore da rivedere.</p>'}</div>`;
   animateRings($('#quiz-run')); countUp($('#res-score'), q0.score, 900, v => v + '/' + n);
   $('#q-again').addEventListener('click', () => { $('#quiz-run').hidden = true; $('#quiz-setup').hidden = false; setupQuiz(); if (done) done(); });
   const rd = $('#q-redo'); if (rd) rd.addEventListener('click', () => startQuiz(false, { list: q0.wrong.slice(), label: 'errori da rifare', fb: true }));
