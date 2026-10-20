@@ -1,19 +1,18 @@
-"""Converte i 5 Word dei riassunti in pagine HTML per il Quaderno online (con le evidenziazioni gialle, il codice,
-apici/pedici e le figure). Non modifica mai i Word.
+"""Costruisce le pagine HTML dei riassunti per il Quaderno online a partire dai contenuti strutturati (contenuti/*.json del
+repo del sito). Le evidenziazioni non stanno nelle pagine: le applica il browser, leggendole dal database.
 
-Uso: python riassunti_html.py <cartella_uscita>
-Scrive: <uscita>/riassunti/index.html, <uscita>/riassunti/<slug>.html, <uscita>/riassunti/img/<hash>.<ext>
+Uso: python riassunti_html.py <cartella_uscita> [cartella_contenuti]
+Scrive: <uscita>/riassunti/*.html, <uscita>/riassunti/img/, <uscita>/meta.json
 """
 import hashlib
 from datetime import datetime
 import html
 import json
+import shutil
 import re
 import sys
 from pathlib import Path
 
-import docx
-from docx.oxml.ns import qn
 
 UNI = Path(__file__).resolve().parents[3]
 BASE = Path(__file__).resolve().parents[1]
@@ -27,8 +26,6 @@ MATERIE = [
 ]
 COLORI = {"algebra": ("#2744a8", "#8fadff"), "matematica-discreta": ("#b8302c", "#ff9188"), "fondamenti": ("#16703f", "#70dca2"),
           "programmazione": ("#b25a0a", "#ffb866"), "laboratorio": ("#7a4fb5", "#c3a6ff")}
-EXT = {"image/png": "png", "image/jpeg": "jpg", "image/gif": "gif", "image/svg+xml": "svg", "image/webp": "webp"}
-W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 
 CSS = r"""
 :root{--bg:#fbfaf7;--fg:#1d2330;--mut:#667085;--lin:#e3e0d8;--acc:#1f4e9c;--tit:#b42318;--sub:#b54708;--cod:#f1efe9;--mark:#fff59d;--card:#ffffff;--bar:#fbfaf7e8;--ok:#1e8449;--hl:#ffd54f;--fs:18px}
@@ -81,7 +78,7 @@ code,pre{font:.8em/1.5 "Cascadia Mono",Consolas,"SFMono-Regular",Menlo,monospace
 pre{position:relative;background:var(--cod);padding:.85rem 1rem;border-radius:10px;overflow:auto;margin:.9rem 0;border:1px solid var(--lin);tab-size:4}pre code{background:none;padding:0;font-size:1em}
 pre .cp{position:absolute;top:.4rem;right:.4rem;opacity:0;transition:opacity .15s;font:12px system-ui,sans-serif;padding:.2rem .5rem}
 pre:hover .cp,pre .cp:focus{opacity:1}
-figure{margin:1.2rem 0;text-align:center}figure img{max-width:100%;height:auto;background:#fff;border-radius:8px;border:1px solid var(--lin);cursor:zoom-in}
+figure{margin:1.2rem 0;text-align:center}figcaption{margin-top:.5rem;font:italic 14px/1.4 system-ui,sans-serif;color:var(--mut)}figure img{max-width:100%;height:auto;background:#fff;border-radius:8px;border:1px solid var(--lin);cursor:zoom-in}
 table{border-collapse:collapse;margin:.9rem 0;font:15px system-ui,sans-serif;display:block;overflow:auto}td,th{border:1px solid var(--lin);padding:.35rem .65rem}
 .hit{background:var(--hl);color:#000;border-radius:2px}.hit.cur{outline:2px solid var(--acc);background:#ffb300}
 .pn{display:flex;justify-content:space-between;gap:1rem;margin:2.4rem 0 0;font:14px system-ui,-apple-system,sans-serif}
@@ -213,6 +210,16 @@ main h2:hover .ha,main h3:hover .ha,.ha:focus{opacity:1}.ha:hover{color:var(--mc
 #theme .lbl{display:inline}#ctrls select.tb.mats{height:48px;max-width:none}
 main p.pp{padding:.8rem .9rem .85rem}
 }
+
+/* ---- evidenziazione dal sito (amministratore) ---- */
+mark.ev{background:var(--mark);color:inherit;border-radius:3px;padding:.02em .08em}
+#evbar{position:fixed;z-index:45;display:flex;gap:4px;padding:5px;border-radius:14px;background:var(--card);border:1px solid var(--lin);box-shadow:0 10px 30px #0006;font:600 14px system-ui,-apple-system,sans-serif}
+#evbar[hidden]{display:none}
+#evbar button{appearance:none;display:inline-flex;align-items:center;gap:.45rem;min-height:40px;padding:0 .9rem;border:0;border-radius:10px;background:var(--cod);color:var(--fg);cursor:pointer;font:inherit}
+#evbar button:hover{background:var(--mark)}#evbar button[hidden]{display:none}
+#evbar svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mkman{appearance:none;border:1px solid var(--lin);background:var(--card);color:var(--fg);border-radius:99px;padding:.2rem .7rem;font:600 12px system-ui,sans-serif;cursor:pointer}.mkman:hover{border-color:var(--ok);color:var(--ok)}
+@media (max-width:720px){#evbar{left:50%!important;top:auto!important;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%)}#evbar button{min-height:48px;padding:0 1.1rem;font-size:15px}.mkman{min-height:36px}}
 """
 
 JS_COMUNE = r"""
@@ -331,10 +338,101 @@ $$('pre',main).forEach(function(p){var b=document.createElement('button');b.clas
 var lb=$('#lb'),lbi=$('#lb img');
 main.addEventListener('click',function(e){var im=e.target.closest('figure img');if(im){lbi.src=im.src;lb.classList.add('on')}});
 lb.addEventListener('click',function(){lb.classList.remove('on')});
+
+/* ===== evidenziazioni sincronizzate (le vedono tutti, le modifica solo l'amministratore) ===== */
+var EV={b:{},man:[],admin:false},ETI=['Da studiare','Iniziato','Studiato'],evbar=$('#evbar'),UNDO=null,selT=null;
+function tnodes(b){var w=document.createTreeWalker(b,NodeFilter.SHOW_TEXT,{acceptNode:function(n){return n.parentNode.closest('.cp,.ha')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT}}),a=[];while(w.nextNode())a.push(w.currentNode);return a}
+function btext(b){return tnodes(b).map(function(n){return n.nodeValue}).join('')}
+function unmark(b){$$('mark.ev',b).forEach(function(m){var p=m.parentNode;while(m.firstChild)p.insertBefore(m.firstChild,m);p.removeChild(m)});b.normalize()}
+function mark(b,ranges){
+  unmark(b);if(!ranges||!ranges.length)return;
+  var pos=0,info=tnodes(b).map(function(n){var s=pos;pos+=n.nodeValue.length;return {n:n,s:s,e:pos,p:[]}});
+  ranges.forEach(function(r){info.forEach(function(x){var a=Math.max(r[0],x.s),e=Math.min(r[1],x.e);if(a<e)x.p.push([a-x.s,e-x.s])})});
+  info.forEach(function(x){x.p.sort(function(p,q){return q[0]-p[0]});x.p.forEach(function(p){var rg=document.createRange();rg.setStart(x.n,p[0]);rg.setEnd(x.n,p[1]);var m=document.createElement('mark');m.className='ev';rg.surroundContents(m)})});
+}
+function blocchi(){return $$('[data-b]',main).filter(function(b){return b.tagName!=='H3'})}
+function stats(){var o=[];caps.forEach(function(sec){var hl=0;$$('[data-b]',sec).forEach(function(b){var r=EV.b[b.dataset.b];if(r&&r.length)hl++});var num=parseInt(sec.dataset.num,10),man=!isNaN(num)&&EV.man.indexOf(num)>=0;o.push({hl:hl,s:(man||hl>=3)?2:(hl?1:0),man:man,num:num})});return o}
+function refreshUI(){
+  var st=stats(),fatti=0,inz=0;
+  caps.forEach(function(sec,i){var x=st[i];if(x.s===2)fatti++;else if(x.s===1)inz++;
+    var dot=links[i].querySelector('.st');if(dot){dot.className='st st'+x.s;dot.title=ETI[x.s].toLowerCase()}
+    var bd=sec.querySelector('.badge');if(bd){bd.className='badge b'+x.s;bd.innerHTML='<i></i>'+ETI[x.s]}
+    var sq=$('.hero .map a[href="#'+sec.id+'"]');if(sq)sq.className='st'+x.s;
+    var mb=sec.querySelector('.mkman');if(mb){mb.textContent=x.man?'Studiato a mano ✓ (annulla)':'Segna come studiato';mb.dataset.on=x.man?'1':'0'}
+  });
+  var tx=$('#herotxt');if(tx)tx.innerHTML=caps.length+' capitoli &middot; '+fatti+' studiati'+(inz?', '+inz+' iniziati':'')+' &middot; lettura di circa '+tx.dataset.lett;
+  var nx=-1;for(var k=0;k<caps.length;k++){if(st[k].s!==2){nx=k;break}}
+  var act=$('.hero .act');if(act){var c0=caps[0].id;act.innerHTML=nx<0?'<a class="btn" href="#'+c0+'">Ripassa dall&rsquo;inizio</a>':'<a class="btn" href="#'+caps[nx].id+'">'+(isNaN(st[nx].num)?'Continua a leggere':'Continua dal capitolo '+st[nx].num)+'</a><a class="btn ghost" href="#'+c0+'">Dall&rsquo;inizio</a>'}
+}
+function post(o){return fetch('/api/evid',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(o)}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()})}
+function unisci(rs,r){var v=rs.concat([r]).sort(function(a,b){return a[0]-b[0]}),m=[];v.forEach(function(x){var u=m[m.length-1];if(u&&x[0]<=u[1])u[1]=Math.max(u[1],x[1]);else m.push([x[0],x[1]])});return m}
+function sottrai(rs,r){var m=[];rs.forEach(function(x){if(x[1]<=r[0]||x[0]>=r[1]){m.push(x);return}if(x[0]<r[0])m.push([x[0],r[0]]);if(x[1]>r[1])m.push([r[1],x[1]])});return m}
+function coperto(rs,r,tx){for(var i=r[0];i<r[1];i++){if(/\s/.test(tx.charAt(i)))continue;var ok=false;for(var k=0;k<rs.length;k++){if(i>=rs[k][0]&&i<rs[k][1]){ok=true;break}}if(!ok)return false}return true}
+function tocca(rs,r){return rs.some(function(x){return x[0]<r[1]&&x[1]>r[0]})}
+function off(b,node,o){var r=document.createRange();r.selectNodeContents(b);r.setEnd(node,o);return r.toString().length}
+function selInfo(){
+  var sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return null;
+  var rg=sel.getRangeAt(0);if(!main.contains(rg.commonAncestorContainer))return null;
+  var items=[];
+  blocchi().forEach(function(b){if(!rg.intersectsNode(b))return;
+    var s=0,e=btext(b).length;
+    if(b.contains(rg.startContainer))s=off(b,rg.startContainer,rg.startOffset);
+    if(b.contains(rg.endContainer))e=off(b,rg.endContainer,rg.endOffset);
+    if(e>s)items.push({b:b,id:b.dataset.b,r:[s,e]})});
+  return items.length?{items:items,rect:rg.getBoundingClientRect()}:null;
+}
+function mostraBarra(){
+  var si=EV.admin?selInfo():null;if(!si){evbar.hidden=true;return}
+  window.__si=si;
+  var tutto=si.items.every(function(it){return coperto(EV.b[it.id]||[],it.r,btext(it.b))});
+  $('#evadd').hidden=tutto;$('#evdel').hidden=!si.items.some(function(it){return tocca(EV.b[it.id]||[],it.r)});
+  var r=si.rect;evbar.hidden=false;
+  if(window.innerWidth>720){var w=evbar.offsetWidth||150,top=r.top-52;if(top<70)top=r.bottom+10;evbar.style.top=Math.round(top)+'px';evbar.style.left=Math.round(Math.max(8,Math.min(window.innerWidth-w-8,r.left+r.width/2-w/2)))+'px'}
+}
+function impostaBlocco(b,id,nuovo){
+  var prima=(EV.b[id]||[]).map(function(x){return x.slice()});
+  if(nuovo.length)EV.b[id]=nuovo;else delete EV.b[id];
+  mark(b,nuovo);
+  return post({m:SLUG,b:id,r:nuovo}).catch(function(){if(prima.length)EV.b[id]=prima;else delete EV.b[id];mark(b,prima);refreshUI();say('Non riesco a salvare l’evidenziazione: riprova',3500)});
+}
+function cambia(tipo){
+  var si=window.__si;if(!si)return;var prec=[];
+  si.items.forEach(function(it){var old=(EV.b[it.id]||[]).map(function(x){return x.slice()}),nu=tipo==='add'?unisci(old,it.r):sottrai(old,it.r);prec.push({b:it.b,id:it.id,old:old});impostaBlocco(it.b,it.id,nu)});
+  UNDO=prec;window.getSelection().removeAllRanges();evbar.hidden=true;refreshUI();
+  say((tipo==='add'?'Evidenziato':'Evidenziazione tolta')+' <button class="tb" id="evundo" type="button">Annulla</button>',6000);
+  var u=$('#evundo');if(u)u.onclick=function(){(UNDO||[]).forEach(function(p){impostaBlocco(p.b,p.id,p.old)});UNDO=null;refreshUI();toast.classList.remove('on')};
+}
+function initAdmin(){
+  body.classList.add('admin');
+  caps.forEach(function(sec){var meta=sec.querySelector('.capmeta');if(!meta)return;var b=document.createElement('button');b.type='button';b.className='mkman';b.dataset.on='0';meta.appendChild(b)});
+  refreshUI();
+  main.addEventListener('click',function(e){var b=e.target.closest('.mkman');if(!b)return;var sec=b.closest('section.cap'),num=parseInt(sec.dataset.num,10);if(isNaN(num))return;var on=b.dataset.on!=='1';
+    post({m:SLUG,cap:num,man:on}).then(function(j){EV.man=j.man||[];refreshUI();say(on?'Capitolo segnato come studiato':'Segno tolto',2200)}).catch(function(){say('Non riesco a salvare: riprova',3000)})});
+  document.addEventListener('selectionchange',function(){clearTimeout(selT);selT=setTimeout(mostraBarra,160)});
+  window.addEventListener('scroll',function(){if(!evbar.hidden){clearTimeout(selT);selT=setTimeout(mostraBarra,120)}},{passive:true});
+  evbar.addEventListener('pointerdown',function(e){e.preventDefault()});
+  $('#evadd').addEventListener('click',function(){cambia('add')});$('#evdel').addEventListener('click',function(){cambia('del')});
+  if(ls('riass-hint-admin')!=='1'){ls('riass-hint-admin','1');say('Sei amministratore: seleziona del testo per evidenziarlo. Le evidenziazioni si sincronizzano su tutti i dispositivi.',7000)}
+}
+fetch('/api/evid?m='+encodeURIComponent(SLUG),{credentials:'same-origin'}).then(function(r){return r.ok?r.json():Promise.reject()}).then(function(j){
+  EV.b=j.b||{};EV.man=j.man||[];EV.admin=!!j.admin;
+  blocchi().forEach(function(b){var r=EV.b[b.dataset.b];if(r&&r.length)mark(b,r)});
+  refreshUI();if(EV.admin)initAdmin();
+}).catch(function(){});
 })();
 """
 
 JS_INDICE = r"""
+fetch('/api/avanzamento',{credentials:'same-origin'}).then(function(r){return r.ok?r.json():Promise.reject()}).then(function(j){
+  document.querySelectorAll('.mcard').forEach(function(c){var d=j[c.dataset.slug];if(!d)return;
+    var tot=d.totale,fatti=d.studiati,inz=d.capitoli.filter(function(x){return x.s===1}).length,pct=tot?Math.round(100*fatti/tot):0;
+    c.querySelector('.mc-pct').textContent=pct+'%';c.querySelector('.bar i').style.width=pct+'%';
+    c.querySelector('.mc-sub').innerHTML=fatti+' di '+tot+' capitoli studiati'+(inz?' &middot; '+inz+' iniziati':'')+' &middot; circa '+c.dataset.lett+' di lettura';
+    var nx=null;for(var i=0;i<d.capitoli.length;i++){if(d.capitoli[i].s!==2){nx=d.capitoli[i];break}}
+    var mn=c.querySelector('.mc-next'),go=c.querySelector('.mc-go');
+    if(nx){mn.innerHTML='Prossimo da studiare: <b>'+(nx.num!=null?'Cap. '+nx.num+' &middot; ':'')+nx.titolo.replace(/^\s*(?:Capitolo\s+)?\d+\s*[.:]?\s*/,'').replace(/</g,'&lt;')+'</b>';go.innerHTML='Continua &rarr;';c.href=c.dataset.slug+'.html#'+nx.id}
+    else{mn.textContent='Hai studiato tutto: puoi ripassare dall\u2019inizio.';go.innerHTML='Apri &rarr;'}
+  })}).catch(function(){});
 (function(){
 var tb=document.getElementById('theme');
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
@@ -355,206 +453,6 @@ def pagina(titolo, head_extra, corpo, js=""):
             f"<title>{html.escape(titolo)}</title><script>{JS_COMUNE}</script><style>{CSS}</style>{head_extra}</head>{corpo}</html>")
 
 
-def numbering_kinds(d):
-    """Restituisce {(numId, ilvl): 'ol'|'ul'} leggendo numbering.xml."""
-    kinds = {}
-    try:
-        root = d.part.numbering_part.element
-    except Exception:
-        return kinds
-    abstr = {}
-    for a in root.findall(qn("w:abstractNum")):
-        aid = a.get(qn("w:abstractNumId"))
-        for lv in a.findall(qn("w:lvl")):
-            f = lv.find(qn("w:numFmt"))
-            abstr[(aid, lv.get(qn("w:ilvl")))] = (f.get(qn("w:val")) if f is not None else "bullet")
-    for n in root.findall(qn("w:num")):
-        a = n.find(qn("w:abstractNumId"))
-        if a is None:
-            continue
-        for (aid, il), fmt in abstr.items():
-            if aid == a.get(qn("w:val")):
-                kinds[(n.get(qn("w:numId")), il)] = "ul" if fmt in ("bullet", "none") else "ol"
-    return kinds
-
-
-class Conv:
-    def __init__(self, d, outdir):
-        self.d, self.out = d, outdir
-        self.imgdir = outdir / "img"
-        self.imgdir.mkdir(parents=True, exist_ok=True)
-        self.kinds = numbering_kinds(d)
-        self.nimg = 0
-
-    # ---- figure
-    def immagine(self, drawing):
-        blip = drawing.find(".//" + "{http://schemas.openxmlformats.org/drawingml/2006/main}blip")
-        if blip is None:
-            return ""
-        rid = blip.get("{http://schemas.openxmlformats.org/officeDocument/2006/relationships}embed")
-        try:
-            part = self.d.part.related_parts[rid]
-        except KeyError:
-            return ""
-        blob = part.blob
-        ext = EXT.get(part.content_type, "png")
-        name = hashlib.sha1(blob).hexdigest()[:14] + "." + ext
-        f = self.imgdir / name
-        if not f.exists():
-            f.write_bytes(blob)
-        self.nimg += 1
-        ext_el = drawing.find(".//{http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing}extent")
-        style = ""
-        if ext_el is not None and ext_el.get("cx"):
-            cx, cy = int(ext_el.get("cx")), int(ext_el.get("cy") or 0)
-            style = f' style="width:{cx // 9525}px' + (f';aspect-ratio:{cx}/{cy}' if cy else "") + '"'
-        return f'<figure><img src="img/{name}" loading="lazy" alt="Figura"{style}></figure>'
-
-    # ---- run -> html
-    def run(self, r):
-        parts = []
-        for ch in r._r:
-            if ch.tag == W + "t":
-                parts.append(html.escape(ch.text or ""))
-            elif ch.tag == W + "tab":
-                parts.append("&emsp;")
-            elif ch.tag in (W + "br", W + "cr"):
-                parts.append("<br>")
-            elif ch.tag == W + "drawing":
-                parts.append("\x00" + self.immagine(ch) + "\x00")
-        t = "".join(parts)
-        if not t.strip("\x00 "):
-            return t
-        f = r.font
-        if f.name and "consolas" in f.name.lower():
-            t = f"<code>{t}</code>"
-        if f.superscript:
-            t = f"<sup>{t}</sup>"
-        elif f.subscript:
-            t = f"<sub>{t}</sub>"
-        if f.bold:
-            t = f"<strong>{t}</strong>"
-        if f.italic:
-            t = f"<em>{t}</em>"
-        if f.highlight_color is not None:
-            t = f"<mark>{t}</mark>"
-        return t
-
-    def par_html(self, p):
-        s = "".join(self.run(r) for r in p.runs)
-        figs = re.findall("\x00(.*?)\x00", s, flags=re.S)
-        s = re.sub("\x00.*?\x00", "", s, flags=re.S)
-        return s, "".join(figs)
-
-    def solo_codice(self, p):
-        rs = [r for r in p.runs if r.text.strip()]
-        return bool(rs) and all(r.font.name and "consolas" in r.font.name.lower() for r in rs)
-
-    # ---- documento: restituisce una lista di capitoli
-    def converti(self):
-        """-> (preambolo_html, [ {id, titolo, html, marks} ... ])"""
-        body = self.d.element.body
-        capitoli = []        # chiusi
-        cur = {"pre": []}    # capitolo in costruzione ("pre" = html fuori dai capitoli)
-        out = cur["pre"]
-        lista = []
-        pre = []
-
-        def chiudi_liste(fino=-1):
-            while lista and lista[-1][1] > fino:
-                out.append(f"</li></{lista.pop()[0]}>")
-
-        def chiudi_pre():
-            if pre:
-                out.append("<pre><code>" + "\n".join(pre) + "</code></pre>")
-                pre.clear()
-
-        n_h = 0
-        marks = 0
-        capo = None          # dizionario del capitolo corrente
-        preambolo = None
-        for el in body.iterchildren():
-            if el.tag == W + "tbl":
-                chiudi_liste(); chiudi_pre()
-                out.append(self.tabella(docx.table.Table(el, self.d)))
-                continue
-            if el.tag != W + "p":
-                continue
-            p = docx.text.paragraph.Paragraph(el, self.d)
-            stile = p.style.name if p.style is not None else ""
-            testo = p.text.strip()
-            s, figs = self.par_html(p)
-            if not testo and not figs:
-                continue
-            if stile.startswith("Heading"):
-                chiudi_liste(); chiudi_pre()
-                lv = 2 if stile.endswith("1") else 3
-                n_h += 1
-                hid = f"s{n_h}"
-                titolo_pl = html.unescape(re.sub("<[^>]+>", "", s))
-                h = re.sub("</?(strong|em|mark|code)>", "", s)
-                if lv == 2:
-                    if capo is None:
-                        preambolo = "".join(out)
-                    else:
-                        capo["html"] = "".join(out); capo["marks"] = marks
-                        capitoli.append(capo)
-                    out = []; marks = 0
-                    capo = {"id": hid, "titolo": titolo_pl}
-                    out.append(f'<h2 id="{hid}">{h}<a class="ha" href="#{hid}" aria-label="Copia il link a questa sezione"></a></h2>')
-                else:
-                    out.append(f'<h3 id="{hid}">{h}<a class="ha" href="#{hid}" aria-label="Copia il link a questa sezione"></a></h3>')
-                continue
-            if "<mark>" in s:
-                marks += 1
-            if self.solo_codice(p) and not figs:
-                chiudi_liste()
-                pre.append(re.sub(r"</?code>", "", s))
-                continue
-            chiudi_pre()
-            numpr = p._p.pPr.numPr if p._p.pPr is not None else None
-            if numpr is not None and numpr.numId is not None and testo:
-                il = int(numpr.ilvl.val) if numpr.ilvl is not None else 0
-                kind = self.kinds.get((str(numpr.numId.val), str(il)), "ul")
-                while lista and lista[-1][1] > il:
-                    out.append(f"</li></{lista.pop()[0]}>")
-                if lista and lista[-1][1] == il:
-                    out.append("</li><li>")
-                else:
-                    lista.append((kind, il)); out.append(f"<{kind}><li>")
-                out.append(s)
-                if figs:
-                    out.append(figs)
-                continue
-            chiudi_liste()
-            if s.strip():
-                if re.match(r"^\s*(?:<[^>]+>)*\(?\s*In parole povere", s, flags=re.I):
-                    # riquadro "In parole povere": l'etichetta la mette lo stile, tolgo la dicitura e le parentesi duplicate
-                    s2 = re.sub(r"^(\s*(?:<[^>]+>)*)\(?\s*In parole povere\s*:?\s*", r"\1", s, count=1, flags=re.I)
-                    s2 = re.sub(r"\)\s*((?:</[^>]+>)*)\s*$", r"\1", s2) if re.match(r"^\s*(?:<[^>]+>)*\(", s) else s2
-                    s2 = re.sub(r"<(strong|em|mark|code)>\s*</\1>", "", s2)            # tag rimasti vuoti
-                    s2 = re.sub(r"^((?:\s|<[^>]+>)*)([a-zàèéìòù])", lambda m: m.group(1) + m.group(2).upper(), s2, count=1)   # inizia con la maiuscola
-                    out.append(f'<p class="pp">{s2.strip()}</p>')
-                else:
-                    out.append(f"<p>{s}</p>")
-            if figs:
-                out.append(figs)
-        chiudi_liste(); chiudi_pre()
-        if capo is not None:
-            capo["html"] = "".join(out); capo["marks"] = marks
-            capitoli.append(capo)
-        return (preambolo or ""), capitoli
-
-    def tabella(self, t):
-        righe = []
-        for row in t.rows:
-            celle = []
-            for c in row.cells:
-                celle.append("<td>" + "<br>".join(self.par_html(p)[0] for p in c.paragraphs if p.text.strip()) + "</td>")
-            righe.append("<tr>" + "".join(celle) + "</tr>")
-        return "<table>" + "".join(righe) + "</table>"
-
-
 def numero(titolo):
     m = re.match(r"^\s*(?:Capitolo\s+)?(\d+)\b", titolo)
     return int(m.group(1)) if m else None
@@ -562,14 +460,6 @@ def numero(titolo):
 
 def breve(titolo):
     return re.sub(r"^\s*(?:Capitolo\s+)?\d+\s*[.:]?\s*", "", titolo)
-
-
-def stato(cap, manuali):
-    n = numero(cap["titolo"])
-    if n is not None and n in manuali:
-        return 2
-    m = cap["marks"]
-    return 2 if m >= 3 else (1 if m else 0)   # stessa regola del Quaderno: da 3 paragrafi evidenziati = studiato
 
 
 def minuti(htm):
@@ -587,75 +477,123 @@ IC_OPZ = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="
 IC_TEMA = ('<svg class="t-auto" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17" /><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" stroke="none"/></svg>'
            '<svg class="t-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.3M12 19.2v2.3M2.5 12h2.3M19.2 12h2.3M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>'
            '<svg class="t-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>')
+IC_PENNA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19zM14 7l3 3"/></svg>'
+IC_GOMMA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 19h11M5.5 14.5l7-7a2 2 0 0 1 2.8 0l1.7 1.7a2 2 0 0 1 0 2.8L11 18H8l-2.5-2.5a1 1 0 0 1 0-1z"/></svg>'
 IC_SU = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg>'
 ETICHETTE = ["Da studiare", "Iniziato", "Studiato"]
 
 
+def testo_semplice(h):
+    return html.unescape(re.sub(r"<[^>]+>", "", h))
+
+
+def figura_html(b):
+    stile = ""
+    if b.get("w"):
+        stile = f' style="width:{b["w"]}px' + (f';aspect-ratio:{b["cx"]}/{b["cy"]}' if b.get("cy") else "") + '"'
+    cap = f'<figcaption>{html.escape(b["cap"])}</figcaption>' if b.get("cap") else ""
+    return f'<figure><img src="img/{b["src"]}" loading="lazy" alt="Figura"{stile}>{cap}</figure>'
+
+
+def render_blocchi(blocchi):
+    """Blocchi del contenuto -> HTML. Ogni blocco di testo ha data-b (id stabile), a cui si agganciano le evidenziazioni."""
+    out, lista = [], []
+
+    def chiudi_liste():
+        while lista:
+            out.append(f"</li></{lista.pop()[0]}>")
+
+    for b in blocchi:
+        t = b["t"]
+        if t == "li":
+            il, kind = b.get("l", 0), b.get("k", "ul")
+            while lista and lista[-1][1] > il:
+                out.append(f"</li></{lista.pop()[0]}>")
+            if lista and lista[-1][1] == il:
+                out.append("</li><li>")
+            else:
+                lista.append((kind, il))
+                out.append(f"<{kind}><li>")
+            out.append(f'<span data-b="{b["b"]}">{b["h"]}</span>')
+            continue
+        if t == "fig" and b.get("inli") and lista:
+            out.append(figura_html(b))
+            continue
+        chiudi_liste()
+        if t == "p":
+            cls = f' class="{b["c"]}"' if b.get("c") else ""
+            out.append(f'<p{cls} data-b="{b["b"]}">{b["h"]}</p>')
+        elif t == "h3":
+            hid = b["b"].replace(".", "-")
+            out.append(f'<h3 id="{hid}">{b["h"]}<a class="ha" href="#{hid}" aria-label="Copia il link a questa sezione"></a></h3>')
+        elif t == "pre":
+            out.append(f'<pre data-b="{b["b"]}"><code>{b["h"]}</code></pre>')
+        elif t == "fig":
+            out.append(figura_html(b))
+        elif t == "tab":
+            out.append(b["h"])
+    chiudi_liste()
+    return "".join(out)
+
+
 def main(argv):
-    if len(argv) != 2:
+    if len(argv) < 2:
         print(__doc__); return 1
-    base = Path(argv[1]) / "riassunti"
-    base.mkdir(parents=True, exist_ok=True)
-    try:
-        manuale = json.loads((BASE / "studiato_manuale.json").read_text(encoding="utf-8"))
-    except Exception:
-        manuale = {}
+    dest = Path(argv[1])
+    cont = Path(argv[2]) if len(argv) > 2 else dest.parent / "contenuti"
+    base = dest / "riassunti"
+    (base / "img").mkdir(parents=True, exist_ok=True)
     opzioni = "".join(f'<option value="{s}.html">{html.escape(n)}</option>' for s, n, _f, _k in MATERIE)
-    schede = []
-    for slug, nome, f, chiave in MATERIE:
-        src = UNI / f
-        if not src.exists():
-            print("manca", src); continue
-        d = docx.Document(str(src))
-        c = Conv(d, base)
-        pre, caps = c.converti()
-        man = set(manuale.get(chiave) or [])
-        st = [stato(cp, man) for cp in caps]
-        usati = set()
-        for cp in caps:                      # id dei capitoli: cap<N> (usato anche dai link dal Quaderno)
-            n = numero(cp["titolo"])
-            cp["sid"] = f"cap{n}" if n is not None and n not in usati else f"c{cp['id']}"
-            if n is not None:
-                usati.add(n)
-            cp["min"] = minuti(cp["html"])
+    meta, schede = {}, []
+    for slug, nome, _f, _k in MATERIE:
+        fj = cont / f"{slug}.json"
+        if not fj.exists():
+            print("manca", fj); continue
+        dati = json.loads(fj.read_text(encoding="utf-8"))
+        caps = dati["capitoli"]
+        # figure: dalla cartella dei contenuti alla pagina
+        for c in [{"blocks": dati.get("preambolo", [])}] + caps:
+            for b in c["blocks"]:
+                if b.get("t") == "fig":
+                    srcf = cont / "img" / b["src"]
+                    if srcf.exists():
+                        shutil.copy2(srcf, base / "img" / b["src"])
+        nfig = sum(1 for c in caps for b in c["blocks"] if b.get("t") == "fig")
+        for cp in caps:
+            testi = [testo_semplice(b["h"]) for b in cp["blocks"] if b["t"] in ("p", "li", "pre", "h3")]
+            cp["min"] = max(1, round(sum(len(x.split()) for x in testi) / 190))
+            cp["tot"] = sum(1 for b in cp["blocks"] if b["t"] in ("p", "li", "pre"))
         tot_min = sum(cp["min"] for cp in caps)
+        meta[slug] = {"nome": nome, "capitoli": [{"id": cp["id"], "num": cp["num"], "titolo": cp["titolo"], "min": cp["min"], "tot": cp["tot"]} for cp in caps]}
         voci, quadr = [], []
         for i, cp in enumerate(caps):
-            n = numero(cp["titolo"])
+            n = cp["num"]
             voci.append(f'<a href="#{cp["id"]}" data-cap="{i}" data-t="{html.escape(cp["titolo"], quote=True)}">'
                         f'<span class="num">{n if n is not None else ""}</span><span class="ttl">{html.escape(breve(cp["titolo"]))}</span>'
-                        f'<span class="st st{st[i]}" title="{ETICHETTE[st[i]].lower()}"></span></a>')
-            quadr.append(f'<a class="st{st[i]}" href="#{cp["sid"]}" title="{html.escape(cp["titolo"], quote=True)} ({ETICHETTE[st[i]].lower()})">{n if n is not None else i + 1}</a>')
-        prossimo = next((i for i, x in enumerate(st) if x != 2), None)
-        fatti = sum(1 for x in st if x == 2); inz = sum(1 for x in st if x == 1); tot = len(caps)
-        if prossimo is None:
-            btn = f'<a class="btn" href="#{caps[0]["sid"]}">Ripassa dall&rsquo;inizio</a>'
-        else:
-            nn = numero(caps[prossimo]["titolo"])
-            etichetta = f"Continua dal capitolo {nn}" if nn is not None else "Continua a leggere"
-            btn = (f'<a class="btn" href="#{caps[prossimo]["sid"]}">{etichetta}</a>'
-                   f'<a class="btn ghost" href="#{caps[0]["sid"]}">Dall&rsquo;inizio</a>')
-        extra_inz = f", {inz} iniziati" if inz else ""
+                        f'<span class="st st0" title="da studiare"></span></a>')
+            quadr.append(f'<a class="st0" href="#{cp["id"]}" title="{html.escape(cp["titolo"], quote=True)}">{n if n is not None else i + 1}</a>')
         hero = (f'<div class="hero"><h1>{html.escape(nome)}</h1>'
-                f'<p>{tot} capitoli &middot; {fatti} studiati{extra_inz} &middot; lettura di circa {durata(tot_min)}</p>'
+                f'<p id="herotxt" data-lett="{durata(tot_min)}">{len(caps)} capitoli &middot; lettura di circa {durata(tot_min)}</p>'
                 f'<div class="map" role="navigation" aria-label="Mappa dei capitoli">{"".join(quadr)}</div>'
                 f'<div class="leg">Pieno = studiato &middot; a metà = iniziato &middot; vuoto = da studiare</div>'
-                f'<div class="act">{btn}</div></div>')
+                f'<div class="act"><a class="btn" href="#{caps[0]["id"]}">Dall&rsquo;inizio</a></div></div>')
         sezioni = []
         for i, cp in enumerate(caps):
             nav = '<div class="pn">'
             if i > 0:
-                nav += f'<a class="prev" href="#{caps[i-1]["sid"]}"><small>&larr; Capitolo precedente</small>{html.escape(caps[i-1]["titolo"])}</a>'
+                nav += f'<a class="prev" href="#{caps[i-1]["id"]}"><small>&larr; Capitolo precedente</small>{html.escape(caps[i-1]["titolo"])}</a>'
             else:
                 nav += "<span></span>"
             if i + 1 < len(caps):
-                nav += f'<a class="next" href="#{caps[i+1]["sid"]}"><small>Capitolo successivo &rarr;</small>{html.escape(caps[i+1]["titolo"])}</a>'
+                nav += f'<a class="next" href="#{caps[i+1]["id"]}"><small>Capitolo successivo &rarr;</small>{html.escape(caps[i+1]["titolo"])}</a>'
             else:
                 nav += "<span></span>"
             nav += "</div>"
-            meta = f'<div class="capmeta"><span class="badge b{st[i]}"><i></i>{ETICHETTE[st[i]]}</span><span>{cp["min"]} min di lettura</span></div>'
-            corpo_cap = cp["html"].replace("</h2>", "</h2>" + meta, 1)
-            sezioni.append(f'<section class="cap" id="{cp["sid"]}" data-num="{numero(cp["titolo"]) or ""}">{corpo_cap}{nav}</section>')
+            titolo = (f'<h2 id="{cp["id"]}-t">{html.escape(cp["titolo"])}'
+                      f'<a class="ha" href="#{cp["id"]}" aria-label="Copia il link a questa sezione"></a></h2>')
+            meta_cap = f'<div class="capmeta"><span class="badge b0"><i></i>Da studiare</span><span>{cp["min"]} min di lettura</span></div>'
+            sezioni.append(f'<section class="cap" id="{cp["id"]}" data-num="{cp["num"] if cp["num"] is not None else ""}">'
+                           f'{titolo}{meta_cap}{render_blocchi(cp["blocks"])}{nav}</section>')
         top = ('<header class="top"><div class="top-in">'
                '<a class="back" href="../" aria-label="Torna al Quaderno">&larr; Quaderno</a>'
                f'<span class="mat">{html.escape(nome)}</span><span class="cur" id="cur"></span>'
@@ -673,7 +611,9 @@ def main(argv):
         cl, cd = COLORI[slug]
         corpo = (f'<body data-slug="{slug}" data-nome="{html.escape(nome, quote=True)}" style="--mcl:{cl};--mcd:{cd}"><a class="skip" href="#main">Vai al contenuto</a>{top}'
                  f'<div class="wrap"><nav class="toc"><h4>Capitoli</h4>{"".join(voci)}</nav>'
-                 f'<main id="main">{hero}{pre}{"".join(sezioni)}</main><aside class="rail"></aside></div>'
+                 f'<main id="main">{hero}{render_blocchi(dati.get("preambolo", []))}{"".join(sezioni)}</main><aside class="rail"></aside></div>'
+                 '<div id="evbar" hidden role="toolbar" aria-label="Evidenziazione"><button id="evadd" type="button">' + IC_PENNA + 'Evidenzia</button>'
+                 '<button id="evdel" type="button">' + IC_GOMMA + 'Togli</button></div>'
                  '<button id="totop" type="button" aria-label="Torna in cima">' + IC_SU + '</button>'
                  '<div id="scrim"></div><div id="mbar"><button id="mprev" type="button" aria-label="Capitolo precedente">&lsaquo;</button>'
                  '<button id="mcap" type="button" aria-label="Elenco dei capitoli">Capitoli</button>'
@@ -681,27 +621,17 @@ def main(argv):
                  '<div id="toast" role="status"></div><div id="lb"><img alt=""></div>'
                  f'<script>{JS_PAGINA}</script></body>')
         (base / f"{slug}.html").write_text(pagina(f"{nome} - Riassunto", "", corpo), encoding="utf-8")
-        nxt = None if prossimo is None else (numero(caps[prossimo]["titolo"]), breve(caps[prossimo]["titolo"]), caps[prossimo]["sid"])
-        schede.append((slug, nome, tot, fatti, inz, nxt, tot_min))
-        print(f"{nome}: {tot} capitoli ({fatti} studiati), {c.nimg} figure")
+        schede.append((slug, nome, len(caps), nfig, tot_min))
+        print(f"{nome}: {len(caps)} capitoli, {nfig} figure")
+    (dest / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     cards = ""
-    for s, n, k, fatti, inz, nxt, tmin in schede:
-        pct = round(100 * fatti / k) if k else 0
+    for s, n, k, _m, tmin in schede:
         cl, cd = COLORI[s]
-        if nxt:
-            num, tit, sid = nxt
-            prefisso = f"Cap. {num} &middot; " if num is not None else ""
-            nxt_html = f"Prossimo da studiare: <b>{prefisso}{html.escape(tit)}</b>"
-            href = f"{s}.html#{sid}"
-        else:
-            nxt_html = "Hai studiato tutto: puoi ripassare dall&rsquo;inizio."
-            href = f"{s}.html"
-        extra_inz = f" &middot; {inz} iniziati" if inz else ""
-        vai = "Continua" if nxt else "Apri"
-        cards += (f'<a class="mcard" href="{href}" style="--mcl:{cl};--mcd:{cd}"><div class="mc-top"><span class="mc-nm">{html.escape(n)}</span><span class="mc-pct">{pct}%</span></div>'
-                  f'<div class="bar"><i style="width:{pct}%"></i></div>'
-                  f'<div class="mc-sub">{fatti} di {k} capitoli studiati{extra_inz} &middot; circa {durata(tmin)} di lettura</div>'
-                  f'<div class="mc-next">{nxt_html}</div><span class="mc-go">{vai} &rarr;</span></a>')
+        cards += (f'<a class="mcard" href="{s}.html" data-slug="{s}" data-lett="{durata(tmin)}" style="--mcl:{cl};--mcd:{cd}">'
+                  f'<div class="mc-top"><span class="mc-nm">{html.escape(n)}</span><span class="mc-pct">&nbsp;</span></div>'
+                  f'<div class="bar"><i style="width:0%"></i></div>'
+                  f'<div class="mc-sub">{k} capitoli &middot; circa {durata(tmin)} di lettura</div>'
+                  f'<div class="mc-next">&nbsp;</div><span class="mc-go">Apri &rarr;</span></a>')
     ora = datetime.now().strftime("%d/%m/%Y alle %H:%M")
     idx = ('<body><a class="skip" href="#main">Vai al contenuto</a>'
            '<header class="top idx-top"><div class="top-in"><a class="back" href="../" aria-label="Torna al Quaderno">&larr; Quaderno</a><span class="mat">Riassunti</span><span class="grow"></span>'

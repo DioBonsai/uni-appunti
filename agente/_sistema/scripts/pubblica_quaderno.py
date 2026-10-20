@@ -51,6 +51,24 @@ PWA = ('<meta name="robots" content="noindex,nofollow,noarchive">'
        '<meta name="apple-mobile-web-app-title" content="Quaderno">')
 RSLUG = ('const RSLUG = {"Algebra lineare":"algebra","Matematica discreta":"matematica-discreta","Fondamenti Info":"fondamenti",'
          '"Programmazione":"programmazione","Programmazione, Laboratorio":"laboratorio"};')
+# l'avanzamento (capitoli studiati) non è più nel file dei dati: viene dalle evidenziazioni sul database, lette all'avvio
+MERGE_AV = r"""
+async function mergeAv(d) {
+  try {
+    const r = await fetch('/api/avanzamento', { credentials: 'same-origin' }); if (!r.ok) return d; const j = await r.json();
+    const inv = { 'Algebra lineare': 'algebra', 'Matematica discreta': 'matematica-discreta', 'Fondamenti Info': 'fondamenti', 'Programmazione': 'programmazione' };
+    const rng = l => { if (!l.length) return 'nessuno'; const p = []; let a = l[0]; for (let i = 0; i < l.length; i++) { if (i + 1 === l.length || l[i + 1] !== l[i] + 1) { p.push(a === l[i] ? String(a) : a + '-' + l[i]); a = l[i + 1]; } } return p.join(', '); };
+    Object.keys(d.materie).forEach(m => {
+      const x = j[inv[m]]; if (!x) return;
+      const el = x.capitoli.map(c => ({ n: c.num, t: c.titolo.replace(/^\s*(?:Capitolo\s+)?\d+\s*[.:]?\s*/, ''), s: c.s, hl: c.hl, tot: c.tot }));
+      const mm = d.materie[m]; mm.capitoli = el.length; mm.studiati = el.filter(c => c.s === 2).length; mm.elenco = el;
+      const done = el.filter(c => c.s === 2).map(c => c.n), part = el.filter(c => c.s === 1).map(c => c.n), todo = el.filter(c => c.s === 0).map(c => c.n);
+      mm.prossimo = 'Studiati: ' + rng(done) + '.' + (part.length ? ' In parte: ' + rng(part) + '.' : '') + (todo.length ? ' Da studiare: ' + rng(todo) + '.' : ' Tutto studiato.');
+    });
+  } catch (e) {}
+  return d;
+}
+"""
 LOGOUT_JS = ("<script>document.addEventListener('DOMContentLoaded',function(){var b=document.getElementById('logout-btn');"
              "if(b)b.addEventListener('click',function(){fetch('/api/logout',{method:'POST'}).then(function(){location.href='/login.html'})})});</script>")
 
@@ -75,7 +93,8 @@ def adatta(html):
     # pulsante Esci accanto al tema e alle impostazioni
     html = sostituisci(html, '<div class="tools">', '<div class="tools">' + ESCI, "strumenti")
     # link ai riassunti dalle carte delle materie e dai quadratini dei capitoli
-    html = sostituisci(html, "let DATA = null;", "let DATA = null; " + RSLUG, "RSLUG")
+    html = sostituisci(html, "let DATA = null;", "let DATA = null; " + RSLUG + MERGE_AV, "RSLUG")
+    html = sostituisci(html, ".then(boot).catch(err => {", ".then(mergeAv).then(boot).catch(err => {", "avvio con avanzamento")
     html = sostituisci(html, '<div class="squares" role="group"',
                        '<a class="subj-read" href="riassunti/${RSLUG[m] || \'\'}.html">Leggi il riassunto &rarr;</a><div class="squares" role="group"', "carta materia")
     html = sostituisci(html, "${esc(b.dataset.t)} · ${st}`;",
@@ -121,6 +140,9 @@ def main():
         print("Repo del sito non trovato:", repo); return 1
     py = sys.executable
     if not a.no_build:
+        # evidenziazioni attuali dal database: servono al Quaderno locale (avanzamento, piano); se non è raggiungibile si va avanti
+        e = subprocess.run(["node", str(repo / "scripts" / "esporta_evid.js")], capture_output=True, text=True, encoding="utf-8", cwd=str(repo))
+        print((e.stdout or e.stderr).strip().splitlines()[0] if (e.stdout or e.stderr).strip() else "esportazione evidenziazioni: nessun output")
         r = subprocess.run([py, "-X", "utf8", str(SCRIPTS / "costruisci_pagina_studio.py")], capture_output=True, text=True, encoding="utf-8")
         if r.returncode:
             print(r.stdout, r.stderr); return 1
@@ -138,7 +160,7 @@ def main():
     shutil.copy2(PAG / "data.json", dest / "data.json")
     if (PAG / "img").exists():
         shutil.copytree(PAG / "img", dest / "img")
-    r = subprocess.run([py, "-X", "utf8", "-W", "ignore", str(SCRIPTS / "riassunti_html.py"), str(dest)], capture_output=True, text=True, encoding="utf-8")
+    r = subprocess.run([py, "-X", "utf8", "-W", "ignore", str(SCRIPTS / "riassunti_html.py"), str(dest), str(repo / "contenuti")], capture_output=True, text=True, encoding="utf-8")
     print(r.stdout.strip())
     if r.returncode:
         print(r.stderr); return 1

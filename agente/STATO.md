@@ -1,4 +1,6 @@
-# Stato dei riassunti (aggiornato 8 ott 2026)
+# Stato dei riassunti (aggiornato 20 ott 2026)
+
+> **20 ott 2026, sera: i riassunti vivono nel sito, non più nei Word.** Contenuti in `quaderno-privato/contenuti/<materia>.json` (22 capitoli Algebra, 28 Mate discreta, 22 Fondamenti, 22 Programmazione, 10 Laboratorio); evidenziazioni di Emanuele sul database del sito (le fa solo lui, dal sito; migrate dai Word senza perdite: 676 blocchi). I Word sono congelati. Dove sotto si legge «Word» va letto «sito». Aggiungere capitoli: `aggiungi_capitolo_sito.py` + `pubblica_quaderno.py --push` (vedi CLAUDE.md).
 
 Legenda: ✅ nel Word | ⏳ da fare | ❓ da decidere
 

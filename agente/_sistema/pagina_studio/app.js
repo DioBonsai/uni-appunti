@@ -190,7 +190,7 @@ function chapterHint(theme, mat) {
   if (mat && mat !== 'Matematica discreta') return '';
   const t = DATA.temi[theme];
   if (!t) return '';
-  return t.capitoli ? `<p class="hint">Rivedi: Matematica discreta, ${esc(t.capitoli)} del tuo Word.</p>` : '<p class="hint">Tema non ancora nel Word: arriva con le prossime lezioni.</p>';
+  return t.capitoli ? `<p class="hint">Rivedi: Matematica discreta, ${esc(t.capitoli)} del riassunto.</p>` : '<p class="hint">Tema non ancora nei riassunti: arriva con le prossime lezioni.</p>';
 }
 const subjIdx = m => Math.max(0, Object.keys(DATA.materie).indexOf(m));
 
@@ -316,7 +316,7 @@ function renderMaterie() {
       <button class="subj-head" aria-expanded="${openSet.has(m)}">${ring(pct, 56, 6, { cls: 'sm' + (pct >= 1 ? ' ok' : ''), label: p + '% studiato', center: `<b>${p}%</b>` })}<span><span class="nm">${esc(m)}</span><br><span class="sub">${x.studiati} di ${x.capitoli} capitoli studiati</span></span>${IC.chev}</button>
       <div class="squares" role="group" aria-label="Capitoli: verde studiato, arancio in parte">${sq}</div>
       <div class="sq-label" aria-live="polite">Tocca un quadratino per vedere il capitolo.</div>
-      <div class="fold subj-more ${openSet.has(m) ? 'open' : ''}"><div class="fold-in"><div class="meta"><span><strong>Lezioni nel Word:</strong> ${esc(x.lezioni)}</span><span>${esc(x.prossimo)}</span></div><ol>${lst}</ol></div></div>
+      <div class="fold subj-more ${openSet.has(m) ? 'open' : ''}"><div class="fold-in"><div class="meta"><span><strong>Lezioni nei riassunti:</strong> ${esc(x.lezioni)}</span><span>${esc(x.prossimo)}</span></div><ol>${lst}</ol></div></div>
     </article>`;
   }).join('');
   $$('#materie .subj').forEach(card => {
@@ -333,7 +333,7 @@ function renderFreq() {
   const w = f => f[1] / 150 + f[2] / 30, max = Math.max(...DATA.freq.map(w));
   $('#freq').innerHTML = DATA.freq.slice().sort((a, b) => w(b) - w(a)).map((f, k) => {
     const p = Math.round(100 * w(f) / max);
-    return `<div class="fr" style="--w:${p / 100};--k:${k}"><span class="nm">${esc(f[0])}</span><span class="pill ${f[3] ? 'good' : 'warn'}">${f[3] ? 'nel Word' : 'non ancora'}</span><div class="meter" role="img" aria-label="peso ${p}%"><i></i></div><span class="nums">quiz ${f[1]}/150 · problemi ${f[2]}/30</span></div>`;
+    return `<div class="fr" style="--w:${p / 100};--k:${k}"><span class="nm">${esc(f[0])}</span><span class="pill ${f[3] ? 'good' : 'warn'}">${f[3] ? 'nei riassunti' : 'non ancora'}</span><div class="meter" role="img" aria-label="peso ${p}%"><i></i></div><span class="nums">quiz ${f[1]}/150 · problemi ${f[2]}/30</span></div>`;
   }).join('');
   $$('#freq .fr').forEach(reveal);
 }
@@ -383,7 +383,7 @@ function setupQuiz() {
   $('#pr-weak').disabled = !w;
   $('#pr-weak-s').textContent = w ? `Solo i temi dove sbagli (${w})` : 'Ancora nessun errore in questa materia';
   const nasc = (DATA.nascoste || {})[QM] || {}, nn = Object.values(nasc).reduce((x, y) => x + y, 0);
-  $('#q-hidden').textContent = nn ? `Mostro solo gli argomenti già trattati nei tuoi Word. Non ancora disponibili: ${nn} domande su ${Object.keys(nasc).join(', ')} (compaiono da sole quando il Word le copre).` : 'Tutti gli argomenti presenti nel Word sono coperti.';
+  $('#q-hidden').textContent = nn ? `Mostro solo gli argomenti già trattati nei riassunti. Non ancora disponibili: ${nn} domande su ${Object.keys(nasc).join(', ')} (compaiono da sole quando il Word le copre).` : 'Tutti gli argomenti presenti nel Word sono coperti.';
   const sm = SIM[QM]; $('#pr-exam-s').textContent = `${sm.n} domande a tempo, ${sm.min} minuti`;
   $('#pr-gen').disabled = !canGen(); $('#pr-gen-s').textContent = canGen() ? '10 nuovi, mai gli stessi' : 'Non ancora disponibili per questa materia';
   $('#pr-fast').disabled = !pool.length;

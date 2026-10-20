@@ -140,7 +140,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("docx"); ap.add_argument("md")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--forza-word", action="store_true", help="scrive comunque nel Word (obsoleto)")
     a = ap.parse_args()
+    if not a.forza_word:
+        sys.exit("I Word non si usano più (dal 20 ott 2026): i riassunti stanno nel sito. Usa invece:\n"
+                 "  python aggiungi_capitolo_sito.py <materia> <bozza.md>   e poi   python pubblica_quaderno.py --push\n"
+                 "(solo per un'emergenza: --forza-word)")
 
     target = Path(a.docx)
     if not target.is_absolute():

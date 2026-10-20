@@ -4,6 +4,13 @@ Questa cartella contiene i riassunti Word di Emanuele per 4 materie. Claude sost
 che prima faceva con NotebookLM: da fonti (appunti a mano, schede, dispense, slide, libri, audio
 trascritti) a capitoli di riassunto che continuano il Word esistente.
 
+## IMPORTANTE (dal 20 ottobre 2026): i riassunti stanno nel sito, non più nei Word
+Emanuele usa solo il Quaderno online (https://quaderno-privato.vercel.app). I 5 Word (`../Riassunto *.docx`) sono **congelati e obsoleti**: non si aprono, non si modificano, non ci si aggiungono capitoli (`aggiungi_capitolo.py` si rifiuta senza `--forza-word`).
+- **Contenuti**: `C:\Users\admin\Documents\GitHub\quaderno-privato\contenuti\<materia>.json` (algebra, matematica-discreta, fondamenti, programmazione, laboratorio): capitoli e blocchi di testo con id stabili (`cap26.12`) e figure in `contenuti/img/`. Nuovo capitolo: bozza in `_sistema/bozze/` → revisore → `python _sistema/scripts/aggiungi_capitolo_sito.py <materia> <bozza>.md` → `python _sistema/scripts/pubblica_quaderno.py --push`.
+- **Evidenziazioni**: le fa SOLO Emanuele dal sito (selezionando il testo; l'account `emanuele` è amministratore), sono salvate sul database Upstash e sincronizzate su tutti i dispositivi; gli altri utenti le vedono in sola lettura. Un capitolo è «studiato» con almeno 3 paragrafi evidenziati (o segnato a mano dal sito). Mai modificarle da qui. Per leggerle: `node scripts/esporta_evid.js` nel repo del sito scrive `_sistema/evid_export.json` (lo fa già `pubblica_quaderno.py`); il Quaderno locale e il piano di ripasso leggono da lì.
+- `migra_word.py` (una tantum, già eseguita il 20 ott) ha convertito i Word in contenuti + evidenziazioni di partenza (`contenuti/_seed_evidenziazioni.json`); `verifica_migrazione.py` ha controllato che gli intervalli ricadano sul testo evidenziato (676/676 blocchi).
+- Dove sotto compaiono «Word», «evidenziazioni nei Word», `aggiungi_capitolo.py`, `inserisci_figure.py`, `verifica_word.py`: sono istruzioni storiche, da leggere come «sito» / `aggiungi_capitolo_sito.py`.
+
 ## Struttura
 **Aprire Claude Code in `C:\Users\admin\Desktop\UNI\agente`**: qui stanno CLAUDE.md, skill e comandi. La cartella padre `UNI\` contiene solo i 5 Word di riassunti (file sciolti, nessuna sottocartella per materia) e questa cartella `agente\`.
 - `../Riassunto Algebra lineare.docx`, `../Riassunto Matematica discreta.docx`, `../Riassunto Fondamenti Informatica.docx`, `../Riassunto Programmazione.docx`, `../Riassunto Laboratorio.docx` (file sciolti in `UNI\`, accanto a `agente`): i Word di riassunti (fonte di verità, NON si riscrivono da zero).

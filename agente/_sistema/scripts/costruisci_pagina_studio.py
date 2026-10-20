@@ -203,16 +203,62 @@ def _manuale():
         return {}
 
 
+SITO = Path.home() / "Documents" / "GitHub" / "quaderno-privato"     # repo del sito: i riassunti vivono lì (non più nei Word)
+SLUG = {"Algebra lineare": "algebra", "Matematica discreta": "matematica-discreta", "Fondamenti Info": "fondamenti",
+        "Programmazione": "programmazione"}
+
+
+def _evid_sito():
+    """Evidenziazioni e capitoli 'studiati a mano' del sito: dall'esportazione dal database (evid_export.json, la scrive
+    esporta_evid.js) o, in mancanza, da quelle di partenza ricavate dai Word."""
+    for f in (BASE / "evid_export.json", SITO / "contenuti" / "_seed_evidenziazioni.json"):
+        if f.exists():
+            try:
+                d = json.loads(f.read_text(encoding="utf-8"))
+                return d.get("evid", d), d.get("man", {})
+            except Exception:
+                pass
+    return {}, {}
+
+
+def capitoli_sito(slug, evid, man):
+    """Come chapters(), ma dai contenuti del sito: ([(n, titolo, stato, paragrafi evidenziati, paragrafi)], testo intero)."""
+    f = SITO / "contenuti" / f"{slug}.json"
+    if not f.exists():
+        return None
+    dati = json.loads(f.read_text(encoding="utf-8"))
+    ev = evid.get(slug, {})
+    res, testi = [], []
+    for c in dati["capitoli"]:
+        blocchi = [b for b in c["blocks"] if b["t"] in ("p", "li", "pre")]
+        testi.append(c["titolo"])
+        for b in c["blocks"]:
+            if b["t"] in ("p", "li", "pre", "h3"):
+                testi.append(re.sub(r"<[^>]+>", "", b["h"]))
+        hl = sum(1 for b in blocchi if ev.get(b["b"]))
+        n = c["num"] if c["num"] is not None else len(res) + 1
+        t = re.sub(r"^\s*(?:Capitolo\s+)?\d+\s*[.:]?\s*", "", c["titolo"])
+        res.append((n, t, 2 if hl >= 3 else (1 if hl else 0), hl, len(blocchi)))
+    return res, "\n".join(testi)
+
+
 def avanzamento():
     out, texts = {}, {}
+    evid, man_sito = _evid_sito()
     for mat in WORD:
-        p = find_word(mat)
-        if p is None:
-            out[mat] = dict(capitoli=0, studiati=0, lezioni=LEZIONI[mat], prossimo="Word non trovato.", elenco=[])
-            continue
-        res, text = chapters(p)
-        texts[mat] = text
-        manuali = set((_manuale().get(mat) or []))   # capitoli che Emanuele ha chiesto di segnare come studiati senza evidenziarli
+        sito = capitoli_sito(SLUG[mat], evid, man_sito)
+        if sito is not None:
+            res, text = sito
+            texts[mat] = text
+            manuali = set(man_sito.get(SLUG[mat]) or [])
+        else:
+            p = find_word(mat)
+            if p is None:
+                out[mat] = dict(capitoli=0, studiati=0, lezioni=LEZIONI[mat], prossimo="Riassunto non trovato.", elenco=[])
+                continue
+            res, text = chapters(p)
+            texts[mat] = text
+            manuali = set((_manuale().get(mat) or []))   # capitoli che Emanuele ha chiesto di segnare come studiati senza evidenziarli
         res = [(n, t, 2 if n in manuali else s, hl, tot) for n, t, s, hl, tot in res]
         done = [n for n, _, s, *_ in res if s == 2]
         part = [n for n, _, s, *_ in res if s == 1]
@@ -229,9 +275,13 @@ def avanzamento():
         nota = f"Studiati: {rng(done)}." + (f" In parte: {rng(part)}." if part else "") + (f" Da studiare: {rng(todo)}." if todo else " Tutto studiato.")
         out[mat] = dict(capitoli=len(res), studiati=len(done), lezioni=LEZIONI[mat], prossimo=nota,
                         elenco=[dict(n=n, t=t, s=s, hl=hl, tot=tot) for n, t, s, hl, tot in res])
-    lab = UNI / "Riassunto Laboratorio.docx"   # il laboratorio fa parte di ciò che è stato trattato per Programmazione
-    if lab.exists() and "Programmazione" in texts:
-        texts["Programmazione"] += "\n" + chapters(lab)[1]
+    lab = capitoli_sito("laboratorio", evid, man_sito)   # il laboratorio fa parte di ciò che è stato trattato per Programmazione
+    if lab is not None and "Programmazione" in texts:
+        texts["Programmazione"] += "\n" + lab[1]
+    else:
+        labw = UNI / "Riassunto Laboratorio.docx"
+        if labw.exists() and "Programmazione" in texts:
+            texts["Programmazione"] += "\n" + chapters(labw)[1]
     return out, texts
 
 
