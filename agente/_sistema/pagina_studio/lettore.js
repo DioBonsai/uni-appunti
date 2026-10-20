@@ -103,14 +103,14 @@
       }
     }
     if (!miglior) return false;
-    if (giaEvidenziato(miglior.b, miglior.a, miglior.z)) return true;
+    if (giaEvidenziato(miglior.b, miglior.a, miglior.z)) return 'gia';
     avvolgi(miglior.b, miglior.a, miglior.z, v.id);
     return true;
   }
   function ridisegna() {
     art.querySelectorAll('mark.ut').forEach(m => { const p = m.parentNode; while (m.firstChild) p.insertBefore(m.firstChild, m); p.removeChild(m); p.normalize(); });
     const bl = blocchi(), tit = [...art.querySelectorAll('h1,h2,h3,h4')];
-    for (const v of voci.values()) if (v.m === slug) disegna(v, bl, tit);
+    for (const v of [...voci.values()]) if (v.m === slug && disegna(v, bl, tit) === 'gia') togli(v.id);   // già evidenziato nel Word: la voce non serve più (e non va rimessa nel database)
   }
 
   /* ---------- indice interattivo: capitoli che si aprono, ricerca, voce attiva mentre si scorre ---------- */

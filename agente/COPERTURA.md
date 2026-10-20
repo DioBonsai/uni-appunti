@@ -33,8 +33,8 @@ Studiati: 1-9. Da studiare: 10-22.
 | 21 | Sottospazi di Matrici Quadrate | 0/39 | da studiare |
 | 22 | Combinazioni Lineari e Sottospazio Generato (Span) | 0/35 | da studiare |
 
-### Matematica discreta: 12/25 capitoli studiati
-Studiati: 1-12. In parte: 13. Da studiare: 14-25.
+### Matematica discreta: 14/25 capitoli studiati
+Studiati: 1-14. In parte: 15. Da studiare: 16-25.
 
 | Cap. | Titolo | Paragrafi evidenziati | Stato |
 |---|---|---|---|
@@ -50,9 +50,9 @@ Studiati: 1-12. In parte: 13. Da studiare: 14-25.
 | 10 | Funzioni: Definizione, Rappresentazioni e Uguaglianza | 4/24 | studiato |
 | 11 | Funzioni Notevoli, Successioni e Restrizione | 12/42 | studiato |
 | 12 | Funzioni sull'Insieme Quoziente e Dipendenza dal Rappresentante | 3/19 | studiato |
-| 13 | Immagine e Controimmagine | 1/32 | iniziato |
-| 14 | Funzioni Suriettive, Iniettive e Biettive | 0/28 | da studiare |
-| 15 | Composizione e Invertibilità | 0/20 | da studiare |
+| 13 | Immagine e Controimmagine | 6/32 | studiato |
+| 14 | Funzioni Suriettive, Iniettive e Biettive | 8/28 | studiato |
+| 15 | Composizione e Invertibilità | 2/20 | iniziato |
 | 16 | Verificare Iniettività e Suriettività: Esempi | 0/22 | da studiare |
 | 17 | Rendere Biettiva una Funzione: Cambiare Codominio e Dominio | 0/18 | da studiare |
 | 18 | La Composizione di Funzioni: Ordine, Associatività e Identità | 0/37 | da studiare |
