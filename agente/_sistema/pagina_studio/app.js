@@ -261,7 +261,8 @@ function renderHero() {
       </div>
     </div>
     <div class="hero-act"><button class="btn xl" id="go-session">Inizia la sessione ${IC.arrow}</button><button class="btn ghost" id="go-5">Solo 5 minuti</button></div>
-    <p class="hero-note">${note}</p>`;
+    <p class="hero-note">${note}</p>
+    ${DATA.moodle && !DATA.moodle.ok ? `<p class="hero-note avviso" role="status">Il controllo di Moodle del ${esc(DATA.moodle.quando)} non è riuscito (${esc(DATA.moodle.stato)}). Ultimo controllo riuscito: ${esc(DATA.moodle.ultimo_ok || 'mai')}. Accedi a Moodle nel browser e lancia <b>/moodle</b>.</p>` : ''}`;
   $('#go-session').addEventListener('click', () => startSession());
   $('#go-5').addEventListener('click', () => startSession(true));
   animateRings($('#sessione-card')); countAll($('#sessione-card'));

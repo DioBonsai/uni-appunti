@@ -235,6 +235,22 @@ def avanzamento():
     return out, texts
 
 
+def moodle_stato():
+    """Ultimo controllo Moodle dal log: {quando, ok, ultimo_ok}. Serve a mostrare un avviso nel Quaderno quando il login è scaduto."""
+    f = BASE / "moodle_log.md"
+    if not f.exists():
+        return None
+    righe = [r for r in f.read_text(encoding="utf-8").splitlines() if r.startswith("- 20")]
+    if not righe:
+        return None
+    def campi(r):
+        c = [x.strip() for x in r[2:].split("|")]
+        return c[0], (c[1] if len(c) > 1 else "")
+    q, st = campi(righe[-1])
+    ok = [campi(r)[0] for r in righe if campi(r)[1].lower().startswith("ok")]
+    return dict(quando=q, ok=st.lower().startswith("ok"), stato=st, ultimo_ok=ok[-1] if ok else "")
+
+
 def piano():
     p = BASE / "piano_oggi.md"
     if not p.exists():
@@ -306,7 +322,7 @@ def main():
     mx = max(pesi.values()) or 1
     pesi = {k: round(v / mx, 3) for k, v in pesi.items()}
     data = dict(oggi=str(date.today()), quiz=quiz, problemi=probs, cards=cards, materie=avanz, freq=freq,
-                tagTema=TAG_TEMA, priorita=PRIORITA, temi=TEMI, pesi=pesi, piano=piano(), esami=ESAMI, nascoste=nascoste, coperti=coperti)
+                tagTema=TAG_TEMA, priorita=PRIORITA, temi=TEMI, pesi=pesi, piano=piano(), esami=ESAMI, nascoste=nascoste, coperti=coperti, moodle=moodle_stato())
     (PAG / "data.json").write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
 
     head = (PAG / "template.html").read_text(encoding="utf-8").split('<div class="app">')[0]
