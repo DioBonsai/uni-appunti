@@ -620,3 +620,8 @@ details[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
 #r-indice a:hover { background: var(--accent-soft); }
 #r-indice a.corrente { color: var(--accent); background: var(--accent-soft); font-weight: 700; box-shadow: inset 3px 0 0 var(--accent); }
 #r-indice li.trovato > a { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--accent); }
+#r-indice li > a { cursor: pointer; }
+#r-indice li { cursor: pointer; }
+#r-indice li ul { cursor: default; } #r-indice li ul li { cursor: pointer; }
+#r-art .arrivo { animation: arrivo 1.6s ease-out; }
+@keyframes arrivo { 0%, 55% { background: var(--accent-soft); box-shadow: -10px 0 0 var(--accent-soft), 10px 0 0 var(--accent-soft); border-radius: 4px; } 100% { background: transparent; box-shadow: none; } }

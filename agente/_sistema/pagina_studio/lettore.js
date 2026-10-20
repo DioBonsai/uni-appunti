@@ -143,7 +143,7 @@
       vuoto.hidden = !q || n > 0;
     });
   }
-  const apriCapitolo = (li, su) => { li.classList.toggle('aperto', su); const b = li.querySelector(':scope > .chev'); if (b) b.setAttribute('aria-expanded', String(su)); };
+  const apriCapitolo = (li, su, auto) => { li.classList.toggle('aperto', su); if (su && auto) li.dataset.auto = '1'; else delete li.dataset.auto; const b = li.querySelector(':scope > .chev'); if (b) b.setAttribute('aria-expanded', String(su)); };
   function segui() {
     if (!slug || !titoli.length) return;
     let cur = null;
@@ -153,8 +153,8 @@
     attiva = cur ? cur.a : null; if (!attiva) return;
     attiva.classList.add('corrente'); attiva.setAttribute('aria-current', 'location');
     const cap = attiva.closest('ul') && attiva.closest('li.ha-figli');
-    ind.querySelectorAll(':scope > ul > li.ha-figli.aperto:not(.trovato)').forEach(l => { if (l !== cap && !$('#r-cerca').value) apriCapitolo(l, false); });
-    if (cap) apriCapitolo(cap, true);
+    ind.querySelectorAll(':scope > ul > li.ha-figli[data-auto]:not(.trovato)').forEach(l => { if (l !== cap && !$('#r-cerca').value) apriCapitolo(l, false); });
+    if (cap && !cap.classList.contains('aperto')) apriCapitolo(cap, true, true);
     const r = attiva.getBoundingClientRect(), box = ind.getBoundingClientRect();
     if (getComputedStyle(ind).position === 'sticky' || ind.classList.contains('aperto')) { if (r.top < box.top + 40 || r.bottom > box.bottom - 40) attiva.scrollIntoView({ block: 'center' }); }
   }
@@ -185,11 +185,29 @@
   });
   $('#r-indietro').addEventListener('click', chiudi);
   $('#r-btn-indice').addEventListener('click', () => { const o = ind.classList.toggle('aperto'); $('#r-btn-indice').textContent = o ? 'Chiudi' : 'Indice'; if (o) { attiva = null; segui(); } });
+  /* ogni scritta (e ogni punto della riga) dell'indice porta alla sezione; la freccia apre/chiude soltanto */
+  const idDi = a => decodeURIComponent((a.getAttribute('href') || '').replace(/^#/, ''));
+  let mira = null, miraT = 0;
+  const allinea = el => {
+    const off = ($('.topbar') ? $('.topbar').offsetHeight : 64) + ($('.lett-bar') ? $('.lett-bar').offsetHeight : 54) + 12;
+    window.scrollTo({ top: Math.max(0, el.getBoundingClientRect().top + window.scrollY - off), behavior: 'auto' });
+  };
+  function vaiA(el) {
+    allinea(el); mira = el; clearTimeout(miraT); miraT = setTimeout(() => { mira = null; }, 4000);  // le figure sopra il titolo, caricandosi, lo spostano: si riallinea
+    el.classList.remove('arrivo'); void el.offsetWidth; el.classList.add('arrivo');
+    setTimeout(() => el.classList.remove('arrivo'), 1600);
+    attiva = null; segui();
+  }
+  art.addEventListener('load', () => { if (mira) { allinea(mira); segui(); } }, true);
+  ['wheel', 'touchstart', 'keydown', 'mousedown'].forEach(ev => window.addEventListener(ev, e => { if (mira && !e.target.closest('#r-indice')) mira = null; }, { passive: true, capture: true }));
   ind.addEventListener('click', e => {
-    const a = e.target.closest('a'); if (!a) return; e.preventDefault();
-    const el = document.getElementById(decodeURIComponent((a.getAttribute('href') || '').replace(/^#/, '')));
-    const li = a.parentElement; if (li.classList.contains('ha-figli') && a === li.querySelector(':scope > a')) apriCapitolo(li, true);
-    ind.classList.remove('aperto'); $('#r-btn-indice').textContent = 'Indice'; if (el) el.scrollIntoView();
+    if (e.target.closest('.chev') || e.target.closest('#r-cerca')) return;
+    const li = e.target.closest('li'); if (!li) return;
+    const a = li.querySelector(':scope > a'); if (!a) return;
+    e.preventDefault();
+    if (li.classList.contains('ha-figli')) apriCapitolo(li, true);
+    ind.classList.remove('aperto'); $('#r-btn-indice').textContent = 'Indice';
+    const el = document.getElementById(idDi(a)); if (el) vaiA(el);
   });
   // uscendo dalla scheda si torna all'elenco la volta dopo
   document.querySelectorAll('.tab, .bn').forEach(b => b.addEventListener('click', () => { if (b.dataset.tab !== 'riassunti') nascondiPill(); }));
