@@ -79,7 +79,8 @@ def check(name: str) -> tuple[int, int]:
                 errors.append(f"{loc}: {why}")
         if not code and not is_formula(t) and re.search(r"\S  +\S", t) and len(t) > 40:
             warns.append(f"{loc}: doppio spazio")
-        if re.search(r"\d{12,}", t):
+        base_t = "".join(r.text for r in p.runs if not (r.font.subscript or r.font.superscript))   # senza i pedici delle basi (…₂)
+        if any(not re.fullmatch(r"[01]+", m) for m in re.findall(r"\d{12,}", base_t)):   # le stringhe binarie lunghe sono legittime
             warns.append(f"{loc}: sequenza numerica sospetta (residuo di immagine?)")
         if is_heading(p):
             nums.append((int(HEAD.match(t.strip()).group(1)), i, t.strip()[:60]))

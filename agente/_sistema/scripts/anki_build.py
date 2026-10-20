@@ -14,6 +14,7 @@ Gli ID di mazzo e schede sono stabili: reimportando si aggiornano le schede senz
 """
 import hashlib
 import html
+import json
 import re
 import sys
 from pathlib import Path
@@ -115,7 +116,15 @@ def build(materia: str) -> int:
         deck.add_note(note); n += 1
     if n:
         OUT.mkdir(exist_ok=True)
+        firme_f = OUT / "firme.json"
+        firme = json.loads(firme_f.read_text(encoding="utf-8")) if firme_f.exists() else {}
+        firma = hashlib.sha1(json.dumps([(nt.guid, nt.fields) for nt in deck.notes], ensure_ascii=False).encode("utf-8")).hexdigest()
+        if firme.get(materia) == firma and (OUT / f"{safe}.apkg").exists():
+            print(f"{materia}: {n} schede, invariate (anki/{safe}.apkg non riscritto)")
+            return n
         genanki.Package(deck).write_to_file(str(OUT / f"{safe}.apkg"))
+        firme[materia] = firma
+        firme_f.write_text(json.dumps(firme, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{materia}: {n} schede -> anki/{safe}.apkg" if n else f"{materia}: nessuna scheda")
     return n
 

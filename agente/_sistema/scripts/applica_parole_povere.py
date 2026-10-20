@@ -14,7 +14,7 @@ from docx import Document
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from aggiungi_capitolo import add_runs, post_controlli  # noqa: E402
 
-UNI = Path(r"C:\Users\admin\Desktop\UNI")
+UNI = Path(__file__).resolve().parents[3]   # cartella UNI (accanto a agente/)
 BASE = UNI / "agente" / "_sistema"
 PP = BASE / "parole_povere"
 BK = BASE / "backup"

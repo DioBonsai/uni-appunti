@@ -14,7 +14,7 @@ from docx import Document
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from aggiungi_capitolo import (ORANGE, add_runs, doc_has_heading_styles, post_controlli, style_by_id)  # noqa: E402
 
-UNI = Path(r"C:\Users\admin\Desktop\UNI")
+UNI = Path(__file__).resolve().parents[3]   # cartella UNI (accanto a agente/)
 WORD = UNI / "Riassunto Matematica discreta.docx"
 BK = UNI / "agente" / "_sistema" / "backup"
 

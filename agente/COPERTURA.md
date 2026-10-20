@@ -1,4 +1,122 @@
-# Copertura: programma ufficiale vs i tuoi Word (aggiornato 8 ott 2026)
+# Copertura: programma ufficiale vs i tuoi Word (blocco automatico aggiornato con `aggiorna_copertura.py`; tabelle a mano dell'8 ott 2026)
+
+<!-- AUTO:inizio -->
+## Capitoli nei Word e stato di studio (generato il 20/10/2026, non modificare a mano)
+
+Fanno fede questo blocco e il Quaderno; le tabelle più sotto sono state scritte a mano l'8 ottobre e possono essere indietro.
+
+### Algebra lineare: 9/22 capitoli studiati
+Studiati: 1-9. Da studiare: 10-22.
+
+| Cap. | Titolo | Paragrafi evidenziati | Stato |
+|---|---|---|---|
+| 1 | Introduzione all'Algebra Lineare e Applicazioni in Informatica | 6/14 | studiato |
+| 2 | Costruzione degli Insiemi Numerici e Struttura di Campo (𝕂) | 4/35 | studiato |
+| 3 | Introduzione ai Numeri Complessi e Definizione Algebrica | 9/22 | studiato |
+| 4 | Proprietà Algebriche e Struttura di Campo (ℂ) | 10/23 | studiato |
+| 5 | I Tre Concetti Chiave: Coniugato, Modulo e Inverso Moltiplicativo | 11/30 | studiato |
+| 6 | Interpretazione Geometrica nel Piano di Argand-Gauss (ℝ2) | 8/18 | studiato |
+| 7 | Coordinate Polari e Forma Esponenziale dei Numeri Complessi | 15/44 | studiato |
+| 8 | Prodotto, Inverso e Coniugio in Forma Polare | 8/29 | studiato |
+| 9 | Potenze e Radici n-esime di un Numero Complesso | 6/44 | studiato |
+| 10 | Polinomi: Monomi, Grado e Insiemi di Polinomi | 0/27 | da studiare |
+| 11 | Divisione con Resto fra Polinomi | 0/23 | da studiare |
+| 12 | Radici di un Polinomio e Molteplicità | 0/30 | da studiare |
+| 13 | Quante Radici Ha un Polinomio: Induzione, Grado 2 e Teorema Fondamentale dell'Algebra | 0/30 | da studiare |
+| 14 | Lo Spazio Euclideo ℝn: Vettori, Coordinate e Rappresentazioni | 0/27 | da studiare |
+| 15 | Somma e Prodotto per Scalare in ℝn | 0/19 | da studiare |
+| 16 | Le Proprietà di ℝn e i Gruppi | 0/31 | da studiare |
+| 17 | Gli Spazi Vettoriali su un Campo | 0/27 | da studiare |
+| 18 | Zero, Opposto e Altri Esempi di Spazi Vettoriali | 0/30 | da studiare |
+| 19 | Le Matrici e lo Spazio M(m, n, 𝕂) | 0/34 | da studiare |
+| 20 | I Sottospazi Vettoriali | 0/38 | da studiare |
+| 21 | Sottospazi di Matrici Quadrate | 0/39 | da studiare |
+| 22 | Combinazioni Lineari e Sottospazio Generato (Span) | 0/35 | da studiare |
+
+### Matematica discreta: 12/25 capitoli studiati
+Studiati: 1-12. In parte: 13. Da studiare: 14-25.
+
+| Cap. | Titolo | Paragrafi evidenziati | Stato |
+|---|---|---|---|
+| 1 | Inquadramento della Matematica Discreta e il Concetto Fondamentale di Insieme | 8/25 | studiato |
+| 2 | Relazioni tra Insiemi, Insieme Vuoto e Gerarchia tra Appartenenza e Inclusione | 16/38 | studiato |
+| 3 | Operazioni Insiemistiche Algebriche e Prodotto Cartesiano | 15/53 | studiato |
+| 4 | Operazioni Avanzate sugli Insiemi | 20/61 | studiato |
+| 5 | Costruzione Assiomatica dei Numeri Naturali (ℕ) e il Principio di Induzione | 18/50 | studiato |
+| 6 | Strutture di Sub-Insiemi: Ricoprimenti e Partizioni | 5/46 | studiato |
+| 7 | Insiemi Numerici, Partizioni e Insieme Quoziente | 6/25 | studiato |
+| 8 | Relazioni Binarie, Proprietà Fondamentali e Relazioni di Equivalenza | 17/50 | studiato |
+| 9 | Classi di Equivalenza, Teorema Fondamentale e Concetto Insiemistico di Funzione | 24/52 | studiato |
+| 10 | Funzioni: Definizione, Rappresentazioni e Uguaglianza | 4/24 | studiato |
+| 11 | Funzioni Notevoli, Successioni e Restrizione | 12/42 | studiato |
+| 12 | Funzioni sull'Insieme Quoziente e Dipendenza dal Rappresentante | 3/19 | studiato |
+| 13 | Immagine e Controimmagine | 1/32 | iniziato |
+| 14 | Funzioni Suriettive, Iniettive e Biettive | 0/28 | da studiare |
+| 15 | Composizione e Invertibilità | 0/20 | da studiare |
+| 16 | Verificare Iniettività e Suriettività: Esempi | 0/22 | da studiare |
+| 17 | Rendere Biettiva una Funzione: Cambiare Codominio e Dominio | 0/18 | da studiare |
+| 18 | La Composizione di Funzioni: Ordine, Associatività e Identità | 0/37 | da studiare |
+| 19 | Composizione, Iniettività e Suriettività: le Funzioni Inverse | 0/38 | da studiare |
+| 20 | Funzioni Inverse: Esistenza e Unicità | 0/33 | da studiare |
+| 21 | Il Principio di Inclusione-Esclusione | 0/29 | da studiare |
+| 22 | Il Metodo delle Scelte Successive | 0/20 | da studiare |
+| 23 | Ordinamenti, Fattoriale e Anagrammi | 0/30 | da studiare |
+| 24 | Le Disposizioni: con Ripetizione e Semplici | 0/29 | da studiare |
+| 25 | Insiemi Finiti, Cardinalità e Principio dei Cassetti | 0/39 | da studiare |
+
+### Fondamenti Info: 22/22 capitoli studiati
+Studiati: 1-22. Tutto studiato.
+
+| Cap. | Titolo | Paragrafi evidenziati | Stato |
+|---|---|---|---|
+| 1 | Circuiti Sequenziali e Memoria Temporanea (Flip-Flop) | 10/19 | studiato |
+| 2 | Notazione Esadecimale | 9/27 | studiato |
+| 3 | Memoria Permanente e Supporti di Memorizzazione di Massa | 19/41 | studiato |
+| 4 | Rappresentazione dei Dati: Testo e Colori (RGB) | 9/17 | studiato |
+| 5 | Architettura e Memorizzazione dei Bit | 16/38 | studiato |
+| 6 | Codifica E Rappresentazione Dei Dati | 18/40 | studiato |
+| 7 | Il Sistema Numerico Binario e Aritmetica | 8/60 | studiato |
+| 8 | Rappresentazione degli interi (complemento a due e eccesso) | 14/29 | studiato |
+| 9 | Rappresentazione dei numeri frazionari e virgola mobile | 6/20 | studiato |
+| 10 | Compressione Dei Dati | 16/31 | studiato |
+| 11 | Gestione e correzione degli errori di comunicazione | 14/24 | studiato |
+| 12 | Logica Proposizionale: Proposizioni e Valori di Verità | 4/23 | studiato |
+| 13 | I Connettivi: And, Or, Not, Xor ed Equivalenza | 7/32 | studiato |
+| 14 | Le Tavole di Verità | 2/9 | studiato |
+| 15 | Equivalenze, Tautologie e Contraddizioni | 3/26 | studiato |
+| 16 | L'Implicazione (Condizionale) | 9/39 | studiato |
+| 17 | Conversa, Contrapposta, Condizioni Necessarie e Sufficienti | 10/41 | studiato |
+| 18 | Il Bicondizionale, l'Equivalenza e le Riscritture dell'Implicazione | 8/29 | studiato |
+| 19 | Argomenti e Regole di Inferenza | 19/47 | studiato |
+| 20 | Predicati, Dominio del Discorso e Variabili | 6/23 | studiato |
+| 21 | Il Quantificatore Universale | 9/35 | studiato |
+| 22 | Il Quantificatore Esistenziale e le Leggi di De Morgan per i Quantificatori | 12/35 | studiato |
+
+### Programmazione: 19/19 capitoli studiati
+Studiati: 1-19. Tutto studiato.
+
+| Cap. | Titolo | Paragrafi evidenziati | Stato |
+|---|---|---|---|
+| 1 | Fondamenti dell'Informatica, Evoluzione del Calcolatore e Codifica Binaria | 4/13 | studiato |
+| 2 | Progettazione degli Algoritmi e Paradigma della Programmazione Imperativa | 9/21 | studiato |
+| 3 | Correttezza Logica, Programmazione Strutturata e Linguaggi di Programmazione | 11/26 | studiato |
+| 4 | Architettura dei Calcolatori e Modello di Von Neumann | 32/66 | studiato |
+| 5 | Dal Linguaggio Macchina al C e la Filiera di Compilazione | 16/46 | studiato |
+| 6 | Il Type System del C, Tipi Primitivi e Astrazione delle Variabili | 33/66 | studiato |
+| 7 | Modello di Memoria in C: Area Codice e Gestione dello Stack | 15/46 | studiato |
+| 8 | L'Istruzione di Assegnamento, Espressioni Aritmetiche e Input/Output Formattato | 21/51 | studiato |
+| 9 | Il Referenziamento e l'Indirizzo delle Variabili | 10/36 | studiato |
+| 10 | L'Input da Tastiera con scanf() | 7/48 | studiato |
+| 11 | I Puntatori | 5/49 | studiato |
+| 12 | Dereferenziamento, Alias e Puntatore Nullo | 11/58 | studiato |
+| 13 | Scambio di Variabili e Variabile Temporanea | 3/34 | studiato |
+| 14 | Numeri Reali in C: float, double e Formati di Stampa | 7/35 | studiato |
+| 15 | La Libreria math.h e la Lettura della Documentazione | 3/22 | studiato |
+| 16 | Conversioni di Tipo: Implicite, Promozione ed Esplicite | 8/51 | studiato |
+| 17 | Espressioni Booleane e Operatori Logici | 11/57 | studiato |
+| 18 | Intervalli, Cortocircuitazione e Semplificazione delle Condizioni | 6/54 | studiato |
+| 19 | Il Controllo di Flusso e il Costrutto if | 10/83 | studiato |
+<!-- AUTO:fine -->
 
 Legenda: ✅ nel Word | 🟡 parziale | ⬜ non ancora (lezione/slide non ancora fatta o non riassunta) | ➖ omesso dal docente.
 **Studiato** = evidenziazioni gialle di Emanuele nel Word (vedi `STATO.md`).

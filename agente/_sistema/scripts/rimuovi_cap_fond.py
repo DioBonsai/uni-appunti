@@ -4,8 +4,9 @@ import shutil, sys
 from datetime import datetime
 from pathlib import Path
 from docx import Document
-W = Path(r"C:\Users\admin\Desktop\UNI\Riassunto Fondamenti Informatica.docx")
-BK = Path(r"C:\Users\admin\Desktop\UNI\agente\_sistema\backup")
+UNI = Path(__file__).resolve().parents[3]   # cartella UNI (accanto a agente/)
+W = UNI / "Riassunto Fondamenti Informatica.docx"
+BK = UNI / "agente" / "_sistema" / "backup"
 lock = W.with_name("~$" + W.name[2:])
 if lock.exists(): sys.exit("Word aperto")
 d = Document(str(W)); pars = d.paragraphs

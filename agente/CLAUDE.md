@@ -11,7 +11,7 @@ trascritti) a capitoli di riassunto che continuano il Word esistente.
 - `_sistema/audio/` → `_sistema/trascrizioni/`: audio delle lezioni e loro trascrizione (`scripts/trascrivi.py`).
 - `_sistema/fonti_testo/<materia>/`: **cache di testo** delle fonti (PDF con testo estratti, appunti a mano già trascritti `L<n>_appunti_*.md`). Leggere SEMPRE prima questa, poi i PDF originali. `DA_TRASCRIVERE.txt` elenca le scansioni ancora senza testo (slide Fondamenti, libro Mori).
 - `_sistema/glossario.txt`: termini tecnici per Whisper.
-- `_sistema/scripts/`: `trascrivi.py` (Whisper), `aggiungi_capitolo.py` (inserisce nel Word; poi controlla e fa backup da solo), `verifica_word.py` (qualità dei Word), `backup_onedrive.py`, `estrai_fonti.py`, `stili_word.py` (Titolo 1/2 veri), `genera_esercizi.py` (quiz/problemi verificati con SymPy), `anki_build.py`, `installa_globale.py`. Il percorso del Word si dà relativo a `UNI\`, es. `"Riassunto Algebra lineare.docx"`.
+- `_sistema/scripts/`: `trascrivi.py` (Whisper), `aggiungi_capitolo.py` (inserisce nel Word; poi controlla e fa backup da solo), `verifica_word.py` (qualità dei Word), `backup_onedrive.py`, `estrai_fonti.py`, `stili_word.py` (Titolo 1/2 veri), `genera_esercizi.py` (quiz/problemi verificati con SymPy), `anki_build.py` (non riscrive i .apkg se le schede non cambiano), `aggiorna_tutto.py` (un solo comando: Anki, riassunti web, Quaderno, copertura, controlli), `aggiorna_copertura.py` (blocco automatico in COPERTURA.md), `test_sistema.py` (collaudo di sottolineature, riassunti web, sito locale), `installa_globale.py`. Il percorso del Word si dà relativo a `UNI\`, es. `"Riassunto Algebra lineare.docx"`.
 - `_sistema/bozze/`: bozze dei capitoli prima dell'inserimento nel Word.
 - `_sistema/backup/`: copia automatica del Word prima di ogni modifica. Copia aggiuntiva sincronizzata: `C:\Users\admin\OneDrive\UNI-backup\`.
 - `_sistema/esami/`: banca degli esami di Mate discreta (`quiz_*.md` 150 domande, `prob_*.md` 30 problemi svolti, `MAPPA_ESAMI.md`, `generati/`). Le soluzioni ufficiali contengono errori noti (righe "ATTENZIONE").
@@ -22,7 +22,7 @@ trascritti) a capitoli di riassunto che continuano il Word esistente.
 Nota: oltre ai 4 Word delle materie esiste `../Riassunto Laboratorio.docx` (riassunto del laboratorio di Programmazione, numerazione propria, chiave `Programmazione/Laboratorio` negli script). I capitoli si aggiungono con `aggiungi_capitolo.py "Riassunto Laboratorio.docx" bozza.md`. Formato bozze: `**grassetto**`, `~corsivo~`, backtick per comandi/codice in linea (Consolas), blocchi ``` per il codice (Consolas 8,5 pt), backslash+asterisco per un `*` letterale.
 
 ## Regole ferree
-0. Il repo Git sta in `UNI\` (cartella padre); le esclusioni (audio, fonti, backup, file temporanei di Word) sono in `.git/info/exclude`, non c'è un `.gitignore` visibile.
+0. Il repo Git sta in `UNI\` (cartella padre); le esclusioni (audio, fonti, backup, `__pycache__`, file temporanei di Word) stanno nel `.gitignore` versionato (più eventuali voci locali in `.git/info/exclude`). Una verifica automatica gira su GitHub a ogni push (`.github/workflows/verifica.yml`).
 1. Mai riscrivere o spostare i Word esistenti. Solo aggiungere in fondo, con backup (usa `aggiungi_capitolo.py`). Se il Word è aperto (`~$...` presente) fermarsi e dirlo.
 2. Un capitolo alla volta; prima l'elenco dei macro-argomenti e dei capitoli, attendere l'ok, poi i capitoli. La numerazione continua da quella del Word.
 3. Fonti in ordine di fiducia: dispense/libro > schede > appunti a mano > trascrizioni audio (possono avere errori sui termini tecnici). Se due fonti si contraddicono, dirlo, non scegliere in silenzio.
@@ -30,13 +30,15 @@ Nota: oltre ai 4 Word delle materie esiste `../Riassunto Laboratorio.docx` (rias
 5. Ogni capitolo passa dal revisore (subagente `revisore-riassunti`) prima di essere inserito nel Word.
 6. Lingua: italiano. Pronomi per Emanuele: lui/neutro, non assumere altro.
 7. File in `~/Downloads` non universitari: non toccarli e non leggerli.
-8. Python: `C:\Users\admin\AppData\Local\Programs\Python\Python312\python.exe`.
+8. Python: usare `python` (o `py`) dal PATH; i percorsi negli script sono relativi, niente `C:\Users\admin` scritto a mano. Su questo PC c'è anche `C:\Users\admin\AppData\Local\Programs\Python\Python312\python.exe`.
 
 ## Comandi
 - `/riassunto <materia> <lezione>`: flusso completo (vedi `.claude/skills/riassunto/SKILL.md`).
 - `/trascrivi`: trascrive gli audio nuovi (Whisper locale, in background).
 - `/ripasso <materia> [lezione]`: formulario, esercizi svolti, flashcard Anki, mappa concettuale.
 - `/esame [quiz|problema|completo] [argomento]`: simulazione d'esame di Matematica discreta con correzione e registro errori.
+- `/sottolineature`: porta nei Word le sottolineature fatte nel Quaderno da tablet/telefono.
+- `/pubblica`: ricostruisce tutto (`aggiorna_tutto.py`), commit/push e ripubblica la pagina su claude.ai.
 - `/moodle`: controlla slide, annunci, esami e registrazioni su Moodle (il login lo fa sempre Emanuele).
 - Skill, comandi e revisore sono installati anche a livello utente (`~/.claude`), quindi funzionano da qualsiasi cartella; dopo ogni modifica a `agente/.claude` rilanciare `python _sistema/scripts/installa_globale.py`.
 

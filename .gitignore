@@ -1,0 +1,19 @@
+# File temporanei e di sistema
+__pycache__/
+*.pyc
+*.tmp
+.DS_Store
+Thumbs.db
+~$*
+.~lock.*
+
+# Materiale pesante o personale che resta solo sul computer (come in .git/info/exclude)
+agente/_sistema/backup/
+agente/_sistema/audio/
+agente/_sistema/fonti/
+agente/_sistema/video/
+agente/_sistema/modelli/
+*.mp3
+*.m4a
+*.mp4
+*.wav

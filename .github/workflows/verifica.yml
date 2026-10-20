@@ -1,0 +1,31 @@
+name: Verifica
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verifica:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Dipendenze
+        run: |
+          pip install python-docx genanki
+          sudo apt-get update -qq && sudo apt-get install -y -qq pandoc
+      - name: Controllo dei Word
+        run: python agente/_sistema/scripts/verifica_word.py
+      - name: Pagina del Quaderno si ricostruisce
+        run: python agente/_sistema/scripts/costruisci_pagina_studio.py
+      - name: Pagine dei riassunti si ricostruiscono
+        run: python agente/_sistema/scripts/costruisci_riassunti.py
+      - name: Generatore di esercizi
+        run: node agente/_sistema/pagina_studio/test_gen.js
+      - name: Collaudo (sottolineature, riassunti, sito locale)
+        run: python agente/_sistema/scripts/test_sistema.py

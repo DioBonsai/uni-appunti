@@ -9,7 +9,7 @@ from pathlib import Path
 
 from docx import Document
 
-UNI = Path(r"C:\Users\admin\Desktop\UNI")
+UNI = Path(__file__).resolve().parents[3]   # cartella UNI (accanto a agente/)
 BK = UNI / "agente" / "_sistema" / "backup"
 ts = datetime.now().strftime("%Y%m%d_%H%M%S")
 report = []

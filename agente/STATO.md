@@ -46,7 +46,7 @@ Creato il 9 ott 2026 dalle slide `Lab01 - Introduzione` (laboratorio n. 1). 5 ca
 - [x] Algebra: aggiunti cap. 7-9 (L3) [8 ott]
 - [x] Stili Titolo 1/2 veri su tutti e 4 i Word (navigazione e indice automatico) [8 ott]
 - [ ] Mate discreta: controllo notazione partizioni
-- [x] Git + GitHub privato (DioBonsai/uni-appunti) [8 ott]
+- [x] Git + GitHub (DioBonsai/uni-appunti): privato l'8 ott, **pubblico dal 13 ott** (vedi CLAUDE.md, regola 10)
 
 ## Cosa ha già studiato Emanuele (le evidenziazioni gialle nei Word = studiato a mano)
 Regola: i capitoli/paragrafi con evidenziazioni gialle sono già studiati; mai rimuovere né spostare le evidenziazioni; il testo nuovo si aggiunge SENZA evidenziazione. Stato ricontrollato il 16 ott 2026 (verifica diretta delle evidenziazioni nei Word, capitolo per capitolo):
