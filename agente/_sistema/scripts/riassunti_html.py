@@ -24,6 +24,8 @@ MATERIE = [
     ("programmazione", "Programmazione", "Riassunto Programmazione.docx", "Programmazione"),
     ("laboratorio", "Programmazione, Laboratorio", "Riassunto Laboratorio.docx", "Programmazione, Laboratorio"),
 ]
+COLORI = {"algebra": ("#2744a8", "#8fadff"), "matematica-discreta": ("#b8302c", "#ff9188"), "fondamenti": ("#16703f", "#70dca2"),
+          "programmazione": ("#b25a0a", "#ffb866"), "laboratorio": ("#7a4fb5", "#c3a6ff")}
 EXT = {"image/png": "png", "image/jpeg": "jpg", "image/gif": "gif", "image/svg+xml": "svg", "image/webp": "webp"}
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 
@@ -90,11 +92,44 @@ table{border-collapse:collapse;margin:.9rem 0;font:15px system-ui,sans-serif;dis
 @media (max-width:1180px){.top .cur{display:none}.search input{width:7.2rem}.top-in{gap:.4rem}.tb{padding:.3rem .5rem}}
 @media (max-width:900px){.wrap{display:block}nav.toc{position:static;max-height:none;padding:0 0 .8rem;margin-bottom:.8rem;border-bottom:1px solid var(--lin)}nav.toc.coll{max-height:0;overflow:hidden;padding:0;margin:0;border:0}#tocbtn{display:inline-block}.top .cur{display:none}.search input{width:7rem}:root{--fs:17px}}
 @media print{.top,nav.toc,aside.rail,.pn,#toast,#lb,.cp{display:none!important}.wrap{display:block;padding:0}body{background:#fff;color:#000;font-size:11pt}main h2{break-before:page;border:0}main section.cap:first-child h2{break-before:auto}mark{background:#fff59d!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}pre,figure{break-inside:avoid}}
+body{--mc:var(--mcl,#1f4e9c)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) body{--mc:var(--mcd,#8fb4ff)}}
+:root[data-theme=dark] body{--mc:var(--mcd,#8fb4ff)}
+.top .mat{border-left:3px solid var(--mc);padding-left:.5rem}
+#prog{background:var(--mc)}
+nav.toc a.on{border-left-color:var(--mc)}
+.hero{margin:.2rem 0 2.2rem;padding:1.4rem 1.5rem 1.3rem;background:var(--card);border:1px solid var(--lin);border-left:6px solid var(--mc);border-radius:16px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.hero h1{margin:0 0 .2rem;font-size:1.9rem;line-height:1.15;letter-spacing:-.015em;color:var(--mc)}
+.hero p{margin:0;color:var(--mut);font-size:.95rem}
+.hero .map{display:flex;flex-wrap:wrap;gap:5px;margin:1.1rem 0 .3rem}
+.hero .map a{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;color:var(--mut);border:1.5px solid var(--lin);font-variant-numeric:tabular-nums}
+.hero .map a:hover{border-color:var(--mc);color:var(--fg)}
+.hero .map a.st1{border-color:var(--ok);background:linear-gradient(135deg,color-mix(in srgb,var(--ok) 40%,transparent) 50%,transparent 50%);color:var(--fg)}
+.hero .map a.st2{background:var(--ok);border-color:var(--ok);color:#fff}
+.hero .leg{font-size:12px;color:var(--mut);margin:.2rem 0 1rem}
+.hero .act{display:flex;gap:.6rem;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:.95rem;padding:.6rem 1rem;border-radius:10px;background:var(--mc);color:#fff;border:1px solid var(--mc)}
+.btn:hover{filter:brightness(1.08)}.btn.ghost{background:transparent;color:var(--fg);border-color:var(--lin)}.btn.ghost:hover{border-color:var(--mc)}
+:root[data-theme=dark] .btn:not(.ghost){color:#10131a}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .btn:not(.ghost){color:#10131a}}
+.capmeta{display:flex;gap:.7rem;align-items:center;margin:-.3rem 0 1rem;font:13px system-ui,-apple-system,sans-serif;color:var(--mut)}
+.badge{display:inline-flex;align-items:center;gap:.35rem;font-weight:700;font-size:12px;padding:.15rem .6rem;border-radius:99px;border:1px solid var(--lin)}
+.badge i{width:.55rem;height:.55rem;border-radius:50%;border:1.5px solid var(--mut)}
+.badge.b1{color:var(--ok);border-color:var(--ok)}.badge.b1 i{border-color:var(--ok);background:linear-gradient(90deg,var(--ok) 50%,transparent 50%)}
+.badge.b2{color:var(--ok);border-color:var(--ok)}.badge.b2 i{border-color:var(--ok);background:var(--ok)}
 /* indice delle materie */
-.idx{max-width:48rem;margin:0 auto;padding:1.6rem 1rem 4rem}.idx h1{font:750 1.7rem system-ui,sans-serif;margin:.4rem 0 1.2rem}
-.idx a.card{display:block;background:var(--card);border:1px solid var(--lin);border-radius:14px;padding:1rem 1.2rem;margin:.8rem 0;text-decoration:none;color:var(--fg);font-family:system-ui,sans-serif}
-.idx a.card:hover{border-color:var(--acc)}.idx .nm{font-weight:700;font-size:1.1rem}.idx small{color:var(--mut);font-size:13px}
-.idx .bar{height:6px;border-radius:99px;background:var(--lin);margin:.7rem 0 .25rem;overflow:hidden}.idx .bar i{display:block;height:100%;background:var(--ok)}
+.idx{max-width:62rem;margin:0 auto;padding:2rem 1rem 4rem;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.idx h1{font-size:2rem;letter-spacing:-.02em;margin:.2rem 0 .2rem}.idx .lead{color:var(--mut);margin:0 0 1.4rem}
+.idx .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1rem}
+.idx a.mcard{display:flex;flex-direction:column;gap:.5rem;background:var(--card);border:1px solid var(--lin);border-top:5px solid var(--mc);border-radius:16px;padding:1.1rem 1.2rem 1rem;text-decoration:none;color:var(--fg);box-shadow:0 1px 0 #0001;transition:transform .15s,box-shadow .15s,border-color .15s}
+.idx a.mcard:hover{transform:translateY(-2px);box-shadow:0 10px 26px -12px #0006;border-color:var(--mc)}
+.idx a.mcard{--mc:var(--mcl)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .idx a.mcard{--mc:var(--mcd)}}
+:root[data-theme=dark] .idx a.mcard{--mc:var(--mcd)}
+.idx .mc-top{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem}.idx .mc-nm{font-weight:750;font-size:1.2rem;color:var(--mc)}.idx .mc-pct{font-weight:700;font-variant-numeric:tabular-nums}
+.idx .bar{height:7px;border-radius:99px;background:var(--lin);overflow:hidden}.idx .bar i{display:block;height:100%;background:var(--ok);border-radius:99px}
+.idx .mc-sub{font-size:13px;color:var(--mut)}.idx .mc-next{font-size:13.5px;line-height:1.4;min-height:2.8em}.idx .mc-next b{font-weight:650}
+.idx .mc-go{margin-top:auto;font-weight:700;font-size:.92rem;color:var(--mc)}
 #resume{display:none;border:1px solid var(--acc);border-radius:14px;padding:.8rem 1.2rem;margin:.4rem 0 1.2rem;font:15px system-ui,sans-serif;background:var(--card)}#resume a{font-weight:700}
 """
 
@@ -260,7 +295,8 @@ class Conv:
         ext_el = drawing.find(".//{http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing}extent")
         style = ""
         if ext_el is not None and ext_el.get("cx"):
-            style = f' style="width:{int(ext_el.get("cx")) // 9525}px"'
+            cx, cy = int(ext_el.get("cx")), int(ext_el.get("cy") or 0)
+            style = f' style="width:{cx // 9525}px' + (f';aspect-ratio:{cx}/{cy}' if cy else "") + '"'
         return f'<figure><img src="img/{name}" loading="lazy" alt="Figura"{style}></figure>'
 
     # ---- run -> html
@@ -417,6 +453,18 @@ def stato(cap, manuali):
     return 2 if m >= 3 else (1 if m else 0)   # stessa regola del Quaderno: da 3 paragrafi evidenziati = studiato
 
 
+def minuti(htm):
+    return max(1, round(len(re.sub(r"<[^>]+>", " ", htm).split()) / 190))
+
+
+def durata(m):
+    h, mm = divmod(m, 60)
+    return f"{h} h {mm:02d} min" if h else f"{mm} min"
+
+
+ETICHETTE = ["Da studiare", "Iniziato", "Studiato"]
+
+
 def main(argv):
     if len(argv) != 2:
         print(__doc__); return 1
@@ -437,19 +485,51 @@ def main(argv):
         pre, caps = c.converti()
         man = set(manuale.get(chiave) or [])
         st = [stato(cp, man) for cp in caps]
-        voci = []
+        usati = set()
+        for cp in caps:                      # id dei capitoli: cap<N> (usato anche dai link dal Quaderno)
+            n = numero(cp["titolo"])
+            cp["sid"] = f"cap{n}" if n is not None and n not in usati else f"c{cp['id']}"
+            if n is not None:
+                usati.add(n)
+            cp["min"] = minuti(cp["html"])
+        tot_min = sum(cp["min"] for cp in caps)
+        voci, quadr = [], []
         for i, cp in enumerate(caps):
             n = numero(cp["titolo"])
             voci.append(f'<a href="#{cp["id"]}" data-cap="{i}" data-t="{html.escape(cp["titolo"], quote=True)}">'
                         f'<span class="num">{n if n is not None else ""}</span><span class="ttl">{html.escape(breve(cp["titolo"]))}</span>'
-                        f'<span class="st st{st[i]}" title="{["da studiare", "iniziato", "studiato"][st[i]]}"></span></a>')
+                        f'<span class="st st{st[i]}" title="{ETICHETTE[st[i]].lower()}"></span></a>')
+            quadr.append(f'<a class="st{st[i]}" href="#{cp["sid"]}" title="{html.escape(cp["titolo"], quote=True)} ({ETICHETTE[st[i]].lower()})">{n if n is not None else i + 1}</a>')
+        prossimo = next((i for i, x in enumerate(st) if x != 2), None)
+        fatti = sum(1 for x in st if x == 2); inz = sum(1 for x in st if x == 1); tot = len(caps)
+        if prossimo is None:
+            btn = f'<a class="btn" href="#{caps[0]["sid"]}">Ripassa dall&rsquo;inizio</a>'
+        else:
+            nn = numero(caps[prossimo]["titolo"])
+            etichetta = f"Continua dal capitolo {nn}" if nn is not None else "Continua a leggere"
+            btn = (f'<a class="btn" href="#{caps[prossimo]["sid"]}">{etichetta}</a>'
+                   f'<a class="btn ghost" href="#{caps[0]["sid"]}">Dall&rsquo;inizio</a>')
+        extra_inz = f", {inz} iniziati" if inz else ""
+        hero = (f'<div class="hero"><h1>{html.escape(nome)}</h1>'
+                f'<p>{tot} capitoli &middot; {fatti} studiati{extra_inz} &middot; lettura di circa {durata(tot_min)}</p>'
+                f'<div class="map" role="navigation" aria-label="Mappa dei capitoli">{"".join(quadr)}</div>'
+                f'<div class="leg">Pieno = studiato &middot; a metà = iniziato &middot; vuoto = da studiare</div>'
+                f'<div class="act">{btn}</div></div>')
         sezioni = []
         for i, cp in enumerate(caps):
             nav = '<div class="pn">'
-            nav += (f'<a class="prev" href="#{caps[i-1]["id"]}"><small>&larr; Capitolo precedente</small>{html.escape(caps[i-1]["titolo"])}</a>' if i > 0 else "<span></span>")
-            nav += (f'<a class="next" href="#{caps[i+1]["id"]}"><small>Capitolo successivo &rarr;</small>{html.escape(caps[i+1]["titolo"])}</a>' if i + 1 < len(caps) else "<span></span>")
+            if i > 0:
+                nav += f'<a class="prev" href="#{caps[i-1]["sid"]}"><small>&larr; Capitolo precedente</small>{html.escape(caps[i-1]["titolo"])}</a>'
+            else:
+                nav += "<span></span>"
+            if i + 1 < len(caps):
+                nav += f'<a class="next" href="#{caps[i+1]["sid"]}"><small>Capitolo successivo &rarr;</small>{html.escape(caps[i+1]["titolo"])}</a>'
+            else:
+                nav += "<span></span>"
             nav += "</div>"
-            sezioni.append(f'<section class="cap" id="c{cp["id"]}" data-id="{cp["id"]}">{cp["html"]}{nav}</section>')
+            meta = f'<div class="capmeta"><span class="badge b{st[i]}"><i></i>{ETICHETTE[st[i]]}</span><span>{cp["min"]} min di lettura</span></div>'
+            corpo_cap = cp["html"].replace("</h2>", "</h2>" + meta, 1)
+            sezioni.append(f'<section class="cap" id="{cp["sid"]}" data-num="{numero(cp["titolo"]) or ""}">{corpo_cap}{nav}</section>')
         top = ('<header class="top"><div class="top-in">'
                '<a class="back" href="../">&larr; Quaderno</a>'
                '<select class="tb" id="mats" aria-label="Cambia materia"><option value="">Materie &#9662;</option>' + opzioni + '</select>'
@@ -461,23 +541,37 @@ def main(argv):
                '<button class="tb" id="theme" type="button">Tema</button>'
                '<button class="tb" id="tocbtn" type="button">Capitoli</button>'
                '</div><div id="prog"></div></header>')
-        corpo = (f'<body data-slug="{slug}" data-nome="{html.escape(nome, quote=True)}">{top}'
+        cl, cd = COLORI[slug]
+        corpo = (f'<body data-slug="{slug}" data-nome="{html.escape(nome, quote=True)}" style="--mcl:{cl};--mcd:{cd}">{top}'
                  f'<div class="wrap"><nav class="toc"><h4>Capitoli</h4>{"".join(voci)}</nav>'
-                 f'<main>{pre}{"".join(sezioni)}</main><aside class="rail"></aside></div>'
+                 f'<main>{hero}{pre}{"".join(sezioni)}</main><aside class="rail"></aside></div>'
                  '<div id="toast" role="status"></div><div id="lb"><img alt=""></div>'
                  f'<script>{JS_PAGINA}</script></body>')
         (base / f"{slug}.html").write_text(pagina(f"{nome} - Riassunto", "", corpo), encoding="utf-8")
-        tot = len(caps); fatti = sum(1 for x in st if x == 2); inz = sum(1 for x in st if x == 1)
-        schede.append((slug, nome, tot, c.nimg, fatti, inz))
+        nxt = None if prossimo is None else (numero(caps[prossimo]["titolo"]), breve(caps[prossimo]["titolo"]), caps[prossimo]["sid"])
+        schede.append((slug, nome, tot, fatti, inz, nxt, tot_min))
         print(f"{nome}: {tot} capitoli ({fatti} studiati), {c.nimg} figure")
     cards = ""
-    for s, n, k, m, fatti, inz in schede:
+    for s, n, k, fatti, inz, nxt, tmin in schede:
         pct = round(100 * fatti / k) if k else 0
-        cards += (f'<a class="card" href="{s}.html"><span class="nm">{html.escape(n)}</span>'
+        cl, cd = COLORI[s]
+        if nxt:
+            num, tit, sid = nxt
+            prefisso = f"Cap. {num} &middot; " if num is not None else ""
+            nxt_html = f"Prossimo da studiare: <b>{prefisso}{html.escape(tit)}</b>"
+            href = f"{s}.html#{sid}"
+        else:
+            nxt_html = "Hai studiato tutto: puoi ripassare dall&rsquo;inizio."
+            href = f"{s}.html"
+        extra_inz = f" &middot; {inz} iniziati" if inz else ""
+        vai = "Continua" if nxt else "Apri"
+        cards += (f'<a class="mcard" href="{href}" style="--mcl:{cl};--mcd:{cd}"><div class="mc-top"><span class="mc-nm">{html.escape(n)}</span><span class="mc-pct">{pct}%</span></div>'
                   f'<div class="bar"><i style="width:{pct}%"></i></div>'
-                  f'<small>{k} capitoli &middot; {m} figure &middot; {fatti} studiati, {inz} iniziati</small></a>')
-    idx = ('<body><header class="top"><div class="top-in"><a class="back" href="../">&larr; Quaderno</a><span class="mat">Riassunti</span></div></header>'
-           f'<div class="idx"><h1>Riassunti</h1><div id="resume"></div>{cards}</div><script>{JS_INDICE}</script></body>')
+                  f'<div class="mc-sub">{fatti} di {k} capitoli studiati{extra_inz} &middot; circa {durata(tmin)} di lettura</div>'
+                  f'<div class="mc-next">{nxt_html}</div><span class="mc-go">{vai} &rarr;</span></a>')
+    idx = ('<body><header class="top"><div class="top-in"><a class="back" href="../">&larr; Quaderno</a><span class="mat" style="--mcl:#1f4e9c;--mcd:#8fb4ff">Riassunti</span></div></header>'
+           '<div class="idx"><h1>Riassunti</h1><p class="lead">Scegli una materia: il pulsante ti porta al primo capitolo che non hai ancora studiato.</p>'
+           f'<div id="resume"></div><div class="grid">{cards}</div></div><script>{JS_INDICE}</script></body>')
     (base / "index.html").write_text(pagina("Riassunti", "", idx), encoding="utf-8")
     return 0
 
