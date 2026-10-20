@@ -1,0 +1,3400 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Fondamenti di Informatica</title>
+<style>
+:root { --bg:#f4f6fb; --surface:#fff; --ink:#151b2e; --muted:#5a6479; --line:#dbe1ec; --accent:#2744a8; --accent-soft:#e2e8fb; --mark:#fff176; --mark-ink:#151b2e; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#0f131b; --surface:#181d28; --ink:#e9edf5; --muted:#9ba6ba; --line:#2b3444; --accent:#8fadff; --accent-soft:#1f2e57; --mark:#6b5d00; --mark-ink:#fff6c2; } }
+:root[data-theme="dark"] { --bg:#0f131b; --surface:#181d28; --ink:#e9edf5; --muted:#9ba6ba; --line:#2b3444; --accent:#8fadff; --accent-soft:#1f2e57; --mark:#6b5d00; --mark-ink:#fff6c2; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 18px/1.65 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; }
+.bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 10px; padding: 10px max(16px, env(safe-area-inset-right)) 10px max(16px, env(safe-area-inset-left)); background: var(--surface); border-bottom: 1px solid var(--line); }
+.bar a, .bar button { font: inherit; font-size: 15px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border: 0; border-radius: 10px; padding: 8px 12px; text-decoration: none; cursor: pointer; min-height: 40px; }
+.bar .t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; font-size: 16px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 1180px; margin: 0 auto; }
+nav#indice { display: none; padding: 16px; font-size: 15px; line-height: 1.4; }
+nav#indice.open { display: block; position: fixed; inset: 61px 0 0 0; z-index: 15; overflow-y: auto; background: var(--surface); padding-bottom: 80px; }
+nav#indice ul { list-style: none; margin: 0; padding-left: 14px; }
+nav#indice > ul { padding-left: 0; }
+nav#indice > ul > li { margin: 10px 0 2px; font-weight: 700; }
+nav#indice > ul > li > ul > li { font-weight: 500; margin: 3px 0; }
+nav#indice a { color: var(--ink); text-decoration: none; display: block; padding: 5px 0; }
+nav#indice a:hover { color: var(--accent); }
+main { padding: 20px max(16px, env(safe-area-inset-right)) 80px max(16px, env(safe-area-inset-left)); min-width: 0; }
+article { max-width: 760px; margin: 0 auto; overflow-wrap: break-word; }
+h1, h2, h3, h4 { font-family: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif; line-height: 1.2; margin: 1.8em 0 .5em; }
+h1 { font-size: 1.7rem; border-top: 3px solid var(--accent); padding-top: .6em; }
+h2 { font-size: 1.35rem; } h3 { font-size: 1.15rem; } h4 { font-size: 1rem; color: var(--muted); }
+h1:first-child { margin-top: .2em; }
+p { margin: .7em 0; }
+mark { background: var(--mark); color: var(--mark-ink); border-radius: 3px; padding: 0 2px; }
+img { max-width: 100%; height: auto; background: #fff; border-radius: 8px; }
+figure { margin: 1.2em 0; text-align: center; } figcaption { color: var(--muted); font-size: .9em; font-style: italic; }
+table { border-collapse: collapse; display: block; overflow-x: auto; max-width: 100%; margin: 1em 0; font-size: .92em; }
+th, td { border: 1px solid var(--line); padding: 6px 10px; vertical-align: top; }
+th { background: var(--accent-soft); }
+blockquote { margin: 1em 0; padding: .1em 1em; border-left: 4px solid var(--accent); background: var(--surface); border-radius: 0 8px 8px 0; }
+pre, code { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: .85em; }
+pre { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+math { font-size: 1.08em; }
+math[display="block"] { display: block; overflow-x: auto; padding: 4px 0; }
+.top { position: fixed; right: 14px; bottom: 14px; z-index: 10; width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: var(--surface); display: grid; place-items: center; text-decoration: none; font-size: 20px; box-shadow: 0 4px 14px rgba(0,0,0,.3); }
+@media (min-width: 1000px) {
+  .layout { grid-template-columns: 300px minmax(0, 1fr); }
+  nav#indice, nav#indice.open { display: block; position: sticky; inset: auto; top: 61px; align-self: start; max-height: calc(100vh - 61px); overflow-y: auto; background: transparent; padding: 16px 8px 40px 16px; }
+  #btn-indice { display: none; }
+  main { padding-left: 32px; }
+}
+@media print { .bar, nav#indice, .top { display: none; } body { background: #fff; color: #000; } }
+</style>
+<script>(function(){try{var t=localStorage.getItem('quaderno-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<div class="bar" id="top">
+  <a href="../../index.html" aria-label="Torna al Quaderno">&larr; Quaderno</a>
+  <span class="t">Fondamenti di Informatica</span>
+  <button type="button" id="btn-indice" aria-expanded="false" aria-controls="indice">Indice</button>
+</div>
+<div class="layout">
+<nav id="indice" aria-label="Indice">
+<ul>
+<li><a href="#circuiti-sequenziali-e-memoria-temporanea-flip-flop"
+id="toc-circuiti-sequenziali-e-memoria-temporanea-flip-flop"><strong>1.
+Circuiti Sequenziali e Memoria Temporanea (Flip-Flop)</strong></a>
+<ul>
+<li><a href="#il-principio-della-memoria-circolante"
+id="toc-il-principio-della-memoria-circolante"><strong>Il principio
+della memoria circolante</strong></a></li>
+<li><a href="#funzionamento-logico-del-flip-flop"
+id="toc-funzionamento-logico-del-flip-flop"><strong>Funzionamento logico
+del Flip-Flop</strong></a></li>
+<li><a href="#implementazione-e-astrazione"
+id="toc-implementazione-e-astrazione"><strong>Implementazione e
+Astrazione</strong></a></li>
+</ul></li>
+<li><a href="#notazione-esadecimale"
+id="toc-notazione-esadecimale"><strong>2. Notazione
+Esadecimale</strong></a>
+<ul>
+<li><a href="#struttura-e-simboli-del-sistema"
+id="toc-struttura-e-simboli-del-sistema"><strong>Struttura e Simboli del
+Sistema</strong></a></li>
+<li><a href="#regole-per-la-conversione-diretta"
+id="toc-regole-per-la-conversione-diretta"><strong>Regole per la
+Conversione Diretta</strong></a></li>
+<li><a href="#utilizzi-e-applicazioni-pratiche"
+id="toc-utilizzi-e-applicazioni-pratiche"><strong>Utilizzi e
+Applicazioni Pratiche</strong></a></li>
+</ul></li>
+<li><a href="#memoria-permanente-e-supporti-di-memorizzazione-di-massa"
+id="toc-memoria-permanente-e-supporti-di-memorizzazione-di-massa"><strong>3.
+Memoria Permanente e Supporti di Memorizzazione di Massa</strong></a>
+<ul>
+<li><a href="#evoluzione-dei-supporti-storici-nastri-e-schede-perforate"
+id="toc-evoluzione-dei-supporti-storici-nastri-e-schede-perforate"><strong>Evoluzione
+dei supporti storici: Nastri e Schede Perforate</strong></a></li>
+<li><a href="#dischi-magnetici-hard-disk-drive---hdd"
+id="toc-dischi-magnetici-hard-disk-drive---hdd"><strong>Dischi Magnetici
+(Hard Disk Drive - HDD)</strong></a></li>
+<li><a href="#supporti-ottici-cd-dvd-blu-ray"
+id="toc-supporti-ottici-cd-dvd-blu-ray"><strong>Supporti Ottici (CD,
+DVD, Blu-Ray)</strong></a></li>
+<li><a href="#memorie-flash-e-ssd-solid-state-drive"
+id="toc-memorie-flash-e-ssd-solid-state-drive"><strong>Memorie Flash e
+SSD (Solid-State Drive)</strong></a></li>
+</ul></li>
+<li><a href="#rappresentazione-dei-dati-testo-e-colori-rgb"
+id="toc-rappresentazione-dei-dati-testo-e-colori-rgb"><strong>4.
+Rappresentazione dei Dati: Testo e Colori (RGB)</strong></a>
+<ul>
+<li><a href="#rappresentazione-del-testo-ascii-iso-e-unicodeutf-8"
+id="toc-rappresentazione-del-testo-ascii-iso-e-unicodeutf-8"><strong>Rappresentazione
+del Testo (ASCII, ISO e Unicode/UTF-8)</strong></a></li>
+<li><a href="#rappresentazione-dei-colori-il-modello-rgb"
+id="toc-rappresentazione-dei-colori-il-modello-rgb"><strong>Rappresentazione
+dei Colori (Il Modello RGB)</strong></a></li>
+</ul></li>
+<li><a href="#architettura-e-memorizzazione-dei-bit"
+id="toc-architettura-e-memorizzazione-dei-bit"><strong>5. Architettura e
+Memorizzazione dei Bit</strong></a>
+<ul>
+<li><a href="#operazioni-booleane-di-base"
+id="toc-operazioni-booleane-di-base"><strong>Operazioni Booleane di
+base</strong></a></li>
+<li><a href="#porte-logiche-e-tecnologia-vlsi"
+id="toc-porte-logiche-e-tecnologia-vlsi"><strong>Porte Logiche e
+tecnologia VLSI</strong></a></li>
+<li><a href="#la-memoria-principale-ram"
+id="toc-la-memoria-principale-ram"><strong>La Memoria Principale
+(RAM)</strong></a></li>
+<li><a href="#organizzazione-della-memoria-byte-e-celle"
+id="toc-organizzazione-della-memoria-byte-e-celle"><strong>Organizzazione
+della memoria, byte e celle</strong></a></li>
+<li><a href="#indirizzamento-e-operazioni-di-letturascrittura"
+id="toc-indirizzamento-e-operazioni-di-letturascrittura"><strong>Indirizzamento
+e Operazioni di lettura/scrittura</strong></a></li>
+<li><a href="#unità-di-misura-della-capacità-di-memoria"
+id="toc-unità-di-misura-della-capacità-di-memoria"><strong>Unità di
+misura della capacità di memoria</strong></a></li>
+</ul></li>
+<li><a href="#section" id="toc-section"></a></li>
+<li><a href="#codifica-e-rappresentazione-dei-dati"
+id="toc-codifica-e-rappresentazione-dei-dati"><strong>6. Codifica E
+Rappresentazione Dei Dati</strong></a>
+<ul>
+<li><a href="#file-di-testo-semplici-vs-documenti-di-word-processing"
+id="toc-file-di-testo-semplici-vs-documenti-di-word-processing"><strong>File
+di Testo Semplici vs Documenti di Word Processing</strong></a></li>
+<li><a
+href="#rappresentazione-dei-valori-numerici-ascii-vs-notazione-binaria"
+id="toc-rappresentazione-dei-valori-numerici-ascii-vs-notazione-binaria"><strong>Rappresentazione
+dei Valori Numerici (ASCII vs Notazione Binaria)</strong></a></li>
+<li><a
+href="#rappresentazione-delle-immagini-bitmap-e-grafica-vettoriale"
+id="toc-rappresentazione-delle-immagini-bitmap-e-grafica-vettoriale"><strong>Rappresentazione
+delle Immagini (Bitmap e Grafica Vettoriale)</strong></a></li>
+<li><a href="#grafica-bitmap-raster"
+id="toc-grafica-bitmap-raster"><strong>Grafica Bitmap
+(Raster)</strong></a></li>
+<li><a href="#limiti-della-bitmap-e-grafica-vettoriale"
+id="toc-limiti-della-bitmap-e-grafica-vettoriale"><strong>Limiti della
+Bitmap e Grafica Vettoriale</strong></a></li>
+<li><a href="#rappresentazione-del-suono-campionamento-audio-e-midi"
+id="toc-rappresentazione-del-suono-campionamento-audio-e-midi"><strong>Rappresentazione
+del Suono (Campionamento Audio e MIDI)</strong></a></li>
+<li><a href="#sintesi-musicale-e-standard-midi"
+id="toc-sintesi-musicale-e-standard-midi"><strong>Sintesi Musicale e
+Standard MIDI</strong></a></li>
+</ul></li>
+<li><a href="#il-sistema-numerico-binario-e-aritmetica"
+id="toc-il-sistema-numerico-binario-e-aritmetica"><strong>7. Il Sistema
+Numerico Binario e Aritmetica</strong></a>
+<ul>
+<li><a href="#notazione-posizionale-in-base-2"
+id="toc-notazione-posizionale-in-base-2"><strong>Notazione Posizionale
+in Base 2</strong></a></li>
+<li><a href="#conversioni-tra-base-2-e-base-10"
+id="toc-conversioni-tra-base-2-e-base-10"><strong>Conversioni tra Base 2
+e Base 10</strong></a></li>
+<li><a href="#conversione-da-binario-a-decimale"
+id="toc-conversione-da-binario-a-decimale"><strong>Conversione da
+Binario a Decimale</strong></a></li>
+<li><a
+href="#conversione-da-decimale-a-binario-algoritmo-delle-divisioni-successive"
+id="toc-conversione-da-decimale-a-binario-algoritmo-delle-divisioni-successive"><strong>Conversione
+da Decimale a Binario (Algoritmo delle Divisioni
+Successive)</strong></a></li>
+<li><a href="#aritmetica-binaria-e-numeri-frazionari"
+id="toc-aritmetica-binaria-e-numeri-frazionari"><strong>Aritmetica
+Binaria e Numeri Frazionari</strong></a></li>
+<li><a href="#addizione-binaria"
+id="toc-addizione-binaria"><strong>Addizione Binaria</strong></a></li>
+<li><a href="#rappresentazione-dei-numeri-frazionari-punto-radice"
+id="toc-rappresentazione-dei-numeri-frazionari-punto-radice"><strong>Rappresentazione
+dei Numeri Frazionari (Punto Radice)</strong></a></li>
+</ul></li>
+<li><a href="#rappresentazione-degli-interi-complemento-a-due-e-eccesso"
+id="toc-rappresentazione-degli-interi-complemento-a-due-e-eccesso"><strong>8.
+Rappresentazione degli interi (complemento a due e eccesso)</strong></a>
+<ul>
+<li><a href="#notazione-in-complemento-a-due-e-bit-di-segno"
+id="toc-notazione-in-complemento-a-due-e-bit-di-segno"><strong>Notazione
+in Complemento a Due e Bit di Segno</strong></a></li>
+<li><a href="#aritmetica-e-sottrazione-in-complemento-a-due"
+id="toc-aritmetica-e-sottrazione-in-complemento-a-due"><strong>Aritmetica
+e Sottrazione in Complemento a Due</strong></a></li>
+<li><a href="#il-problema-delloverflow-e-la-notazione-in-eccesso"
+id="toc-il-problema-delloverflow-e-la-notazione-in-eccesso"><strong>Il
+Problema dell'Overflow e la Notazione in Eccesso</strong></a></li>
+</ul></li>
+<li><a href="#rappresentazione-dei-numeri-frazionari-e-virgola-mobile"
+id="toc-rappresentazione-dei-numeri-frazionari-e-virgola-mobile"><strong>9.
+Rappresentazione dei numeri frazionari e virgola mobile</strong></a>
+<ul>
+<li><a href="#struttura-della-virgola-mobile-floating-point"
+id="toc-struttura-della-virgola-mobile-floating-point"><strong>Struttura
+della Virgola Mobile (Floating-Point)</strong></a></li>
+<li><a href="#normalizzazione-conversioni-e-standard-industriali"
+id="toc-normalizzazione-conversioni-e-standard-industriali"><strong>Normalizzazione,
+Conversioni e Standard Industriali</strong></a></li>
+<li><a
+href="#errori-di-troncamento-e-proprietà-dellaritmetica-in-virgola-mobile"
+id="toc-errori-di-troncamento-e-proprietà-dellaritmetica-in-virgola-mobile"><strong>Errori
+di Troncamento e Proprietà dell'Aritmetica in Virgola
+Mobile</strong></a></li>
+</ul></li>
+<li><a href="#compressione-dei-dati"
+id="toc-compressione-dei-dati"><strong>10. Compressione Dei
+Dati</strong></a>
+<ul>
+<li><a href="#tecniche-generiche-di-compressione-dei-dati"
+id="toc-tecniche-generiche-di-compressione-dei-dati"><strong>Tecniche
+Generiche di Compressione dei Dati</strong></a></li>
+<li><a href="#algoritmi-di-compressione-generica"
+id="toc-algoritmi-di-compressione-generica"><strong>Algoritmi di
+Compressione Generica</strong></a></li>
+<li><a href="#compressione-di-immagini-audio-e-video"
+id="toc-compressione-di-immagini-audio-e-video"><strong>Compressione di
+Immagini, Audio e Video</strong></a></li>
+<li><a href="#compressione-audio-e-video-mpeg-e-mp3"
+id="toc-compressione-audio-e-video-mpeg-e-mp3"><strong>Compressione
+Audio e Video: MPEG e MP3</strong></a></li>
+</ul></li>
+<li><a href="#gestione-e-correzione-degli-errori-di-comunicazione"
+id="toc-gestione-e-correzione-degli-errori-di-comunicazione"><strong>11.
+Gestione e correzione degli errori di comunicazione</strong></a>
+<ul>
+<li><a href="#rilevamento-degli-errori-e-bit-di-parità"
+id="toc-rilevamento-degli-errori-e-bit-di-parità"><strong>Rilevamento
+degli Errori e Bit di Parità</strong></a></li>
+<li><a href="#codici-di-correzione-degli-errori-e-distanza-di-hamming"
+id="toc-codici-di-correzione-degli-errori-e-distanza-di-hamming"><strong>Codici
+di Correzione degli Errori e Distanza di Hamming</strong></a></li>
+</ul></li>
+<li><a href="#logica-proposizionale-proposizioni-e-valori-di-verità"
+id="toc-logica-proposizionale-proposizioni-e-valori-di-verità"><strong>12.
+Logica Proposizionale: Proposizioni e Valori di Verità</strong></a>
+<ul>
+<li><a href="#che-cosè-la-logica-proposizionale"
+id="toc-che-cosè-la-logica-proposizionale"><strong>Che cos'è la logica
+proposizionale</strong></a></li>
+<li><a href="#che-cosa-non-è-una-proposizione"
+id="toc-che-cosa-non-è-una-proposizione"><strong>Che cosa non è una
+proposizione</strong></a></li>
+<li><a href="#le-variabili-proposizionali"
+id="toc-le-variabili-proposizionali"><strong>Le variabili
+proposizionali</strong></a></li>
+<li><a href="#perché-si-parla-di-valori-booleani"
+id="toc-perché-si-parla-di-valori-booleani"><strong>Perché si parla di
+valori booleani</strong></a></li>
+</ul></li>
+<li><a href="#section-1" id="toc-section-1"></a></li>
+<li><a href="#i-connettivi-and-or-not-xor-ed-equivalenza"
+id="toc-i-connettivi-and-or-not-xor-ed-equivalenza"><strong>13. I
+Connettivi: And, Or, Not, Xor ed Equivalenza</strong></a>
+<ul>
+<li><a href="#combinare-le-proposizioni"
+id="toc-combinare-le-proposizioni"><strong>Combinare le
+proposizioni</strong></a></li>
+<li><a href="#la-congiunzione-and"
+id="toc-la-congiunzione-and"><strong>La congiunzione
+(and)</strong></a></li>
+<li><a href="#la-disgiunzione-or-e-il-caso-dellxor"
+id="toc-la-disgiunzione-or-e-il-caso-dellxor"><strong>La disgiunzione
+(or) e il caso dell'xor</strong></a></li>
+<li><a href="#la-negazione-not" id="toc-la-negazione-not"><strong>La
+negazione (not)</strong></a></li>
+<li><a href="#equivalenza-e-xor"
+id="toc-equivalenza-e-xor"><strong>Equivalenza e xor</strong></a></li>
+<li><a href="#le-tavole-di-questi-connettivi"
+id="toc-le-tavole-di-questi-connettivi"><strong>Le tavole di questi
+connettivi</strong></a></li>
+<li><a href="#notazioni-diverse-per-lo-stesso-connettivo"
+id="toc-notazioni-diverse-per-lo-stesso-connettivo"><strong>Notazioni
+diverse per lo stesso connettivo</strong></a></li>
+<li><a href="#la-precedenza-degli-operatori"
+id="toc-la-precedenza-degli-operatori"><strong>La precedenza degli
+operatori</strong></a></li>
+</ul></li>
+<li><a href="#section-2" id="toc-section-2"></a></li>
+<li><a href="#le-tavole-di-verità"
+id="toc-le-tavole-di-verità"><strong>14. Le Tavole di
+Verità</strong></a>
+<ul>
+<li><a href="#a-che-cosa-servono" id="toc-a-che-cosa-servono"><strong>A
+che cosa servono</strong></a></li>
+<li><a href="#quante-righe-ci-sono"
+id="toc-quante-righe-ci-sono"><strong>Quante righe ci
+sono</strong></a></li>
+</ul></li>
+<li><a href="#section-3" id="toc-section-3"></a></li>
+<li><a href="#equivalenze-tautologie-e-contraddizioni"
+id="toc-equivalenze-tautologie-e-contraddizioni"><strong>15.
+Equivalenze, Tautologie e Contraddizioni</strong></a>
+<ul>
+<li><a href="#formule-equivalenti"
+id="toc-formule-equivalenti"><strong>Formule
+equivalenti</strong></a></li>
+<li><a href="#esempio-la-negazione-di-una-disgiunzione"
+id="toc-esempio-la-negazione-di-una-disgiunzione"><strong>Esempio: la
+negazione di una disgiunzione</strong></a></li>
+<li><a href="#tautologie-e-contraddizioni"
+id="toc-tautologie-e-contraddizioni"><strong>Tautologie e
+contraddizioni</strong></a></li>
+<li><a href="#esempi-svolti-a-lezione"
+id="toc-esempi-svolti-a-lezione"><strong>Esempi svolti a
+lezione</strong></a></li>
+<li><a href="#perché-le-tavole-non-bastano-sempre"
+id="toc-perché-le-tavole-non-bastano-sempre"><strong>Perché le tavole
+non bastano sempre</strong></a></li>
+</ul></li>
+<li><a href="#limplicazione-condizionale"
+id="toc-limplicazione-condizionale"><strong>16. L'Implicazione
+(Condizionale)</strong></a>
+<ul>
+<li><a href="#da-dove-si-riparte" id="toc-da-dove-si-riparte"><strong>Da
+dove si riparte</strong></a></li>
+<li><a href="#il-significato-dellimplicazione-materiale-e-non-causale"
+id="toc-il-significato-dellimplicazione-materiale-e-non-causale"><strong>Il
+significato dell'implicazione: materiale e non causale</strong></a></li>
+<li><a href="#la-notazione-e-la-tavola-di-verità"
+id="toc-la-notazione-e-la-tavola-di-verità"><strong>La notazione e la
+tavola di verità</strong></a></li>
+<li><a href="#vero-per-difetto" id="toc-vero-per-difetto"><strong>Vero
+per difetto</strong></a></li>
+<li><a href="#limplicazione-come-test-dordine"
+id="toc-limplicazione-come-test-dordine"><strong>L'implicazione come
+test d'ordine</strong></a></li>
+<li><a href="#la-precedenza" id="toc-la-precedenza"><strong>La
+precedenza</strong></a></li>
+<li><a href="#alcuni-esempi-di-valutazione"
+id="toc-alcuni-esempi-di-valutazione"><strong>Alcuni esempi di
+valutazione</strong></a></li>
+</ul></li>
+<li><a href="#section-4" id="toc-section-4"></a></li>
+<li><a href="#conversa-contrapposta-condizioni-necessarie-e-sufficienti"
+id="toc-conversa-contrapposta-condizioni-necessarie-e-sufficienti"><strong>17.
+Conversa, Contrapposta, Condizioni Necessarie e Sufficienti</strong></a>
+<ul>
+<li><a href="#le-forme-correlate-a-unimplicazione"
+id="toc-le-forme-correlate-a-unimplicazione"><strong>Le forme correlate
+a un'implicazione</strong></a></li>
+<li><a href="#la-conversa-non-è-equivalente"
+id="toc-la-conversa-non-è-equivalente"><strong>La conversa non è
+equivalente</strong></a></li>
+<li><a href="#la-contrapposta-è-equivalente"
+id="toc-la-contrapposta-è-equivalente"><strong>La contrapposta è
+equivalente</strong></a></li>
+<li><a href="#condizioni-necessarie-e-condizioni-sufficienti"
+id="toc-condizioni-necessarie-e-condizioni-sufficienti"><strong>Condizioni
+necessarie e condizioni sufficienti</strong></a></li>
+<li><a href="#come-si-traduce-dal-linguaggio-naturale"
+id="toc-come-si-traduce-dal-linguaggio-naturale"><strong>Come si traduce
+dal linguaggio naturale</strong></a></li>
+</ul></li>
+<li><a href="#section-5" id="toc-section-5"></a></li>
+<li><a
+href="#il-bicondizionale-lequivalenza-e-le-riscritture-dellimplicazione"
+id="toc-il-bicondizionale-lequivalenza-e-le-riscritture-dellimplicazione"><strong>18.
+Il Bicondizionale, l'Equivalenza e le Riscritture
+dell'Implicazione</strong></a>
+<ul>
+<li><a href="#lequivalenza-logica"
+id="toc-lequivalenza-logica"><strong>L'equivalenza
+logica</strong></a></li>
+<li><a href="#il-bicondizionale-e-le-due-implicazioni"
+id="toc-il-bicondizionale-e-le-due-implicazioni"><strong>Il
+bicondizionale e le due implicazioni</strong></a></li>
+<li><a href="#limplicazione-si-può-scrivere-con-altri-connettivi"
+id="toc-limplicazione-si-può-scrivere-con-altri-connettivi"><strong>L'implicazione
+si può scrivere con altri connettivi</strong></a></li>
+<li><a href="#section-6" id="toc-section-6"></a></li>
+<li><a href="#le-leggi-di-de-morgan-e-la-dualità"
+id="toc-le-leggi-di-de-morgan-e-la-dualità"><strong>Le leggi di De
+Morgan e la dualità</strong></a></li>
+<li><a href="#il-limite-delle-tavole-di-verità"
+id="toc-il-limite-delle-tavole-di-verità"><strong>Il limite delle tavole
+di verità</strong></a></li>
+</ul></li>
+<li><a href="#section-7" id="toc-section-7"></a></li>
+<li><a href="#argomenti-e-regole-di-inferenza"
+id="toc-argomenti-e-regole-di-inferenza"><strong>19. Argomenti e Regole
+di Inferenza</strong></a>
+<ul>
+<li><a href="#il-ragionamento-deduttivo"
+id="toc-il-ragionamento-deduttivo"><strong>Il ragionamento
+deduttivo</strong></a></li>
+<li><a href="#argomento-valido"
+id="toc-argomento-valido"><strong>Argomento valido</strong></a></li>
+<li><a href="#come-si-verifica-la-validità"
+id="toc-come-si-verifica-la-validità"><strong>Come si verifica la
+validità</strong></a></li>
+<li><a href="#section-8" id="toc-section-8"></a></li>
+<li><a href="#section-9" id="toc-section-9"></a></li>
+<li><a href="#section-10" id="toc-section-10"></a></li>
+<li><a href="#le-regole-di-inferenza-per-le-proposizioni"
+id="toc-le-regole-di-inferenza-per-le-proposizioni"><strong>Le regole di
+inferenza per le proposizioni</strong></a></li>
+<li><a href="#una-fallacia-frequente-affermare-la-conclusione"
+id="toc-una-fallacia-frequente-affermare-la-conclusione"><strong>Una
+fallacia frequente: affermare la conclusione</strong></a></li>
+<li><a href="#argomenti-in-più-passaggi"
+id="toc-argomenti-in-più-passaggi"><strong>Argomenti in più
+passaggi</strong></a></li>
+<li><a href="#un-consiglio-pratico"
+id="toc-un-consiglio-pratico"><strong>Un consiglio
+pratico</strong></a></li>
+</ul></li>
+<li><a href="#section-11" id="toc-section-11"></a></li>
+<li><a href="#predicati-dominio-del-discorso-e-variabili"
+id="toc-predicati-dominio-del-discorso-e-variabili"><strong>20.
+Predicati, Dominio del Discorso e Variabili</strong></a>
+<ul>
+<li><a href="#perché-non-basta-la-logica-proposizionale"
+id="toc-perché-non-basta-la-logica-proposizionale"><strong>Perché non
+basta la logica proposizionale</strong></a></li>
+<li><a href="#funzione-proposizionale-o-predicato"
+id="toc-funzione-proposizionale-o-predicato"><strong>Funzione
+proposizionale (o predicato)</strong></a></li>
+<li><a href="#variabile-libera-e-variabile-legata"
+id="toc-variabile-libera-e-variabile-legata"><strong>Variabile libera e
+variabile legata</strong></a></li>
+</ul></li>
+<li><a href="#section-12" id="toc-section-12"></a></li>
+<li><a href="#il-quantificatore-universale"
+id="toc-il-quantificatore-universale"><strong>21. Il Quantificatore
+Universale</strong></a>
+<ul>
+<li><a href="#la-definizione" id="toc-la-definizione"><strong>La
+definizione</strong></a></li>
+<li><a href="#il-dominio-cambia-il-valore-di-verità"
+id="toc-il-dominio-cambia-il-valore-di-verità"><strong>Il dominio cambia
+il valore di verità</strong></a></li>
+<li><a href="#come-si-dimostra-che-x-px-è-vero"
+id="toc-come-si-dimostra-che-x-px-è-vero"><strong>Come si dimostra che
+∀x P(x) è vero</strong></a></li>
+<li><a href="#un-algoritmo-per-decidere-x-px-su-un-dominio-finito"
+id="toc-un-algoritmo-per-decidere-x-px-su-un-dominio-finito"><strong>Un
+algoritmo per decidere ∀x P(x) su un dominio finito</strong></a></li>
+</ul></li>
+<li><a href="#section-13" id="toc-section-13"></a></li>
+<li><a
+href="#il-quantificatore-esistenziale-e-le-leggi-di-de-morgan-per-i-quantificatori"
+id="toc-il-quantificatore-esistenziale-e-le-leggi-di-de-morgan-per-i-quantificatori"><strong>22.
+Il Quantificatore Esistenziale e le Leggi di De Morgan per i
+Quantificatori</strong></a>
+<ul>
+<li><a href="#la-definizione-1" id="toc-la-definizione-1"><strong>La
+definizione</strong></a></li>
+<li><a href="#esempi" id="toc-esempi"><strong>Esempi</strong></a></li>
+<li><a href="#un-algoritmo-per-decidere-x-px-su-un-dominio-finito-1"
+id="toc-un-algoritmo-per-decidere-x-px-su-un-dominio-finito-1"><strong>Un
+algoritmo per decidere ∃x P(x) su un dominio finito</strong></a></li>
+<li><a href="#duali-congiunzione-e-disgiunzione"
+id="toc-duali-congiunzione-e-disgiunzione"><strong>Duali, congiunzione e
+disgiunzione</strong></a></li>
+<li><a href="#le-leggi-di-de-morgan-per-i-quantificatori"
+id="toc-le-leggi-di-de-morgan-per-i-quantificatori"><strong>Le leggi di
+De Morgan per i quantificatori</strong></a></li>
+<li><a href="#la-negazione-nel-linguaggio-naturale"
+id="toc-la-negazione-nel-linguaggio-naturale"><strong>La negazione nel
+linguaggio naturale</strong></a></li>
+</ul></li>
+</ul>
+</nav>
+<main><article>
+<h1 id="circuiti-sequenziali-e-memoria-temporanea-flip-flop"><strong>1.
+Circuiti Sequenziali e Memoria Temporanea (Flip-Flop)</strong></h1>
+<p>A differenza dei <strong>circuiti combinatori</strong>, nei quali il
+segnale scorre esclusivamente dagli ingressi verso le uscite e il
+risultato finale dipende soltanto dagli input presenti in quel preciso
+istante, i <strong>circuiti sequenziali</strong> sono in grado di
+<mark>tenere traccia degli eventi passati</mark>. In questi sistemi,
+l'uscita prodotta è <mark>funzione sia degli ingressi correnti sia dello
+stato interno accumulato dal circuito</mark>.</p>
+<p><strong>In parole povere:</strong> un circuito combinatorio è come
+una calcolatrice: guarda solo quello che premi adesso. Un circuito
+sequenziale è come un contatore con la memoria: la sua risposta dipende
+anche da quello che è successo prima, perché si porta dentro un ricordo
+(lo stato). Esempio: l'ascensore che si ricorda a che piano si
+trova.</p>
+<h2 id="il-principio-della-memoria-circolante"><strong>Il principio
+della memoria circolante</strong></h2>
+<p>Per conservare un'informazione nel tempo anziché lasciarla scorrere
+via, la struttura dei circuiti sequenziali introduce dei
+<mark><strong>cicli di retroazione</strong> (<em>feedback
+loop</em>)</mark>. L'idea fondamentale consiste nel <mark>far circolare
+continuamente il segnale elettrico all'interno del circuito per
+mantenere memorizzato un singolo bit.</mark></p>
+<p><strong>In parole povere:</strong> il feedback è un'uscita che viene
+rimandata all'ingresso, come quando il microfono capta il suono
+dell'altoparlante e lo ripete in continuazione. Questo girare in tondo
+del segnale è proprio ciò che permette al circuito di tenersi dentro un
+bit invece di lasciarlo scappare.</p>
+<p><strong>Volatilità della memoria</strong>: questa architettura
+costituisce la base della <mark>memoria temporanea</mark> (o volatile)
+del computer. Tali circuiti <mark>richiedono un'erogazione costante di
+corrente elettrica per mantenere attivo il ciclo del segnale</mark>; nel
+momento in cui l'alimentazione viene interrotta, l'informazione
+svanisce.</p>
+<p><strong>In parole povere:</strong> volatile vuol dire che il ricordo
+dura solo finché c'è corrente, come un appunto scritto sulla sabbia con
+il mare che arriva. Se stacchi la spina il segnale smette di girare e il
+bit sparisce.</p>
+<h2 id="funzionamento-logico-del-flip-flop"><strong>Funzionamento logico
+del Flip-Flop</strong></h2>
+<p>Il <strong>flip-flop</strong> è il <mark>circuito elettronico
+fondamentale utilizzato dai calcolatori come unità elementare per
+memorizzare un singolo bit (0 o 1)</mark>. Il suo comportamento è
+gestito tramite precisi comandi logici in ingresso:</p>
+<p><strong>In parole povere:</strong> il flip-flop è un piccolo
+interruttore con memoria: ha due pulsanti, uno per mettere il bit a 1 e
+uno per metterlo a 0. Dopo che hai lasciato il pulsante, il circuito si
+ricorda l'ultimo valore scelto, come una levetta che resta su o giù
+finché qualcuno non la sposta.</p>
+<ul>
+<li><p><strong><mark>Scrittura di 1</mark></strong>: l'applicazione
+temporanea di un impulso sul comando dedicato forza l'uscita del
+circuito al valore 1.</p></li>
+<li><p><strong><mark>Scrittura di 0</mark></strong>: un impulso sul
+relativo ingresso imposta l'uscita al valore 0.</p></li>
+<li><p><mark><strong>Mantenimento o Preservazione (00)</strong>:</mark>
+quando il comando di scrittura viene rilasciato e gli ingressi tornano a
+zero, il circuito entra in stato di preservazione. <mark>Il segnale
+interno si autosostiene, garantendo che l'uscita rimanga
+invariata</mark> al valore memorizzato finché non arriva un nuovo
+comando.</p></li>
+<li><p><mark><strong>Comandi non leciti (11)</strong>:</mark> inviare
+simultaneamente il segnale di <mark>memorizzazione di 1 e di 0
+costituisce una condizione d'errore non prevista,</mark> che porta il
+flip-flop a comportarsi in modo instabile o inaffidabile.</p></li>
+</ul>
+<h2 id="implementazione-e-astrazione"><strong>Implementazione e
+Astrazione</strong></h2>
+<p>Un flip-flop può essere costruito fisicamente <mark>collegando
+diverse porte logiche di base</mark> (come porte OR, AND e NOT, oppure
+porte NAND e NOR) tramite connessioni incrociate.</p>
+<p>Nella progettazione hardware si applica il <mark>principio
+dell'<strong>astrazione</strong></mark>: i progettisti utilizzano il
+flip-flop come un componente astratto di livello superiore, ignorando la
+sua combinazione interna di porte logiche e concentrandosi solo sulle
+sue proprietà operative esterne. Attraverso la tecnologia
+<strong>VLSI</strong> (<em>Very Large-Scale Integration</em>), miliardi
+di questi piccoli circuiti di memoria vengono integrati su un singolo
+chip di silicio per costituire i moduli della memoria principale.</p>
+<p><strong>In parole povere:</strong> astrazione significa usare un
+oggetto sapendo cosa fa ma non com'è fatto dentro. Come guidare un'auto
+senza conoscere il motore: il progettista usa il flip-flop come una
+scatola nera che memorizza un bit e non pensa più alle porte logiche
+interne.</p>
+<h1 id="notazione-esadecimale"><strong>2. Notazione
+Esadecimale</strong></h1>
+<p>La <strong>notazione esadecimale</strong> (sistema numerico in
+<mark>base 16</mark>) nasce da un'esigenza strettamente pratica:
+<mark>semplificare la lettura, la scrittura e la gestione delle lunghe
+sequenze di bit (0 e 1)</mark> da parte degli esseri umani. Poiché
+trascrivere o interpretare manualmente uno <em>stream</em> continuo di
+bit è un'operazione lenta e soggetta a errori, si utilizza l'esadecimale
+come una comoda <mark>"scorciatoia"</mark> o forma abbreviata.</p>
+<p><strong>In parole povere:</strong> il sistema esadecimale è
+un'abbreviazione per scrivere i bit: invece di scrivere quattro bit alla
+volta si scrive un solo simbolo (0-9 e A-F). Esempio: 1111 diventa F e
+1010 diventa A, così una lunga fila di 0 e 1 diventa corta e leggibile.
+Il computer resta binario, è solo una comodità per noi.</p>
+<p><mark>All'interno del calcolatore i dati rimangono sempre memorizzati
+in formato binario</mark>; l'esadecimale è soltanto una rappresentazione
+sintetica ad uso dei programmatori e dei progettisti.</p>
+<h2 id="struttura-e-simboli-del-sistema"><strong>Struttura e Simboli del
+Sistema</strong></h2>
+<p>Il sistema esadecimale sfrutta il fatto che la memoria e le
+<mark>strutture dati dei calcolatori organizzano i bit in gruppi o
+multipli di 4</mark>. Poiché con 4 bit è possibile rappresentare
+esattamente 2<sup>4</sup> = 16 combinazioni diverse (da 0000 a 1111),
+<mark>ciascuna cifra esadecimale corrisponde in modo univoco a un blocco
+di 4 bit.</mark></p>
+<p>Per rappresentare i 16 diversi valori si utilizzano 16 simboli:</p>
+<ul>
+<li><p><strong>Cifre da 0 a 9</strong>: rappresentano i valori decimali
+da 0 a 9 (con le combinazioni binarie da 0000 a 1001).</p></li>
+<li><p><strong>Lettere da A ad F</strong>: rappresentano i valori
+decimali da 10 a 15:</p>
+<ul>
+<li><p>A = 10 (1010)</p></li>
+<li><p>B = 11 (1011)</p></li>
+<li><p>C = 12 (1100)</p></li>
+<li><p>D = 13 (1101)</p></li>
+<li><p>E = 14 (1110)</p></li>
+<li><p>F = 15 (1111)</p></li>
+</ul></li>
+</ul>
+<h2 id="regole-per-la-conversione-diretta"><strong>Regole per la
+Conversione Diretta</strong></h2>
+<p>Il vantaggio principale dell'esadecimale rispetto al sistema decimale
+risiede <mark>nella facilità di conversione diretta con il
+binario</mark>, che non richiede calcoli matematici complessi ma una
+semplice mappatura:</p>
+<ol type="1">
+<li><p><strong>Da Binario ad Esadecimale</strong>: la <mark>stringa di
+bit viene suddivisa in blocchi di 4 bit</mark> (partendo da destra verso
+sinistra). Ciascun blocco di 4 bit viene poi <mark>sostituito dal
+corrispondente simbolo esadecimale.</mark></p>
+<ul>
+<li><p><em>Esempio</em>: la sequenza a 8 bit 10110101<sub>2</sub> si
+divide in 1011<sub>2</sub> e 0101<sub>2</sub>, ottenendo la sigla
+esadecimale <strong>B5</strong><sub>16</sub>.</p></li>
+</ul></li>
+</ol>
+<p><img src="./media/image1.png"
+style="width:3.93701in;height:1.83727in" /></p>
+<p><em>Da binario a esadecimale: blocchi da 4 bit, ciascuno diventa una
+cifra.</em></p>
+<ul>
+<li><p><em>Esempio a 16 bit</em>: il pattern
+1010010011001000<sub>2</sub> si suddivide nei quattro blocchi
+1010<sub>2</sub> (A), 0100<sub>2</sub> (4), 1100<sub>2</sub> (C) e
+1000<sub>2</sub> (8), riducendosi alla forma sintetica
+<strong>A4C8</strong><sub>16</sub>.</p></li>
+</ul>
+<ol start="2" type="1">
+<li><p><strong>Da Esadecimale a Binario</strong>: si esegue il
+procedimento inverso, <mark>sostituendo ogni singola cifra esadecimale
+con la sua precisa sequenza di 4 bit</mark>.</p>
+<ul>
+<li><p><em>Esempio</em>: il simbolo 0 diventa 0000, la cifra 1 diventa
+0001 e la lettera F diventa 1111.</p></li>
+</ul></li>
+</ol>
+<h2 id="utilizzi-e-applicazioni-pratiche"><strong>Utilizzi e
+Applicazioni Pratiche</strong></h2>
+<p><mark><strong>Rappresentazione dei Colori (RGB)</strong>:</mark> nei
+sistemi digitali, un colore in formato RGB a <mark>24 bit</mark> è
+composto da <mark>3 canali da 8 bit ciascuno (Rosso, Verde e
+Blu)</mark>. Anziché scrivere una confusa sequenza di 24 cifre binarie,
+il colore viene abbreviato con sole <mark>6 cifre esadecimali</mark> (2
+cifre per canale).</p>
+<p><mark><strong>Indirizzi di Memoria</strong>:</mark> la memoria
+principale è organizzata in <mark>celle con indirizzi numerici
+univoci</mark>. L'esadecimale è lo standard per esprimere tali indirizzi
+in modo compatto.</p>
+<p><strong><mark>Notazione nei Linguaggi di
+Programmazione</mark></strong>: nei linguaggi come Python, i valori
+esadecimali vengono identificati prefissandoli con la notazione
+<strong>0x</strong> (ad esempio 0xFF, che corrisponde al valore decimale
+255).</p>
+<h1
+id="memoria-permanente-e-supporti-di-memorizzazione-di-massa"><strong>3.
+Memoria Permanente e Supporti di Memorizzazione di Massa</strong></h1>
+<p>Mentre la memoria principale (RAM) è volatile e richiede un flusso
+costante di corrente per mantenere attivi i segnali nei flip-flop, i
+<mark><strong>supporti di memorizzazione di massa</strong> nascono per
+garantire la conservazione permanente</mark> (non volatile) <mark>dei
+dati nel tempo</mark>, consentendone il recupero anche a computer
+spento. Per questo si parla anche di memoria secondaria, caratterizzata
+da non volatilità, alta capacità e costi contenuti.</p>
+<p><strong>In parole povere:</strong> la memoria secondaria (o di massa)
+è l'archivio del computer: dischi, chiavette, SSD. Costa poco, contiene
+tanto e non dimentica quando spegni, a differenza della RAM che è come
+il banco di lavoro che si svuota a fine giornata.</p>
+<h2
+id="evoluzione-dei-supporti-storici-nastri-e-schede-perforate"><strong>Evoluzione
+dei supporti storici: Nastri e Schede Perforate</strong></h2>
+<p>Nei primi decenni dell'informatica, <mark>i dati venivano memorizzati
+su schede perforate e successivamente su <strong>nastri
+magnetici</strong></mark>.</p>
+<p><strong>Svantaggio principale (Accesso Sequenziale)</strong>: Per
+recuperare un'informazione specifica occorre <mark>riavvolgere o
+scorrere l'intero nastro fino al punto desiderato</mark>. Questo
+processo comporta <mark>lunghi tempi di attesa e un costante logorio
+meccanico</mark> dovuto allo sfregamento del nastro sui supporti di
+lettura.</p>
+<p><strong>In parole povere:</strong> accesso sequenziale vuol dire che
+per arrivare a un dato devi passare per tutti quelli che lo precedono,
+come cercare una canzone su una cassetta riavvolgendo il nastro.
+L'accesso diretto, invece, permette di saltare subito al punto giusto,
+come scegliere una traccia su un CD.</p>
+<h2 id="dischi-magnetici-hard-disk-drive---hdd"><strong>Dischi Magnetici
+(Hard Disk Drive - HDD)</strong></h2>
+<p>I dischi magnetici hanno rappresentato un'evoluzione fondamentale,
+<mark>introducendo la possibilità di effettuare un <strong>accesso
+diretto e mirato</strong> ai dati</mark>.</p>
+<p><strong>Struttura fisica</strong>: Il dispositivo è <mark>composto da
+uno o più piatti magnetici in rapida rotazione</mark>. La superficie di
+ogni piatto è organizzata in <strong>tracce concentriche</strong> (e non
+a spirale), ciascuna suddivisa in archi definiti
+<strong>settori</strong>. L'insieme delle tracce poste alla stessa
+distanza dal centro su più piatti sovrapposti forma un
+<strong>cilindro</strong>. Ogni settore contiene una quantità fissa di
+dati (tipicamente da 512 byte a pochi KB).</p>
+<p><strong>In parole povere:</strong> immagina un disco di vinile: le
+tracce sono i cerchi concentrici, i settori sono le fette di torta in
+cui ogni cerchio viene tagliato (ogni fetta contiene una quantità fissa
+di dati), il cilindro è la pila delle tracce alla stessa distanza dal
+centro nei vari piatti, come una colonna di anelli uguali impilati.</p>
+<p><img src="./media/image2.png"
+style="width:3.14961in;height:2.75643in" /></p>
+<p><em>Piatto di un disco rigido: tracce concentriche divise in settori,
+e la testina.</em></p>
+<p><strong>Zoned-Bit Recording</strong>: per ottimizzare lo spazio nei
+dischi ad alta capacità, le tracce esterne (più lunghe) contengono un
+numero maggiore di settori rispetto a quelle interne.</p>
+<p><strong>In parole povere:</strong> le tracce esterne sono più lunghe
+di quelle interne, quindi ci stanno più dati. Con lo zoned-bit recording
+il disco sfrutta questa maggior lunghezza dando più settori alle tracce
+esterne, invece di sprecare spazio con lo stesso numero ovunque. È come
+mettere più posti a sedere nelle file più larghe di un teatro.</p>
+<p><strong>Assenza di usura del dato</strong>: La <mark>testina di
+lettura/scrittura "fluttua" a piccolissima distanza dalla superficie
+senza mai toccarla fisicamente</mark>. Ciò consente di
+s<mark>magnetizzare e rimagnetizzare i dati un numero illimitato di
+volte</mark> senza che la superficie si usuri.</p>
+<p><strong>Protezione dai guasti</strong>: per evitare guasti
+catastrofici (head crash) causati dalla polvere, i dischi rigidi sono
+sigillati in fabbrica.</p>
+<p><strong>Tempi di prestazione</strong>:</p>
+<ol type="1">
+<li><p><em><mark>Tempo di ricerca</mark> (Seek Time)</em>: Il tempo
+necessario alla testina per posizionarsi sulla traccia
+corretta.</p></li>
+</ol>
+<p><strong>In parole povere:</strong> il seek time è il tempo che la
+testina impiega a spostarsi sulla traccia giusta, come il braccio del
+giradischi che si posa sul solco voluto.</p>
+<ol start="2" type="1">
+<li><p><em><mark>Latenza di rotazione</mark> (Latency)</em>: Il tempo
+impiegato dal disco per far ruotare il settore desiderato sotto la
+testina.</p></li>
+</ol>
+<p><strong>In parole povere:</strong> la latenza è l'attesa, dopo che la
+testina è arrivata sulla traccia, perché il disco giri finché il settore
+voluto le passa sotto. Pensa di aspettare che passi il tuo posto su una
+giostra che gira.</p>
+<ol start="3" type="1">
+<li><p><em><mark>Tempo di accesso</mark> (Access Time)</em>: La somma di
+tempo di ricerca e latenza.</p></li>
+</ol>
+<p><strong>In parole povere:</strong> è il tempo totale per raggiungere
+un dato: prima sposti la testina, poi aspetti che il disco giri. Quindi
+tempo di ricerca più latenza.</p>
+<ol start="4" type="1">
+<li><p><strong>Velocità di trasferimento (Transfer Rate)</strong>: la
+velocità con cui i dati vengono trasferiti da o verso il disco.</p></li>
+</ol>
+<p><strong>In parole povere:</strong> è la velocità con cui, una volta
+trovato il dato, questo scorre dal disco al computer (o viceversa), un
+po' come la portata di un rubinetto una volta aperto.</p>
+<h2 id="supporti-ottici-cd-dvd-blu-ray"><strong>Supporti Ottici (CD,
+DVD, Blu-Ray)</strong></h2>
+<p>Sviluppati a partire dagli anni '80, i dischi ottici utilizzano un
+<mark>raggio <strong>laser</strong> per rilevare le variazioni di
+riflettenza incise sul supporto</mark>.</p>
+<p><strong>Geometria a spirale</strong>: A differenza degli HDD, i dati
+nei CD e DVD sono <mark>disposti lungo <strong>un'unica traccia a
+spirale</strong> che parte dal centro e procede verso l'esterno</mark>.
+Questa struttura li rende <mark>ideali per la riproduzione di flussi
+continui di dati</mark> (come brani audio o video), ma meno efficienti
+per l'accesso casuale frequente.</p>
+<p><img src="./media/image3.png"
+style="width:2.75591in;height:2.97843in" /></p>
+<p><em>In un CD i dati stanno su un'unica traccia a spirale.</em></p>
+<p><strong>Evoluzione tecnologica</strong>:</p>
+<ul>
+<li><p><strong>CD</strong>: <mark>Strato singolo</mark>, con capacità
+tipica attorno ai <mark>600–700 MB.</mark></p></li>
+<li><p><strong>DVD</strong>: Capacità nell'ordine dei
+<mark>Gigabyte</mark>, ottenuta <mark>sovrapponendo più strati
+semitrasparenti</mark> letti da laser con messe a fuoco
+differenti.</p></li>
+<li><p><strong>Blu-ray (BD)</strong>: Sfrutta un laser nella frequenza
+del blu-violetto (lunghezza d'onda inferiore e maggiore energia) che
+permette una <mark>precisione di focalizzazione molto più elevata e
+capacità oltre cinque volte quella di un DVD (25 GB a strato singolo,
+fino a 50 GB a doppio strato).</mark></p></li>
+</ul>
+<h2 id="memorie-flash-e-ssd-solid-state-drive"><strong>Memorie Flash e
+SSD (Solid-State Drive)</strong></h2>
+<p>Rappresentano la tecnologia di <mark>memorizzazione di massa più
+moderna</mark>, completamente <mark>priva di parti meccaniche in
+movimento</mark>. Gli SSD (Solid-State Drive) sono destinati a
+rimpiazzare gli HDD nei computer.</p>
+<p><strong>Principio di funzionamento</strong>: I dati vengono
+<mark>memorizzati applicando impulsi elettrici</mark> che "intrappolano"
+gli elettroni all'interno di microscopiche camere di diossido di
+silicio. <mark>Gli elettroni rimangono catturati per anni anche in
+assenza di alimentazione elettrica</mark>.</p>
+<p><strong>Vantaggi</strong>: Accesso ai dati quasi istantaneo
+<mark>(velocità elettronica)</mark>, <mark>assoluta silenziosità e
+resistenza agli urti o alle vibrazioni fisiche</mark>.</p>
+<p><strong>Limitazione ed erosione</strong>: A differenza degli HDD, le
+memorie Flash <mark>richiedono la cancellazione a grandi blocchi e ogni
+ciclo di scrittura/cancellazione provoca un microscopico degrado fisico
+delle trappole di silicio.</mark></p>
+<p><strong>La tecnica del Wear-Leveling</strong>: <mark>Per prevenire il
+guasto di celle riscritte troppo di frequente</mark> (ad esempio per
+l'aggiornamento continuo di piccole informazioni), i controller degli
+SSD <mark>distribuiscono uniformemente i dati ridistribuendoli su
+blocchi di memoria differenti</mark>, prolungando così la vita operativa
+del dispositivo.</p>
+<p><strong>In parole povere:</strong> se scrivi sempre sulle stesse
+celle quelle si consumano prima delle altre. Il wear-leveling è la
+tattica del controller dell'SSD di far girare le scritture su tutte le
+celle, come ruotare le gomme dell'auto per farle consumare in modo
+uniforme.</p>
+<p><strong>Schede di memoria</strong>: la tecnologia Flash è impiegata
+anche nelle schede SD, SDHC (fino a 32 GB) e SDXC (fino a oltre 1 TB),
+ampiamente usate in smartphone e fotocamere.</p>
+<h1 id="rappresentazione-dei-dati-testo-e-colori-rgb"><strong>4.
+Rappresentazione dei Dati: Testo e Colori (RGB)</strong></h1>
+<p>Per consentire a un calcolatore di elaborare informazioni del mondo
+reale — come parole e immagini — occorre codificare ciascuna tipologia
+di dato sotto forma di <mark>sequenze o <em>pattern</em> di bit 0 e
+1</mark>.</p>
+<h2
+id="rappresentazione-del-testo-ascii-iso-e-unicodeutf-8"><strong>Rappresentazione
+del Testo (ASCII, ISO e Unicode/UTF-8)</strong></h2>
+<p>I testi vengono memorizzati convertendo <mark>ciascun simbolo</mark>
+(lettere, cifre numeriche, segni di punteggiatura e caratteri di
+controllo) <mark>in una specifica sequenza binaria</mark>.</p>
+<p><strong><mark>Codice ASCII</mark></strong>: negli anni '40 e '50
+esistevano molti codici tra loro incompatibili; per standardizzare la
+comunicazione tra macchine diverse l'ANSI (American National Standards
+Institute) adottò il codice <strong>ASCII</strong> (<em>American
+Standard Code for Information Interchange), che utilizzava
+originariamente</em> sequenze di <strong>7 bit</strong>, capaci di
+rappresentare 2<sup>7</sup> = 128 simboli dell'alfabeto inglese. Per
+integrarsi nei moderni calcolatori organizzati a byte, è stato
+successivamente portato a <strong><mark>8 bit</mark></strong>
+(aggiungendo uno 0 iniziale). Questo ha reso disponibili ulteriori 128
+combinazioni per estensioni regionali.</p>
+<p><strong>In parole povere:</strong> ASCII è una tabella che associa a
+ogni lettera, cifra o segno un numero a 7 bit (poi esteso a 8), come un
+codice Morse in cui ogni carattere ha la sua sequenza. Esempio: la
+lettera A è sempre lo stesso pattern di bit, in tutti i computer che
+usano l'ASCII.</p>
+<ul>
+<li><p><strong><mark>Estensioni ISO</mark> e i loro limiti</strong>:
+L'estensione dell'ASCII tramite standard ISO ha permesso di
+<mark>includere simboli dei linguaggi europei occidentali</mark> (come
+vocali accentate o simboli monetari). Tuttavia, <mark>256 combinazioni
+totali sono del tutto insufficienti</mark> per coprire alfabeti
+complessi o ideogrammi orientali (come il cinese o il giapponese) e non
+consentivano di gestire documenti multilingue.</p></li>
+<li><p><strong><mark>Unicode e UTF-8</mark></strong>: Per superare
+questi vincoli è stato creato lo standard <strong>Unicode</strong>, che
+<mark>assegna un codice univoco a ogni simbolo di tutti gli alfabeti del
+mondo utilizzando fino a 21 bit</mark>. Tramite la codifica
+<strong>UTF-8</strong>, i caratteri ASCII classici mantengono la
+compatibilità occupando un singolo byte (8 bit), mentre i caratteri di
+altri alfabeti utilizzano da 16 a 32 bit a seconda della rarità del
+simbolo.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> Unicode è una tabella enorme che
+dà un numero a ogni simbolo di ogni lingua del mondo (anche cinese ed
+emoji). UTF-8 è il modo di scrivere questi numeri in byte: le lettere
+inglesi occupano un solo byte, i simboli più rari ne occupano di più,
+così non si spreca spazio.</p>
+<h2
+id="rappresentazione-dei-colori-il-modello-rgb"><strong>Rappresentazione
+dei Colori (Il Modello RGB)</strong></h2>
+<p>La digitalizzazione delle immagini grafiche si basa sulla
+suddivisione della figura in una griglia di piccoli punti chiamati
+<strong><mark>pixel</mark></strong> (<em>picture element</em>).</p>
+<p><strong>In parole povere:</strong> un'immagine digitale è come un
+mosaico: i pixel sono le tessere minuscole, ciascuna di un solo colore.
+Messe una accanto all'altra formano la figura.</p>
+<p><strong>I tre canali cromatici (RGB)</strong>: Per rappresentare le
+immagini a colori si sfrutta la <mark>sintesi additiva della
+luce</mark>, <mark>dividendo la tonalità di ogni pixel nei tre colori
+primari</mark>: <strong>Red</strong>, <strong>Green</strong> e
+<strong>Blue</strong>.</p>
+<p><strong>In parole povere:</strong> ogni colore si ottiene mescolando
+luce rossa, verde e blu in quantità diverse, come i tre faretti di un
+palcoscenico. Per ogni faretto si usa un byte, cioè un numero da 0
+(spento) a 255 (al massimo): 0,0,0 è nero, 255,255,255 è bianco.</p>
+<p><strong>Occupazione di memoria (24 bit / 3 Byte per pixel)</strong>:
+<mark>Per ciascuno dei tre canali cromatici viene dedicato <strong>1
+byte (8 bit)</strong></mark>, il che <mark>permette di impostare
+l'intensità di ciascun colore primario su una scala di valori compresi
+tra 0 e 255</mark>. Di conseguenza, la rappresentazione completa di un
+singolo pixel a colori richiede complessivamente <strong><mark>3
+byte</mark> (24 bit)</strong> di memoria, offrendo oltre 16,7 milioni di
+combinazioni di colore.</p>
+<p><strong>Uso dell'Esadecimale per i Colori</strong>: Trascrivere o
+gestire una <mark>stringa di 24 bit in binario</mark> per definire un
+singolo colore risulterebbe <mark>estremamente scomodo</mark> e
+<mark>soggetto a errori</mark>. Per questo motivo, nei linguaggi di
+programmazione e nel web <mark>si convertono i 24 bit in <strong>6 cifre
+esadecimali</strong></mark> (2 cifre per il Rosso, 2 per il Verde, 2 per
+il Blu). Ad esempio, una sfumatura con prevalenza di rosso e poco verde
+o blu può essere espressa in modo compatto tramite una coordinata
+esadecimale a 6 caratteri.</p>
+<p><img src="./media/image4.png"
+style="width:3.93701in;height:2.15928in" /></p>
+<p><em>Un colore RGB a 24 bit scritto con 6 cifre esadecimali.</em></p>
+<h1 id="architettura-e-memorizzazione-dei-bit"><strong>5. Architettura e
+Memorizzazione dei Bit</strong></h1>
+<h2 id="operazioni-booleane-di-base"><strong>Operazioni Booleane di
+base</strong></h2>
+<p>Per manipolare e conservare i bit all'interno dei circuiti, si adotta
+la convenzione logica per cui il <mark>bit 0</mark> <mark>rappresenta il
+valore <em>falso</em> (<em>false</em>)</mark> e il <mark>bit 1
+rappresenta il valore <em>vero</em> (<em>true</em>)</mark>. Le
+operazioni matematiche che operano su questi valori di verità sono dette
+<strong><mark>operazioni booleane</mark></strong>, formalizzate dal
+matematico George Boole:</p>
+<p><strong>In parole povere:</strong> un'operazione booleana è
+un'operazione tra valori che possono essere solo vero o falso (1 o 0),
+come le domande a cui si risponde solo sì o no. Il risultato è a sua
+volta un sì o un no.</p>
+<ul>
+<li><p><strong>AND</strong>: produce un output pari a 1 <mark>soltanto
+quando entrambi gli ingressi sono pari a 1</mark>; in tutti gli altri
+casi l'uscita è 0.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> AND dà 1 solo se tutti e due gli
+ingressi sono 1. Come due interruttori in serie: la lampadina si accende
+solo se li chiudi entrambi.</p>
+<ul>
+<li><p><strong>OR</strong>: produce un output pari a 1 quando
+<mark>almeno uno dei due ingressi è pari a 1</mark>; restituisce 0 solo
+se entrambi gli input sono 0.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> OR dà 1 se almeno uno dei due
+ingressi è 1. Come due interruttori in parallelo: basta chiuderne uno
+perché la lampadina si accenda.</p>
+<ul>
+<li><p><strong>XOR (Exclusive OR)</strong>: produce un output pari a 1
+quando gli <mark>ingressi sono diversi tra loro</mark> (ovvero uno è 1 e
+l'altro è 0), mentre restituisce 0 se gli ingressi sono
+identici.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> XOR dà 1 quando i due ingressi
+sono diversi. Come i due interruttori di una scala: premendone uno si
+accende, premendo anche l'altro si spegne di nuovo.</p>
+<ul>
+<li><p><strong>NOT</strong>: è un'operazione unaria (ha un solo
+ingresso) e <mark>inverte il valore del bit</mark> in input,
+trasformando 1 in 0 e 0 in 1.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> NOT è il bottone del contrario: se
+entra 1 esce 0, se entra 0 esce 1. Ha un solo ingresso.</p>
+<p><img src="./media/image5.png"
+style="width:5.51181in;height:2.51677in" /></p>
+<p><em>Le porte logiche AND, OR, XOR e NOT con le loro tavole di
+verità.</em></p>
+<h2 id="porte-logiche-e-tecnologia-vlsi"><strong>Porte Logiche e
+tecnologia VLSI</strong></h2>
+<p>L'hardware <mark>esegue fisicamente</mark> queste operazioni
+<mark>tramite le <strong>porte logiche</strong></mark> (<em>gates</em>),
+che sono <mark>piccoli circuiti elettronici in cui le cifre 0 e 1
+corrispondono a differenti livelli di tensione elettrica</mark>.</p>
+<p><strong>In parole povere:</strong> una porta logica è una piccola
+scatola elettronica che calcola un'operazione booleana: i fili in
+ingresso portano tensione alta o bassa (cioè 1 o 0) e ne esce uno solo
+con il risultato. Con tante porte collegate si costruisce tutto il
+computer.</p>
+<ul>
+<li><p><strong>Composizione e Astrazione</strong>: le porte logiche
+rapp<mark>resentano i blocchi costruttivi fondamentali dell'architettura
+hardware.</mark> <mark>Collegando</mark> opportunamente <mark>più porte
+logiche</mark> tra loro <mark>si realizzano i
+<strong>flip-flop</strong>,</mark> ovvero i circuiti sequenziali
+elementari capaci di memorizzare un singolo bit attraverso impulsi di
+controllo.</p></li>
+<li><p><strong>Integrazione VLSI</strong>: tramite la <mark>tecnologia
+<strong>VLSI</strong></mark> (<em>Very Large-Scale Integration</em>),
+<mark>milioni o miliardi di porte logiche e flip-flop vengono
+miniaturizzati ed edificati su un unico</mark> wafer di silicio
+(<mark>chip</mark>), permettendo di realizzare circuiti complessi
+gestibili dai progettisti come componenti astratti.</p></li>
+</ul>
+<h2 id="la-memoria-principale-ram"><strong>La Memoria Principale
+(RAM)</strong></h2>
+<h2
+id="organizzazione-della-memoria-byte-e-celle"><strong>Organizzazione
+della memoria, byte e celle</strong></h2>
+<p>La <strong><mark>memoria principale</mark></strong> (o memoria
+centrale) di un computer è <mark>costituita da una vasta collezione di
+circuiti (come i flip-flop)</mark> destinati a contenere le informazioni
+in esecuzione.</p>
+<p><strong>In parole povere:</strong> la memoria principale è il blocco
+di appunti su cui il computer lavora mentre i programmi girano: è fatta
+di tantissimi piccoli circuiti che ricordano un bit ciascuno.</p>
+<ul>
+<li><p><strong>Struttura a celle e Byte</strong>: la <mark>memoria è
+suddivisa in unità di gestione denominate <strong>celle</strong></mark>,
+ciascuna delle quali ha una <mark>capacità tipica di 8 bit, definita
+<strong>byte</strong></mark>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> la memoria è come un condominio
+con tante caselle uguali: ogni cella è una casella e ognuna contiene 8
+bit. Un gruppo di 8 bit si chiama byte; è la porzione minima che il
+computer sposta o legge.</p>
+<ul>
+<li><p><strong>MSB e LSB</strong>: all'interno di una cella da un byte,
+i bit sono ordinati idealmente da sinistra a destra. Il <mark>bit
+all'estremità sinistra è chiamato <strong>high-order bit</strong></mark>
+o <strong><mark>most significant bit</mark> (MSB)</strong>, poiché
+rappresenta la cifra di peso maggiore in un'interpretazione numerica. Il
+<mark>bit all'estremità destra</mark> è detto <mark><strong>low-order
+bit</strong> o <strong>least significant bit</strong></mark>
+<strong>(LSB)</strong>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> in un numero scritto in cifre, la
+cifra più a sinistra conta di più (nelle migliaia, il 2 di 2000 pesa più
+del 5 di 5). Allo stesso modo in un byte il bit più a sinistra, MSB, è
+quello che pesa di più e quello più a destra, LSB, è quello che pesa di
+meno.</p>
+<h2
+id="indirizzamento-e-operazioni-di-letturascrittura"><strong>Indirizzamento
+e Operazioni di lettura/scrittura</strong></h2>
+<p>Per identificare e accedere alle <mark>singole celle</mark>, a
+ciascuna di esse viene assegnato un <mark>"nome" numerico univoco detto
+<strong>indirizzo</strong></mark>.</p>
+<p><strong>In parole povere:</strong> l'indirizzo è il numero civico di
+una cella: serve a dire al computer in quale cella andare a leggere o
+scrivere, come il numero di una casella postale.</p>
+<ul>
+<li><p><strong>Ordinamento sequenziale</strong>: gli <mark>indirizzi
+partono da 0 e crescono</mark> in modo contiguo, <mark>creando una
+sequenza ordinata di celle</mark>. Sequenze di dati più lunghe di un
+singolo byte (come interi a 16, 32 o 64 bit) vengono memorizzate
+occupando <mark>celle adiacenti</mark>.</p></li>
+</ul>
+<p><img src="./media/image6.png"
+style="width:4.33071in;height:2.36986in" /></p>
+<p><em>La memoria come sequenza di celle numerate; dentro la cella, il
+bit più significativo (MSB) a sinistra e il meno significativo (LSB) a
+destra.</em></p>
+<ul>
+<li><p><strong>Operazioni fondamentali</strong>: i <mark>circuiti
+esterni interagiscono con la memoria mediante due operazion</mark>i: la
+<strong><mark>lettura</mark></strong> (<em>read operation</em>), con cui
+si richiede il contenuto presente a un determinato indirizzo, e la
+<strong><mark>scrittura</mark></strong> (<em>write operation</em>), con
+cui si sovrascrive un nuovo pattern di bit nella cella
+specificata.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> leggere è guardare cosa c'è
+scritto nella cella con un certo indirizzo, senza cambiarlo; scrivere è
+cancellare il contenuto della cella e metterci un valore nuovo, come
+cambiare il biglietto dentro una cassetta.</p>
+<ul>
+<li><p><strong>RAM e DRAM</strong>: poiché l'architettura consente di
+accedere a qualsiasi cella in modo indipendente e nello stesso
+intervallo di tempo, la <mark>memoria principale è detta
+<strong>RAM</strong></mark> (<em>Random Access Memory</em>). Nelle
+moderne macchine, la <mark>RAM è realizzata come memoria dinamica</mark>
+(<strong>DRAM</strong> o <strong>SDRAM</strong>), dove i <mark>bit sono
+memorizzati sotto forma di microscopiche cariche elettriche</mark> che
+tendono a dissiparsi rapidamente e richiedono un circuito di
+<strong>refresh</strong> continuo per ripristinare la carica più volte
+al secondo.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> RAM vuol dire memoria a cui si
+accede in un punto qualsiasi, senza dover scorrere gli altri, e con la
+stessa velocità per tutti: come aprire direttamente la casella che vuoi
+senza passare dalle precedenti. La DRAM tiene i bit come cariche
+elettriche piccolissime che si scaricano, quindi bisogna ricaricarle di
+continuo (refresh).</p>
+<h2 id="unità-di-misura-della-capacità-di-memoria"><strong>Unità di
+misura della capacità di memoria</strong></h2>
+<p>Storicamente, le <mark>dimensioni della memoria sono progettate in
+potenze di 2</mark>. Di conseguenza, 1 <strong>Kilobyte (KB)</strong>
+corrisponde a 2<sup>10</sup> = 1024 byte. L'uso dei prefissi metrici
+(Kilo, Mega, Giga, Tera) nell'ambito informatico indica tradizionalmente
+potenze di 2 (1 MB = 1024 KB, 1 GB = 1024 MB), a differenza di altri
+settori scientifici dove indicano potenze di 1000.</p>
+<p><strong>In parole povere:</strong> un kilobyte in informatica non è
+1000 byte ma 1024, perché si lavora con potenze di 2. Sono due modi di
+contare: 1024 è il numero tondo per i computer, 1000 quello tondo per
+noi.</p>
+<h1 id="section"></h1>
+<h1 id="codifica-e-rappresentazione-dei-dati"><strong>6. Codifica E
+Rappresentazione Dei Dati</strong></h1>
+<h2
+id="file-di-testo-semplici-vs-documenti-di-word-processing"><strong>File
+di Testo Semplici vs Documenti di Word Processing</strong></h2>
+<p>È fondamentale distinguere tra <mark>due categorie di file contenenti
+testo:</mark></p>
+<ul>
+<li><p><strong>Text File (File di testo puro)</strong>: costituiti
+<mark>esclusivamente dalla sequenza di caratteri codificati in ASCII o
+Unicode</mark>, gestibili tramite editor di testo semplice (come
+Notepad).</p></li>
+</ul>
+<p><strong>In parole povere:</strong> un file di testo puro contiene
+solo i caratteri, come un foglio scritto a macchina senza grassetti né
+colori. Lo apri con qualunque editor, anche il più semplice.</p>
+<ul>
+<li><p><strong>Documenti di Word Processing</strong>: <mark>prodotti
+da</mark> programmi come <mark>Microsoft Word</mark>,
+<mark>contengono</mark> oltre al testo <mark>una serie di codici
+proprietari complessi per memorizzare la formattazione</mark> (font,
+allineamenti, margini, stili).</p></li>
+</ul>
+<h2
+id="rappresentazione-dei-valori-numerici-ascii-vs-notazione-binaria"><strong>Rappresentazione
+dei Valori Numerici (ASCII vs Notazione Binaria)</strong></h2>
+<p><mark>Memorizzare i numeri sotto forma di caratteri ASCII o Unicode è
+estremamente inefficiente dal punto di vista dello spazio di
+archiviazione.</mark></p>
+<p><strong>Incapacità della codifica a caratteri</strong>: per salvare
+il numero intero 25 come testo servono due byte (16 bit), un byte per il
+carattere '2' e un byte per il carattere '5'. Con 16 bit espressi in
+ASCII il valore massimo rappresentabile è soltanto 99.</p>
+<p><strong>Efficienza della Notazione Binaria</strong>:
+<mark>codificando il valore numerico direttamente in <strong>notazione
+binaria</strong></mark>, gli stessi <mark>16 bit consentono di
+rappresentare qualsiasi numero intero compreso tra 0 e 65 535</mark>.
+Per questo motivo, nei calcolatori le quantità numeriche vengono sempre
+memorizzate tramite rappresentazioni binarie dedicate.</p>
+<h2
+id="rappresentazione-delle-immagini-bitmap-e-grafica-vettoriale"><strong>Rappresentazione
+delle Immagini (Bitmap e Grafica Vettoriale)</strong></h2>
+<p>La <mark>digitalizzazione delle immagini visive richiede la
+trasformazione delle informazioni spaziali e cromatiche in sequenze di
+bit</mark>. Esistono due approcci fondamentali:</p>
+<h2 id="grafica-bitmap-raster"><strong>Grafica Bitmap
+(Raster)</strong></h2>
+<p>Nelle immagini <strong><mark>bitmap</mark></strong>, la <mark>figura
+viene suddivisa in una griglia regolare di piccoli punti detti
+<strong>pixel</strong></mark> (<em>picture elements</em>). L'immagine
+viene memorizzata registrando in sequenza la codifica cromatico-luminosa
+di ciascun pixel.</p>
+<p><strong>In parole povere:</strong> un'immagine bitmap è come un
+disegno a quadretti: la figura è divisa in una griglia di puntini
+(pixel) e si salva il colore di ciascun quadretto, uno dopo l'altro.</p>
+<ul>
+<li><p><strong>Immagini in Bianco e Nero</strong>: <mark>ogni pixel è
+rappresentato da un singolo bit</mark> (0 per il bianco, 1 per il nero),
+tecnica adottata ad esempio dai fax.</p></li>
+</ul>
+<p><img src="./media/image7.png"
+style="width:3.34646in;height:2.02369in" /></p>
+<p><em>Immagine in bianco e nero: ogni pixel è un bit.</em></p>
+<ul>
+<li><p><strong>Scala di Grigi</strong>: <mark>ciascun pixel occupa
+tipicamente <strong>1 byte (8 bit)</strong>, consentendo di distinguere
+256 diverse sfumature di grigio</mark>.</p></li>
+<li><p><strong>Immagini a Colori (RGB)</strong>: <mark>ogni pixel
+richiede 3 byte</mark> (24 bit), con <mark>oltre 16,7 milioni di
+colori</mark>; il modello è descritto nel capitolo 4.</p></li>
+<li><p><strong>Luminanza e Crominanza</strong>: <mark>un'alternativa al
+modello RGB consiste nello scomporre il pixel in una componente di
+<strong>Luminanza</strong></mark> (luminosità o quantità di luce bianca)
+<mark>e due componenti di <strong>Crominanza</strong></mark> (differenza
+cromatica del blu e del rosso). Nata per la trasmissione della TV a
+colori compatibile con i televisori in bianco e nero, questa
+scomposizione è sfruttata dai moderni algoritmi di
+compressione.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> invece di dire quanto rosso, verde
+e blu c'è, si dice quanto è chiaro il punto (luminanza) e di che tinta è
+(crominanza). È come una foto in bianco e nero (la luminanza) a cui si
+aggiunge la tinta sopra. Serve soprattutto per comprimere meglio.</p>
+<h2 id="limiti-della-bitmap-e-grafica-vettoriale"><strong>Limiti della
+Bitmap e Grafica Vettoriale</strong></h2>
+<ul>
+<li><p><strong>Il problema del ridimensionamento (Digital
+Zoom)</strong>: le immagini bitmap non si prestano a ingrandimenti
+arbitrari; <mark>all'aumentare delle dimensioni i pixel diventano
+visibili rendendo l'immagine sgranata</mark> ("zoom digitale").</p></li>
+<li><p><strong>Grafica Vettoriale</strong>: <mark>evita il problema del
+ridimensionamento descrivendo l'immagine come una collezione di
+<strong>strutture geometriche</strong></mark> (linee, poligoni, curve)
+definite mediante equazioni analitiche. Sarà poi il dispositivo di
+visualizzazione a tracciare la figura al massimo della risoluzione
+disponibile.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> un'immagine vettoriale non
+memorizza i puntini, ma le istruzioni per disegnarla (tira una linea da
+qui a là, disegna un cerchio così). Il dispositivo la ridisegna alla
+grandezza che vuoi, quindi non diventa mai sgranata.</p>
+<ul>
+<li><p><strong>Applicazioni della Grafica Vettoriale</strong>: è lo
+st<mark>andard utilizzato per i font scalabili dei sistemi di
+scrittura</mark> come <strong>TrueType</strong> (sviluppato da Microsoft
+e Apple) e <strong>PostScript</strong> (sviluppato da Adobe), per i
+<mark>disegni tecnici nei software <strong>CAD</strong></mark> e nei
+<mark>programmi di grafica vettoriale</mark>, dove le forme rimangono
+modificabili e ridimensionabili all'infinito senza alcuna perdita di
+nitidezza.</p></li>
+</ul>
+<h2
+id="rappresentazione-del-suono-campionamento-audio-e-midi"><strong>Rappresentazione
+del Suono (Campionamento Audio e MIDI)</strong></h2>
+<p>La <mark>digitalizzazione dei segnali acustici analogici</mark> (onde
+sonore) <mark>viene gestita mediante due strategie completamente
+differenti</mark>:</p>
+<p><strong>Campionamento Audio Digitale</strong></p>
+<p>Il <mark>metodo generale consiste nel misurare l'ampiezza dell'onda
+sonora a intervalli di tempo regolari</mark> (operazione detta
+<strong><mark>campionamento</mark></strong>) e <mark>registrare la
+sequenza dei valori numerici ottenuti</mark>.</p>
+<p><strong>In parole povere:</strong> il campionamento consiste nel
+misurare il volume del suono a intervalli regolarissimi, come fare tante
+fotografie ravvicinate, e salvare i numeri trovati. Più misure al
+secondo fai, più il suono ricostruito è fedele.</p>
+<p><img src="./media/image8.png"
+style="width:4.13386in;height:2.30309in" /></p>
+<p><em>Campionamento: si misura l'ampiezza dell'onda a intervalli
+regolari.</em></p>
+<p><strong>Frequenza di Campionamento e Qualità</strong>:</p>
+<ul>
+<li><p><em>Telefonia vocale</em>: utilizza una frequenza di 8.000
+campioni al secondo (8 kHz), sufficiente per rendere intelligibile la
+voce umana.</p></li>
+<li><p><em>CD Audio ad alta fedeltà</em>: richiede una frequenza di
+<strong>44.100 campioni al secondo (44,1 kHz)</strong>, con ciascun
+campione memorizzato a 16 bit per canale (32 bit per registrazioni
+stereofoniche). Un secondo di musica stereo richiede quindi oltre 1
+milione di bit.</p></li>
+</ul>
+<h2 id="sintesi-musicale-e-standard-midi"><strong>Sintesi Musicale e
+Standard MIDI</strong></h2>
+<p>Per <mark>evitare l'enorme occupazione di memoria richiesta dal
+campionamento dell'onda sonora grezza, lo standard
+<strong>MIDI</strong></mark> (<em>Musical Instrument Digital
+Interface</em>) adotta un <mark>approccio basato su <strong>istruzioni
+esecutive</strong> per sintetizzatori musicali</mark>.</p>
+<p><strong>In parole povere:</strong> MIDI non salva il suono ma lo
+spartito: dice quale strumento suona, quale nota, quanto forte e per
+quanto tempo. È come mandare un foglio di musica a un pianista invece di
+una registrazione: occupa pochissimo, ma il suono finale dipende da chi
+suona.</p>
+<p><strong>Principio di funzionamento</strong>: <mark>anziché registrare
+il suono prodotto</mark>, il formato MIDI <mark>memorizza lo "spartito
+digitale"</mark>, ossia le <mark>informazioni su quale strumento deve
+suonare</mark>, quale <mark>nota eseguire</mark>, con quale
+<mark>intensità</mark> e per quale <mark>durata</mark>.</p>
+<p><strong>Efficienza di memorizzazione</strong>: una nota di clarinetto
+eseguita per due secondi richiede più di 2 milioni di bit se registrata
+tramite campionamento a 44,1 kHz, mentre in formato MIDI viene
+codificata in appena <strong>3 byte</strong>. Il file risulta minuscolo,
+anche se la resa acustica finale dipende dalla qualità dei timbri del
+sintetizzatore che lo riproduce.</p>
+<h1 id="il-sistema-numerico-binario-e-aritmetica"><strong>7. Il Sistema
+Numerico Binario e Aritmetica</strong></h1>
+<h2 id="notazione-posizionale-in-base-2"><strong>Notazione Posizionale
+in Base 2</strong></h2>
+<p>Nel sistema decimale (base 10) comune, ogni posizione all'interno di
+un numero corrisponde a una potenza di 10 (unità 10<sup>0</sup>, decine
+10<sup>1</sup>, centinaia 10<sup>2</sup>, e così via). Nel
+<strong>sistema binario</strong> (base 2), il principio è identico ma si
+utilizzano esclusivamente le due cifre 0 e 1, e ciascuna posizione verso
+sinistra possiede un peso pari al doppio di quella alla sua destra
+(potenze di 2).</p>
+<p><strong>In parole povere:</strong> nella notazione posizionale il
+valore di una cifra dipende da dove sta. In base 10 ogni posto vale
+dieci volte il precedente (unità, decine, centinaia); in base 2 ogni
+posto vale il doppio del precedente (1, 2, 4, 8...) e le cifre sono solo
+0 e 1.</p>
+<ul>
+<li><p><strong>Pesi delle posizioni</strong>: <mark>partendo dalla cifra
+più a destra (peso 2<sup>0</sup> = 1), le posizioni successive verso
+sinistra rappresentano 2<sup>1</sup> = 2, 2<sup>2</sup> = 4,
+2<sup>3</sup> = 8, 2<sup>4</sup> = 16, 2<sup>5</sup> = 32, e così
+via</mark>.</p></li>
+<li><p><strong>Valore assoluto di una sequenza</strong>: il <mark>valore
+decimale equivalente a una stringa binaria si ottiene moltiplicando ogni
+cifra per il peso della sua posizione e sommando i prodotti
+ottenuti</mark>. Poiché nel binario esistono solo 0 e 1, l'operazione si
+riduce semplicemente alla somma dei pesi corrispondenti alle posizioni
+occupate dal bit 1.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> per sapere che numero è una
+sequenza di bit, guardi dove stanno gli 1 e sommi i pesi di quelle
+posizioni. Esempio: 101 vuol dire 4 più 1, cioè 5.</p>
+<h2 id="conversioni-tra-base-2-e-base-10"><strong>Conversioni tra Base 2
+e Base 10</strong></h2>
+<h2 id="conversione-da-binario-a-decimale"><strong>Conversione da
+Binario a Decimale</strong></h2>
+<p>Per interpretare un valore espresso in notazione binaria, si scompone
+la sequenza sommando i valori delle potenze di 2 associate ai bit pari a
+1.</p>
+<ul>
+<li><p><em>Esempio</em>: la sequenza binaria <strong>100101</strong> si
+calcola sommando:</p>
+<ul>
+<li><p>1 × 2<sup>5</sup> = 32</p></li>
+<li><p>0 × 2<sup>4</sup> = 0</p></li>
+<li><p>0 × 2<sup>3</sup> = 0</p></li>
+<li><p>1 × 2<sup>2</sup> = 4</p></li>
+<li><p>0 × 2<sup>1</sup> = 0</p></li>
+<li><p>1 × 2<sup>0</sup> = 1</p></li>
+<li><p><em>Risultato</em>: 32 + 4 + 1 = <strong>37</strong> in notazione
+decimale.</p></li>
+</ul></li>
+</ul>
+<p><img src="./media/image9.png"
+style="width:3.93701in;height:2.48601in" /></p>
+<p><em>Da binario a decimale: ogni bit uguale a 1 contribuisce con il
+suo peso.</em></p>
+<h2
+id="conversione-da-decimale-a-binario-algoritmo-delle-divisioni-successive"><strong>Conversione
+da Decimale a Binario (Algoritmo delle Divisioni
+Successive)</strong></h2>
+<p>Per <mark>convertire un numero intero positivo dalla base 10 alla
+base 2 si applica l'<strong>algoritmo delle divisioni successive per
+2</strong></mark>.</p>
+<ul>
+<li><p><strong>Procedimento</strong>:</p>
+<ol type="1">
+<li><p><mark>Si divide il numero decimale per 2, annotando il quoziente
+intero e il <strong>resto</strong></mark> (che potrà essere solo 0 o
+1).</p></li>
+<li><p><mark>Finché il quoziente ottenuto è diverso da zero, si continua
+a dividere l'ultimo quoziente per 2 e a registrare il relativo
+resto</mark>.</p></li>
+<li><p>La rappresentazione binaria finale è <mark>data dalla sequenza
+dei resti letti in ordine inverso rispetto a come sono stati
+calcolati</mark> (dall'ultimo resto ottenuto fino al primo, ossia da
+destra verso sinistra).</p></li>
+</ol></li>
+<li><p><em>Esempio (Conversione del numero 13)</em>:</p>
+<ul>
+<li><p>13 ÷ 2 = 6 con resto <strong>1</strong> (bit meno significativo,
+LSB)</p></li>
+<li><p>6 ÷ 2 = 3 con resto <strong>0</strong></p></li>
+<li><p>3 ÷ 2 = 1 con resto <strong>1</strong></p></li>
+<li><p>1 ÷ 2 = 0 con resto <strong>1</strong> (bit più significativo,
+MSB)</p></li>
+<li><p>Raccogliendo i resti dal basso verso l'alto si ottiene la stringa
+binaria <strong>1101</strong>.</p></li>
+</ul></li>
+</ul>
+<p><img src="./media/image10.png"
+style="width:3.34646in;height:2.34335in" /></p>
+<p><em>Da decimale a binario: i resti delle divisioni per 2, letti dal
+basso verso l'alto.</em></p>
+<h2 id="aritmetica-binaria-e-numeri-frazionari"><strong>Aritmetica
+Binaria e Numeri Frazionari</strong></h2>
+<h2 id="addizione-binaria"><strong>Addizione Binaria</strong></h2>
+<p><mark>L'addizione in notazione binaria segue le stesse regole
+posizionali dell'addizione decimale</mark> (procedendo da destra verso
+sinistra e sommando colonna per colonna), ma <mark>impiega una tabella
+algebrica elementare basata su soli quattro casi
+fondamentali</mark>:</p>
+<ul>
+<li><p>0 + 0 = 0</p></li>
+<li><p>0 + 1 = 1</p></li>
+<li><p>1 + 0 = 1</p></li>
+<li><p>1 + 1 = 10 (scrivo 0 con <strong>riporto di 1</strong> alla
+colonna di sinistra)</p></li>
+<li><p>1 + 1 + 1 (somma di due bit più riporto precedente) = 11 (scrivo
+1 con <strong>riporto di 1</strong>).</p></li>
+</ul>
+<p><em>Esempio di somma</em>: Sommiamo i numeri 11010 (26) e 11011
+(27):</p>
+<ol type="1">
+<li><p>Colonna 1 (più a destra): 0 + 1 = 1</p></li>
+<li><p>Colonna 2: 1 + 1 = 0 con riporto di 1</p></li>
+<li><p>Colonna 3: 1 (riporto) + 0 + 0 = 1</p></li>
+<li><p>Colonna 4: 1 + 1 = 0 con riporto di 1</p></li>
+<li><p>Colonna 5: 1 (riporto) + 1 + 1 = 1 con riporto di 1</p></li>
+<li><p>Ultimo riporto registrato a sinistra: 1 <em>Risultato finale:
+110101 (corrispondente al valore decimale 53 = 26 + 27).</em></p></li>
+</ol>
+<p><img src="./media/image11.png"
+style="width:3.34646in;height:2.66116in" /></p>
+<p><em>La somma binaria 11010 + 11011, con i riporti.</em></p>
+<h2
+id="rappresentazione-dei-numeri-frazionari-punto-radice"><strong>Rappresentazione
+dei Numeri Frazionari (Punto Radice)</strong></h2>
+<p>Per <mark>estendere il sistema binario ai numeri reali o con virgola,
+si utilizza il <strong>punto radice</strong></mark> (<em>radix
+point</em>, l'equivalente della virgola nel sistema decimale).</p>
+<p><strong>In parole povere:</strong> il punto radice è la virgola dei
+numeri binari: a sinistra le potenze di 2 normali (1, 2, 4), a destra le
+metà successive (un mezzo, un quarto, un ottavo). Esempio: 0.1 in
+binario vale un mezzo.</p>
+<ul>
+<li><p><strong>Pesi delle posizioni frazionarie</strong>: i bit a
+sinistra del punto radice rappresentano la parte intera (2<sup>0</sup>,
+2<sup>1</sup>, 2<sup>2</sup> …). I bit situati a destra del punto radice
+rappresentano le potenze negative di 2:</p>
+<ul>
+<li><p>Prima posizione a destra: 2<sup>−1</sup> = 1/2 = 0,5</p></li>
+<li><p>Seconda posizione a destra: 2<sup>−2</sup> = 1/4 = 0,25</p></li>
+<li><p>Terza posizione a destra: 2<sup>−3</sup> = 1/8 = 0,125</p></li>
+</ul></li>
+<li><p><em>Esempio</em>: la sequenza frazionaria
+<strong>101.101</strong> corrisponde a:</p>
+<ul>
+<li><p>Parte intera 101: 4 + 0 + 1 = 5</p></li>
+<li><p>Parte frazionaria .101: 1 × (1/2) + 0 × (1/4) + 1 × (1/8) = 1/2 +
+1/8 = 5/8 = 0,625</p></li>
+<li><p><em>Valore totale</em>: 5 + 5/8 = <strong>5,625</strong> (ossia 5
+5/8).</p></li>
+</ul></li>
+<li><p><strong>Operazioni con i numeri frazionari</strong>: per sommare
+numeri binari contenenti il punto radice, si applica la regola classica
+dell'incolonnamento, allineando verticalmente i punti radice prima di
+eseguire l'addizione.</p></li>
+</ul>
+<h1
+id="rappresentazione-degli-interi-complemento-a-due-e-eccesso"><strong>8.
+Rappresentazione degli interi (complemento a due e
+eccesso)</strong></h1>
+<h2 id="notazione-in-complemento-a-due-e-bit-di-segno"><strong>Notazione
+in Complemento a Due e Bit di Segno</strong></h2>
+<p>Nei calcolatori moderni la <mark>rappresentazione dei numeri interi
+con segno non avviene tramite l'aggiunta di un semplice simbolo di
+polarità</mark>, bensì mediante la <strong><mark>notazione in
+complemento a due</mark></strong> (<em>two's complement notation</em>).
+La caratteristica fondamentale di questo sistema risiede nell'impiego di
+una <strong><mark>lunghezza fissa di bit</mark></strong>
+(<em>fixed-length</em>) per memorizzare qualsiasi valore. Sebbene
+l'hardware commerciale utilizzi tipicamente registri a 32 o 64 bit, la
+logica di funzionamento si esprime in modo identico anche su modelli
+didattici a 4 o 8 bit.</p>
+<p><strong>In parole povere:</strong> è un modo di scrivere i numeri
+positivi e negativi con un numero fisso di bit, in cui per cambiare
+segno basta una semplice regola (copia i bit fino al primo 1, poi
+inverti il resto). I positivi iniziano per 0, i negativi per 1. Il
+vantaggio è che per sommare e sottrarre l'hardware usa un solo
+circuito.</p>
+<p>Il <mark>bit situato all'estrema sinistra</mark> della sequenza, noto
+come <strong><mark>bit di segno</mark></strong> (<em>sign bit</em>),
+<mark>determina la polarità del numero</mark>. Quando il <mark>bit di
+segno è pari a 0</mark>, la sequenza rappresenta un <mark>valore
+<strong>non negativo</strong></mark> (positivo o zero). I <mark>valori
+positivi</mark> vengono codificati seguendo la <mark>notazione binaria
+pura</mark> a partire da 0 fino a raggiungere la combinazione con lo 0
+iniziale seguito da tutti 1 (ad esempio, in un formato a 4 bit, da 0000
+per lo 0 fino a 0111 per il +7). Al contrario, <mark>un bit di segno
+pari a 1 identifica un valore <strong>negativo</strong></mark>.</p>
+<p><strong>In parole povere:</strong> il bit di segno è il primo bit a
+sinistra e dice se il numero è positivo o zero (0) oppure negativo (1).
+Con 4 bit, 0101 è +5 e 1011 è un numero negativo.</p>
+<p>La sequenza composta da tutti 1 (1111) rappresenta il valore -1, e i
+numeri negativi successivi procedono a ritroso in binario fino a
+raggiungere la configurazione con un 1 seguito da tutti 0 (1000, che
+equivale a -8). Poiché lo zero viene conteggiato nell'intervallo non
+negativo, un sistema a n bit genera un intervallo asimmetrico compreso
+tra -2<sup>n−1</sup> e +2<sup>n−1</sup> - 1.</p>
+<p>Per <mark>convertire un valore positivo nel suo corrispondente
+opposto negativo</mark> (o viceversa) si applica
+<mark>l'<strong>algoritmo copia e complementa</strong></mark> (<em>copy
+and complement procedure</em>). Questo procedimento evita calcoli
+aritmetici complessi analizzando la sequenza da destra verso sinistra
+(dal bit meno significativo verso quello più significativo):</p>
+<ol type="1">
+<li><p>Si <mark>ricopiano</mark> esattamente <mark>tutti i bit
+incontrati</mark> (compresi eventuali zeri) <mark>fino</mark> a
+includere il <strong><mark>primo bit 1</mark></strong>.</p></li>
+<li><p>Da quel punto in poi, <mark>tutti i bit rimanenti a sinistra
+vengono <strong>complementati</strong></mark> (ovvero invertiti,
+trasformando ogni 0 in 1 e ogni 1 in 0).</p></li>
+</ol>
+<p>A titolo di esempio, se vogliamo trovare la rappresentazione a 4 bit
+del numero -6, si parte dalla codifica del +6, pari a 0110. Esaminando
+la stringa da destra, il primo 0 e il primo 1 vengono ricopiati
+inalterati (producendo la parte finale 10); il bit successivo 1 viene
+convertito in 0 e lo 0 di segno diventa 1, ottenendo la configurazione
+finale 1010.</p>
+<p><img src="./media/image12.png"
+style="width:3.74016in;height:3.74016in" /></p>
+<p><em>Complemento a due su 4 bit: i numeri con bit di segno 1 sono
+negativi.</em></p>
+<h2
+id="aritmetica-e-sottrazione-in-complemento-a-due"><strong>Aritmetica e
+Sottrazione in Complemento a Due</strong></h2>
+<p>Il motivo principale dell'adozione universale del complemento a due
+risiede <mark>nell'estrema semplificazione dei circuiti elettronici
+della CPU</mark>. A differenza dell'aritmetica umana, che richiede
+regole e moduli separati per addizioni e sottrazioni, un calcolatore che
+adotta il <mark>complemento a due esegue qualsiasi operazione algebrica
+utilizzando un unico algoritmo di addizione binaria</mark>.</p>
+<p>Nelle somme tra numeri in complemento a due, <mark>tutte</mark> le
+<mark>stringhe</mark> operative <mark>e</mark> il <mark>risultato</mark>
+finale <mark>mantengono la medesima lunghezza fissa.</mark>
+<mark>Qualsiasi bit di riporto</mark> (<em>carry</em>) che
+<mark>trabocchi al di fuori</mark> <mark>dell'ultima colonna di sinistra
+deve essere semplicemente <strong>ignorato e troncato</strong></mark>
+dall'hardware.</p>
+<p>L'operazione di <mark>sottrazione A - B</mark> viene quindi
+<mark>convertita</mark> internamente nella <mark>somma A + (-B)</mark>.
+Quando la macchina deve eseguire una sottrazione, genera <mark>prima
+l'opposto del secondo termine</mark> mediante il circuito di inversione
+(complemento) e poi inoltra i dati all'<mark>addizionatore
+standard</mark>.</p>
+<p>Considerando ad esempio la sottrazione 7 - 5 in un sistema a 4 bit,
+il minuendo +7 equivale alla stringa 0111. Il sottrando +5 (0101) viene
+convertito nel suo opposto -5 (1011). Eseguendo la somma binaria tra
+0111 e 1011, si ottiene la sequenza a 5 bit 10010. Troncando il quinto
+bit di riporto a sinistra (1), la macchina trattiene la stringa a 4 bit
+0010, che corrisponde esattamente al risultato corretto +2 in notazione
+decimale.</p>
+<h2 id="il-problema-delloverflow-e-la-notazione-in-eccesso"><strong>Il
+Problema dell'Overflow e la Notazione in Eccesso</strong></h2>
+<p>Trattandosi di una rappresentazione su un numero finito di bit,
+<mark>l'intervallo di valori rappresentabili è limitato</mark>. Il
+fenomeno dell'<strong><mark>overflow</mark></strong> (o trabocco)
+<mark>si verifica quando</mark> <mark>un'operazione aritmetica</mark>
+produce un <mark>risultato numerico che eccede le capacità fisiche della
+parola di memoria</mark>, uscendo dai limiti ammessi dal sistema.</p>
+<p><strong>In parole povere:</strong> l'overflow succede quando il
+risultato non ci sta nei bit a disposizione, come cercare di scrivere
+100 su un contatore a due cifre: il numero esce dalla scala e il calcolo
+dà un valore sbagliato. Con 4 bit il massimo è 7, quindi 5 più 4 non ci
+sta.</p>
+<p>L'hardware rileva automaticamente l'insorgere dell'overflow
+monitorando il bit di segno del risultato:</p>
+<ul>
+<li><p><mark>Se</mark> la <mark>somma</mark> di <mark>due valori
+<strong>positivi</strong> restituisce</mark> una sequenza con bit di
+<mark>segno 1 (<strong>negativo</strong>)</mark>, si è verificato un
+errore di overflow.</p></li>
+<li><p>Se la <mark>somma</mark> di <mark>due valori
+<strong>negativi</strong></mark> genera un <mark>risultato</mark> con
+bit di <mark>segno 0 (<strong>positivo</strong>)</mark>, si è verificato
+un overflow.</p></li>
+<li><p>La <mark>somma</mark> di <mark>due numeri con segno opposto non
+può mai provocare overflow</mark>.</p></li>
+</ul>
+<p>In un sistema a 4 bit (il cui intervallo ammissibile va da -8 a +7),
+la somma 5 + 4 (0101 + 0100) produce infatti 1001, una sequenza che
+l'hardware interpreta erroneamente come -7. L'incapacità di gestire
+correttamente l'overflow può causare gravi malfunzionamenti nei sistemi
+software.</p>
+<p>Un altro metodo ampiamente utilizzato per la memorizzazione degli
+interi con segno è la <strong><mark>notazione in eccesso</mark></strong>
+(<em>excess notation</em>). In questo sistema, le <mark>combinazioni di
+bit della lunghezza prescelta vengono elencate in ordine binario
+crescente</mark>. La <mark>combinazione situata circa a metà
+dell'elenco</mark> — la prima che comincia con il bit 1 (ad esempio 1000
+in un sistema a 4 bit) — <mark>viene scelta per rappresentare il valore
+<strong>0</strong></mark>. Le combinazioni successive codificano i
+numeri positivi (+1, +2, +3 …), mentre le combinazioni precedenti
+rappresentano i valori negativi (-1, -2, -3 …).</p>
+<p><strong>In parole povere:</strong> si mette lo zero a metà della
+lista dei numeri in ordine e si conta in su (positivi) e in giù
+(negativi) da lì. È come i piani di un palazzo in cui il piano zero non
+è il primo: i piani sotto sono i negativi e quelli sopra i positivi.</p>
+<p>I sistemi in eccesso vengono denominati in base al valore decimale
+dello "zero" binario. Un <mark>formato a 4 bit con lo zero rappresentato
+da 1000</mark> (che in binario puro varrebbe 8) è chiamato
+<strong><mark>Excess-8</mark></strong>, mentre <mark>un formato a 3 bit
+con lo zero posizionato su 100</mark> è detto
+<strong><mark>Excess-4</mark></strong>.</p>
+<p><strong>In parole povere:</strong> il nome dice quanto vale lo zero
+se letto come binario normale: se lo zero è 1000, che in binario vale 8,
+il sistema si chiama Excess-8. Per ottenere il numero vero si toglie 8
+al valore binario.</p>
+<h1
+id="rappresentazione-dei-numeri-frazionari-e-virgola-mobile"><strong>9.
+Rappresentazione dei numeri frazionari e virgola mobile</strong></h1>
+<h2 id="struttura-della-virgola-mobile-floating-point"><strong>Struttura
+della Virgola Mobile (Floating-Point)</strong></h2>
+<p>A differenza dei numeri interi, la <mark>memorizzazione</mark> di
+<mark>valori frazionari o reali</mark> (come 2,75 o 0,375)
+<mark>richiede di conservare</mark> non soltanto la sequenza binaria
+delle cifre significative, ma <mark>anche l'esatta posizione del
+<strong>punto radice</strong></mark> (<em>radix point</em>). Nei sistemi
+digitali, questa esigenza viene risolta adottando la <mark>notazione in
+<strong>virgola mobile</strong></mark> (<em>floating-point
+notation</em>), un metodo basato sul principio della notazione
+scientifica che permette di rappresentare sia numeri estremamente grandi
+sia quantità infinitamente piccole senza saturare lo spazio di
+memoria.</p>
+<p><strong>In parole povere:</strong> è la notazione scientifica del
+computer: invece di tenere il numero con la virgola fissa si salvano le
+cifre significative e dove va messa la virgola, come 3,5 per 10 alla
+sesta. Così il numero può essere gigantesco o minuscolo senza occupare
+molto spazio.</p>
+<p>Per comprendere il funzionamento dell'architettura sottostante, si
+considera un modello didattico semplificato basato su un singolo byte (8
+bit) di memoria, la cui struttura riflette la logica dei sistemi
+commerciali:</p>
+<ul>
+<li><p><strong>Bit di segno (Sign Bit - 1 bit)</strong>: <mark>occupa la
+posizione più significativa all'estrema sinistra</mark> (MSB). Un valore
+pari a <mark>0</mark> indica che il numero è non <mark>negativo</mark>
+(positivo o zero), mentre il bit <mark>1</mark> identifica un numero
+<mark>negativo</mark>.</p></li>
+<li><p><strong>Campo Esponente (Exponent Field - 3 bit)</strong>:
+posizionato <mark>immediatamente dopo il bit di segno</mark>, memorizza
+la <mark>potenza di 2 per cui moltiplicare la mantissa</mark>. Questo
+valore viene <mark>codificato in <strong>notazione in
+eccesso</strong></mark> (nello specifico, Excess-4 per un campo a 3
+bit), consentendo di gestire agevolmente sia esponenti positivi che
+negativi.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> l'esponente dice di quanto
+spostare la virgola, cioè per quale potenza di 2 moltiplicare. Si salva
+in notazione in eccesso per avere anche esponenti negativi: è il numero
+che dice sposta a destra o sposta a sinistra.</p>
+<ul>
+<li><p><strong>Campo Mantissa (Mantissa Field - 4 bit)</strong>: occupa
+le <mark>quattro posizioni rimanenti a destra</mark> e contiene le
+<mark>cifre significative del valore</mark>, assumendo implicitamente
+che il <mark>punto radice si trovi collocato all'estrema sinistra della
+mantissa stessa</mark>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> la mantissa è il blocco di cifre
+significative del numero, quelle che contano, senza dire dove sta la
+virgola. È come le cifre 3,14 in 3,14 per 10 alla seconda: l'esponente
+le sposta, ma le cifre sono quelle.</p>
+<blockquote>
+<p><img src="./media/image13.png"
+style="width:6.41631in;height:3.07301in" /></p>
+</blockquote>
+<h2
+id="normalizzazione-conversioni-e-standard-industriali"><strong>Normalizzazione,
+Conversioni e Standard Industriali</strong></h2>
+<p>Nei calcolatori commerciali, l'esigenza di una maggiore precisione e
+dinamica numerica ha portato all'adozione degli standard internazionali
+<strong>IEEE 754</strong>:</p>
+<ul>
+<li><p><strong>Singola Precisione (Single Precision - 32 bit)</strong>:
+impiega <mark>1 bit di segno</mark>, <mark>8 bit per l'esponente</mark>
+(espressi in notazione Excess-127) e <mark>23 bit per la
+mantissa</mark>. Garantisce una precisione di circa 7 cifre decimali
+significative e copre un intervallo compreso tra 10<sup>−37</sup> e
+10<sup>38</sup>.</p></li>
+<li><p><strong>Doppia Precisione (Double Precision - 64 bit)</strong>:
+impiega <mark>1 bit di segno</mark>, <mark>11 bit per l'esponente</mark>
+(in Excess-1023) e <mark>52 bit per la mantissa</mark>, offrendo una
+precisione di circa 15 cifre decimali significative.</p></li>
+</ul>
+<h2
+id="errori-di-troncamento-e-proprietà-dellaritmetica-in-virgola-mobile"><strong>Errori
+di Troncamento e Proprietà dell'Aritmetica in Virgola
+Mobile</strong></h2>
+<p>Nonostante l'ampio intervallo dinamico offerto dalla virgola mobile,
+la dimensione finita del campo mantissa impone un limite alla
+precisione. Quando un valore reale richiede più cifre binarie di quante
+la mantissa possa trattenere, le cifre eccedenti a destra vengono
+eliminate dall'hardware, generando un <strong>errore di
+troncamento</strong> (<em>truncation error</em> o <em>round-off
+error</em>). Un esempio si verifica tentando di memorizzare il valore 2
+5/8 (10.101 in binario) nel formato ad 8 bit: la mantissa a 4 bit
+trattiene solo le prime quattro cifre 1010, smarrendo l'ultimo bit 1
+(l'ultimo ottavo). Il circuito registra così il valore 01101010,
+equivalente a 2 1/2 anziché 2 5/8.</p>
+<p><strong>In parole povere:</strong> i bit della mantissa sono pochi:
+se il numero ne richiede di più, quelli in eccesso vengono buttati via.
+Come scrivere 3,14159 su un foglio che ha posto solo per 3,14: perdi
+qualcosa e il valore salvato è un po' diverso da quello vero.</p>
+<p>Un'ulteriore sorgente di errore risiede negli <strong>sviluppi
+periodici non terminanti</strong>. Proprio come nel sistema decimale la
+frazione 1/3 genera una sequenza infinita di cifre, nel sistema binario
+molte frazioni decimali apparentemente semplici non possiedono una
+rappresentazione finita. Il valore decimale 1/10 (0,1), ad esempio, si
+trasforma in binario in una frazione periodica infinita che non può
+essere memorizzata con esattezza assoluta. Nei software finanziari o
+contabili, questo dettaglio può causare imprecisioni nell'accumulo di
+importi monetari espressi in dollari e centesimi; per evitare tali
+errori, si preferisce lavorare direttamente con numeri interi
+(esprimendo gli importi in centesimi) tramite la notazione in
+complemento a due.</p>
+<p>Le imprecisioni introdotte dai troncamenti generano una conseguenza
+algebrica importante: <strong>l'addizione in virgola mobile non gode
+della proprietà associativa</strong> ((A + B) + C ≠ A + (B + C)). Quando
+si addiziona un numero molto grande a un numero molto piccolo,
+l'hardware trasla la mantissa del valore piccolo verso destra per
+allineare gli esponenti; se la differenza tra gli ordini di grandezza è
+marcata, le cifre del numero piccolo scivolano fuori dalla mantissa e
+vengono azzerate dall'hardware. Di conseguenza, l'operazione 2 1/2 + 1/8
++ 1/8 eseguita nell'ordine da sinistra a destra produce il risultato
+errato 2 1/2, poiché sommando 2 1/2 a 1/8 si subisce un troncamento che
+ripristina la somma a 2 1/2. Invertendo invece l'ordine e sommando prima
+i due valori piccoli tra loro (1/8 + 1/8 = 1/4), e aggiungendo solo
+successivamente il risultato a 2 1/2, si ottiene la risposta esatta 2
+3/4.</p>
+<p>Questa caratteristica impone una regola fondamentale nell'analisi
+numerica: quando si devono sommare più valori espressi in virgola
+mobile, occorre <strong>sommare sempre per primi i numeri più
+piccoli</strong>, consentendo loro di accumularsi gradualmente fino a
+raggiungere una grandezza significativa prima dell'addizione con i
+numeri di ordine superiore.</p>
+<h1 id="compressione-dei-dati"><strong>10. Compressione Dei
+Dati</strong></h1>
+<h2 id="tecniche-generiche-di-compressione-dei-dati"><strong>Tecniche
+Generiche di Compressione dei Dati</strong></h2>
+<p>La <strong><mark>compressione dei dati</mark></strong> comprende
+<mark>l'insieme delle tecniche utilizzate per ridurre la dimensione dei
+file</mark> digitali conservando le informazioni sottostanti,
+consentendo di ottimizzare lo spazio di archiviazione e di velocizzare
+il trasferimento dei dati. Le <mark>velocità di trasmissione</mark>
+lungo i canali di comunicazione <mark>vengono comunemente misurate in
+bit per secondo</mark> (bps) <mark>e nei</mark> relativi
+<mark>multipli</mark>, quali <strong>Kbps</strong> (migliaia di bps),
+<strong>Mbps</strong> (milioni di bps) e <strong>Gbps</strong> (miliardi
+di bps).</p>
+<p><strong>In parole povere:</strong> comprimere un file vuol dire
+riscriverlo in modo più corto, sfruttando ripetizioni e cose ridondanti,
+per occupare meno spazio e viaggiare più in fretta in rete. Come
+riassumere un racconto o fare le valigie piegando bene i vestiti.</p>
+<p>Tutti gli <mark>schemi di compressione</mark> si
+<mark>dividono</mark> in <mark>due grandi categorie</mark>
+concettuali:</p>
+<ul>
+<li><p><strong>Compressione <mark>Lossless</mark> (Senza
+Perdita)</strong>: <mark>schemi che non comportano alcuna perdita di
+informazione</mark> nel processo di compressione. Il <mark>dato
+decompresso</mark> risulta <mark>matematicamente</mark> <mark>identico
+all'originale</mark>, caratteristica indispensabile per file di testo
+puro, codice sorgente, programmi eseguibili e dati finanziari, nei quali
+anche la minima alterazione renderebbe il contenuto
+inutilizzabile.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> lossless significa senza perdita:
+dopo aver decompresso si riottiene il file identico all'originale, come
+una valigia che apri e ritrovi tutto uguale. Necessario per programmi,
+testi e conti.</p>
+<ul>
+<li><p><strong>Compressione <mark>Lossy</mark> (Con Perdita)</strong>:
+schemi che <mark>accettano la perdita irreversibile di una quota di
+informazione non essenziale</mark>. Consentono di ottenere <mark>fattori
+di riduzione nettamente superiori</mark> rispetto alle tecniche
+<em>lossless</em> e sono ampiamente impiegati in contesti in cui
+<mark>piccole imperfezioni possono essere tollerate</mark>, come nelle
+immagini, nei file audio e nei video.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> lossy significa con perdita: si
+butta via qualcosa che si nota poco, per risparmiare molto di più, e non
+si può recuperare. Come ridurre una foto: a occhio sembra uguale ma i
+dettagli minuscoli non ci sono più. Va bene per foto, musica e
+video.</p>
+<h2 id="algoritmi-di-compressione-generica"><strong>Algoritmi di
+Compressione Generica</strong></h2>
+<p>Esistono <mark>diverse metodologie</mark> generali applicabili a
+<mark>tipologie differenti di dati digitali</mark>:</p>
+<ul>
+<li><p><strong>Run-Length Encoding (RLE)</strong>: è una <mark>tecnica
+<em>lossless</em></mark> ideale per <mark>dati contenenti lunghe
+sequenze consecutive del medesimo valore</mark>. <mark>Sostituisce la
+catena di elementi ripetuti</mark> con un <mark>codice che indica
+l'elemento specifico</mark> e il <mark>numero delle sue
+occorrenze</mark> (ad esempio, indicando la presenza di 253 bit 1,
+seguiti da 118 zeri e 87 bit 1 anziché elencare tutti i 458 bit
+individuali).</p></li>
+</ul>
+<p><strong>In parole povere:</strong> se ci sono lunghe serie di valori
+uguali, invece di ripeterli si scrive quale valore e quante volte.
+Esempio: invece di AAAAAAAA scrivi 8 A. È lossless e va bene dove ci
+sono molte ripetizioni.</p>
+<ul>
+<li><p><strong>Codifica Dipendente dalla Frequenza (Codici di
+Huffman)</strong>: è un sistema a <mark>lunghezza variabile</mark> in
+cui la <mark>dimensione del pattern di bit assegnato a un elemento è
+inversamente proporzionale alla sua frequenza d'uso</mark>. Gli
+algoritmi scoperti da David Huffman rappresentano lo standard di questa
+categoria. Nel testo in lingua inglese, ad esempio, a lettere molto
+frequenti come 'e', 't', 'a' e 'i' vengono assegnate sequenze di bit
+brevi, mentre a lettere rare come 'z', 'q' e 'x' spettano sequenze più
+lunghe.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> le cose che compaiono spesso
+ricevono codici brevi e quelle rare codici lunghi, come le abbreviazioni
+dei messaggi per le parole più comuni. Nel testo inglese la e ha un
+codice corto e la z uno lungo, così in media si risparmia.</p>
+<ul>
+<li><p><strong>Codifica Relativa o Differenziale</strong>: adatta per
+<mark>flussi di dati in cui le unità consecutive differiscono solo
+leggermente tra loro</mark>, come i <mark>fotogrammi di un
+filmato</mark>. <mark>L'algoritmo registra unicamente le
+differenze</mark> (<em>delta</em>) rispetto all'unità precedente
+<mark>anziché memorizzare ogni unità per intero</mark>, e può essere
+implementato <mark>sia</mark> in forma <mark><em>lossless</em> sia
+<em>lossy</em>.</mark></p></li>
+</ul>
+<p><strong>In parole povere:</strong> se ogni elemento è quasi uguale al
+precedente (come due fotogrammi di un film), si salva solo ciò che è
+cambiato. Esempio: si dice nella scena cambia solo la posizione
+dell'attore invece di ridisegnare tutto lo sfondo.</p>
+<ul>
+<li><p><strong>Codifica a Dizionario e Algoritmo LZW</strong>:
+<mark>traduce il messaggio</mark> esprimendolo come una <mark>sequenza
+di riferimenti a una tabella di blocchi costitutivi detta
+<strong>dizionario</strong></mark>. Nei programmi di Word Processing, il
+dizionario di controllo ortografico (composto da circa 25.000 parole)
+<mark>permette di identificare un'intera parola con un indice numerico a
+15 bit anziché i 48 bit</mark> richiesti dalla codifica carattere per
+carattere in UTF-8 per una parola di 6 lettere.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> si crea un dizionario numerato di
+pezzi di messaggio (parole o gruppi di lettere) e il messaggio viene
+scritto con i numeri del dizionario. Come usare il numero di pagina di
+un libro invece di ricopiare il testo: il numero è più corto della
+parola.</p>
+<ul>
+<li><p><strong>Dizionari Adattivi (LZW - Lempel-Ziv-Welsh)</strong>:
+<mark>variante dinamica sviluppata</mark> da Lempel, Ziv e Welsh in cui
+il <mark>dizionario si espande durante la codifica</mark>. L'algoritmo
+<mark>parte da un dizionario base</mark> contenente i simboli elementari
+(caratteri, cifre, spazi) e <mark>aggiunge via via le sequenze
+ricorrenti individuate nel testo</mark>. Durante la decompressione, il
+ricevente riparte dallo stesso dizionario base e ricostruisce in
+parallelo la medesima tabella, eliminando la necessità di trasmettere il
+dizionario assieme al file. Ad esempio, codificando la stringa xyx xyx
+xyx xyx partendo da x, y e spazio (indici 1, 2, 3), il primo blocco xyx
+diventa 121, lo spazio 3, e la sequenza xyx viene aggiunta come quarto
+elemento. Il messaggio compresso 121343434 viene poi decodificato
+ricostruendo la voce 4 al primo riscontro del pattern.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> è un dizionario che si costruisce
+mentre il testo scorre: parte con le lettere semplici e aggiunge i
+gruppi che si ripetono. Chi decomprime ripete lo stesso lavoro e
+ricostruisce il dizionario da solo, quindi non serve spedirlo insieme al
+file.</p>
+<h2 id="compressione-di-immagini-audio-e-video"><strong>Compressione di
+Immagini, Audio e Video</strong></h2>
+<p>I <mark>file multimediali</mark> richiedono un'<mark>occupazione di
+memoria particolarmente elevata</mark>, motivo per cui sono stati
+sviluppati <mark>standard</mark> di compressione <mark>specifici</mark>
+per <mark>ciascuna tipologia di media</mark>.</p>
+<p><strong>Compressione delle Immagini: GIF, JPEG e TIFF</strong></p>
+<p><strong>Formato <mark>GIF</mark> (Graphic Interchange
+Format)</strong>: sviluppato da CompuServe per le immagini bitmap, è un
+sistema a dizionario che <mark>riduce i colori rappresentabili</mark> a
+un massimo di <strong><mark>256 tonalità</mark></strong>. Ciascun colore
+della <strong>palette</strong> è codificato a 24 bit (3 byte RGB), e
+<mark>ogni pixel dell'immagine richiede un solo byte contenente l'indice
+del colore corrispondente nella palette</mark>. GIF applica la
+<mark>compressione LZW</mark> per un'ulteriore riduzione dello spazio.
+Risulta una tecnica <em>lossy</em> se applicata a fotografie complesse
+le cui sfumature non figurano nella palette, ma è <em>lossless</em> per
+grafiche semplici. <mark>Permette inoltre di impostare un colore come
+trasparente</mark>, rendendolo lo standard d'elezione per semplici
+animazioni grafiche.</p>
+<p><strong>Formato JPEG (Joint Photographic Experts Group)</strong>:
+sviluppato all'interno dell'ISO, costituisce lo <mark>standard</mark> di
+riferimento per la <mark>compressione delle fotografie a colori ad alta
+definizione</mark>. Sebbene preveda una modalità <em>lossless</em> poco
+utilizzata, lo standard principale è il <strong><mark>JPEG Baseline
+Standard</mark></strong> (<em><mark>lossy</mark> sequential</em>). Il
+<mark>procedimento si articola in varie fasi e sfrutta i limiti del
+sistema visivo umano</mark>, <mark>maggiormente sensibile alle
+variazioni di luminosità</mark> (<strong>luminanza</strong>) rispetto
+alle variazioni cromatiche (<strong>crominanza</strong>)</p>
+<p><strong>Formato TIFF (Tagged Image File Format)</strong>: utilizzato
+principalmente per <mark>archiviare fotografie ad altissima fedeltà non
+compresse</mark> (in formato RGB puro) <mark>insieme ai relativi
+metadati</mark> (data, ora, impostazioni della fotocamera).</p>
+<h2 id="compressione-audio-e-video-mpeg-e-mp3"><strong>Compressione
+Audio e Video: MPEG e MP3</strong></h2>
+<p><strong>Standard MPEG (Motion Picture Experts Group)</strong>:
+sviluppato sotto la guida dell'ISO per la <mark>compressione di flussi
+video e audio</mark>. Nei filmati video, concepiti come sequenze di
+immagini, <mark>soltanto alcuni fotogrammi chiave</mark>
+(<strong>I-frame</strong>) <mark>vengono codificati integralmente</mark>
+con tecniche simili a JPEG. I <mark>fotogrammi intermedi</mark> tra gli
+I-frame vengono invece <mark>compressi mediante codifica
+relativa</mark>, <mark>registrando esclusivamente le differenze</mark>
+rispetto all'immagine precedente.</p>
+<p><strong>Standard MP3 (MPEG Layer 3)</strong>: formato di compressione
+audio <mark>appartenente agli standard MPEG</mark> che <mark>riduce
+significativamente</mark> la dimensione dei file audio <mark>mantenendo
+una qualità prossima a quella di un CD</mark>. Funziona <mark>eliminando
+i suoni impercettibili per l'orecchio umano</mark> sfruttando due
+principi psicoacustici</p>
+<p><strong>Tassi di Trasmissione</strong>: per la fruizione tempestiva
+in rete, i flussi video MPEG richiedono velocità di trasferimento fino a
+<strong>40 Mbps</strong>, mentre le tracce audio MP3 necessitano di
+tassi non superiori a <strong>64 Kbps</strong>.</p>
+<h1 id="gestione-e-correzione-degli-errori-di-comunicazione"><strong>11.
+Gestione e correzione degli errori di comunicazione</strong></h1>
+<h2 id="rilevamento-degli-errori-e-bit-di-parità"><strong>Rilevamento
+degli Errori e Bit di Parità</strong></h2>
+<p>Durante il trasferimento dei dati tra le varie componenti interne di
+un calcolatore, la trasmissione a distanza o la semplice permanenza
+delle informazioni nei dispositivi di memorizzazione, <mark>esiste
+costantemente il rischio che i pattern di bit vengano alterati</mark>.
+Sporcizia o grasso sulle superfici magnetiche, malfunzionamenti dei
+circuiti, interferenze statiche sui canali di trasmissione e persino la
+radiazione di fondo nelle memorie RAM possono invertire inavvertitamente
+lo stato di uno o più bit. Per garantire la massima affidabilità del
+sistema senza richiedere l'intervento dell'utente, <mark>l'hardware
+integra sofisticate tecniche di codifica volte a rilevare e correggere
+tali anomalie</mark>.</p>
+<p>La <mark>strategia di rilevamento più semplice si basa sul principio
+della parità</mark>. <mark>Aggiungendo un bit supplementare, denominato
+<strong>bit di parità</strong></mark> (<em>parity bit</em>), a ciascun
+pattern di dati (ad esempio portando i codici ASCII da 8 a 9 bit), si
+progetta il sistema in modo che <mark>ogni sequenza valida rispetti un
+preciso vincolo numerico</mark>:</p>
+<p><strong>In parole povere:</strong> il bit di parità è un bit in più,
+messo alla fine di un gruppo di bit, che serve per controllare gli
+errori: si sceglie in modo che il numero di 1 sia sempre pari (o sempre
+dispari). Se all'arrivo il conto non torna, qualche bit si è rovinato
+per strada.</p>
+<ul>
+<li><p><strong>Parità Dispari (Odd Parity)</strong>: il <mark>bit di
+parità viene impostato a 0 o 1 affinché la stringa complessiva contenga
+sempre un <strong>numero dispari di bit 1</strong></mark>. Se il
+circuito di controllo riceve una parola contenente un numero pari di 1,
+segnala immediatamente la presenza di un errore.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> si aggiunge 0 o 1 in modo che il
+totale degli 1 sia dispari. Se arriva un numero pari di 1 c'è
+sicuramente un errore. Esempio: 1101 ha tre 1, già dispari, quindi si
+aggiunge 0.</p>
+<ul>
+<li><p><strong>Parità Pari (Even Parity)</strong>: il bit aggiuntivo
+viene configurato affinché la sequenza finale contenga <mark>un
+<strong>numero pari di bit 1</strong></mark>, denotando un'anomalia ogni
+volta che si riscontra un conteggio dispari.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> il contrario: il bit aggiunto
+serve a far venire un numero pari di 1. Esempio: 1101 ha tre 1, quindi
+si aggiunge un 1 per arrivare a quattro.</p>
+<p>Un'applicazione pratica fondamentale di questo schema si trova nelle
+memorie <strong>RAM</strong> per sistemi ad alta affidabilità. Sebbene
+siano concepite per gestire celle da un byte (8 bit), fisicamente queste
+memorie dispongono di celle a 9 bit. Durante le operazioni di scrittura,
+il circuito calcola e memorizza il bit di parità; in fase di lettura, la
+memoria verifica il vincolo di parità sul pattern a 9 bit e, se non
+riscontra anomalie, rimuove il bit di controllo restituendo al
+processore i soli 8 bit di dati originali.</p>
+<p><mark>Nonostante l'efficienza, la parità semplice presenta un limite
+strutturale</mark>: essa <strong><mark>non è in grado di rilevare un
+numero pari di errori simultanei</mark></strong>. Se all'interno della
+medesima <mark>stringa si verificano due o quattro inversioni di
+bit</mark>, il conteggio complessivo della parità rimane inalterato e
+l'errore sfugge al controllo. Per proteggere sequenze di dati molto
+lunghe (come i settori dei dischi magnetici), <mark>si ricorre quindi a
+insiemi di bit di controllo associati a bit distribuiti lungo tutto il
+blocco, noti come <strong>checkbyte</strong>, <strong>checksum</strong>
+o <strong>CRC</strong></mark> <strong>(Cyclic Redundancy
+Check)</strong>.</p>
+<h2
+id="codici-di-correzione-degli-errori-e-distanza-di-hamming"><strong>Codici
+di Correzione degli Errori e Distanza di Hamming</strong></h2>
+<p>Mentre il <mark>bit di parità</mark> si <mark>limita a segnalare la
+presenza di un errore</mark> senza indicare quale bit sia stato
+alterato, i <strong><mark>codici di correzione degli
+errori</mark></strong> (<em>Error-Correcting Codes</em>)
+<mark>consentono all'hardware non solo di individuare l'anomalia, ma
+anche di <strong>ricostruire automaticamente il dato
+originale</strong></mark> senza dover richiedere la ritrasmissione del
+messaggio.</p>
+<p><strong>In parole povere:</strong> un bit di parità dice solo c'è
+stato un errore. Un codice correttore invece aggiunge tanti bit di
+controllo da capire anche dove sta l'errore, e quindi lo ripara da solo,
+senza dover rimandare il messaggio. Come il correttore automatico che sa
+quale lettera sbagliata sostituire.</p>
+<p>Il <mark>fondamento teorico</mark> di questi codici si basa sul
+concetto di <strong><mark>Distanza di Hamming</mark></strong>:</p>
+<p>La <strong>Distanza di Hamming</strong> <mark>tra due pattern binari
+della medesima lunghezza è definita come il <strong>numero di posizioni
+in cui i bit delle due stringhe differiscono tra
+loro</strong></mark>.</p>
+<p><strong>In parole povere:</strong> la distanza di Hamming conta in
+quante posizioni due stringhe di bit sono diverse, come in un gioco dei
+sette errori. Esempio: 1011 e 1001 differiscono in un solo posto, quindi
+distanza 1; 1011 e 0100 differiscono in quattro posti, distanza 4.</p>
+<p>Per <mark>costruire un codice correttore</mark>, si <mark>progetta
+l'insieme delle parole legali in modo che ogni coppia di stringhe valide
+sia separata da una <strong>distanza di Hamming minima
+garantita</strong></mark>:</p>
+<ul>
+<li><p><strong>Distanza minima pari a 3</strong>: <mark>consente di
+<strong>rilevare fino a 2 bit errati</strong></mark> per sequenza
+<mark>e di <strong>correggere 1 bit errato</strong></mark>. Infatti, se
+un singolo bit viene alterato, la stringa ricevuta non risulterà più una
+parola legale, ma si troverà a distanza di Hamming 1 dal codice
+originale e a distanza pari ad almeno 2 da qualsiasi altra parola
+legale, permettendo al decodificatore di identificare in modo univoco il
+dato corretto.</p></li>
+</ul>
+<p><img src="./media/image14.png"
+style="width:4.33071in;height:1.61192in" /></p>
+<p><em>Con distanza minima 3 un errore si corregge, due si
+rilevano.</em></p>
+<ul>
+<li><p><strong>Distanza minima pari a 5</strong>: <mark>permette di
+rilevare fino a 4 bit errati simultanei e di correggerne fino a 2</mark>
+in modo del tutto automatico.</p></li>
+</ul>
+<p><mark>L'implementazione dei codici correttori è cruciale nei supporti
+ad alta densità come gli Hard Disk</mark> e nei <mark>dischi
+ottici</mark>, nei quali segna una distinzione fondamentale tra i
+diversi formati:</p>
+<ul>
+<li><p><strong>CD-DA (Compact Disc Digital Audio)</strong>:
+<mark>integra una protezione d'errore di base che riduce il tasso di
+errore residuo a circa 1 disco difettoso ogni 2 CD</mark>. Questo
+livello è accettabile per la riproduzione audio, dove i piccoli difetti
+vengono facilmente mascherati o interpolati senza un fastidio acustico
+percepibile.</p></li>
+<li><p><strong>CD-ROM (Data Storage)</strong>: <mark>per la
+distribuzione di software ed eseguibili</mark>, dove <mark>anche un
+singolo bit errato renderebbe il programma inutilizzabile</mark>, lo
+standard CD-ROM <mark>aggiunge ulteriori livelli di correzione d'errore
+basati sulla distanza di Hamming</mark>, riducendo la probabilità di
+errore residuo a <strong>1 solo disco difettoso ogni 20.000
+dischi</strong>.</p></li>
+</ul>
+<h1
+id="logica-proposizionale-proposizioni-e-valori-di-verità"><strong>12.
+Logica Proposizionale: Proposizioni e Valori di Verità</strong></h1>
+<h2 id="che-cosè-la-logica-proposizionale"><strong>Che cos'è la logica
+proposizionale</strong></h2>
+<p>La <mark>logica proposizionale studia il modo più semplice di
+combinare affermazioni</mark>. Si <mark>parte da un insieme di
+<strong>proposizioni atomiche</strong></mark>: affermazioni di cui non
+si analizza il contenuto, ma a cui <mark>si sa assegnare un
+<strong>valore di verità</strong>, vero o falso</mark>. Possono essere
+affermazioni sul mondo esterno ("c'è un'automobile", "è giorno", "la
+temperatura è sopra una certa soglia"), nel caso di un'applicazione
+informatica in cui una macchina rileva queste informazioni. Da questo
+punto in poi non ci si chiede più come si ottengono i valori di verità,
+ma come si <strong>combinano</strong> tra loro.</p>
+<p><strong>In parole povere:</strong> una proposizione atomica è
+un'affermazione semplice, senza pezzi dentro, di cui interessa solo se è
+vera o falsa (come c'è un'automobile o è giorno). È il mattoncino da cui
+si costruiscono le frasi più complicate.</p>
+<p>Una proposizione è dunque una frase che è vera oppure falsa, ma non
+entrambe. Il libro la dimostra con una serie di frasi da
+classificare:</p>
+<p><strong>In parole povere:</strong> una proposizione è una frase di
+cui ha senso dire che è vera oppure falsa (una cosa o l'altra). Non
+importa se non sai quale delle due. Esempio: sette è un numero primo è
+vera; Roma è in Francia è falsa.</p>
+<ul>
+<li><p>"I soli interi positivi che dividono 7 sono 1 e 7": è
+<strong>vera</strong>, e si verifica provando che 2, 3, 4, 5 e 6 non
+dividono 7 (è un altro modo di dire che 7 è primo);</p></li>
+<li><p>"Alfred Hitchcock ha vinto l'Oscar per la regia nel 1940 con
+*Rebecca*": è <strong>falsa</strong>; si controlla su un archivio o
+chiedendolo a internet, ed è *Rebecca* ad aver vinto l'Oscar come
+miglior film, mentre per la regia vinse un altro regista;</p></li>
+<li><p>"Per ogni intero positivo n esiste un numero primo più grande di
+n": è <strong>vera</strong>, ed è il teorema di Euclide (i numeri primi
+sono infiniti): un'affermazione complessa che per la logica
+proposizionale ha comunque un valore di verità;</p></li>
+<li><p>"La Terra è l'unico pianeta dell'universo che contiene vita": non
+sappiamo se è vera o falsa e magari non lo sapremo mai, ma ha <strong>un
+valore di verità</strong> anche se ignoto. La logica proposizionale
+copre anche questi casi, in cui si suppone soltanto che il valore
+esista.</p></li>
+</ul>
+<h2 id="che-cosa-non-è-una-proposizione"><strong>Che cosa non è una
+proposizione</strong></h2>
+<p>Non tutte le frasi sono proposizioni. Il linguaggio contiene
+anche:</p>
+<ul>
+<li><p><strong>domande</strong>, che chiedono un'informazione: non
+descrivono come stanno le cose;</p></li>
+<li><p><strong>ordini</strong>, come "compra due biglietti per il
+concerto": lo scopo non è descrivere il mondo ma cambiarlo. In
+programmazione è così anche x = 3, che è un'istruzione imperativa, un
+ordine al compilatore di assegnare alla variabile x il valore
+3;</p></li>
+<li><p><strong>affermazioni con parametri</strong>, come l'equazione x +
+4 = 6: il suo valore di verità dipende da x. Con x = 2 è vera, con x = 0
+è falsa. Finché ai parametri non è assegnato un valore, non è una
+proposizione.</p></li>
+</ul>
+<h2 id="le-variabili-proposizionali"><strong>Le variabili
+proposizionali</strong></h2>
+<p><mark>Per indicare le proposizioni si usano variabili come p, q e
+r</mark>, un po' come in algebra si usano le lettere per i numeri. Si
+può anche <strong>definire</strong> una variabile con una proposizione,
+scrivendo per esempio p: 1 + 1 = 3, cioè "p è la proposizione 1 + 1 = 3"
+(che è falsa).</p>
+<p><strong>In parole povere:</strong> una variabile proposizionale è
+un'etichetta (p, q, r) che sta per una proposizione qualsiasi, come in
+algebra x sta per un numero. Si usa per ragionare sulla forma delle
+frasi senza ripetere ogni volta il testo.</p>
+<h2 id="perché-si-parla-di-valori-booleani"><strong>Perché si parla di
+valori booleani</strong></h2>
+<p><mark>I valori di verità si chiamano anche <strong>valori
+booleani</strong></mark>, dal nome di George Boole, il primo a trattare
+la logica proposizionale in modo scientifico: la logica proposizionale
+esisteva da mille anni, ma fino ad allora era una parte della filosofia.
+<mark>Per un informatico le affermazioni composte con i connettivi sono
+il primo compito da affidare ai <strong>circuiti</strong></mark> (visti
+nelle prime settimane del corso, capitoli 1 e 5 di questo Word): una
+formula di logica proposizionale si può realizzare con un circuito, ma
+anche scrivere e studiare su carta.</p>
+<p><strong>In parole povere:</strong> valore booleano è un altro nome
+per vero e falso (1 e 0). Il nome ricorda George Boole, che trasformò la
+logica da filosofia a calcolo, e per questo si parla di logica booleana
+quando i valori sono solo due.</p>
+<p><mark>La logica proposizionale si usa di fatto, anche senza dirlo, in
+tutte le dimostrazioni di matematica</mark>. Come ha sottolineato il
+docente, qui l'interesse è la base per il ragionamento automatico: si
+studieranno affermazioni più semplici di quelle di un corso di
+matematica, ma con più dettaglio, perché poi bisogna spiegare alle
+macchine come ragionare.</p>
+<p>Il prossimo capitolo presenta i connettivi con cui si combinano le
+proposizioni.</p>
+<h1 id="section-1"></h1>
+<h1 id="i-connettivi-and-or-not-xor-ed-equivalenza"><strong>13. I
+Connettivi: And, Or, Not, Xor ed Equivalenza</strong></h1>
+<h2 id="combinare-le-proposizioni"><strong>Combinare le
+proposizioni</strong></h2>
+<p><mark>Un <strong>connettivo</strong> è un'operazione che prende uno o
+più valori di verità in ingresso e ne restituisce uno in uscita</mark>.
+Sono gli stessi che i circuiti elementari realizzano (porte and, or, xor
+e not, già visti nel capitolo 5: qui si guardano con la tavola di
+verità), e alcuni erano già stati anticipati. <mark>Il valore di verità
+della proposizione composta è sempre determinato dai valori di verità
+delle sue componenti. Nelle tavole che seguono si indicano il vero con
+<strong>1</strong> e il falso con <strong>0</strong>.</mark></p>
+<p><strong>In parole povere:</strong> un connettivo è una macchinetta
+che prende uno o più valori di verità e ne restituisce uno nuovo, come
+and, or e not. Prende le frasi vero/falso e le combina per formarne di
+più grandi. Esempio: piove E fa freddo.</p>
+<h2 id="la-congiunzione-and"><strong>La congiunzione (and)</strong></h2>
+<p>La <mark><strong>congiunzione</strong> p ∧ q si legge "p e q": è vera
+quando <strong>entrambe</strong> le proposizioni sono vere, e falsa se
+almeno una è falsa</mark>. Esempio del libro: "un decennio è di 10 anni
+e un millennio è di 100 anni" è falsa, perché la seconda parte è
+falsa.</p>
+<p><strong>In parole povere:</strong> la congiunzione è la e: vale vero
+solo se sono vere tutte e due le frasi. Basta una falsa e il risultato è
+falso. Esempio: ho fame e ho soldi: se manca uno dei due, non
+mangio.</p>
+<h2 id="la-disgiunzione-or-e-il-caso-dellxor"><strong>La disgiunzione
+(or) e il caso dell'xor</strong></h2>
+<p>La <mark><strong>disgiunzione</strong> p ∨ q si legge "p o q" ed è la
+disgiunzione <strong>inclusiva</strong></mark>: <mark>è vera se è vera
+p, oppure è vera q, <strong>oppure lo sono entrambe</strong></mark>.
+<mark>È falsa solo quando sono false tutte e due</mark>. Esempio del
+libro: "un millennio è di 100 anni o un millennio è di 1000 anni" è
+vera, perché basta la seconda parte.</p>
+<p><strong>In parole povere:</strong> la disgiunzione è la o: basta che
+una delle due sia vera. Anche se sono vere tutte e due, è vera. Solo se
+sono entrambe false è falsa. Esempio: prendo il caffè o il tè: se prendo
+tutti e due non ho sbagliato.</p>
+<p><mark>Esiste anche la disgiunzione <strong>esclusiva</strong></mark>
+(l'*aut* del latino, <strong><mark>xor</mark></strong> in inglese),
+<mark>vera solo quando una delle due è vera e l'altra è falsa</mark>;
+<mark>non lo è quando sono vere entrambe</mark>. Nel parlato "o" può
+avere l'uno o l'altro significato, mentre in logica quando si scrive
+"or" si intende quella inclusiva.</p>
+<p><strong>In parole povere:</strong> lo xor è la o dell'aut aut: o una
+o l'altra, ma non entrambe. Esempio: nel menu fisso scegli la carne o il
+pesce: se li prendi tutti e due hai sbagliato.</p>
+<p>Un esempio del docente: "piove e fa freddo". Se oggi non piove ma fa
+freddo (dove si fissa la soglia, per esempio, a 20 gradi), la
+<strong>congiunzione è falsa</strong>, perché la prima parte è falsa,
+mentre la <strong>disgiunzione "piove o fa freddo" è vera</strong>,
+perché la seconda parte è vera. Le frasi vanno poi sempre interpretate
+in un contesto.</p>
+<p>La logica si occupa della <strong>forma</strong> delle proposizioni e
+dei rapporti tra loro, non del loro argomento: perciò "3 &lt; 5 oppure
+Parigi è la capitale dell'Inghilterra" è ammessa ed è vera, perché 3
+&lt; 5 è vera.</p>
+<h2 id="la-negazione-not"><strong>La negazione (not)</strong></h2>
+<p>La <mark><strong>negazione</strong> ¬p si legge "non p" e
+<strong>scambia</strong> il valore di verità</mark>: <mark>è vera quando
+p è falsa e viceversa</mark>. Esempio del libro: se p è "π è stato
+calcolato con un milione di cifre decimali nel 1954" (falsa: ci si
+arrivò solo nel 1973), ¬p è vera.</p>
+<p><strong>In parole povere:</strong> la negazione ribalta il valore: se
+la frase era vera diventa falsa e viceversa. Come dire non è vero che...
+davanti alla frase.</p>
+<h2 id="equivalenza-e-xor"><strong>Equivalenza e xor</strong></h2>
+<p><mark>L'<strong>equivalenza</strong></mark> (o
+<strong><mark>uguaglianza</mark></strong> tra booleani) <mark>è vera
+quando i due valori sono <strong>uguali</strong>, falsa quando sono
+divers</mark>i. In programmazione corrisponde al test di uguaglianza (==
+in C++ e Java). Lo <strong>xor</strong> è la sua negazione: è vero
+quando i due valori sono <strong>diversi</strong>. L'equivalenza vale 0
+nei due casi intermedi (valori diversi) e 1 nel primo e nell'ultimo
+(valori uguali); lo xor ha la tavola opposta.</p>
+<p><strong>In parole povere:</strong> l'equivalenza è vera quando i due
+valori sono uguali (tutti e due veri o tutti e due falsi) e falsa quando
+sono diversi. È il test sono uguali? applicato ai valori di verità.</p>
+<h2 id="le-tavole-di-questi-connettivi"><strong>Le tavole di questi
+connettivi</strong></h2>
+<p>Con l'ordine del libro (prima il vero, 1, poi il falso, 0) le tavole
+sono:</p>
+<p><img src="./media/image15.png"
+style="width:5.11811in;height:1.92025in" /></p>
+<p><em>Le tavole di verità di and, or, xor, equivalenza e not (1 = vero,
+0 = falso).</em></p>
+<h2 id="notazioni-diverse-per-lo-stesso-connettivo"><strong>Notazioni
+diverse per lo stesso connettivo</strong></h2>
+<p>Lo stesso connettivo si scrive in modi diversi a seconda del libro e
+del linguaggio: sono solo <strong>sinonimi</strong>, non hanno tavole di
+verità diverse. Se una notazione non è nota conviene chiedere che cosa
+significa.</p>
+<ul>
+<li><p><strong>Negazione</strong>: "non" (italiano), *not* (inglese), il
+simbolo ¬, la tilde <em>; nei linguaggi di programmazione (C, C++, Java)
+il punto esclamativo !.</em></p></li>
+<li><p><strong>Congiunzione</strong>: "e", *et* (latino), *and*, il
+simbolo ∧, la "e commerciale" &amp;; in Java si scrive con la doppia
+&amp;&amp;.</p></li>
+<li><p><strong>Disgiunzione</strong>: "o" e "oppure", *vel* (latino),
+*or*, il simbolo ∨; in Java con la doppia barra verticale ||.</p></li>
+</ul>
+<p>Nei linguaggi di programmazione "and", "or" e "not" sono definiti
+esattamente come in logica (esempi del libro): per esempio x &lt; 10
+&amp;&amp; y &gt; 4 è vera quando x è minore di 10 <strong>e</strong> y
+è maggiore di 4, x &lt; 10 || y &gt; 4 quando vale almeno una delle due,
+e !(x &lt; 10) quando x è maggiore o uguale a 10.</p>
+<h2 id="la-precedenza-degli-operatori"><strong>La precedenza degli
+operatori</strong></h2>
+<p><mark>Quando una formula contiene ¬, ∧ e ∨ senza parentesi, si valuta
+<strong>prima ¬, poi ∧, poi ∨</strong></mark>: è la <strong>precedenza
+degli operatori</strong>, come in algebra la moltiplicazione e la
+divisione si fanno prima di somma e sottrazione. Esempio del libro: con
+p falsa, q vera e r falsa, quanto vale ¬p ∨ q ∧ r? Si valuta prima ¬p,
+che è vera; poi q ∧ r, che è falsa; infine l'intera formula, vera ∨
+falsa, che è <strong>vera</strong>.</p>
+<p><strong>In parole povere:</strong> la precedenza è l'ordine in cui si
+fanno le operazioni quando non ci sono parentesi, come in matematica
+dove si fa prima la moltiplicazione e poi la somma. Qui si valuta prima
+il not, poi l'and, poi l'or. Nel dubbio, metti le parentesi.</p>
+<h1 id="section-2"></h1>
+<h1 id="le-tavole-di-verità"><strong>14. Le Tavole di
+Verità</strong></h1>
+<h2 id="a-che-cosa-servono"><strong>A che cosa servono</strong></h2>
+<p>Una <mark><strong>tavola di verità</strong> è un elenco di
+<strong>tutte</strong> le combinazioni possibili dei valori di verità
+delle componenti atomiche, con a fianco, per ciascuna combinazione, il
+valore di verità della proposizione composta</mark>. È un modo
+alternativo di definire un connettivo: non più come circuito, ma come
+tabella. Serve perché non è facile stabilire se due circuiti sono
+equivalenti, mentre si possono leggere come formule proposizionali e
+confrontare le loro tavole: è l'applicazione principale delle tavole di
+verità in informatica.</p>
+<p><strong>In parole povere:</strong> una tavola di verità è una
+tabellina in cui metti tutte le combinazioni possibili di vero/falso
+delle frasi semplici e a fianco scrivi cosa viene alla frase composta. È
+come provare tutti i casi possibili uno per uno per vedere sempre il
+risultato.</p>
+<p><img src="./media/image16.png"
+style="width:4.13386in;height:2.10593in" /></p>
+<p><em>La tavola di (p ∨ q) ∧ ¬p, calcolata a passi: una colonna per
+ogni sottoformula.</em></p>
+<p>La congiunzione ha un solo 1, quello della riga in cui p è falsa e q
+è vera. Lo stesso risultato si ottiene ragionando: se p è falsa, il
+primo argomento p ∨ q è vero solo se lo è q; se p è vera, ¬p è falsa e
+la congiunzione è falsa. Quindi (p ∨ q) ∧ ¬p equivale a ¬p ∧ q, una
+formula più breve: un modo per semplificare e, in un circuito,
+risparmiare una porta.</p>
+<h2 id="quante-righe-ci-sono"><strong>Quante righe ci sono</strong></h2>
+<p><mark>Con <strong>n</strong> proposizioni atomiche le righe sono
+<strong>2ⁿ</strong></mark>: 1 proposizione dà 2 righe, 2 danno 4, 3
+danno 8 (come nell'esempio del libro). È un teorema che si dimostra per
+induzione e che si vedrà anche in Matematica discreta.</p>
+<p>Bisogna elencare <strong>tutti</strong> i casi, e <strong>una volta
+sola</strong>. La prima richiesta è di correttezza: se manca un caso la
+definizione o il confronto non sono corretti. La seconda è di
+efficienza: ripetere uno stesso caso è uno spreco.</p>
+<h1 id="section-3"></h1>
+<h1 id="equivalenze-tautologie-e-contraddizioni"><strong>15.
+Equivalenze, Tautologie e Contraddizioni</strong></h1>
+<h2 id="formule-equivalenti"><strong>Formule equivalenti</strong></h2>
+<p><mark>Due formule sono <strong>equivalenti</strong> se hanno gli
+stessi valori di verità per tutti i valori di verità delle loro
+componenti atomiche, cioè se hanno la <strong>stessa tavola di
+verità</strong></mark>. Non sono la stessa formula, ma si possono
+scambiare l'una con l'altra, scegliendo quella più utile in un dato
+contesto. Questo vale per i circuiti (due circuiti equivalenti si
+possono sostituire), ma anche per i programmi: prima di sostituire la
+condizione di uscita di un ciclo con un'altra formula più leggibile
+bisogna essere sicuri che sia equivalente, altrimenti si cambia il
+comportamento del programma.</p>
+<p><strong>In parole povere:</strong> due formule sono equivalenti se in
+ogni caso possibile danno lo stesso risultato, cioè hanno la stessa
+tabella di verità. Sono scritte in modo diverso, ma si comportano allo
+stesso modo, come due modi diversi di dire la stessa cosa.</p>
+<h2 id="esempio-la-negazione-di-una-disgiunzione"><strong>Esempio: la
+negazione di una disgiunzione</strong></h2>
+<p>Si vuole vedere che <strong>¬(p ∨ q)</strong> è equivalente a
+<strong>¬p ∧ ¬q</strong>. Con le tavole di verità:</p>
+<p><img src="./media/image17.png"
+style="width:4.92126in;height:1.7344in" /></p>
+<p><em>Le colonne di ¬(p ∨ q) e di ¬p ∧ ¬q coincidono: le due formule
+sono equivalenti.</em></p>
+<p>Le colonne ¬(p∨q) e ¬p∧¬q coincidono. Lo stesso risultato si ottiene
+anche con un ragionamento, che il docente ha presentato passo per
+passo:</p>
+<p>1. ¬(p ∨ q) è vera se e solo se p ∨ q è falsa;</p>
+<p>2. una disgiunzione è falsa se e solo se i suoi argomenti sono
+entrambi falsi: p è falsa e q è falsa;</p>
+<p>3. questo accade se e solo se ¬p e ¬q sono entrambe vere;</p>
+<p>4. cioè se e solo se è vera la loro congiunzione ¬p ∧ ¬q.</p>
+<p>È un caso delle leggi di De Morgan, che il corso riprenderà più in
+dettaglio. Si può dimostrare con le tavole oppure con un ragionamento a
+parole.</p>
+<h2 id="tautologie-e-contraddizioni"><strong>Tautologie e
+contraddizioni</strong></h2>
+<p><mark>Una <strong>tautologia</strong> è una formula che è
+<strong>sempre vera</strong>, qualunque siano i valori delle sue
+componenti: nella colonna finale della sua tavola ci sono solo 1</mark>.
+Una <strong>c<mark>ontraddizione</mark></strong> <mark>è l'opposto: una
+formula <strong>sempre falsa</strong></mark>. La negazione di una
+tautologia è una contraddizione, e viceversa. Il <strong>problema della
+tautologia</strong> è appunto quello di stabilire se una formula vale
+sempre.</p>
+<p><strong>In parole povere:</strong> la tautologia è la frase che è
+sempre vera, qualunque cosa succeda: ad esempio piove oppure non piove.
+La contraddizione è l'opposto, una frase sempre falsa, come piove e non
+piove insieme. La negazione di una è l'altra.</p>
+<p>Le tavole di verità servono a controllare:</p>
+<ul>
+<li><p>se due formule sono equivalenti;</p></li>
+<li><p>se una formula è sempre vera (una legge logica), come le leggi di
+De Morgan o l'associatività della disgiunzione.</p></li>
+</ul>
+<h2 id="esempi-svolti-a-lezione"><strong>Esempi svolti a
+lezione</strong></h2>
+<p><strong>¬p ∨ q ∨ p.</strong> Costruita la tavola, in ogni riga c'è
+almeno un 1: è una <strong>tautologia</strong>.</p>
+<p><strong>p ∨ ¬p</strong>, chiamata <strong>terzo escluso</strong>. Se
+p è vera la disgiunzione è vera perché un argomento è vero; se p è
+falsa, ¬p è vera e di nuovo la disgiunzione è vera. Il nome dice che "o
+p è vera o è falsa, e non c'è un terzo caso": in realtà, ha sottolineato
+il docente, la logica è costruita con soli due valori di verità, e ne
+esistono altre, con valori intermedi, usate in informatica per scopi
+diversi, ma qui si usa sempre la logica a due valori.</p>
+<p><strong>In parole povere:</strong> il terzo escluso dice che una
+proposizione o è vera o è falsa, e non c'è una terza possibilità. Per
+questo p o non p è sempre vera: o piove oppure non piove.</p>
+<p><strong>(p ∨ q) ∧ ¬p.</strong> È vera in una sola riga, quella con p
+falsa e q vera: non è né una tautologia né una contraddizione, ma
+equivale a ¬p ∧ q, più semplice (come visto nel capitolo
+precedente).</p>
+<h2 id="perché-le-tavole-non-bastano-sempre"><strong>Perché le tavole
+non bastano sempre</strong></h2>
+<p><mark>Le tavole di verità hanno un limite</mark>: <mark>le righe sono
+2ⁿ</mark>. Con 1000 proposizioni atomiche sono 2¹⁰⁰⁰, un po' più di
+10³⁰⁰ righe, un numero più grande del numero di particelle
+dell'universo. <mark>Con questa dimensione non si può usare la tavola, e
+servono metodi più veloci, che il corso accennerà più avanti</mark>. Il
+caso non è teorico: nella <strong>verifica di sistemi complessi</strong>
+(*model checking*) si descrive il sistema con una formula proposizionale
+che dice "non esiste una situazione di pericolo", con migliaia di
+affermazioni atomiche (la posizione e la velocità dei treni, lo stato
+dei segnali, la rete elettrica, il comportamento delle persone). Il
+docente ha citato studi di questo tipo per la metropolitana di Londra e
+per le ferrovie svedesi. Il model checking non fa parte del corso, ma è
+una delle motivazioni: a Fondamenti si impara la logica come base del
+ragionamento automatico.</p>
+<h1 id="limplicazione-condizionale"><strong>16. L'Implicazione
+(Condizionale)</strong></h1>
+<h2 id="da-dove-si-riparte"><strong>Da dove si riparte</strong></h2>
+<p>Dopo i connettivi and, or, not, xor ed equivalenza, la <mark>logica
+proposizionale continua con</mark>
+<mark>l'<strong>implicazione</strong></mark>, che nel libro è la sezione
+1.3 della seconda parte. <mark>È anche il connettivo più delicato,
+perché il significato che gli si dà in logica proposizionale è
+diverso</mark>, e più povero, di quello che ha nel linguaggio
+comune.</p>
+<h2
+id="il-significato-dellimplicazione-materiale-e-non-causale"><strong>Il
+significato dell'implicazione: materiale e non causale</strong></h2>
+<p>Un esempio dal libro: "se il Dipartimento di Matematica ottiene 60
+mila dollari di finanziamento extra, assumerà un nuovo professore". Nel
+linguaggio comune "<mark>se… allora" suggerisce innanzitutto una
+<strong>relazione di causa</strong></mark>: quel denaro verrà usato
+proprio per assumere qualcuno. In logica proposizionale di questa
+relazione non c'è alcuna traccia. <mark>Si lavora soltanto con i
+<strong>valori di verità</strong> (vero e falso)</mark>, e le
+<mark>tavole di verità sono troppo povere per esprimere un concetto
+complesso come la causalità</mark>. Per questo si dice che
+<mark>l'implicazione della logica è <strong>materiale</strong></mark>:
+usa soltanto i valori di verità dei due argomenti e non le relazioni tra
+le due parti.</p>
+<p><strong>In parole povere:</strong> l'implicazione materiale guarda
+solo se le due frasi sono vere o false, non se una è causa dell'altra.
+Quindi se piove allora la Terra è rotonda è una frase che in logica ha
+un valore preciso, anche se pioggia e Terra non c'entrano niente.</p>
+<p>La seconda differenza riguarda i casi in cui l'ipotesi non si
+verifica. Nel linguaggio comune, se il Dipartimento non ottiene il
+finanziamento, <mark>l'affermazione resta di fatto
+<strong>indefinita</strong></mark>: non è né vera né falsa. In
+matematica avere affermazioni prive di valore di verità è molto
+svantaggioso, perché si potrebbe scrivere una dimostrazione senza
+accorgersi che è priva di senso. Per questo si decide di <mark>dare un
+significato a tutte le implicazioni, anche quando l'ipotesi è
+falsa</mark>.</p>
+<h2 id="la-notazione-e-la-tavola-di-verità"><strong>La notazione e la
+tavola di verità</strong></h2>
+<p><mark>L'implicazione si scrive con una freccia: p → q si legge "p
+implica q"</mark>. La proposizione <mark>p</mark> si chiama
+<mark><strong>ipotesi</strong> o <strong>antecedente</strong></mark>, la
+proposizione <mark>q</mark> si chiama <mark><strong>tesi</strong>,
+<strong>conclusione</strong> o <strong>conseguente</strong></mark>. La
+tavola di verità, con l'ordine del libro (prima il vero, 1, poi il
+falso, 0), è:</p>
+<p><strong>In parole povere:</strong> p implica q è come una promessa:
+se succede p, prometto q. L'ipotesi è la condizione (il se), la tesi è
+la cosa promessa (il allora). La promessa si rompe, cioè è falsa, solo
+quando la condizione si avvera ma la cosa promessa non c'è.</p>
+<p><img src="./media/image18.png"
+style="width:3.14961in;height:2.25872in" /></p>
+<p><em>La tavola di verità dell'implicazione: l'unica riga falsa è
+quella con ipotesi vera e tesi falsa.</em></p>
+<p><mark>L'implicazione è <strong>falsa in un solo caso</strong>: quando
+l'ipotesi è vera e la tesi è falsa</mark>. Contano le due righe con
+ipotesi vera: si prende l'ipotesi vera e si controlla che sia vera anche
+la tesi. Se lo è, l'implicazione è vera; se non lo è, è falsa. Nelle
+altre due righe, quelle con ipotesi falsa, l'implicazione è vera senza
+nemmeno guardare la tesi.</p>
+<h2 id="vero-per-difetto"><strong>Vero per difetto</strong></h2>
+<p><mark>Quando l'ipotesi è falsa l'implicazione è
+<strong>vera</strong></mark>, <mark>qualunque sia la tesi</mark>. Si
+dice che è <strong><mark>vera per difetto</mark></strong> (in inglese
+*vacuously true*; si può dire anche "banalmente vera"). <mark>È una
+<strong>convenzione</strong></mark>: bisognava dare un valore di verità
+a questi casi, e quello che per esperienza dà meno fastidio quando si
+scrivono le dimostrazioni è considerare l'implicazione come provata.
+Quando non ci sono le condizioni per usare l'implicazione, la si prende
+per buona e ci si concentra sui casi in cui l'ipotesi è vera.</p>
+<p><strong>In parole povere:</strong> se l'ipotesi è falsa la promessa
+non ha modo di essere violata, quindi si considera vera per comodità.
+Esempio: se vinco alla lotteria ti regalo un'auto: se non vinco, non ho
+mentito a nessuno.</p>
+<p>Il motivo per cui la convenzione è comoda si vede con un esempio di
+matematica: "se x è positivo, allora x · x è positivo", cioè x &gt; 0 →
+x · x &gt; 0, che si vuole vera per ogni x.</p>
+<ul>
+<li><p>Con x = 3: 3 &gt; 0 è vera e 9 &gt; 0 è vera, quindi
+l'implicazione è vera.</p></li>
+<li><p>Con x = 1: 1 &gt; 0 e 1 &gt; 0 sono vere, e l'implicazione è
+vera.</p></li>
+<li><p>Con x = 0: 0 &gt; 0 è falsa e 0 · 0 &gt; 0 è falsa. L'ipotesi è
+falsa, quindi l'implicazione è vera per difetto.</p></li>
+<li><p>Con x = −1: −1 &gt; 0 è falsa, ma (−1) · (−1) = 1 &gt; 0 è vera.
+Anche qui l'ipotesi è falsa e l'implicazione è vera, senza che interessi
+che la tesi lo sia.</p></li>
+</ul>
+<p>Nel linguaggio comune qualcuno direbbe che "se 0 &gt; 0…" non ha
+senso. Ma in matematica, se sostituendo un valore al posto di x
+l'enunciato perdesse significato, un enunciato sensato diventerebbe
+privo di senso. Con la tavola di verità dell'implicazione l'enunciato ha
+invece sempre un valore: è vero per ogni x.</p>
+<p>La tavola si può leggere anche così:</p>
+<ul>
+<li><p>se la tesi è vera, l'implicazione è vera, e si può ignorare
+l'ipotesi;</p></li>
+<li><p>se l'ipotesi è falsa, l'implicazione è vera, e si può ignorare la
+tesi;</p></li>
+<li><p>l'unico caso in cui i due valori sono entrambi rilevanti è quello
+con ipotesi vera e tesi falsa, in cui l'implicazione è falsa.</p></li>
+</ul>
+<p>Come sottolineato a lezione, nel corso di Fondamenti (e in quelli di
+Matematica e di Programmazione) si usa sempre questa implicazione
+materiale: bisogna dimenticare il significato di "se… allora" del
+linguaggio comune.</p>
+<h2 id="limplicazione-come-test-dordine"><strong>L'implicazione come
+test d'ordine</strong></h2>
+<p>C'è un altro modo di descrivere la tavola. Scrivendo 0 al posto di
+falso e 1 al posto di vero, p → q vale 1 esattamente quando il valore di
+p è <strong>minore o uguale</strong> al valore di q: 1 ≤ 1, 0 ≤ 1 e 0 ≤
+0 danno 1, mentre l'unico caso in cui p ≤ q è falso è p = 1 e q = 0, che
+è proprio la riga falsa. <mark>L'implicazione si può quindi definire
+come il <strong>test d'ordine tra valori booleani</strong></mark>.</p>
+<p>Una conseguenza: <mark>la proposizione (p → q) ∨ (q → p) è
+<strong>sempre vera</strong></mark>, qualunque siano i valori di p e di
+q. Nel linguaggio comune verrebbe da dire che è falsa, perché ci
+aspetteremmo che p sia causa di q oppure il contrario, mentre due eventi
+possono essere del tutto indipendenti. Ma tra due numeri uno dei due è
+sempre minore o uguale all'altro, e lo stesso vale per due valori di
+verità: se c'è almeno uno 0, il più piccolo è lo 0; se sono entrambi 1,
+sono uguali. Quindi una delle due implicazioni è vera, e la loro
+disgiunzione è sempre vera.</p>
+<h2 id="la-precedenza"><strong>La precedenza</strong></h2>
+<p>Come in 2 + 3 · 5 la moltiplicazione si esegue prima della somma,
+così tra i connettivi c'è una convenzione: <mark>l'implicazione si
+valuta <strong>per ultima</strong></mark>. Con una negazione, un or e
+un'implicazione senza parentesi si calcolano prima la negazione e l'or,
+e poi l'implicazione: p ∨ q → ¬r significa (p ∨ q) → (¬r). Chi non vuole
+ricordare le convenzioni può aggiungere parentesi in più, e questo non è
+mai sbagliato, anche se dopo un po' diventa fastidioso.</p>
+<h2 id="alcuni-esempi-di-valutazione"><strong>Alcuni esempi di
+valutazione</strong></h2>
+<p>Siano p vera, q falsa e r vera (p = 1, q = 0, r = 1). Valutiamo
+quattro formule.</p>
+<ul>
+<li><p><strong>(p ∧ q) → r</strong>. La congiunzione p ∧ q è falsa,
+perché uno dei due lati (q) è falso. L'ipotesi è quindi falsa e
+l'implicazione è vera, senza guardare r. In generale, se una parte di
+una congiunzione è falsa, l'intera congiunzione è falsa, e
+un'implicazione che ha quella congiunzione come ipotesi è vera.</p></li>
+<li><p><strong>(p ∨ q) → ¬r</strong>. La disgiunzione p ∨ q è vera
+(basta che un lato sia vero), mentre ¬r è falsa. Si ha 1 → 0, e
+l'implicazione è <strong>falsa</strong>.</p></li>
+<li><p><strong>p ∧ (q → r)</strong>. L'implicazione q → r ha ipotesi
+falsa, quindi è vera per difetto; anche p è vera. La congiunzione è
+quindi vera.</p></li>
+<li><p><strong>p → (q → r)</strong>. L'implicazione interna q → r è vera
+per difetto, quindi si ha 1 → 1, e l'intera formula è vera.</p></li>
+</ul>
+<p>L'ultima formula si legge in modo naturale come "se vale p, allora
+(se vale q, allora vale r)", cioè come un'implicazione con <strong>due
+ipotesi</strong>: se p e q sono entrambe vere, allora è vera r. In
+generale, quando un'implicazione ha più ipotesi e anche una sola è
+falsa, l'implicazione è vera per difetto; se tutte le ipotesi sono vere
+bisogna controllare la tesi, e l'implicazione è falsa solo se la tesi è
+falsa. Le due scritture sono in effetti equivalenti: p → (q → r) e (p ∧
+q) → r sono false soltanto quando p e q sono vere e r è falsa.</p>
+<p>Il capitolo successivo parte dall'implicazione per costruire la sua
+conversa, la sua contrapposta e le espressioni "condizione necessaria" e
+"condizione sufficiente".</p>
+<h1 id="section-4"></h1>
+<h1
+id="conversa-contrapposta-condizioni-necessarie-e-sufficienti"><strong>17.
+Conversa, Contrapposta, Condizioni Necessarie e
+Sufficienti</strong></h1>
+<h2 id="le-forme-correlate-a-unimplicazione"><strong>Le forme correlate
+a un'implicazione</strong></h2>
+<p><mark>Da un'implicazione se ne possono costruire altre, scambiando i
+due argomenti o anche negandoli</mark>. Data p → q, si definiscono due
+proposizioni correlate:</p>
+<ul>
+<li><p>la <strong><mark>conversa</mark></strong> (o
+<strong>reciproco</strong>, in inglese *converse*): q → p, <mark>che
+scambia i ruoli di ipotesi e tesi</mark>;</p></li>
+</ul>
+<p><strong>In parole povere:</strong> la conversa si ottiene girando
+l'implicazione, cioè scambiando se e allora. Esempio: se piove, la
+strada è bagnata diventa se la strada è bagnata, piove. Non dice la
+stessa cosa: la strada può essere bagnata per altri motivi.</p>
+<ul>
+<li><p>la <strong><mark>contrapposta</mark></strong> (in inglese
+*contrapositive*): ¬q → ¬p, <mark>che scambia i ruoli <strong>e</strong>
+nega entrambi gli argomenti</mark>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> la contrapposta si ottiene
+scambiando e negando entrambi i pezzi: da se piove, la strada è bagnata
+si passa a se la strada non è bagnata, non piove. Dice esattamente la
+stessa cosa dell'originale.</p>
+<h2 id="la-conversa-non-è-equivalente"><strong>La conversa non è
+equivalente</strong></h2>
+<p><mark>Un'implicazione e la sua conversa <strong>non sono
+equivalenti</strong></mark>. Un esempio: sia p la proposizione "1 &gt;
+2", che è falsa, e q la proposizione "4 &lt; 8", che è vera.
+L'implicazione p → q ha l'ipotesi falsa, quindi è vera per difetto. La
+conversa q → p ha l'ipotesi vera e la tesi falsa, quindi è
+<strong>falsa</strong>. Esistono dunque valori di p e q per cui p → q e
+q → p hanno valori di verità diversi: succede quando p e q sono
+diversi.</p>
+<p><mark>Se si cambia la direzione di un'implicazione, il valore di
+verità cambia in due casi su quattro; quando p e q sono entrambe vere, o
+entrambe false, resta lo stesso (vera per entrambe)</mark>. Un altro
+esempio: "se Jerry vince la lotteria, allora va al college" può essere
+vera, mentre la conversa "se Jerry va al college, allora ha vinto la
+lotteria" è falsa, perché potrebbe andarci con i suoi risparmi. L'errore
+più frequente è appunto scambiare un'implicazione con la sua
+conversa.</p>
+<h2 id="la-contrapposta-è-equivalente"><strong>La contrapposta è
+equivalente</strong></h2>
+<p><mark>Con la contrapposta le cose vanno diversamente: p → q e ¬q → ¬p
+hanno la stessa tavola di verità</mark>.</p>
+<p><img src="./media/image19.png"
+style="width:4.52756in;height:1.85084in" /></p>
+<p><em>Le tavole di verità di p → q e della sua contrapposta ¬q → ¬p: le
+colonne coincidono.</em></p>
+<p>Anche con un ragionamento: p → q dice che tutte le volte che p è vera
+lo è anche q; allora se q è falsa dovrà essere falsa anche p. Quindi da
+p → q segue ¬q → ¬p. Applicando la stessa legge un'altra volta a ¬q → ¬p
+si ottiene ¬¬p → ¬¬q, e per la legge della doppia negazione (negare due
+volte equivale ad affermare: ¬¬p ≡ p, come si vede subito dalla tavola)
+si ritorna a p → q. Ciascuna delle due implicazioni si ottiene
+dall'altra, e sono quindi equivalenti.</p>
+<h2
+id="condizioni-necessarie-e-condizioni-sufficienti"><strong>Condizioni
+necessarie e condizioni sufficienti</strong></h2>
+<p><mark>Nei corsi di matematica le implicazioni si esprimono spesso con
+le parole "condizione necessaria" e "condizione sufficiente".</mark> Non
+c'è un concetto nuovo: sono solo abbreviazioni per le due direzioni di
+un'implicazione, e vanno conosciute.</p>
+<ul>
+<li><p><strong>A è una condizione necessaria per B</strong> significa
+che, q<mark>uando B è vera, è necessario che lo sia anche A</mark>: B →
+A. Il "necessario" è la parte implicata.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> A è necessaria per B se, senza A,
+B non può esserci. Come il biglietto per entrare al cinema: ti serve, ma
+non basta da solo (se non hai A, sicuramente non hai B).</p>
+<ul>
+<li><p><strong>A è una condizione sufficiente per B</strong> significa A
+→ B: <mark>se A è vera, basta questo perché lo sia B. Il "sufficiente" è
+l'ipotesi</mark>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> A è sufficiente per B se, quando
+c'è A, B c'è di sicuro. Come avere la laurea per essere laureati: basta
+quello. Ma B potrebbe esserci anche per altre strade.</p>
+<p>La condizione necessaria è la direzione "difficile", quella da destra
+a sinistra rispetto al modo in cui di solito scriviamo; la condizione
+sufficiente è quella che ci viene più naturale, da sinistra a destra: è
+semplicemente l'implicazione scritta nell'ordine consueto, mentre il
+necessario è il reciproco.</p>
+<p>Che cosa si può dedurre? Basta rileggere la tavola di verità con
+questa terminologia.</p>
+<p>Se <strong>A è necessaria per B</strong> (B → A):</p>
+<ul>
+<li><p>se A è vera, su B non si sa nulla (la condizione non è stata
+smentita, ma da sola non basta);</p></li>
+<li><p>se A è falsa, allora anche B è falsa: se una condizione
+necessaria fallisce, fallisce ciò di cui è condizione;</p></li>
+<li><p>se B è vera, allora A è vera: la verità di un fatto implica la
+verità di tutte le sue condizioni necessarie;</p></li>
+<li><p>se B è falsa, su A non si sa nulla: può essere falsa proprio per
+questa condizione o per un'altra.</p></li>
+</ul>
+<p>Se <strong>A è sufficiente per B</strong> (A → B):</p>
+<ul>
+<li><p>se A è vera, allora B è vera;</p></li>
+<li><p>se A è falsa, su B non si sa nulla;</p></li>
+<li><p>se B è vera, su A non si sa nulla, perché quando la tesi è vera
+l'implicazione è vera comunque;</p></li>
+<li><p>se B è falsa, allora anche A è falsa: se fosse vera, anche B
+dovrebbe esserlo.</p></li>
+</ul>
+<p>Un esempio che non richiede conoscenze particolari: "se Maria va alla
+Tour Eiffel, allora visita la Francia". Andare alla Tour Eiffel è una
+condizione <strong>sufficiente</strong> per visitare la Francia, ma non
+è necessaria: Maria potrebbe andare a Les Invalides, al Louvre o in
+Normandia, e ognuna di queste scelte sarebbe sufficiente a visitare la
+Francia. Invece visitare la Francia è una condizione
+<strong>necessaria</strong> per vedere la Tour Eiffel (se non è in
+Francia, non può raggiungerla), ma non basta: dipende da dove va
+esattamente in Francia.</p>
+<h2 id="come-si-traduce-dal-linguaggio-naturale"><strong>Come si traduce
+dal linguaggio naturale</strong></h2>
+<p><mark>Nei quesiti d'esame l'implicazione p → q non compare sempre
+nella forma "se p, allora q". Le formulazioni seguenti equivalgono tutte
+a p → q</mark>:</p>
+<ul>
+<li><p>"se p, allora q" e "p implica q";</p></li>
+<li><p>"q se p" (p, dopo il "se", è l'ipotesi);</p></li>
+<li><p>"p solo se q" (attenzione: non q → p; il "solo se" introduce la
+condizione necessaria, cioè la tesi);</p></li>
+<li><p>"p è condizione sufficiente per q";</p></li>
+<li><p>"q è condizione necessaria per p".</p></li>
+</ul>
+<p>Riassumendo: l'ipotesi è la condizione sufficiente, la tesi è la
+condizione necessaria; la conversa, quella con i ruoli scambiati, non è
+equivalente all'implicazione di partenza, mentre la contrapposta lo
+è.</p>
+<h1 id="section-5"></h1>
+<h1
+id="il-bicondizionale-lequivalenza-e-le-riscritture-dellimplicazione"><strong>18.
+Il Bicondizionale, l'Equivalenza e le Riscritture
+dell'Implicazione</strong></h1>
+<h2 id="lequivalenza-logica"><strong>L'equivalenza logica</strong></h2>
+<p><mark>Due formule sono <strong>logicamente equivalenti</strong>
+quando hanno la stessa tavola di verità</mark> (capitolo 15); si
+<mark>scrive P ≡ Q</mark>. <mark>Il <strong>bicondizionale</strong>, già
+incontrato come "equivalenza" nel capitolo 13, è il connettivo che dà 1
+quando due valori sono uguali: p ↔︎ q</mark> (si legge "p se e solo se
+q", in inglese *iff*, o anche "doppia freccia") è vera quando i due
+valori di verità sono <strong>uguali</strong> (entrambi veri o entrambi
+falsi) <mark>ed è falsa quando sono diversi.</mark> È dunque il
+<strong>test di uguaglianza</strong> tra due valori di verità, ed è
+legato alla relazione ≡ tra formule: P ≡ Q vale proprio quando P ↔︎ Q è
+una tautologia.</p>
+<p><strong>In parole povere:</strong> due formule sono logicamente
+equivalenti se in ogni caso valgono la stessa cosa (stessa tavola di
+verità). Il bicondizionale p se e solo se q è il connettivo che dice
+sono uguali: è vero se le due frasi sono entrambe vere o entrambe
+false.</p>
+<h2 id="il-bicondizionale-e-le-due-implicazioni"><strong>Il
+bicondizionale e le due implicazioni</strong></h2>
+<p>Si chiama <mark>bicondizionale perché è fatto di due condizionali
+opposti</mark>, <mark>l'implicazione da sinistra a destra e quella da
+destra a sinistra: <strong>p ↔︎ q ≡ (p → q) ∧ (q → p)</strong>.</mark> In
+parole, p è condizione necessaria <strong>e</strong> sufficiente per
+q.</p>
+<p><img src="./media/image20.png"
+style="width:4.92126in;height:1.66811in" /></p>
+<p><em>La tavola di verità del bicondizionale: coincide con quella della
+congiunzione delle due implicazioni.</em></p>
+<p>Lo si può provare con una tavola di verità, come in figura, oppure
+con un ragionamento. Poiché p → q equivale a "il valore di p è minore o
+uguale al valore di q", la congiunzione (p → q) ∧ (q → p) dice che p ≤ q
+e q ≤ p. Per una proprietà degli ordini (l'antisimmetria), se p ≤ q e q
+≤ p allora p e q sono uguali: quindi la congiunzione è il test di
+uguaglianza, cioè il bicondizionale. Quale dei due modi sia la
+definizione e quale la proprietà dipende da come si è definito il
+bicondizionale: se lo si definisce con la tavola di verità, si osserva
+che vale 1 con due valori uguali e 0 con due diversi, e poi si mostra
+l'equivalenza con le due implicazioni.</p>
+<h2
+id="limplicazione-si-può-scrivere-con-altri-connettivi"><strong>L'implicazione
+si può scrivere con altri connettivi</strong></h2>
+<p><mark>Non è necessario avere l'implicazione come connettivo (o come
+circuito): se si sa realizzare la negazione e la congiunzione, si può
+realizzare anche l'implicazione</mark>. Vediamo come.</p>
+<p><strong>La negazione dell'implicazione.</strong> L'implicazione è
+falsa in un solo caso: ipotesi vera e tesi falsa. Quindi ¬(p → q) è vera
+esattamente quando p è vera e q è falsa:</p>
+<p>¬(p → q) ≡ p ∧ ¬q.</p>
+<p>La negazione di un'implicazione non è un'altra implicazione, ma una
+congiunzione. Attenzione al modo in cui si nega un'implicazione: p → ¬q
+oppure ¬p → ¬q non sono corrette; la negazione giusta è p ∧ ¬q. Per
+esempio, la negazione di "se Jerry riceve una borsa di studio, allora va
+al college" è "Jerry riceve la borsa di studio e non va al college".</p>
+<p><strong>La doppia negazione.</strong> Serve una legge banale ma
+importante: negare due volte equivale ad affermare, ¬¬p ≡ p. Basta
+guardare la tavola: se p è vera, ¬p è falsa e ¬¬p torna vera; se p è
+falsa, ¬p è vera e ¬¬p torna falsa. Nel linguaggio naturale non è così:
+dire che qualcosa "non è proprio falso" intende di solito qualcosa di
+più debole di "è vero". Nel linguaggio semplificato della logica, dove
+si guardano solo i valori di verità, non c'è alcuna differenza.</p>
+<p><strong>L'implicazione con negazione e disgiunzione.</strong> Si
+parte dalla legge precedente e si aggiunge una doppia negazione:</p>
+<p>p → q ≡ ¬¬(p → q) ≡ ¬(p ∧ ¬q).</p>
+<p>Sono già tre connettivi (due negazioni e una congiunzione) che ci
+permettono di scrivere l'implicazione. Con la legge di <strong>De
+Morgan</strong>, di cui nel capitolo 15 si è visto il caso della
+disgiunzione e di cui subito sotto si giustifica la versione duale per
+la congiunzione, si può ridurre. La legge dice che negare una
+congiunzione equivale a disgiungere le negazioni degli argomenti: ¬(a ∧
+b) ≡ ¬a ∨ ¬b. Applicata a ¬(p ∧ ¬q) dà ¬p ∨ ¬¬q, e per la doppia
+negazione si arriva a</p>
+<p><strong>p → q ≡ ¬p ∨ q.</strong></p>
+<p><img src="./media/image21.png"
+style="width:4.13386in;height:2.05873in" /></p>
+<p><em>Le colonne di p → q e di ¬p ∨ q coincidono.</em></p>
+<p><mark>È la definizione più usata dell'implicazione, e dice che
+un'implicazione è vera se e solo se l'ipotesi è falsa
+<strong>oppure</strong> la tesi è vera</mark>: sono esattamente i tre
+casi veri della tavola, quelli con la tesi vera (due righe) e quelli con
+l'ipotesi falsa (due righe), con una sovrapposizione, perché con ipotesi
+falsa e tesi vera l'implicazione è vera per due motivi indipendenti. Si
+poteva arrivarci in un passo solo osservando la tavola; il passaggio per
+De Morgan mostra che le leggi si combinano.</p>
+<p>Per questo, <mark>in un linguaggio come Java</mark>, l'implicazione
+non serve come operatore: <mark>p → q si scrive come !p || q.</mark></p>
+<h2 id="section-6"></h2>
+<h2 id="le-leggi-di-de-morgan-e-la-dualità"><strong>Le leggi di De
+Morgan e la dualità</strong></h2>
+<p>Le leggi di De Morgan sono due:</p>
+<ul>
+<li><p>¬(p ∧ q) ≡ ¬p ∨ ¬q: <mark>negando una congiunzione si disgiungono
+le negazioni</mark>;</p></li>
+<li><p>¬(p ∨ q) ≡ ¬p ∧ ¬q: <mark>negando una disgiunzione si congiungono
+le negazioni</mark> (già vista nel capitolo 15).</p></li>
+</ul>
+<p><mark>Sono <strong>duali</strong>: se si scambiano vero e falso,
+congiunzione e disgiunzione e si lascia la negazione com'è</mark> (la
+negazione è auto-duale: scambiando vero e falso, la sua tavola resta la
+stessa), <mark>da una legge si ottiene l'altra</mark>. <mark>La logica
+proposizionale è duale in generale: non c'è un ruolo privilegiato per il
+vero o per il falso, e se si scambia ovunque vero con falso e
+congiunzione con disgiunzione, ogni equivalenza valida si trasforma
+nella sua duale, che è ancora un'equivalenza valida. Si può quindi dire
+che c'è <strong>un'unica legge di De Morgan</strong>, e l'altra è la sua
+duale.</mark></p>
+<p>Un'applicazione in Java: la condizione x &lt; 10 || x &gt; 20
+equivale a !(x &gt;= 10 &amp;&amp; x &lt;= 20). Questa seconda scrittura
+nega l'appartenenza all'intervallo tra 10 e 20 estremi compresi;
+applicando De Morgan si porta la negazione dentro le parentesi,
+scambiando la congiunzione con la disgiunzione, e arrivando ai predicati
+di base (uguale, diverso, minore, maggiore, minore o uguale, maggiore o
+uguale) si sostituisce ciascuno con il suo complementare: la negazione
+di x &gt;= 10 è x &lt; 10 e quella di x &lt;= 20 è x &gt; 20. La prima
+forma si legge più facilmente: per questo si preferisce.</p>
+<h2 id="il-limite-delle-tavole-di-verità"><strong>Il limite delle tavole
+di verità</strong></h2>
+<p>Le tavole di verità sono un buon metodo per provare un'equivalenza o
+una tautologia quando le proposizioni atomiche sono poche (come per p ↔︎
+q e le due implicazioni), ma non funzionano su grande scala: con n
+proposizioni atomiche le righe sono 2<sup>n</sup>, quindi il numero di
+passi cresce in modo esponenziale. Con cento proposizioni atomiche
+servirebbe una tavola di 2<sup>100</sup> righe, circa 10<sup>30</sup>,
+un numero che nessun computer di oggi riesce a percorrere. In questi
+casi servono metodi più rapidi, che però hanno altri difetti: non
+riescono a concludere in tutti i casi.</p>
+<h1 id="section-7"></h1>
+<h1 id="argomenti-e-regole-di-inferenza"><strong>19. Argomenti e Regole
+di Inferenza</strong></h1>
+<h2 id="il-ragionamento-deduttivo"><strong>Il ragionamento
+deduttivo</strong></h2>
+<p>Si parte da un esempio. Supponiamo di sapere tre cose: il bug è nel
+modulo 17 oppure nel modulo 81; il bug è un errore numerico; il modulo
+81 non contiene errori numerici. Assumendo che queste affermazioni siano
+vere, è ragionevole concludere che il bug è nel modulo 17.</p>
+<p><mark>Questo processo, in cui da una sequenza di proposizioni si trae
+una conclusione, si chiama <strong>ragionamento
+deduttivo</strong></mark>. Le <mark>proposizioni di partenza</mark> si
+chiamano <strong><mark>ipotesi</mark></strong> (o
+<strong><mark>premesse</mark></strong>), la <mark>proposizione che ne
+segue si chiama <strong>conclusione</strong></mark>, e l'insieme di
+ipotesi più conclusione è un <strong><mark>argomento</mark></strong>
+(deduttivo). Molte dimostrazioni di matematica e di informatica sono
+argomenti deduttivi.</p>
+<p><strong>In parole povere:</strong> il ragionamento deduttivo è il
+ragionamento in cui parti da fatti che ti vengono dati (le ipotesi o
+premesse) e ne tiri fuori una conseguenza (la conclusione). L'argomento
+è l'insieme di queste premesse più la conclusione, come un piccolo
+mattone di dimostrazione.</p>
+<p>Un argomento ha sempre la stessa forma: «<mark>se p₁ e p₂ e … e
+p<sub>n</sub>, allora q</mark>». È la forma di un'implicazione, e questo
+collegamento con i capitoli 16-18 è la chiave per capire quando un
+argomento «funziona».</p>
+<h2 id="argomento-valido"><strong>Argomento valido</strong></h2>
+<p><strong>Definizione.</strong> U<mark>n <strong>argomento</strong> è
+una successione di proposizioni p₁, p₂, …, p<sub>n</sub> (le ipotesi)
+seguita da una proposizione q (la conclusione)</mark>, che si scrive con
+le ipotesi una sotto l'altra e la conclusione sotto una riga, preceduta
+dal simbolo <mark>∴ («quindi»),</mark> oppure in una riga sola come
+<mark>p₁, p₂, …, p<sub>n</sub> / ∴ q</mark>. <mark>L'argomento si dice
+<strong>valido</strong></mark> se, ogni volta che p₁ e p₂ e … e
+p<sub>n</sub> <mark>sono tutte vere</mark>, <mark>anche q è vera;
+altrimenti si dice <strong>non valido</strong></mark> (o una
+<strong><mark>fallacia</mark></strong>).</p>
+<p><strong>In parole povere:</strong> un argomento è valido se, ogni
+volta che le ipotesi sono tutte vere, la conclusione deve essere vera
+per forza: non può succedere che le premesse siano vere e la conclusione
+falsa. Conta solo la forma, non se le frasi sono vere nella realtà.
+Esempio: se piove, la strada è bagnata; piove; quindi la strada è
+bagnata.</p>
+<p><mark>In un argomento valido si dice che la conclusione segue dalle
+ipotesi</mark>, ma bisogna capirsi su che cosa si afferma:
+<mark><strong>non</strong> si dice che la conclusione è vera, ma solo
+che se si accettano le ipotesi si deve accettare anche la
+conclusione</mark>. Un argomento è <mark>valido per</mark> la sua
+<mark><strong>forma</strong> e non per il suo contenuto</mark>: due
+argomenti con la stessa forma sono entrambi validi o entrambi non
+validi, anche se parlano di cose completamente diverse.</p>
+<p>In termini dei capitoli precedenti, <mark>dire che l'argomento è
+valido equivale a dire che l'implicazione</mark> (p₁ ∧ p₂ ∧ … ∧
+p<sub>n</sub>) → q <mark>non è mai falsa</mark>: ipotesi tutte vere e
+conclusione falsa è l'unico caso che la renderebbe falsa.</p>
+<p>Un argomento più lungo si costruisce a passi, e ciascun passo deve
+produrre una conclusione intermedia valida. <mark>Le <strong>regole di
+inferenza</strong> sono</mark>, in breve, <mark>argomenti validi già
+noti, che si usano come mattoni all'interno di un argomento più
+grande</mark>.</p>
+<p><strong>In parole povere:</strong> una regola di inferenza è un
+argomento valido già collaudato e riutilizzabile, come una mossa
+standard degli scacchi. Quando in un ragionamento ne riconosci la forma,
+puoi applicarla senza ricontrollare tutto.</p>
+<h2 id="come-si-verifica-la-validità"><strong>Come si verifica la
+validità</strong></h2>
+<p>Il primo metodo è la <strong><mark>tavola di verità</mark></strong>:
+si scrivono i valori di tutte le proposizioni coinvolte e si controlla
+che in ogni riga in cui le ipotesi sono vere lo sia anche la
+conclusione. <mark>Il secondo metodo è un <strong>ragionamento
+diretto</strong></mark>, che evita la tavola: <mark>si suppone che le
+ipotesi siano vere e si verifica che la conclusione non può essere
+falsa.</mark></p>
+<p>Esempio. Si vuole stabilire se è valido l'argomento p → q, p / ∴
+q.</p>
+<p><strong>Esempio.</strong> «Se piove, la strada è bagnata» (p → q).
+«Sta piovendo» (p). Quindi la strada è bagnata (q).</p>
+<p><img src="./media/image22.png"
+style="width:5.70866in;height:1.90753in" /></p>
+<p><em>A sinistra la tavola del modus ponens: nell'unica riga con le due
+ipotesi vere (riquadro verde) lo è anche la conclusione. A destra la
+tavola dell'argomento p → q, q / ∴ p: nella terza riga le ipotesi sono
+vere e la conclusione è falsa.</em></p>
+<p>Con la tavola (a sinistra nella figura) <mark>si osserva che ogni
+volta che p → q e p sono entrambe vere, lo è anche q:</mark> l'argomento
+è valido. Con il ragionamento diretto: <mark>si suppone che p → q e p
+siano vere</mark>; <mark>allora q deve essere vera</mark>, perché
+altrimenti p → q sarebbe falsa (ipotesi vera e tesi falsa). Questo
+argomento è usato continuamente e <mark>si chiama <strong>modus
+ponens</strong> o <strong>legge del distacco</strong></mark>.</p>
+<p><strong>In parole povere:</strong> il modus ponens è la regola più
+naturale: sai che se p allora q, e sai che p è vera, quindi puoi dire
+che q è vera. Esempio: se studio, passo l'esame; ho studiato; quindi
+passo l'esame.</p>
+<h2 id="section-8"></h2>
+<h2 id="section-9"></h2>
+<h2 id="section-10"></h2>
+<h2 id="le-regole-di-inferenza-per-le-proposizioni"><strong>Le regole di
+inferenza per le proposizioni</strong></h2>
+<p>Esistono diverse regole utili, ognuna verificabile con una tavola di
+verità; le principali sono nella figura.</p>
+<p><img src="./media/image23.png"
+style="width:5.11811in;height:3.20797in" /></p>
+<p><em>Le regole di inferenza per le proposizioni: premesse sopra la
+riga, conclusione sotto.</em></p>
+<ul>
+<li><p><strong>Modus ponens</strong>: <mark>da p → q e p si ricava
+q</mark>.</p></li>
+<li><p><strong>Modus tollens</strong>: <mark>da p → q e ¬q si ricava
+¬p</mark>.</p></li>
+<li><p><strong>Addizione</strong>: <mark>da p si ricava p ∨
+q</mark>.</p></li>
+<li><p><strong>Semplificazione</strong>: <mark>da p ∧ q si ricava
+p</mark>.</p></li>
+<li><p><strong>Congiunzione</strong>: <mark>da p e da q si ricava p ∧
+q</mark>.</p></li>
+<li><p><strong>Sillogismo ipotetico</strong>: <mark>da p → q e q → r si
+ricava p → r</mark>.</p></li>
+<li><p><strong>Sillogismo disgiuntivo</strong>: <mark>da p ∨ q e ¬p si
+ricava q</mark>.</p></li>
+</ul>
+<p><mark>Per riconoscere la regola in un argomento scritto a parole
+bisogna prima tradurlo in simboli</mark>, come nell'esempio seguente.
+«Se il computer ha un gigabyte di memoria, allora può eseguire il
+programma. Se può eseguire il programma, allora la grafica sarà
+d'effetto. Quindi, se il computer ha un gigabyte di memoria, la grafica
+sarà d'effetto.» Con p = «il computer ha un gigabyte di memoria», q =
+«può eseguire il programma» e r = «la grafica sarà d'effetto»,
+l'argomento è p → q, q → r / ∴ p → r: la regola usata è il
+<strong>sillogismo ipotetico</strong>.</p>
+<h2 id="una-fallacia-frequente-affermare-la-conclusione"><strong>Una
+fallacia frequente: affermare la conclusione</strong></h2>
+<p>Non tutti gli argomenti che «sembrano» validi lo sono. Si consideri:
+«Se 2 = 3, allora ho mangiato il cappello. Ho mangiato il cappello.
+Quindi 2 = 3.» Con p = «2 = 3» e q = «ho mangiato il cappello»,
+l'argomento è p → q, q / ∴ p.</p>
+<p>Se fosse valido, ogni volta che p → q e q sono vere dovrebbe esserlo
+anche p. Ma questo non succede: con p falsa e q vera, l'implicazione p →
+q è vera per difetto (ipotesi falsa), q è vera, e la conclusione p è
+falsa. <mark>L'argomento <strong>non è valido</strong>.</mark>
+<mark>Questa fallacia si chiama <strong>affermazione della
+conclusione</strong></mark> (in inglese *fallacy of affirming the
+conclusion*): <mark>è lo stesso errore</mark>, già visto nel capitolo
+17, <mark>di scambiare un'implicazione con la sua conversa</mark>. Si
+arriva alla stessa conclusione guardando la tavola (a destra nella
+figura): nella terza riga le ipotesi sono vere e la conclusione è
+falsa.</p>
+<p><strong>In parole povere:</strong> è l'errore di credere che da se p
+allora q e da q segua p. Esempio: se piove, la strada è bagnata; la
+strada è bagnata; quindi piove? No, magari è passata la spazzatrice. È
+lo stesso errore di scambiare un'implicazione con la sua conversa.</p>
+<h2 id="argomenti-in-più-passaggi"><strong>Argomenti in più
+passaggi</strong></h2>
+<p><mark>Quando un argomento non coincide con una sola regola, si
+procede a passi, applicando una regola alla volta e usando le
+conclusioni intermedie come nuove ipotesi</mark>.</p>
+<p><strong>Il bug nei moduli.</strong> Si ripete l'argomento d'apertura
+con p = «il bug è nel modulo 17», q = «il bug è nel modulo 81» e r = «il
+bug è un errore numerico». Le ipotesi sono p ∨ q, r e r → ¬q (il modulo
+81 non ha errori numerici, quindi se il bug è numerico non è nel 81). Da
+r → ¬q e r, per il modus ponens si ricava ¬q. Da p ∨ q e ¬q, per il
+sillogismo disgiuntivo, si ricava p: il bug è nel modulo 17. L'argomento
+è valido.</p>
+<p><strong>La squadra.</strong> Sono date le ipotesi: se la squadra
+prende un buon difensore, può battere la prima avversaria; se può
+battere la prima, può battere la seconda; se può battere la prima, può
+battere la terza; la squadra prende un buon difensore. Si vuole mostrare
+che ne segue che la squadra può battere la seconda e la terza. Con p =
+«prende un buon difensore», q = «batte la prima», r = «batte la seconda»
+e s = «batte la terza», le ipotesi sono p → q, q → r, q → s e p.</p>
+<p>1. Da p → q e q → r, per il sillogismo ipotetico, p → r.</p>
+<p>2. Da p → r e p, per il modus ponens, r.</p>
+<p>3. Da p → q e q → s, per il sillogismo ipotetico, p → s.</p>
+<p>4. Da p → s e p, per il modus ponens, s.</p>
+<p>5. Da r e s, per la congiunzione, r ∧ s.</p>
+<p>Poiché r ∧ s dice che la squadra batte la seconda e la terza, la
+conclusione segue dalle ipotesi.</p>
+<h2 id="un-consiglio-pratico"><strong>Un consiglio pratico</strong></h2>
+<p>La <mark>validità di un argomento molto breve si può verificare con
+una tavola di verità, ma, nella pratica, argomenti e dimostrazioni usano
+le regole di inferenza</mark>: le tavole crescono in modo esponenziale
+con il numero di proposizioni (capitolo 18), mentre una catena di regole
+resta corta e leggibile.</p>
+<h1 id="section-11"></h1>
+<h1 id="predicati-dominio-del-discorso-e-variabili"><strong>20.
+Predicati, Dominio del Discorso e Variabili</strong></h1>
+<h2 id="perché-non-basta-la-logica-proposizionale"><strong>Perché non
+basta la logica proposizionale</strong></h2>
+<p>Dopo la logica proposizionale (capitoli 12-19) si passa alla
+<strong><mark>logica dei quantificatori</mark></strong>. Come
+sottolineato a lezione, <mark>la si tratta con più dettaglio di quanto
+facciano i corsi di matematica, ma per un motivo diverso: lo scopo è
+preparare alla possibilità di <strong>meccanizzare il
+ragionamento</strong></mark>, cioè insegnare a un computer a controllare
+una dimostrazione e a cercare delle verità. Per questo bisogna conoscere
+con precisione le definizioni di <mark>connettivo</mark>, di
+<mark>quantificatore</mark> e <mark>le regole di inferenza</mark>, più
+di quanto servirebbe per capire una dimostrazione di matematica; gli
+esempi di prove che si fanno sono volutamente troppo semplici per un
+corso di matematica, ma servono a capire che cos'è una prova e come si
+controlla se è corretta.</p>
+<p>La logica proposizionale dei capitoli precedenti non basta a
+descrivere la maggior parte degli enunciati della matematica e
+dell'informatica. Si prenda l'affermazione «n è un intero dispari»: non
+è una proposizione, perché è vera o falsa a seconda del valore di n (è
+vera per n = 103 e falsa per n = 8). Siccome quasi tutti gli enunciati
+usano variabili, bisogna estendere la logica per includerle.</p>
+<h2 id="funzione-proposizionale-o-predicato"><strong>Funzione
+proposizionale (o predicato)</strong></h2>
+<p><strong>Definizione.</strong> <mark>Sia P(x) un enunciato che
+contiene la variabile x e sia D un insieme. P si chiama <strong>funzione
+proposizionale</strong> o <strong>predicato</strong> (rispetto a D) se
+per ogni x ∈ D l'enunciato P(x) è una proposizione. L'insieme D si
+chiama <strong>dominio del discorso</strong> di P e specifica i valori
+ammessi per x</mark>.</p>
+<p><strong>In parole povere:</strong> un predicato è una frase con un
+buco da riempire. Finché il buco è vuoto la frase non è né vera né
+falsa; appena metti un valore del dominio diventa vera o falsa. Il
+dominio è l'insieme dei valori che ci puoi mettere. Esempio: x è dispari
+con x = 3 è vera, con x = 8 è falsa.</p>
+<p><mark>Un predicato da solo non è né vero né falso: lo diventano le
+singole proposizioni P(x) quando alla variabile si assegna un valore del
+dominio</mark>. Si può pensare al predicato come a una <strong>famiglia
+di proposizioni</strong>, una per ogni elemento del dominio: se D = ℤ⁺
+(gli interi positivi: ℤ è il nome degli interi, ℤ⁺ è riservato a 1, 2,
+3, …) si ottiene la famiglia P(1), P(2), …, e ciascuna è vera o falsa ma
+non entrambe.</p>
+<p>Il dominio serve perché certe sostituzioni non avrebbero senso: «π è
+un numero dispari» non significa nulla, perché si parla di interi.
+<mark>Un predicato può anche avere <strong>più
+variabili</strong></mark>, <mark>come una funzione può avere più
+argomenti</mark>: il test di uguaglianza tra due stringhe, che si
+incontra in programmazione, è un predicato a due variabili sull'insieme
+delle sequenze di caratteri.</p>
+<p><strong>Esempio.</strong> Sia P(n) = «n è un intero dispari», con
+dominio ℤ⁺. Allora P(1) = «1 è dispari» è vera e P(2) = «2 è dispari» è
+falsa.</p>
+<p>In programmazione succede lo stesso: l'affermazione x &lt; y non è né
+vera né falsa finché non si assegnano valori a x e a y; con x = 3 e y =
+2 diventa 3 &lt; 2, che è falsa. Come in logica proposizionale, si
+possono quindi scrivere anche enunciati falsi (come «2 è un numero
+dispari»): servono proprio perché si vuole insegnare a un computer a
+distinguere tra vero e falso, a dare una garanzia quando un'affermazione
+è vera o a smentire una convinzione sbagliata.</p>
+<p>Esempi di funzioni proposizionali, con il loro dominio:</p>
+<ul>
+<li><p>n² + 2n è dispari (dominio ℤ⁺);</p></li>
+<li><p>x² − x − 6 = 0 (dominio ℝ);</p></li>
+<li><p>«il giocatore ha battuto sopra .300 nel 2015» (dominio: i
+giocatori di baseball);</p></li>
+<li><p>«il film ha una valutazione superiore al 20% su Rotten Tomatoes»,
+con la scala da 0% a 100% (dominio: i film valutati dal sito).</p></li>
+</ul>
+<p>Negli ultimi due la variabile è «giocatore» o «film»: sostituendo un
+giocatore o un film particolare si ottiene una proposizione (vera con
+Spectre, che ha il 64%; falsa con Blended, che ha il 14%). Ciò che è un
+parametro con valore già assegnato, come il 20% o il nome del sito, non
+è la variabile: cambiando sito o soglia cambia la funzione, ma resta una
+funzione proposizionale nella sola variabile film.</p>
+<p>Un predicato può essere <strong>sempre vero</strong>, <strong>sempre
+falso</strong>, oppure vero in qualche caso e falso in altri. Per x² − x
+− 6 = 0 su ℝ basta risolvere l'equazione di secondo grado: le radici
+sono 3 e −2, quindi il predicato è vero solo per x = 3 e x = −2 e falso
+in tutti gli altri casi (con x = 10 si ha 100 − 10 − 6 = 84).</p>
+<h2 id="variabile-libera-e-variabile-legata"><strong>Variabile libera e
+variabile legata</strong></h2>
+<p>Si chiama <mark><strong>variabile libera</strong> una variabile non
+ancora assegnata</mark> (è «libera» di spaziare su tutto il dominio), e
+<strong>var<mark>iabile legata</mark></strong> <mark>una variabile a cui
+è stato assegnato un valore oppure che compare dentro un
+quantificatore</mark>, nel qual caso si intende che prende tutti i
+valori del dominio.</p>
+<p><strong>In parole povere:</strong> una variabile libera è una lettera
+ancora da riempire, quindi la frase non è vera né falsa. Una variabile
+legata è già sistemata: o le hai dato un valore preciso, o è sotto un
+per ogni oppure esiste che le dice di quali valori parlare. Esempio: x
+più 4 uguale a 6 ha la x libera; per ogni x, x più 0 uguale a x non ha
+variabili libere ed è vera o falsa.</p>
+<p><mark>Una funzione proposizionale non ha un valore di verità. Un
+enunciato con variabili libere <strong>non è una proposizione</strong>;
+un enunciato senza variabili libere (tutte legate) <strong>è una
+proposizione</strong>, e ha un valore di verità</mark>.</p>
+<p>Due esempi di enunciati senza variabili libere: «per ogni triangolo
+T, la somma degli angoli di T è 180°» (un teorema di geometria euclidea)
+e «esiste un programma P il cui output è P stesso» (in informatica; ne
+sono un esempio i virus, che devono saper produrre in output sé stessi
+per riprodursi, cosa più facile in un linguaggio a basso livello dove si
+sa in quali celle sta il programma). Per dare un significato a enunciati
+di questo tipo si dovrebbero prendere tutti i triangoli, o tutti i
+programmi, e controllarli: un metodo puramente ideale, perché sono
+infiniti. Sono esempi di <strong>quantificazione</strong>, introdotta
+nei capitoli seguenti: il capitolo 21 tratta «per ogni», il capitolo 22
+tratta «esiste».</p>
+<h1 id="section-12"></h1>
+<h1 id="il-quantificatore-universale"><strong>21. Il Quantificatore
+Universale</strong></h1>
+<h2 id="la-definizione"><strong>La definizione</strong></h2>
+<p><mark>Un enunciato della forma «per ogni x, P(x)» si dice
+<strong>enunciato quantificato universalmente</strong>. Il simbolo ∀
+significa «per ogni» e si chiama <strong>quantificatore
+universale</strong>: l'enunciato si scrive ∀x P(x).</mark> Nel
+linguaggio naturale, in inglese, «for all», «for any» e «for every» sono
+sinonimi; il simbolo ∀ si può leggere in tutti questi modi. È
+«universale» perché tutti gli oggetti del discorso devono avere la
+proprietà.</p>
+<p><strong>Definizione.</strong> <mark>Sia P una funzione proposizionale
+con dominio D. L'enunciato ∀x P(x) è <strong>vero</strong> se P(x) è
+vera per ogni x ∈ D. È <strong>falso</strong> se P(x) è falsa per almeno
+un x ∈ D.</mark></p>
+<p><strong>In parole povere:</strong> il <mark>per ogni dice che la
+proprietà vale per tutti gli elementi del dominio,</mark> senza
+eccezioni. <mark>Per dire che è vero devi controllare che non ce ne sia
+nemmeno uno che sbaglia</mark>; <mark>per dire che è falso ne basta uno
+solo che sbaglia</mark>. Esempio: tutti gli studenti della classe hanno
+il libro: basta uno senza libro per renderla falsa.</p>
+<p>Come sottolineato a lezione, per decidere il valore di un
+quantificatore si assegnano alla funzione tutti i possibili valori del
+dominio e si controlla che siano tutti veri. Ne basta <strong>uno
+falso</strong> su infiniti perché il quantificatore sia falso: non è una
+questione di probabilità. Si lavora con due soli valori di verità,
+quindi non esistono gradazioni come «quasi sempre vero» (quelle
+appartengono a studi molto più avanzati).</p>
+<p><img src="./media/image24.png"
+style="width:5.31496in;height:2.32907in" /></p>
+<p><em>I tre casi: P(x) vera ovunque, vera in alcuni punti, falsa
+ovunque.</em></p>
+<p><mark>Un valore di x del dominio che rende P(x) falsa si chiama
+<strong>controesempio</strong> all'enunciato ∀x P(x).</mark></p>
+<p><strong>In parole povere:</strong> un controesempio è un caso che
+smentisce un per ogni: un solo elemento del dominio per cui la proprietà
+non vale. Come dire tutti i cigni sono bianchi: un singolo cigno nero è
+sufficiente per smentirlo.</p>
+<h2 id="il-dominio-cambia-il-valore-di-verità"><strong>Il dominio cambia
+il valore di verità</strong></h2>
+<p>Il dominio del discorso è essenziale, perché lo <mark>stesso
+enunciato può essere vero in un dominio e falso in un altro.</mark> Si
+consideri ∀x (x² ≥ 0).</p>
+<ul>
+<li><p>Con dominio ℝ è <strong>vero</strong>: per ogni numero reale il
+quadrato è positivo o nullo (se x &gt; 0 il quadrato è positivo, se x =
+0 è zero, se x &lt; 0 il quadrato è positivo).</p></li>
+<li><p>Con dominio ℂ è <strong>falso</strong>: prendendo x = √(−1) = i
+si ha x² = −1, che non è ≥ 0 (e un controesempio basta). (su ℂ la
+disuguaglianza ha senso solo per i numeri reali, quindi qui si considera
+falsa per x non reale).</p></li>
+</ul>
+<p>Un secondo esempio, sempre con dominio ℝ: ∀x (x² − 1 &gt; 0). È
+<strong>falso</strong>: per x = 1 la proposizione 1² − 1 &gt; 0 è falsa,
+e 1 è un controesempio. Ci sono tantissimi valori che rendono vera la
+funzione (per esempio x = 10 dà 99 &gt; 0 e x = 5 dà 24 &gt; 0), ma il
+quantificatore universale è falso lo stesso, perché basta un'eccezione.
+In realtà tutti i valori da −1 a +1, zero compreso, sono controesempi:
+per un x con |x| ≤ 1 il quadrato è minore o uguale a 1, e x² − 1 non è
+positivo.</p>
+<h2 id="come-si-dimostra-che-x-px-è-vero"><strong>Come si dimostra che
+∀x P(x) è vero</strong></h2>
+<p>Per provare che ∀x P(x) è vero bisogna, in sostanza, e<mark>saminare
+<strong>ogni</strong> valore di x del dominio e mostrare che P(x) è
+vera.</mark> <mark>Una tecnica è porre che x sia un elemento
+<strong>arbitrario</strong> del dominio D e procedere con il simbolo x:
+qualunque cosa si affermi su x deve valere per qualsiasi valore x possa
+avere in D</mark>, e il ragionamento deve concludere che P(x) è vera.
+Mostrare che P(x) è vera per un valore particolare <strong>non</strong>
+dimostra che ∀x P(x) sia vero.</p>
+<p>Per specificare il dominio si scrive anche: per ogni x ∈ D, P(x).</p>
+<p><strong>Esempio.</strong> Si verifica che l'enunciato «per ogni
+numero reale x, se x &gt; 1 allora x + 1 &gt; 1» è vero. Sia x un reale
+qualunque. Allora vale x ≤ 1 oppure x &gt; 1.</p>
+<ul>
+<li><p>Se x ≤ 1, l'implicazione «se x &gt; 1 allora x + 1 &gt; 1» è
+<strong>vera per difetto</strong>: l'ipotesi è falsa e, come visto nel
+capitolo 16, un'implicazione con ipotesi falsa è vera qualunque sia la
+tesi (nella maggior parte delle dimostrazioni questo caso si
+omette).</p></li>
+<li><p>Se x &gt; 1, qualunque sia il valore di x si ha x + 1 &gt; x; da
+x + 1 &gt; x e x &gt; 1 si conclude che x + 1 &gt; 1, quindi la
+conclusione è vera e l'implicazione è vera.</p></li>
+</ul>
+<p>In entrambi i casi l'implicazione è vera, quindi l'enunciato
+quantificato è vero.</p>
+<p>Il lettore interessato alla «meccanizzazione» può notare che questa
+prova usa passaggi più piccoli: la compatibilità del maggiore con la
+somma (da x &gt; 1 si ricava x + 1 &gt; 1 + 1, aggiungendo 1 a entrambi
+i lati), il calcolo 1 + 1 &gt; 1 e la <strong>transitività</strong> del
+maggiore (se a &gt; b e b &gt; c allora a &gt; c). Un corso di
+matematica chiede di saper fare questi ragionamenti direttamente, senza
+spiegare i passaggi più piccoli, ma per una macchina tutto deve essere
+precisato.</p>
+<p>Dimostrare che ∀x P(x) è <strong>falso</strong> è molto più semplice:
+basta trovare <strong>un</strong> controesempio.</p>
+<h2 id="un-algoritmo-per-decidere-x-px-su-un-dominio-finito"><strong>Un
+algoritmo per decidere ∀x P(x) su un dominio finito</strong></h2>
+<p>Se il dominio è infinito non c'è un modo ovvio per decidere un
+quantificatore con la sola definizione: servirebbero infiniti controlli,
+e un elenco, per quanto lungo, di valori non li esaurisce (esistono
+metodi migliori, ma appartengono ad altri corsi, di verifica automatica
+e di intelligenza artificiale). Quando il dominio è
+<strong>finito</strong>, invece, <mark>si può scrivere un
+programma</mark>. <mark>Sia D = {d₁, …, d<sub>n</sub>}</mark> (per
+esempio gli elementi di un vettore) <mark>e sia P una funzione
+proposizionale su D. Questo pseudocodice</mark> (non è un linguaggio
+particolare) <mark>decide ∀x P(x):</mark></p>
+<p><mark>for</mark> i = 1 to n</p>
+<p>if (¬P(d_i))</p>
+<p>return false</p>
+<p>return true</p>
+<p>Il ciclo esamina uno a uno gli elementi del dominio. Se trova un
+d<sub>i</sub> per cui P(d<sub>i</sub>) è falsa, la condizione
+¬P(d<sub>i</sub>) dell'if è vera e il programma restituisce
+<strong>false</strong> (d<sub>i</sub> è un controesempio) e termina. Se
+P(d<sub>i</sub>) è vera per ogni d<sub>i</sub>, la condizione dell'if è
+sempre falsa, il ciclo arriva alla fine e il programma restituisce
+<strong>true</strong>. Quindi se ∀x P(x) è vero il ciclo deve arrivare
+fino in fondo, controllando ogni elemento; se è falso, il ciclo si ferma
+appena trova un elemento che rende P(x) falsa.</p>
+<p><strong>Trabocchetto d'esame.</strong> Come sottolineato a lezione, è
+un tipo di programma che si chiede agli esami, e l'errore tipico ha due
+varianti.</p>
+<ul>
+<li><p>Scrivere un else con return true dentro il ciclo: se P(d₁) è vera
+non si può concludere che il quantificatore sia vero, perché dipende
+dagli altri valori che non sono stati controllati. L'if va lasciato
+senza else: quando P(d<sub>i</sub>) è vera non c'è abbastanza
+informazione e il ciclo deve semplicemente passare all'elemento
+successivo.</p></li>
+<li><p><mark>Mettere il return true dentro il ciclo o sotto l'if.</mark>
+Il return true finale deve stare <strong>fuori dal ciclo</strong>,
+allineato con il for: è l'istruzione che si esegue solo se il for
+finisce senza aver mai trovato un falso. Se fosse dentro, il programma
+prenderebbe il primo valore di P e lo darebbe per valore del
+quantificatore, cosa in generale falsa.</p></li>
+</ul>
+<p>Cicli di questo tipo sono quelli che cercano un oggetto con una certa
+proprietà in una banca dati; in un programma reale si cerca anche
+l'indirizzo dell'oggetto, ma qui interessa solo il valore di verità.</p>
+<p>In pratica un ∀ si controlla con un programma solo se il dominio è
+finito e molto piccolo (anche qualche miliardo): una tavola di verità,
+per esempio, è di solito un dominio troppo grande, quando il numero di
+proposizioni atomiche è elevato. Per questo spesso si usano
+ragionamenti, cioè deduzioni valide in tutti i casi, invece di esplorare
+tutti i casi. Il capitolo successivo introduce l'altro quantificatore,
+l'esistenziale.</p>
+<h1 id="section-13"></h1>
+<h1
+id="il-quantificatore-esistenziale-e-le-leggi-di-de-morgan-per-i-quantificatori"><strong>22.
+Il Quantificatore Esistenziale e le Leggi di De Morgan per i
+Quantificatori</strong></h1>
+<h2 id="la-definizione-1"><strong>La definizione</strong></h2>
+<p><mark>Il secondo quantificatore è
+l'<strong>esistenziale</strong>.</mark> Un enunciato della forma
+«<mark>esiste x tale che P(x)» si dice <strong>enunciato quantificato
+esistenzialmente</strong></mark>; <mark>il simbolo ∃ significa «esiste»
+e si chiama <strong>quantificatore esistenziale</strong></mark>:
+l'enunciato si scrive ∃x P(x).</p>
+<p><strong>Definizione.</strong> <mark>Sia P una funzione proposizionale
+con dominio D. L'enunciato ∃x P(x) è <strong>vero</strong> se P(x) è
+vera per almeno un x ∈ D. È <strong>falso</strong> se P(x) è falsa per
+ogni x ∈ D</mark>.</p>
+<p><strong>In parole povere:</strong> <mark>l'esiste dice che c'è almeno
+un elemento del dominio per cui la proprietà vale</mark> (anche uno
+solo, anche tanti). <mark>Per dire che è vero ne basta uno che
+funzioni</mark>; <mark>per dire che è falso devono sbagliare
+tutti</mark>. Esempio: c'è uno studente con il libro: se ne trovi uno,
+hai finito.</p>
+<p>È la definizione esattamente <strong>duale</strong> di quella
+dell'universale: basta scambiare il vero con il falso. Il quantificatore
+universale è vero quando tutti i valori sono veri e falso se anche uno
+solo è falso; l'esistenziale è falso quando tutti i valori sono falsi e
+vero se anche uno solo è vero. In inglese si può dire «there exists»,
+«for some», «for at least one»; il simbolo ∃ si legge in tutti questi
+modi. Non si chiede che il valore sia unico: l'esistenziale è vero se
+P(x) vale per un solo valore, per due, per un numero qualunque di
+valori, anche infiniti, e anche per tutti.</p>
+<h2 id="esempi"><strong>Esempi</strong></h2>
+<p><strong>Un esistenziale vero.</strong> ∃x (x/(x² + 1) = 2/5), con
+dominio ℝ. È vero: basta un numero reale per cui valga l'uguaglianza, e
+x = 2 funziona, perché 2/(2² + 1) = 2/5. Non vale per ogni x (con x = 1
+si ha 1/2, e 1/2 ≠ 2/5). Un secondo valore che la soddisfa è x = 1/2 (il
+motivo è che l'equazione ottenuta è di secondo grado con il termine di
+secondo grado e il termine noto uguali, e questo fa sì che a ogni radice
+corrisponda quella inversa); non era richiesto, perché un solo valore
+basta.</p>
+<p><strong>Un altro esistenziale vero.</strong> «Per qualche n, se n è
+primo allora n + 1, n + 2, n + 3 e n + 4 non sono primi», con dominio
+ℤ⁺. Basta trovare un n che renda vera l'implicazione, per esempio n =
+23: l'ipotesi «23 è primo» e la conclusione «24, 25, 26 e 27 non sono
+primi» sono entrambe vere. Alcuni valori rendono l'implicazione vera (n
+= 23, n = 4, n = 47) e altri la rendono falsa (n = 2, n = 101): conta il
+fatto che se ne sia trovato <strong>uno</strong>.</p>
+<p><strong>Un esistenziale falso.</strong> ∃x (1/(x² + 1) &gt; 1), con
+dominio ℝ. Per mostrare che è falso bisogna dimostrare che la
+disuguaglianza è falsa per <strong>ogni</strong> x reale, cioè che per
+ogni x vale 1/(x² + 1) ≤ 1. Sia x un reale qualunque. Poiché x² ≥ 0, si
+può aggiungere 1 a entrambi i lati e ottenere 1 ≤ x² + 1; dividendo
+entrambi i lati per x² + 1 (positivo) si ottiene 1/(x² + 1) ≤ 1. Quindi
+la disuguaglianza di partenza è falsa per ogni x e l'esistenziale è
+falso. (Mostrare che P(x) è falsa per un valore particolare
+<strong>non</strong> basta.)</p>
+<h2
+id="un-algoritmo-per-decidere-x-px-su-un-dominio-finito-1"><strong>Un
+algoritmo per decidere ∃x P(x) su un dominio finito</strong></h2>
+<p><mark>Si può usare la stessa idea del capitolo 21: la soluzione si
+ottiene <strong>scambiando dappertutto vero e falso</strong></mark>. Con
+il dominio D = {d₁, …, d<sub>n</sub>}:</p>
+<p>for i = 1 to n</p>
+<p>if (P(d_i))</p>
+<p>return true</p>
+<p>return false</p>
+<p>Il ciclo esamina i d<sub>i</sub> uno a uno. Se trova un d<sub>i</sub>
+per cui P(d<sub>i</sub>) è vera, restituisce <strong>true</strong> e
+termina: ne basta uno. Se P(d<sub>i</sub>) è falsa per ogni
+d<sub>i</sub>, il ciclo arriva alla fine e il programma restituisce
+<strong>false</strong>. Quindi se ∃x P(x) è vero il ciclo si ferma
+appena trova un elemento che rende P vera; se è falso deve controllare
+tutti gli elementi.</p>
+<p>Anche qui valgono gli errori del capitolo precedente, duali. Scrivere
+if (¬P(d_i)) return false è sbagliato: se P(d₁) è falsa non si può
+concludere che l'esistenziale sia falso, perché potrebbe essere vero per
+il settimo elemento. Si deve restituire <strong>true</strong> al primo
+vero, e il return false va <strong>fuori dal ciclo</strong>, allineato
+con il for. Per fare pratica si può provare a scrivere il programma per
+cercare in un vettore di numeri se c'è almeno un numero pari, oppure se
+sono tutti pari.</p>
+<h2 id="duali-congiunzione-e-disgiunzione"><strong>Duali, congiunzione e
+disgiunzione</strong></h2>
+<p><mark>Poiché la definizione dell'uno diventa quella dell'altro
+scambiando dappertutto il vero con il falso, ∀ e ∃ si dicono
+<strong>quantificatori duali</strong></mark>; è lo stesso legame che c'è
+tra congiunzione e disgiunzione. Per questo, <mark>come per congiunzione
+e disgiunzione, valgono le leggi di De Morgan</mark>. In effetti un
+enunciato universale generalizza la congiunzione P₁ ∧ P₂ ∧ … ∧
+P<sub>n</sub>: al posto delle singole proposizioni P₁, …, P<sub>n</sub>
+si ha una famiglia P(x), con x nel dominio, e ∀x P(x) è vero se e solo
+se P(x) è vera per ogni x. Se il dominio è {−1, 0, 1}, ∀x P(x) equivale
+a P(−1) ∧ P(0) ∧ P(1). Allo stesso modo ∃x P(x) generalizza la
+disgiunzione P₁ ∨ P₂ ∨ … ∨ P<sub>n</sub>: con dominio {1, 2, 3, 4}, ∃x
+P(x) equivale a P(1) ∨ P(2) ∨ P(3) ∨ P(4).</p>
+<p><strong>In parole povere:</strong> d<mark>uali vuol dire che sono
+l'uno il rovescio dell'altro</mark>: se <mark>scambi vero con falso, il
+per ogni diventa esiste e viceversa</mark>. Succede <mark>lo stesso tra
+e e o</mark>. Un <mark>per ogni</mark> è come una <mark>lunga e</mark>
+di tante frasi, un <mark>esiste</mark> come una <mark>lunga
+o</mark>.</p>
+<h2 id="le-leggi-di-de-morgan-per-i-quantificatori"><strong>Le leggi di
+De Morgan per i quantificatori</strong></h2>
+<p><strong>Teorema (leggi di De Morgan generalizzate).</strong> Se
+<mark>P è una funzione proposizionale, ciascuna delle due coppie di
+enunciati seguenti ha gli stessi valori di verità</mark> (sono entrambi
+veri o entrambi falsi):</p>
+<ul>
+<li><p>¬(∀x P(x)) e ∃x ¬P(x): <mark>non è vero che per ogni x vale P(x)
+se e solo se c'è un x per cui non vale P(x);</mark></p></li>
+<li><p>¬(∃x P(x)) e ∀x ¬P(x): <mark>non è vero che esiste un x per cui
+vale P(x) se e solo se per ogni x non vale P(x).</mark></p></li>
+</ul>
+<p>Sono esattamente le leggi di De Morgan dei capitoli 15 e 18, in
+<mark>cui la negazione di una congiunzione è la disgiunzione delle
+negazioni e viceversa</mark>.</p>
+<p><strong>Dimostrazione della prima legge.</strong> Se ¬(∀x P(x)) è
+vera, allora ∀x P(x) è falso; per la definizione di universale, questo
+succede esattamente quando P(x) è falsa per almeno un x del dominio. Ma
+se P(x) è falsa per almeno un x, allora ¬P(x) è vera per almeno un x, e
+per la definizione di esistenziale ∃x ¬P(x) è vero. Un ragionamento
+analogo mostra che se ¬(∀x P(x)) è falsa lo è anche ∃x ¬P(x). La seconda
+legge si dimostra in modo simile (è un esercizio del libro).</p>
+<p>Un altro modo di riconoscerle: portare il «non» dentro il
+quantificatore scambia il vero con il falso sia nel valore del predicato
+sia nel valore della proposizione finale, e sappiamo che questo doppio
+scambio trasforma il «per ogni» in «esiste» e viceversa.</p>
+<p>La seconda legge spiega anche un modo di smentire un esistenziale:
+per mostrare che ∃x P(x) è falso si dimostra che ∀x ¬P(x) è vero, come
+si è fatto sopra per 1/(x² + 1) &gt; 1.</p>
+<h2 id="la-negazione-nel-linguaggio-naturale"><strong>La negazione nel
+linguaggio naturale</strong></h2>
+<p>Per <mark>negare</mark> un enunciato quantificato si applicano le
+leggi precedenti.</p>
+<ul>
+<li><p>«Ogni tifoso del rock ama gli U2» si scrive ∀x P(x), con P(x) =
+«x ama gli U2» e dominio i tifosi del rock. La sua negazione ¬(∀x P(x))
+equivale a ∃x ¬P(x): «<mark>esiste un tifoso del rock che non ama gli
+U2</mark>».</p></li>
+<li><p>«Alcuni uccelli non possono volare» si scrive ∃x ¬P(x), con P(x)
+= «x vola» (o anche ∃x Q(x) con Q(x) = «x non può volare»). La negazione
+¬(∃x ¬P(x)) equivale a ∀x ¬¬P(x), cioè ∀x P(x): «ogni uccello
+vola».</p></li>
+</ul>
+<p>Gli enunciati a parole possono avere più interpretazioni. «Tutto ciò
+che luccica non è oro» (dal Mercante di Venezia) si può leggere come
+«ogni oggetto che luccica non è oro», cioè ∀x (P(x) → ¬Q(x)), con P(x) =
+«x luccica» e Q(x) = «x è oro»; ma ciò che Shakespeare intendeva è
+«qualche oggetto che luccica non è oro», cioè ∃x (P(x) ∧ ¬Q(x)), che per
+De Morgan e per le equivalenze del capitolo 18 equivale a ¬(∀x (P(x) →
+Q(x))). L'ambiguità dipende da dove si applica la negazione: a Q(x)
+oppure all'intero enunciato.</p>
+<p>Nel linguaggio naturale, negli enunciati positivi «ogni», «tutti»,
+«ciascuno» e «qualunque» hanno lo stesso significato; negli enunciati
+negativi la situazione cambia. «Non tutti gli x soddisfano P(x)», «non
+ogni x» e «non ciascun x» significano ∃x ¬P(x), mentre «nessun x
+soddisfa P(x)» e «non esiste alcun x che soddisfi P(x)» significano ∀x
+¬P(x).</p>
+</article></main>
+</div>
+<a class="top" href="#top" aria-label="Torna su">&uarr;</a>
+<script>
+(function(){
+  var b=document.getElementById('btn-indice'), n=document.getElementById('indice');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',String(o));b.textContent=o?'Chiudi':'Indice';});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='Indice';}});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Laboratorio</title>
+<style>
+:root { --bg:#f4f6fb; --surface:#fff; --ink:#151b2e; --muted:#5a6479; --line:#dbe1ec; --accent:#2744a8; --accent-soft:#e2e8fb; --mark:#fff176; --mark-ink:#151b2e; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#0f131b; --surface:#181d28; --ink:#e9edf5; --muted:#9ba6ba; --line:#2b3444; --accent:#8fadff; --accent-soft:#1f2e57; --mark:#6b5d00; --mark-ink:#fff6c2; } }
+:root[data-theme="dark"] { --bg:#0f131b; --surface:#181d28; --ink:#e9edf5; --muted:#9ba6ba; --line:#2b3444; --accent:#8fadff; --accent-soft:#1f2e57; --mark:#6b5d00; --mark-ink:#fff6c2; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 18px/1.65 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; }
+.bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 10px; padding: 10px max(16px, env(safe-area-inset-right)) 10px max(16px, env(safe-area-inset-left)); background: var(--surface); border-bottom: 1px solid var(--line); }
+.bar a, .bar button { font: inherit; font-size: 15px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border: 0; border-radius: 10px; padding: 8px 12px; text-decoration: none; cursor: pointer; min-height: 40px; }
+.bar .t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; font-size: 16px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 1180px; margin: 0 auto; }
+nav#indice { display: none; padding: 16px; font-size: 15px; line-height: 1.4; }
+nav#indice.open { display: block; position: fixed; inset: 61px 0 0 0; z-index: 15; overflow-y: auto; background: var(--surface); padding-bottom: 80px; }
+nav#indice ul { list-style: none; margin: 0; padding-left: 14px; }
+nav#indice > ul { padding-left: 0; }
+nav#indice > ul > li { margin: 10px 0 2px; font-weight: 700; }
+nav#indice > ul > li > ul > li { font-weight: 500; margin: 3px 0; }
+nav#indice a { color: var(--ink); text-decoration: none; display: block; padding: 5px 0; }
+nav#indice a:hover { color: var(--accent); }
+main { padding: 20px max(16px, env(safe-area-inset-right)) 80px max(16px, env(safe-area-inset-left)); min-width: 0; }
+article { max-width: 760px; margin: 0 auto; overflow-wrap: break-word; }
+h1, h2, h3, h4 { font-family: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif; line-height: 1.2; margin: 1.8em 0 .5em; }
+h1 { font-size: 1.7rem; border-top: 3px solid var(--accent); padding-top: .6em; }
+h2 { font-size: 1.35rem; } h3 { font-size: 1.15rem; } h4 { font-size: 1rem; color: var(--muted); }
+h1:first-child { margin-top: .2em; }
+p { margin: .7em 0; }
+mark { background: var(--mark); color: var(--mark-ink); border-radius: 3px; padding: 0 2px; }
+img { max-width: 100%; height: auto; background: #fff; border-radius: 8px; }
+figure { margin: 1.2em 0; text-align: center; } figcaption { color: var(--muted); font-size: .9em; font-style: italic; }
+table { border-collapse: collapse; display: block; overflow-x: auto; max-width: 100%; margin: 1em 0; font-size: .92em; }
+th, td { border: 1px solid var(--line); padding: 6px 10px; vertical-align: top; }
+th { background: var(--accent-soft); }
+blockquote { margin: 1em 0; padding: .1em 1em; border-left: 4px solid var(--accent); background: var(--surface); border-radius: 0 8px 8px 0; }
+pre, code { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: .85em; }
+pre { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+math { font-size: 1.08em; }
+math[display="block"] { display: block; overflow-x: auto; padding: 4px 0; }
+.top { position: fixed; right: 14px; bottom: 14px; z-index: 10; width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: var(--surface); display: grid; place-items: center; text-decoration: none; font-size: 20px; box-shadow: 0 4px 14px rgba(0,0,0,.3); }
+@media (min-width: 1000px) {
+  .layout { grid-template-columns: 300px minmax(0, 1fr); }
+  nav#indice, nav#indice.open { display: block; position: sticky; inset: auto; top: 61px; align-self: start; max-height: calc(100vh - 61px); overflow-y: auto; background: transparent; padding: 16px 8px 40px 16px; }
+  #btn-indice { display: none; }
+  main { padding-left: 32px; }
+}
+@media print { .bar, nav#indice, .top { display: none; } body { background: #fff; color: #000; } }
+</style>
+<script>(function(){try{var t=localStorage.getItem('quaderno-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<div class="bar" id="top">
+  <a href="../../index.html" aria-label="Torna al Quaderno">&larr; Quaderno</a>
+  <span class="t">Laboratorio</span>
+  <button type="button" id="btn-indice" aria-expanded="false" aria-controls="indice">Indice</button>
+</div>
+<div class="layout">
+<nav id="indice" aria-label="Indice">
+<ul>
+<li><a href="#capitolo-1-come-è-organizzato-il-laboratorio"
+id="toc-capitolo-1-come-è-organizzato-il-laboratorio"><strong>Capitolo
+1: Come è Organizzato il Laboratorio</strong></a>
+<ul>
+<li><a href="#il-corso-di-laboratorio"
+id="toc-il-corso-di-laboratorio"><strong>Il corso di
+laboratorio</strong></a></li>
+<li><a href="#accesso-alle-macchine-del-laboratorio-turing"
+id="toc-accesso-alle-macchine-del-laboratorio-turing"><strong>Accesso
+alle macchine del laboratorio Turing</strong></a></li>
+<li><a href="#come-funzionano-i-pc-del-laboratorio"
+id="toc-come-funzionano-i-pc-del-laboratorio"><strong>Come funzionano i
+PC del laboratorio</strong></a></li>
+<li><a href="#norme-da-rispettare"
+id="toc-norme-da-rispettare"><strong>Norme da
+rispettare</strong></a></li>
+<li><a href="#la-curva-di-apprendimento"
+id="toc-la-curva-di-apprendimento"><strong>La curva di
+apprendimento</strong></a></li>
+</ul></li>
+<li><a href="#capitolo-2-linterfaccia-a-riga-di-comando"
+id="toc-capitolo-2-linterfaccia-a-riga-di-comando"><strong>Capitolo 2:
+L'Interfaccia a Riga di Comando</strong></a>
+<ul>
+<li><a href="#che-cosè-la-cli" id="toc-che-cosè-la-cli"><strong>Che
+cos'è la CLI</strong></a></li>
+<li><a href="#la-sintassi-dei-comandi"
+id="toc-la-sintassi-dei-comandi"><strong>La sintassi dei
+comandi</strong></a></li>
+<li><a href="#comandi-integrati-e-comandi-esterni"
+id="toc-comandi-integrati-e-comandi-esterni"><strong>Comandi integrati e
+comandi esterni</strong></a></li>
+<li><a href="#nominare-i-file-percorsi-assoluti-e-relativi"
+id="toc-nominare-i-file-percorsi-assoluti-e-relativi"><strong>Nominare i
+file: percorsi assoluti e relativi</strong></a></li>
+<li><a href="#i-comandi-principali"
+id="toc-i-comandi-principali"><strong>I comandi
+principali</strong></a></li>
+<li><a href="#esercizio"
+id="toc-esercizio"><strong>Esercizio</strong></a></li>
+</ul></li>
+<li><a href="#capitolo-3-preparare-lambiente-per-programmare-in-c"
+id="toc-capitolo-3-preparare-lambiente-per-programmare-in-c"><strong>Capitolo
+3: Preparare l'Ambiente per Programmare in C</strong></a>
+<ul>
+<li><a href="#il-linguaggio-c" id="toc-il-linguaggio-c"><strong>Il
+linguaggio C</strong></a></li>
+<li><a href="#quale-compilatore-usare"
+id="toc-quale-compilatore-usare"><strong>Quale compilatore
+usare</strong></a></li>
+<li><a href="#installare-il-compilatore"
+id="toc-installare-il-compilatore"><strong>Installare il
+compilatore</strong></a></li>
+<li><a href="#aggiungere-gcc-al-path-windows"
+id="toc-aggiungere-gcc-al-path-windows"><strong>Aggiungere gcc al PATH
+(Windows)</strong></a></li>
+<li><a href="#leditor-per-il-codice"
+id="toc-leditor-per-il-codice"><strong>L'editor per il
+codice</strong></a></li>
+<li><a href="#i-file-di-codice-estensioni-.c-e-.h"
+id="toc-i-file-di-codice-estensioni-.c-e-.h"><strong>I file di codice:
+estensioni .c e .h</strong></a></li>
+<li><a href="#un-primo-file-sorgente"
+id="toc-un-primo-file-sorgente"><strong>Un primo file
+sorgente</strong></a></li>
+</ul></li>
+<li><a href="#capitolo-4-la-compilazione-di-un-programma-c"
+id="toc-capitolo-4-la-compilazione-di-un-programma-c"><strong>Capitolo
+4: La Compilazione di un Programma C</strong></a>
+<ul>
+<li><a href="#gli-strumenti-e-i-file-coinvolti"
+id="toc-gli-strumenti-e-i-file-coinvolti"><strong>Gli strumenti e i file
+coinvolti</strong></a></li>
+<li><a href="#come-funziona-la-compilazione"
+id="toc-come-funziona-la-compilazione"><strong>Come funziona la
+compilazione</strong></a></li>
+<li><a href="#compilare-dal-sorgente-al-file-oggetto"
+id="toc-compilare-dal-sorgente-al-file-oggetto"><strong>Compilare: dal
+sorgente al file oggetto</strong></a></li>
+<li><a href="#collegare-dai-file-oggetto-alleseguibile"
+id="toc-collegare-dai-file-oggetto-alleseguibile"><strong>Collegare: dai
+file oggetto all'eseguibile</strong></a></li>
+<li><a href="#compilare-e-collegare-in-un-solo-passo"
+id="toc-compilare-e-collegare-in-un-solo-passo"><strong>Compilare e
+collegare in un solo passo</strong></a></li>
+<li><a href="#individuare-i-problemi-gli-avvertimenti"
+id="toc-individuare-i-problemi-gli-avvertimenti"><strong>Individuare i
+problemi: gli avvertimenti</strong></a></li>
+<li><a href="#eseguire-il-programma-dalla-cli"
+id="toc-eseguire-il-programma-dalla-cli"><strong>Eseguire il programma
+dalla CLI</strong></a></li>
+<li><a href="#disassemblare-un-programma"
+id="toc-disassemblare-un-programma"><strong>Disassemblare un
+programma</strong></a></li>
+</ul></li>
+<li><a href="#capitolo-5-leggere-e-scrivere-con-il-terminale"
+id="toc-capitolo-5-leggere-e-scrivere-con-il-terminale"><strong>Capitolo
+5: Leggere e Scrivere con il Terminale</strong></a>
+<ul>
+<li><a href="#i-primi-programmi" id="toc-i-primi-programmi"><strong>I
+primi programmi</strong></a></li>
+<li><a href="#leggere-un-intero-e-stamparlo"
+id="toc-leggere-un-intero-e-stamparlo"><strong>Leggere un intero e
+stamparlo</strong></a></li>
+<li><a href="#la-tabella-delle-moltiplicazioni"
+id="toc-la-tabella-delle-moltiplicazioni"><strong>La tabella delle
+moltiplicazioni</strong></a></li>
+<li><a href="#gli-esercizi-proposti"
+id="toc-gli-esercizi-proposti"><strong>Gli esercizi
+proposti</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-6-laboratorio-2-operatori-ordine-di-valutazione-ed-errori-in-c"
+id="toc-capitolo-6-laboratorio-2-operatori-ordine-di-valutazione-ed-errori-in-c"><strong>Capitolo
+6: Laboratorio 2: Operatori, Ordine di Valutazione ed Errori in
+C</strong></a>
+<ul>
+<li><a href="#di-che-cosa-si-occupa-il-laboratorio-2"
+id="toc-di-che-cosa-si-occupa-il-laboratorio-2"><strong>Di che cosa si
+occupa il laboratorio 2</strong></a></li>
+<li><a href="#aritmetica"
+id="toc-aritmetica"><strong>Aritmetica</strong></a></li>
+<li><a href="#operazioni-su-interi"
+id="toc-operazioni-su-interi"><strong>Operazioni su
+interi</strong></a></li>
+<li><a href="#ordine-di-valutazione"
+id="toc-ordine-di-valutazione"><strong>Ordine di
+valutazione</strong></a></li>
+<li><a href="#la-circonferenza" id="toc-la-circonferenza"><strong>La
+circonferenza</strong></a></li>
+<li><a href="#gli-errori-in-c" id="toc-gli-errori-in-c"><strong>Gli
+errori in C</strong></a></li>
+<li><a href="#media-di-tre-numeri"
+id="toc-media-di-tre-numeri"><strong>Media di tre
+numeri</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-7-laboratorio-2-tipi-documentazione-ed-esercizi-di-sintesi"
+id="toc-capitolo-7-laboratorio-2-tipi-documentazione-ed-esercizi-di-sintesi"><strong>Capitolo
+7: Laboratorio 2: Tipi, Documentazione ed Esercizi di
+Sintesi</strong></a>
+<ul>
+<li><a href="#la-tabella-dei-tipi-e-degli-specificatori"
+id="toc-la-tabella-dei-tipi-e-degli-specificatori"><strong>La tabella
+dei tipi e degli specificatori</strong></a></li>
+<li><a href="#le-dimensioni-dei-tipi"
+id="toc-le-dimensioni-dei-tipi"><strong>Le dimensioni dei
+tipi</strong></a></li>
+<li><a href="#la-documentazione-del-linguaggio"
+id="toc-la-documentazione-del-linguaggio"><strong>La documentazione del
+linguaggio</strong></a></li>
+<li><a href="#esercizio-il-mercato"
+id="toc-esercizio-il-mercato"><strong>Esercizio: il
+mercato</strong></a></li>
+<li><a href="#esercizio-scambio-di-quattro-variabili"
+id="toc-esercizio-scambio-di-quattro-variabili"><strong>Esercizio:
+scambio di quattro variabili</strong></a></li>
+</ul></li>
+</ul>
+</nav>
+<main><article>
+<h1 id="capitolo-1-come-è-organizzato-il-laboratorio"><strong>Capitolo
+1: Come è Organizzato il Laboratorio</strong></h1>
+<h2 id="il-corso-di-laboratorio"><strong>Il corso di
+laboratorio</strong></h2>
+<p>Il laboratorio di Programmazione I è un'attività pratica di
+<strong>30 ore, divise in 10 lezioni</strong>, che affianca la teoria.
+Il docente di teoria è Elvio Amparore (elviogilberto.amparore@unito.it);
+le lezioni di laboratorio, per il canale B dell'a.a. 2026/27, sono
+tenute da Valerio Basile (valerio.basile@unito.it) ed Elisa Marengo
+(elisa.marengo@unito.it). Lezioni e orari si consultano sulla pagina
+Moodle del corso.</p>
+<p>Per il ricevimento si scrive via mail oppure si usa il forum di
+Moodle, <strong>solo con la posta elettronica di Ateneo</strong>
+(nome.cognome@edu.unito.it); gli indirizzi dei docenti sono sulle pagine
+Moodle. Durante le lezioni di laboratorio sono presenti anche due
+assistenti (studenti del secondo o terzo anno) per dare supporto.</p>
+<h2 id="accesso-alle-macchine-del-laboratorio-turing"><strong>Accesso
+alle macchine del laboratorio Turing</strong></h2>
+<p>Ai PC del laboratorio Turing si accede con il <strong>login di
+Ateneo</strong>, lo stesso che si usa per il sito di UniTo e per la
+posta elettronica. Si può avviare l'ambiente Windows oppure Linux.
+Alcuni dettagli pratici:</p>
+<ul>
+<li><p>attenzione al <strong>layout della tastiera</strong> e ai
+caratteri speciali nella password;</p></li>
+<li><p>sui PC è già installato l'ambiente C, con un editor di
+testo;</p></li>
+<li><p>si può anche usare un proprio portatile, ma in quel caso bisogna
+installare l'ambiente C (lo vediamo nel capitolo 3).</p></li>
+</ul>
+<h2 id="come-funzionano-i-pc-del-laboratorio"><strong>Come funzionano i
+PC del laboratorio</strong></h2>
+<p>Ogni volta che si accede a una macchina con il proprio login, il PC
+riparte da una <strong>configurazione di partenza, senza modifiche e
+senza dati</strong>. La conseguenza più importante è che <strong>i file
+scritti vengono persi al logout</strong>: bisogna salvarli prima di
+uscire, ad esempio sul proprio Drive Google. I PC inoltre non si possono
+spegnere: per uscire occorre <em>disconnettersi</em>.</p>
+<h2 id="norme-da-rispettare"><strong>Norme da rispettare</strong></h2>
+<p>Durante le esercitazioni in laboratorio è vietato scattare
+fotografie, girare video, registrare suoni e in generale avere
+comportamenti non adeguati al contesto. Tutto il materiale prodotto è
+protetto da diritto d'autore: si può usare per studio e ricerca a uso
+individuale, ma non per finalità commerciali né di lucro anche indiretto
+(per esempio non si può condividere su piattaforme a pagamento o su siti
+che guadagnano con la pubblicità), e non si può condividere sui social
+media, salvo materiale con licenze Creative Commons. Si richiama infine
+a un uso consapevole dei materiali, nel rispetto del codice etico di
+Ateneo.</p>
+<h2 id="la-curva-di-apprendimento"><strong>La curva di
+apprendimento</strong></h2>
+<p>Il corso introduce la programmazione <strong>partendo dalle
+basi</strong> e non assume che si sia mai programmato. All'inizio si
+vedranno quindi argomenti già noti a qualcuno, ma anche argomenti
+avanzati che probabilmente non ha visto, o ha visto in modo diverso,
+anche chi ha già programmato (per esempio negli Istituti Tecnici). Per
+questo non bisogna sottovalutare la curva di apprendimento: la
+complessità cresce in modo incrementale. Chi segue il laboratorio e fa
+gli esercizi tiene il passo; chi salta le lezioni rischia di arrivare
+all'esame con una preparazione incompleta, perché l'inizio è facile e
+già visto ma poi la difficoltà sale.</p>
+<p>Nel prossimo capitolo cominciamo dal primo strumento di lavoro:
+l'interfaccia a riga di comando.</p>
+<h1 id="capitolo-2-linterfaccia-a-riga-di-comando"><strong>Capitolo 2:
+L'Interfaccia a Riga di Comando</strong></h1>
+<h2 id="che-cosè-la-cli"><strong>Che cos'è la CLI</strong></h2>
+<p>In laboratorio si usa la <strong>CLI</strong> (<em>Command Line
+Interface</em>) per eseguire manualmente tutti i passi necessari a
+costruire un programma, partendo da un file di testo in linguaggio C. La
+CLI ha vari nomi: nei sistemi UNIX si chiama <strong>shell</strong>
+(bash, sh, csh, zsh, …), in Windows <strong>prompt dei comandi</strong>
+(cmd.exe, powershell), ma si parla anche di terminale, console o riga di
+comando.</p>
+<p>Si presenta come una finestra in cui l'utente vede un <strong>prompt
+lampeggiante</strong> e scrive comandi sotto forma di linee di testo.
+Premendo INVIO il sistema interpreta ed esegue il comando, stampando
+l'output (o gli eventuali errori). Esistono regole specifiche per
+scrivere i comandi. I comandi Windows riportati in questo capitolo sono
+quelli del prompt dei comandi cmd.exe: in PowerShell alcuni (come echo
+%PATH%) si comportano diversamente.</p>
+<p><strong>In parole povere:</strong> la CLI (riga di comando) è il modo
+di dare ordini al computer scrivendoli invece di cliccare: compare un
+cursore lampeggiante, scrivi un comando e premi INVIO, il computer
+risponde. Shell, terminale, prompt dei comandi, console sono quasi
+sinonimi: tutti nomi della stessa idea.</p>
+<h2 id="la-sintassi-dei-comandi"><strong>La sintassi dei
+comandi</strong></h2>
+<p>Un comando ha un nome e può essere seguito da opzioni e
+argomenti:</p>
+<p>nome_comando opzioni argomenti</p>
+<ul>
+<li><p>le <strong>opzioni</strong> definiscono modi alternativi in cui
+il comando può operare;</p></li>
+<li><p>gli <strong>argomenti</strong> sono i dati o i file su cui il
+comando opera.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> un comando è un ordine scritto: il
+nome dice che cosa fare, le opzioni dicono come farlo (per esempio «in
+modo dettagliato»), gli argomenti dicono su che cosa farlo (di solito un
+file). Come «copia» (nome) «con cautela» (opzione) «questo documento»
+(argomento).</p>
+<p>Nella shell UNIX le opzioni sono introdotte da un trattino -, in
+Windows dallo slash /. Qualche esempio:</p>
+<p>&gt; date /t (Windows)</p>
+<p>&gt; systeminfo</p>
+<p>&gt; echo ciao, come stai</p>
+<p>$ date (Unix)</p>
+<p>$ uname -a</p>
+<p>$ echo "ciao, come stai"</p>
+<h2 id="comandi-integrati-e-comandi-esterni"><strong>Comandi integrati e
+comandi esterni</strong></h2>
+<p>Alcuni comandi, detti <strong>integrati</strong> (<em>built-in</em>),
+sono riconosciuti e implementati direttamente dalla shell o dal prompt
+dei comandi. Tutti gli altri sono <strong>programmi esterni</strong>:
+quando se ne dà uno, la shell carica in memoria il programma
+corrispondente e lo esegue con gli argomenti e le opzioni indicate. Per
+trovarlo la shell segue il <strong>percorso dei comandi (PATH)</strong>,
+memorizzato in una <em>variabile d'ambiente</em>. Per stamparne il
+valore:</p>
+<p><strong>In parole povere:</strong> un comando integrato è una
+funzione che la shell ha già «in tasca»; tutti gli altri sono programmi
+separati che la shell deve andare a cercare. Per trovarli guarda in un
+elenco di cartelle chiamato PATH, che è una variabile d'ambiente, cioè
+un'impostazione del sistema che i programmi possono leggere.</p>
+<p>&gt; echo %PATH% (Windows)</p>
+<p>$ echo $PATH (Unix)</p>
+<h2 id="nominare-i-file-percorsi-assoluti-e-relativi"><strong>Nominare i
+file: percorsi assoluti e relativi</strong></h2>
+<p>Molti comandi hanno come argomenti nomi di file sul disco (per
+esempio rm importante.txt oppure cp file-su-storage-USB.mp3
+lettore-portatile/), quindi è essenziale poterli referenziare in modo
+preciso nel sistema delle cartelle: lo fa il <strong>percorso</strong>
+(<em>pathname</em>).</p>
+<p>Il <strong>percorso assoluto</strong> è il nome completo del file nel
+sistema delle cartelle: si forma componendo in ordine i nomi delle
+cartelle da attraversare, a partire dalla cartella radice, fino al file.
+Gli elementi sono separati dallo slash / in Unix e dal backslash \ in
+Windows:</p>
+<p>/home/jon_snow$ rm /home/jon_snow/Documenti/cosedafare.txt (Unix)</p>
+<p>C:\Users\jon_snow&gt; del C:\Users\jon_snow\Documenti\cosedafare.txt
+(Windows)</p>
+<p>Entrambi rimuovono il file cosedafare.txt che si trova nella cartella
+Documenti dell'utente jon_snow.</p>
+<p><strong>In parole povere:</strong> il percorso assoluto è l'indirizzo
+completo di un file, come un indirizzo postale con città, via e numero:
+parte sempre dalla cartella principale (radice) e scende cartella dopo
+cartella fino al file. Vale sempre, ovunque tu sia.</p>
+<p>Il percorso assoluto è preciso ma lungo da scrivere, per questo si
+usa spesso il <strong>percorso relativo</strong> alla <strong>cartella
+di lavoro</strong> (<em>working directory</em>): il prompt dei comandi
+ha sempre una cartella di lavoro, indicata prima del simbolo &gt; in
+Windows e prima del $ nella shell Unix. Un percorso relativo è come
+quello assoluto, ma parte dalla cartella di lavoro. Per cambiare
+cartella si usa cd (<em>change directory</em>):</p>
+<p>C:\Users\jon_snow&gt; cd Documenti</p>
+<p>C:\Users\jon_snow\Documenti&gt;</p>
+<p>Con C:\Users\jon_snow come cartella di lavoro, il comando del
+Documenti\cosedafare.txt è equivalente a del
+C:\Users\jon_snow\Documenti\cosedafare.txt.</p>
+<p><strong>In parole povere:</strong> la cartella di lavoro è «dove sei
+adesso» nel computer, come la stanza in cui ti trovi. Il percorso
+relativo indica un file partendo da lì, come «la seconda porta a
+sinistra» invece dell'indirizzo completo. È più corto, ma vale solo
+finché sei in quella cartella.</p>
+<p>Esistono due percorsi speciali:</p>
+<ul>
+<li><p>. è la cartella di lavoro: se la cartella di lavoro è Documenti,
+del .\verbale.txt e del verbale.txt sono equivalenti;</p></li>
+<li><p>.. è la cartella che contiene la cartella di lavoro, e serve per
+risalire la gerarchia. Per copiare in Documenti (dentro jon_snow) il
+file pippo.jpg che sta in shared\foto\ dell'utente topolino si può
+scrivere:</p></li>
+</ul>
+<p>C:\Users\jon_snow\Documenti&gt; copy
+..\..\topolino\shared\foto\pippo.jpg .</p>
+<p>In Windows le lettere seguite dai due punti (C:, D:) indicano i
+dischi: C: è il disco locale dove si trovano i programmi (compilatore,
+editor), D: o altri nomi sono altri volumi. Nel laboratorio Turing c'è
+solo C:. Per andare nella cartella Documenti si scrive cd
+C:\Users\nome_utente\Documents (negli esempi di jon_snow la cartella si
+chiama Documenti, mentre in quella reale del laboratorio Windows è
+Documents).</p>
+<h2 id="i-comandi-principali"><strong>I comandi principali</strong></h2>
+<p>Nel prompt dei comandi di <strong>Windows</strong>:</p>
+<ul>
+<li><p>cd dir: cambia la working directory in dir; cd ..: sale alla
+directory superiore; cd da solo: mostra la working directory
+attuale;</p></li>
+<li><p>dir: elenca il contenuto della working directory (dir path quello
+di path);</p></li>
+<li><p>mkdir dirA crea una directory vuota; rmdir dirA la rimuove (deve
+essere vuota);</p></li>
+<li><p>copy fileA fileB copia il contenuto di fileA nel nuovo fileB;
+copy NUL fileA crea un file vuoto;</p></li>
+<li><p>ren fileA fileB rinomina fileA in fileB; move pathToA pathToB
+sposta il file; del fileA lo elimina;</p></li>
+<li><p>type fileA stampa il contenuto del file nel terminale; start
+notepad++ fileA lo apre con Notepad++;</p></li>
+<li><p>C:, D:, X: cambia il disco attivo.</p></li>
+</ul>
+<p>Nella shell <strong>Unix</strong>:</p>
+<ul>
+<li><p>cd dir, cd .. come sopra; pwd mostra la working directory; ls (o
+ls path) elenca il contenuto;</p></li>
+<li><p>mkdir dirA e rmdir dirA come in Windows;</p></li>
+<li><p>cp fileA fileB copia; touch fileA crea un file vuoto; mv fileA
+fileB rinomina; mv pathToA pathToB sposta; rm fileA elimina;</p></li>
+<li><p>cat fileA stampa il contenuto; open fileA (macOS) o xdg-open
+fileA (Linux) apre il file con un programma adatto.</p></li>
+</ul>
+<h2 id="esercizio"><strong>Esercizio</strong></h2>
+<p>Tramite CLI eseguire in ordine questi comandi:</p>
+<p>1. cambiare la cartella di lavoro in
+C:\Users\nome_utente\Documents;</p>
+<p>2. creare una nuova cartella PROVA e, al suo interno, un nuovo file
+vuoto importante.txt;</p>
+<p>3. rinominare il file in rilevante.txt;</p>
+<p>4. fare una copia di rilevante.txt (usando prima un percorso assoluto
+e poi uno relativo);</p>
+<p>5. cancellare la copia;</p>
+<p>6. impostare la cartella di lavoro sulla cartella che contiene
+PROVA;</p>
+<p>7. editare rilevante.txt con notepad++;</p>
+<p>8. passare a un altro disco (C: o Z:, se disponibile; solo
+Windows);</p>
+<p>9. rientrare nella cartella PROVA.</p>
+<p>Con la CLI sappiamo muoverci tra file e cartelle: nel prossimo
+capitolo la usiamo per compilare un programma in C.</p>
+<h1
+id="capitolo-3-preparare-lambiente-per-programmare-in-c"><strong>Capitolo
+3: Preparare l'Ambiente per Programmare in C</strong></h1>
+<h2 id="il-linguaggio-c"><strong>Il linguaggio C</strong></h2>
+<p>Il linguaggio C (in inglese si pronuncia /si:/) è un linguaggio di
+programmazione:</p>
+<ul>
+<li><p><strong>procedurale imperativo</strong>: si descrivono
+esplicitamente le istruzioni da eseguire e il loro ordine, organizzate
+in funzioni;</p></li>
+<li><p><strong>strutturato</strong>: si usano costrutti di flusso di
+controllo strutturati, come cicli e if/else;</p></li>
+<li><p>con <strong>supporto alla ricorsione</strong>;</p></li>
+<li><p><strong>tipato</strong> (o tipizzato);</p></li>
+<li><p><strong>vicino all'hardware</strong>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> quelle parole descrivono come è
+fatto il C: procedurale imperativo vuol dire che dai istruzioni passo
+per passo, raggruppate in funzioni; strutturato che usi blocchi ordinati
+(cicli, if/else) e non salti; tipato che ogni dato ha un tipo
+dichiarato; con ricorsione che una funzione può richiamare sé stessa;
+vicino all'hardware che sa parlare quasi alla macchina, senza troppi
+strati in mezzo.</p>
+<p>Sul web esistono molte risorse che documentano il linguaggio e la sua
+libreria; tra le più rilevanti ci sono i riferimenti di cppreference.com
+(<em>C Standard Library header files</em>), il wikibook <em>C
+Programming/Standard library reference</em> e cplusplus.com (<em>C
+Language Library</em>).</p>
+<h2 id="quale-compilatore-usare"><strong>Quale compilatore
+usare</strong></h2>
+<p>Esistono molti compilatori per il C, alcuni attivi da decenni: sono
+software di notevole importanza, molto sviluppato e testato, e il
+software di sistema mondiale si poggia sulla loro solidità e
+affidabilità. Le slide ne mostrano la popolarità con l'indice TIOBE 2026
+e lo Stack Overflow Developer Survey 2025. Nel corso si usa
+<strong>gcc</strong>, ma le indicazioni valgono sostanzialmente per
+tutti i compilatori C.</p>
+<h2 id="installare-il-compilatore"><strong>Installare il
+compilatore</strong></h2>
+<ul>
+<li><p><strong>Windows</strong>: si usa <strong>MinGW</strong>, il
+porting nativo di gcc su Windows, in una versione manutenuta e
+aggiornata, scaricabile da GitHub (progetto
+<em>mingw-builds-binaries</em>). Si scarica l'archivio .7z (nelle slide
+è la versione 15.2.0) e lo si estrae in una cartella a scelta, ad
+esempio C:\Users\&lt;Nome_Utente&gt;\Documents\mingw64.</p></li>
+<li><p><strong>Linux</strong>: si installa il pacchetto gcc, ad esempio
+con sudo apt install build-essential (Debian) oppure sudo dnf install
+gcc make (Fedora).</p></li>
+<li><p><strong>macOS</strong>: si installano gli <em>Xcode command line
+tools</em> (dall'App Store o dal sito Apple).</p></li>
+</ul>
+<h2 id="aggiungere-gcc-al-path-windows"><strong>Aggiungere gcc al PATH
+(Windows)</strong></h2>
+<p>Per usare gcc da qualsiasi cartella bisogna aggiungere il percorso
+dell'eseguibile alla variabile d'ambiente PATH, già incontrata nel
+capitolo 2:</p>
+<p>1. aprire le Impostazioni di Sistema e andare su Impostazioni
+avanzate di sistema;</p>
+<p>2. cliccare su <em>Variabili d'ambiente</em>;</p>
+<p>3. nella sezione <em>Variabili utente</em> selezionare Path e
+cliccare su <em>Modifica</em>;</p>
+<p>4. cliccare su <em>Nuovo</em> e inserire il percorso della cartella
+bin di MinGW, ad esempio
+C:\Users\&lt;Nome_Utente&gt;\Documents\mingw64\bin;</p>
+<p>5. cliccare su OK per confermare.</p>
+<p>Per verificare che l'installazione sia riuscita si apre il prompt dei
+comandi (cmd) e si scrive where gcc (che mostra il percorso di gcc.exe
+se è stato trovato, altrimenti segnala che non trova i file) oppure gcc
+--version.</p>
+<h2 id="leditor-per-il-codice"><strong>L'editor per il
+codice</strong></h2>
+<p>Per scrivere il codice serve un <strong>editor di testo semplice ma
+adatto al codice</strong>: Notepad non va bene. Quello suggerito su
+Windows è <strong>Notepad++</strong>, ma ve ne sono molti altri (gedit,
+Sublime, Atom, …). Nel corso <strong>non si usa un ambiente di sviluppo
+integrato (IDE)</strong>: chi proprio vuole usarlo è invitato a
+disabilitare gli strumenti che auto-completano gli esercizi (come
+Copilot), perché l'obiettivo è imparare a programmare da soli. All'esame
+si userà una piattaforma web, che fornisce un editor di testo
+semplice.</p>
+<h2 id="i-file-di-codice-estensioni-.c-e-.h"><strong>I file di codice:
+estensioni .c e .h</strong></h2>
+<p>I file di testo con il programma in C devono avere estensione
+<strong>.c</strong> (le <em>unità di compilazione</em>) oppure
+<strong>.h</strong> (i <em>file di intestazione</em>). In Windows
+conviene disabilitare l'opzione che nasconde le estensioni dei file di
+formato "conosciuto", così si verifica che i file scritti abbiano
+davvero l'estensione .c.</p>
+<p><strong>In parole povere:</strong> un file .c contiene il codice vero
+e proprio e ogni file .c è una unità di compilazione, cioè un pezzo che
+il compilatore traduce da solo; un file .h (header, di intestazione)
+contiene invece solo dichiarazioni di ciò che esiste, una sorta di
+indice che altri file possono includere.</p>
+<h2 id="un-primo-file-sorgente"><strong>Un primo file
+sorgente</strong></h2>
+<p>Come prova creiamo con un editor appropriato un file di nome
+<strong>buongiorno.c</strong>:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main(void) {</p>
+<p>printf("Buongiorno!\n");</p>
+<p>return 0;</p>
+<p>}</p>
+<p>Nel prossimo capitolo vediamo come trasformare questo testo in un
+programma eseguibile.</p>
+<h1 id="capitolo-4-la-compilazione-di-un-programma-c"><strong>Capitolo
+4: La Compilazione di un Programma C</strong></h1>
+<h2 id="gli-strumenti-e-i-file-coinvolti"><strong>Gli strumenti e i file
+coinvolti</strong></h2>
+<p>Per costruire e ispezionare un programma usiamo tre strumenti: il
+<strong>compilatore C</strong>, il <strong>collegatore</strong>
+(<em>linker</em>) e il <strong>disassemblatore</strong>. Si gestiscono
+vari tipi di file:</p>
+<ul>
+<li><p>i <strong>file sorgente</strong> in C (estensioni .c e
+.h);</p></li>
+<li><p>i <strong>file oggetto</strong> (estensione .o oppure
+.obj);</p></li>
+<li><p>i <strong>programmi compilati</strong> (estensione .exe oppure
+nessuna).</p></li>
+</ul>
+<p>In realtà dietro il comando gcc lavorano più programmi in sequenza:
+il preprocessore (cpp), il compilatore (cc), l'assemblatore (as) e il
+linker (ld).</p>
+<p><strong>In parole povere:</strong> dietro il comando gcc lavorano
+quattro programmi in fila come una catena di montaggio: il preprocessore
+prepara il testo (sistema gli #include), il compilatore lo traduce in
+assembly, l'assemblatore lo trasforma in codice macchina e il linker
+mette insieme i pezzi. Tu scrivi un solo comando, ma il lavoro passa per
+tutte queste fasi.</p>
+<h2 id="come-funziona-la-compilazione"><strong>Come funziona la
+compilazione</strong></h2>
+<p>Il processo parte dai <strong>file sorgente</strong>, cioè il codice
+del programma in forma testuale: sono le <strong>unità di
+compilazione</strong>. A questi si aggiungono i <strong>file di
+intestazione</strong>, con le definizioni comuni, inclusi con #include.
+Il preprocessore, il compilatore e l'assemblatore li trasformano in
+<strong>file oggetto</strong>: unità di compilazione in linguaggio
+macchina. Il <strong>collegatore</strong> (<em>linker</em>) unisce poi i
+file oggetto in un unico <strong>programma eseguibile</strong>,
+compilato in linguaggio macchina.</p>
+<p><strong>In parole povere:</strong> il file sorgente è il testo C
+scritto da te; il file oggetto è lo stesso programma già tradotto in
+linguaggio macchina ma incompleto, un «pezzo» di puzzle; l'eseguibile è
+il puzzle finito, pronto da lanciare. Il linker è chi incastra tutti i
+pezzi.</p>
+<h2 id="compilare-dal-sorgente-al-file-oggetto"><strong>Compilare: dal
+sorgente al file oggetto</strong></h2>
+<p>gcc è il comando del compilatore e traduce il programma C in forma
+testuale in un file oggetto. Con l'opzione -c esegue preprocessing,
+compilazione vera e propria e assemblamento; l'opzione -o indica il nome
+del file di output:</p>
+<p>Unix: gcc -c sorgente.c -o oggetto.o</p>
+<p>Windows: gcc -c sorgente.c -o oggetto.obj</p>
+<h2 id="collegare-dai-file-oggetto-alleseguibile"><strong>Collegare: dai
+file oggetto all'eseguibile</strong></h2>
+<p>Il linker prende i file oggetto e li unisce in un unico eseguibile. È
+lo stesso comando gcc, ma <strong>senza l'opzione -c</strong>:</p>
+<p>Unix: gcc oggetto1.o oggetto2.o -o eseguibile</p>
+<p>Windows: gcc oggetto1.obj oggetto2.obj -o eseguibile.exe</p>
+<h2 id="compilare-e-collegare-in-un-solo-passo"><strong>Compilare e
+collegare in un solo passo</strong></h2>
+<p>Per programmi semplici, per esempio con un solo file sorgente, si
+possono fare le due cose insieme:</p>
+<p>Unix: gcc sorgente.c -o eseguibile</p>
+<p>Windows: gcc sorgente.c -o eseguibile.exe</p>
+<h2 id="individuare-i-problemi-gli-avvertimenti"><strong>Individuare i
+problemi: gli avvertimenti</strong></h2>
+<p>I <strong>warnings</strong> sono messaggi diagnostici visualizzati
+per certi costrutti che non sono intrinsecamente errati, ma sono
+potenzialmente sbagliati o indizi di errori nel codice. Per abilitarli
+ci sono due opzioni:</p>
+<ul>
+<li><p>-Wall riporta gli avvertimenti;</p></li>
+<li><p>-Werror fa sì che, se ci sono avvertimenti, il programma non
+venga compilato.</p></li>
+</ul>
+<p>Si usano insieme, per esempio con gcc -Wall -Werror sorgente.c -o
+eseguibile (su Windows con -o eseguibile.exe). <strong>In sede di esame
+si usano le opzioni -Wall -Werror</strong>, quindi conviene abituarsi da
+subito.</p>
+<p><strong>In parole povere:</strong> un warning è un campanello
+d'allarme: il compilatore non dice «questo è sbagliato» ma «questo è
+sospetto, controlla». Con -Wall li attivi tutti, con -Werror li
+trasformi in errori veri e il programma non si compila finché non li
+correggi: come un professore severo che non accetta nemmeno le
+imprecisioni.</p>
+<h2 id="eseguire-il-programma-dalla-cli"><strong>Eseguire il programma
+dalla CLI</strong></h2>
+<p>Una volta ottenuto l'eseguibile, lo si avvia dalla riga di
+comando:</p>
+<p>C:\Users\jon_snow&gt; buongiorno (Windows)</p>
+<p>Buongiorno!</p>
+<p>jon_snow@linux:/home/jon_snow$ ./buongiorno (Unix)</p>
+<p>Buongiorno!</p>
+<p>In Unix i comandi che si trovano nella stessa directory si avviano
+aggiungendo ./ come prefisso al nome del comando.</p>
+<h2 id="disassemblare-un-programma"><strong>Disassemblare un
+programma</strong></h2>
+<p>Il <strong>disassemblatore</strong> mostra una versione testuale del
+programma compilato. Attenzione: viene visualizzato il formato
+<strong>assembly</strong> dell'eseguibile, non il testo in C da cui si è
+partiti. I comandi sono:</p>
+<p><strong>In parole povere:</strong> il disassemblatore fa il percorso
+inverso del compilatore: prende il programma già pronto e lo mostra come
+assembly (testo leggibile per la macchina). Non ti restituisce il tuo
+codice C originale, perché nella traduzione quel testo si è perso: vedi
+solo le istruzioni che la CPU eseguirà.</p>
+<p>Linux: objdump -d eseguibile</p>
+<p>macOS: otool -tv eseguibile</p>
+<p>Windows: objdump -d eseguibile.exe</p>
+<p>Ora che sappiamo compilare, possiamo scrivere i primi programmi che
+interagiscono con il terminale.</p>
+<h1 id="capitolo-5-leggere-e-scrivere-con-il-terminale"><strong>Capitolo
+5: Leggere e Scrivere con il Terminale</strong></h1>
+<h2 id="i-primi-programmi"><strong>I primi programmi</strong></h2>
+<p>Scriviamo ora i programmi con un editor di testo semplice, ma adatto
+alla programmazione, ed eseguiamo manualmente i passi che servono per la
+compilazione, come visto nel capitolo 4.</p>
+<p>Per compilare ed eseguire un programma si usano i comandi del
+capitolo 4, ad esempio gcc -Wall -Werror scrivi_intero.c -o
+scrivi_intero (su Windows con -o scrivi_intero.exe) e poi
+./scrivi_intero in Unix oppure scrivi_intero in Windows.</p>
+<h2 id="leggere-un-intero-e-stamparlo"><strong>Leggere un intero e
+stamparlo</strong></h2>
+<p>Il primo programma, <strong>scrivi_intero.c</strong>, chiede un
+numero intero all'utente, lo legge con scanf e lo mostra a video con
+printf:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main(void) {</p>
+<p>int number;</p>
+<p>printf("Scrivi un numero intero: ");</p>
+<p>// leggi il numero inserito</p>
+<p>scanf("%d", &amp;number);</p>
+<p>// mostra il numero a video</p>
+<p>printf("Hai scritto: %d\n", number);</p>
+<p>return 0;</p>
+<p>}</p>
+<p>La variabile number è un intero; scanf riceve l'indirizzo &amp;number
+della variabile in cui scrivere il valore letto (come visto nei capitoli
+8 e 10 del riassunto di teoria), mentre printf usa lo specificatore %d
+per stampare un intero.</p>
+<h2 id="la-tabella-delle-moltiplicazioni"><strong>La tabella delle
+moltiplicazioni</strong></h2>
+<p>Il secondo programma, <strong>tabella_moltiplicazioni.c</strong>,
+legge un intero n e stampa i suoi primi 10 multipli:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main(void) {</p>
+<p>int n;</p>
+<p>printf("Scrivi un numero intero: ");</p>
+<p>scanf("%d", &amp;n);</p>
+<p>// stampa i primi 10 multipli di n</p>
+<p>for (int i = 1; i &lt;= 10; ++i) {</p>
+<p>printf("%d * %d = %d \n", n, i, n * i);</p>
+<p>}</p>
+<p>return 0;</p>
+<p>}</p>
+<p>L'istruzione for ripete il blocco tra parentesi graffe: la variabile
+i parte da 1; la condizione i &lt;= 10 si controlla prima di ogni giro
+e, alla fine di ogni giro, i aumenta di 1 (++i); ogni volta la printf
+stampa una riga della tabella.</p>
+<h2 id="gli-esercizi-proposti"><strong>Gli esercizi
+proposti</strong></h2>
+<p>Per prendere confidenza con il linguaggio, il laboratorio propone
+questi esercizi:</p>
+<ul>
+<li><p>stampare due righe usando due chiamate a printf;</p></li>
+<li><p>stampare due righe usando una singola chiamata a printf;</p></li>
+<li><p>chiedere due numeri e poi stamparli a video;</p></li>
+<li><p>stampare la somma di due numeri;</p></li>
+<li><p>dichiarare tre numeri interi x, y e z, inizializzati con i valori
+5, 8 e 11, e stampare il loro prodotto con printf;</p></li>
+<li><p>leggere gli errori di compilazione.</p></li>
+</ul>
+<p>L'ultimo punto è importante quanto gli altri: imparare a leggere i
+messaggi del compilatore, soprattutto con le opzioni -Wall -Werror che
+useremo all'esame, è parte dell'imparare a programmare.</p>
+<h1
+id="capitolo-6-laboratorio-2-operatori-ordine-di-valutazione-ed-errori-in-c"><strong>Capitolo
+6: Laboratorio 2: Operatori, Ordine di Valutazione ed Errori in
+C</strong></h1>
+<h2 id="di-che-cosa-si-occupa-il-laboratorio-2"><strong>Di che cosa si
+occupa il laboratorio 2</strong></h2>
+<p>Il secondo laboratorio di Programmazione I, intitolato "Operatori e
+Tipi", riprende gli argomenti della teoria sulle variabili, sugli
+operatori aritmetici e sui tipi numerici (capitoli 6, 8 e 13-16 del
+riassunto di teoria) e li fa provare al computer. Questo capitolo
+raccoglie la parte sugli operatori, sull'ordine di valutazione delle
+espressioni e sulla ricerca degli errori; il capitolo successivo tratta
+i tipi, la documentazione del linguaggio e gli esercizi di sintesi.</p>
+<p>Per compilare si usa il comando gcc con l'opzione -Wall, che attiva
+un ampio insieme di avvisi del compilatore: in Unix gcc -Wall
+aritmetica.c -o aritmetica, in Windows gcc -Wall aritmetica.c -o
+aritmetica.exe (come visto nel capitolo 4 di questo riassunto).</p>
+<h2 id="aritmetica"><strong>Aritmetica</strong></h2>
+<p>Il primo esercizio chiede di provare il programma
+<strong>aritmetica.c</strong> leggendo attentamente il codice prima di
+eseguirlo: l'idea è di prevedere il risultato di ogni operazione e poi
+confrontarlo con l'output.</p>
+<h2 id="operazioni-su-interi"><strong>Operazioni su interi</strong></h2>
+<p>Il secondo esercizio è scrivere un programma
+<strong>operazioni_su_interi.c</strong> che:</p>
+<p>1. chieda all'utente di inserire due numeri interi, che chiamiamo n1
+e n2 (con scanf, come visto a lezione);</p>
+<p>2. calcoli la somma di n1 e n2 e ne stampi il valore;</p>
+<p>3. stampi il prodotto di n1 con n2;</p>
+<p>4. stampi la divisione intera n1 / n2;</p>
+<p>5. stampi la divisione reale n1 / n2;</p>
+<p>6. stampi il resto della divisione intera tra n1 e n2.</p>
+<p>I due tipi di divisione sono il punto delicato, e si ricollegano al
+capitolo 16 della teoria. Con n1 = 7 e n2 = 2, la divisione tra interi
+n1 / n2 dà 3 (la parte frazionaria si perde) e il resto n1 % n2 dà 1.
+Per ottenere la divisione reale 3.5 bisogna invece convertire almeno uno
+degli operandi in float con un cast, per esempio (float)n1 / n2, e
+stampare il risultato con %f.</p>
+<h2 id="ordine-di-valutazione"><strong>Ordine di
+valutazione</strong></h2>
+<p>Un esercizio chiede quali risultati si ottengono in C da tre
+espressioni. Per risolverlo bisogna ricordare che in un'espressione
+senza parentesi la moltiplicazione, la divisione e il resto hanno la
+precedenza su somma e sottrazione, e che a parità di precedenza si
+procede da sinistra a destra. Le parentesi si valutano per prime, dalle
+più interne.</p>
+<p><strong>In parole povere:</strong> la precedenza degli operatori è
+l'ordine in cui il C esegue le operazioni, come in matematica: prima *,
+/ e %, poi + e -. A parità di precedenza si va da sinistra a destra e le
+parentesi hanno sempre la priorità, partendo da quelle più interne. In
+caso di dubbio, le parentesi eliminano ogni ambiguità.</p>
+<ul>
+<li><p>int x = 7 + 3 * 6 / 2 - 1; si calcola prima 3 * 6 = 18, poi 18 /
+2 = 9, infine 7 + 9 - 1 = <strong>15</strong>.</p></li>
+<li><p>int x = 2 % 2 + 2 * 2 - 2 / 2; dà 0 + 4 - 1 =
+<strong>3</strong>.</p></li>
+<li><p>int x = (3 * 9 * (3 + (9 * 3 / (3)))); si parte dalle parentesi
+più interne: 9 * 3 / 3 = 9, poi 3 + 9 = 12, infine 3 * 9 * 12 =
+<strong>324</strong>.</p></li>
+</ul>
+<p>Un secondo esercizio chiede quali tra sei espressioni corrispondono a
+y = a·x<sup>3</sup> + 7. Quelle corrette sono tre, perché in tutte e tre
+il prodotto a·x·x·x viene calcolato per intero prima di sommare 7:</p>
+<ul>
+<li><p>int y = a * x * x * x + 7;</p></li>
+<li><p>int y = (a * x) * x * x + 7;</p></li>
+<li><p>int y = a * (x * x * x) + 7;</p></li>
+</ul>
+<p>Le altre tre sono sbagliate perché una parentesi fa sommare 7 prima
+di moltiplicare, per esempio a * x * x * (x + 7), che calcola
+a·x<sup>2</sup>·(x + 7) e non a·x<sup>3</sup> + 7. Con a = 2 e x = 3 le
+tre espressioni corrette danno tutte 61, mentre le altre danno valori
+diversi (per esempio 180 oppure 96).</p>
+<h2 id="la-circonferenza"><strong>La circonferenza</strong></h2>
+<p>L'esercizio sul programma <strong>circonferenza.c</strong> chiede di
+completare la parte che calcola la circonferenza di un cerchio di raggio
+r, ricordando che la circonferenza è 2πr e l'area è πr<sup>2</sup>. Se
+il programma usa le funzioni dell'header math.h, su Linux può essere
+necessario compilare con gcc -Wall circonferenza.c -o circonferenza -lm,
+dove -lm indica di aggiungere le funzioni matematiche (capitolo 15 della
+teoria).</p>
+<h2 id="gli-errori-in-c"><strong>Gli errori in C</strong></h2>
+<p>Un esercizio propone di individuare gli errori in questo codice:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main() {</p>
+<p>int x, y;</p>
+<p>printf("Inserisci due interi: ");</p>
+<p>scanf("%d %d", &amp;x, y)</p>
+<p>z = x + y;</p>
+<p>printf("La somma %d + %d vale ", x, y);</p>
+<p>printf("%d\n", &amp;z);</p>
+<p>}</p>
+<p>Leggendolo con attenzione si trovano quattro problemi, di natura
+diversa: due sono veri errori di compilazione, gli altri due il
+compilatore li segnala come avvisi con -Wall (oppure producono un
+comportamento sbagliato in esecuzione).</p>
+<ul>
+<li><p>nella scanf manca l'operatore &amp; davanti a y: scanf vuole
+l'indirizzo di ogni variabile in cui scrivere (capitoli 9 e 10 della
+teoria); senza &amp; il programma scriverebbe all'indirizzo contenuto in
+y, con ogni probabilità facendolo bloccare;</p></li>
+<li><p>manca il punto e virgola alla fine della riga della
+scanf;</p></li>
+<li><p>la variabile z non è stata dichiarata prima di essere
+usata;</p></li>
+<li><p>l'ultima printf stampa &amp;z, cioè l'indirizzo di z, con %d,
+mentre per stampare il valore bisogna scrivere z.</p></li>
+</ul>
+<p>Il main() senza void e l'assenza di return 0;, invece, non sono
+errori in C.</p>
+<p>Un secondo esercizio chiede di leggere il file
+<strong>errori.c</strong> e, senza compilare, individuare tutti gli
+errori presenti: nel testo dell'esercizio si dice che sono 8. Il metodo
+è lo stesso: rileggere il codice riga per riga, cercando errori dei tipi
+appena visti.</p>
+<h2 id="media-di-tre-numeri"><strong>Media di tre numeri</strong></h2>
+<p>Infine l'esercizio su <strong>media.c</strong> chiede di leggere il
+codice, sperimentare input differenti seguendo gli esercizi proposti e
+rispondere alle domande indicate nei commenti del codice.</p>
+<h1
+id="capitolo-7-laboratorio-2-tipi-documentazione-ed-esercizi-di-sintesi"><strong>Capitolo
+7: Laboratorio 2: Tipi, Documentazione ed Esercizi di
+Sintesi</strong></h1>
+<h2 id="la-tabella-dei-tipi-e-degli-specificatori"><strong>La tabella
+dei tipi e degli specificatori</strong></h2>
+<p>La seconda parte del laboratorio 2 riguarda i tipi del C. Il
+laboratorio riporta due tabelle con la dimensione di ogni tipo (in byte
+e in bit), l'intervallo dei valori e lo specificatore di conversione,
+per CPU a 32 e a 64 bit, e approfondiscono quanto visto sui tipi nel
+capitolo 6 della teoria. Gli intervalli dei tipi interi con segno vanno
+da −2<sup>N−1</sup> a 2<sup>N−1</sup> − 1, dove N è il numero di bit
+(per esempio da −2<sup>31</sup> a 2<sup>31</sup> − 1 per un int).</p>
+<p>I <strong>tipi con segno</strong> e i loro specificatori sono:</p>
+<ul>
+<li><p>char (1 byte): %c;</p></li>
+<li><p>short (2 byte): %hd;</p></li>
+<li><p>int (4 byte): %d;</p></li>
+<li><p>long (4 byte su CPU a 32 bit, 8 su 64): %ld;</p></li>
+<li><p>long long (8 byte): %lld;</p></li>
+<li><p>ptrdiff_t (4 byte a 32 bit, 8 a 64): %t nella tabella del corso
+(lo specificatore completo in C è %td);</p></li>
+<li><p>float (4 byte, intervallo da circa 10<sup>-38</sup> a
+10<sup>38</sup>): %f;</p></li>
+<li><p>double (8 byte, da circa 10<sup>-308</sup> a 10<sup>308</sup>):
+%lf nella tabella, anche se in printf %f va bene per entrambi i tipi
+(capitolo 14 della teoria).</p></li>
+</ul>
+<p>I <strong>tipi senza segno</strong> sono unsigned char (%hhu),
+unsigned short (%hu), unsigned int (%u), unsigned long (%lu), unsigned
+long long (%llu) e size_t (%zu); i loro valori vanno da 0 a
+2<sup>N</sup> − 1, dove N è il numero di bit del tipo. Due precisazioni:
+le dimensioni sono indicative, perché dipendono dal sistema in uso (come
+per long int: per esempio su Windows a 64 bit con gcc un long occupa 4
+byte), e <strong>non serve imparare a memoria queste
+tabelle</strong>.</p>
+<h2 id="le-dimensioni-dei-tipi"><strong>Le dimensioni dei
+tipi</strong></h2>
+<p>L'esercizio sul programma <strong>dim_tipi.c</strong> chiede di
+leggerlo, compilarlo e provarlo, e di rispondere a una domanda: quale
+caratteristica hanno le dimensioni dei tipi puntatore, e perché. La
+risposta si trova nel capitolo 12 della teoria: un puntatore occupa la
+stessa quantità di memoria qualunque sia il tipo della variabile a cui
+punta (per esempio 8 byte su una piattaforma a 64 bit), perché contiene
+sempre e solo un indirizzo, la cui dimensione dipende dalla piattaforma
+e non dal tipo puntato.</p>
+<h2 id="la-documentazione-del-linguaggio"><strong>La documentazione del
+linguaggio</strong></h2>
+<p>Si può usare una versione <strong>offline</strong> della
+documentazione del linguaggio e della libreria del C:</p>
+<p>1. accedere a https://en.cppreference.com/w/c;</p>
+<p>2. andare su "Offline version" in fondo alla pagina e scaricare la
+versione più recente (Unofficial Release);</p>
+<p>3. aprire la pagina html-book/reference/en/c.html;</p>
+<p>4. cercare nella sezione degli header la documentazione di
+&lt;stdio.h&gt; e leggere la documentazione completa di printf.</p>
+<p>Il laboratorio avverte che la documentazione di riferimento è molto
+più elaborata di quanto visto finora, ma serve per imparare a cercare le
+informazioni di cui si ha bisogno (come visto nel capitolo 15 della
+teoria).</p>
+<h2 id="esercizio-il-mercato"><strong>Esercizio: il
+mercato</strong></h2>
+<p>L'esercizio <strong>mercato.c</strong> chiede di calcolare la spesa
+al supermercato: 3 pacchi di orecchiette, a 1,50 euro al pacco, e 1 kg e
+mezzo di pomodori, a 2,50 euro al kg. La funzione main deve calcolare e
+visualizzare la spesa totale. I suggerimenti sono di modellare il
+problema con variabili dichiarate con tipi adeguati, usare una variabile
+anche per il totale, indentare e commentare il programma.</p>
+<p>Poiché i prezzi e il peso dei pomodori non sono interi servono dei
+tipi reali (float o double), e il totale è 3 × 1,50 + 1,5 × 2,50 = 4,50
++ 3,75 = <strong>8,25 euro</strong>. Infine il programma va modificato
+per far inserire le quantità da tastiera, invece di fissarle nel codice,
+con scanf: ricordando che per leggere un double si usa %lf (capitolo 14
+della teoria). Nel codice i decimali si scrivono con il punto (1.50),
+non con la virgola.</p>
+<h2 id="esercizio-scambio-di-quattro-variabili"><strong>Esercizio:
+scambio di quattro variabili</strong></h2>
+<p>L'esercizio sullo scambio parte dal programma
+<strong>scambio.c</strong>, simile a quello visto a lezione (capitolo 13
+della teoria), da leggere, compilare e provare. Poi bisogna scrivere
+<strong>scambio4.c</strong>, con quattro variabili intere v1, v2, v3 e
+v4, inizializzate a piacere, da scambiare in modo che v1 prenda il
+valore di v2, v2 quello di v3, v3 quello di v4 e v4 quello originale di
+v1. I valori vanno stampati prima e dopo lo scambio.</p>
+<p>L'idea è quella della variabile temporanea: il valore di v1 va
+salvato prima di essere sovrascritto. Con una variabile d'appoggio
+temp:</p>
+<p>temp = v1;</p>
+<p>v1 = v2;</p>
+<p>v2 = v3;</p>
+<p>v3 = v4;</p>
+<p>v4 = temp;</p>
+<p>Con v1, v2, v3 e v4 uguali a 1, 2, 3 e 4 il risultato è 2, 3, 4, 1.
+Anche qui l'ordine è essenziale: ogni assegnamento deve avvenire quando
+il valore che sta per essere sovrascritto è già stato copiato
+altrove.</p>
+</article></main>
+</div>
+<a class="top" href="#top" aria-label="Torna su">&uarr;</a>
+<script>
+(function(){
+  var b=document.getElementById('btn-indice'), n=document.getElementById('indice');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',String(o));b.textContent=o?'Chiudi':'Indice';});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='Indice';}});
+})();
+</script>
+</body>
+</html>

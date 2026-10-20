@@ -1,0 +1,3248 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Programmazione</title>
+<style>
+:root { --bg:#f4f6fb; --surface:#fff; --ink:#151b2e; --muted:#5a6479; --line:#dbe1ec; --accent:#2744a8; --accent-soft:#e2e8fb; --mark:#fff176; --mark-ink:#151b2e; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#0f131b; --surface:#181d28; --ink:#e9edf5; --muted:#9ba6ba; --line:#2b3444; --accent:#8fadff; --accent-soft:#1f2e57; --mark:#6b5d00; --mark-ink:#fff6c2; } }
+:root[data-theme="dark"] { --bg:#0f131b; --surface:#181d28; --ink:#e9edf5; --muted:#9ba6ba; --line:#2b3444; --accent:#8fadff; --accent-soft:#1f2e57; --mark:#6b5d00; --mark-ink:#fff6c2; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 18px/1.65 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; }
+.bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 10px; padding: 10px max(16px, env(safe-area-inset-right)) 10px max(16px, env(safe-area-inset-left)); background: var(--surface); border-bottom: 1px solid var(--line); }
+.bar a, .bar button { font: inherit; font-size: 15px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border: 0; border-radius: 10px; padding: 8px 12px; text-decoration: none; cursor: pointer; min-height: 40px; }
+.bar .t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; font-size: 16px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 1180px; margin: 0 auto; }
+nav#indice { display: none; padding: 16px; font-size: 15px; line-height: 1.4; }
+nav#indice.open { display: block; position: fixed; inset: 61px 0 0 0; z-index: 15; overflow-y: auto; background: var(--surface); padding-bottom: 80px; }
+nav#indice ul { list-style: none; margin: 0; padding-left: 14px; }
+nav#indice > ul { padding-left: 0; }
+nav#indice > ul > li { margin: 10px 0 2px; font-weight: 700; }
+nav#indice > ul > li > ul > li { font-weight: 500; margin: 3px 0; }
+nav#indice a { color: var(--ink); text-decoration: none; display: block; padding: 5px 0; }
+nav#indice a:hover { color: var(--accent); }
+main { padding: 20px max(16px, env(safe-area-inset-right)) 80px max(16px, env(safe-area-inset-left)); min-width: 0; }
+article { max-width: 760px; margin: 0 auto; overflow-wrap: break-word; }
+h1, h2, h3, h4 { font-family: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif; line-height: 1.2; margin: 1.8em 0 .5em; }
+h1 { font-size: 1.7rem; border-top: 3px solid var(--accent); padding-top: .6em; }
+h2 { font-size: 1.35rem; } h3 { font-size: 1.15rem; } h4 { font-size: 1rem; color: var(--muted); }
+h1:first-child { margin-top: .2em; }
+p { margin: .7em 0; }
+mark { background: var(--mark); color: var(--mark-ink); border-radius: 3px; padding: 0 2px; }
+img { max-width: 100%; height: auto; background: #fff; border-radius: 8px; }
+figure { margin: 1.2em 0; text-align: center; } figcaption { color: var(--muted); font-size: .9em; font-style: italic; }
+table { border-collapse: collapse; display: block; overflow-x: auto; max-width: 100%; margin: 1em 0; font-size: .92em; }
+th, td { border: 1px solid var(--line); padding: 6px 10px; vertical-align: top; }
+th { background: var(--accent-soft); }
+blockquote { margin: 1em 0; padding: .1em 1em; border-left: 4px solid var(--accent); background: var(--surface); border-radius: 0 8px 8px 0; }
+pre, code { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: .85em; }
+pre { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+math { font-size: 1.08em; }
+math[display="block"] { display: block; overflow-x: auto; padding: 4px 0; }
+.top { position: fixed; right: 14px; bottom: 14px; z-index: 10; width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: var(--surface); display: grid; place-items: center; text-decoration: none; font-size: 20px; box-shadow: 0 4px 14px rgba(0,0,0,.3); }
+@media (min-width: 1000px) {
+  .layout { grid-template-columns: 300px minmax(0, 1fr); }
+  nav#indice, nav#indice.open { display: block; position: sticky; inset: auto; top: 61px; align-self: start; max-height: calc(100vh - 61px); overflow-y: auto; background: transparent; padding: 16px 8px 40px 16px; }
+  #btn-indice { display: none; }
+  main { padding-left: 32px; }
+}
+@media print { .bar, nav#indice, .top { display: none; } body { background: #fff; color: #000; } }
+</style>
+<script>(function(){try{var t=localStorage.getItem('quaderno-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<div class="bar" id="top">
+  <a href="../../index.html" aria-label="Torna al Quaderno">&larr; Quaderno</a>
+  <span class="t">Programmazione</span>
+  <button type="button" id="btn-indice" aria-expanded="false" aria-controls="indice">Indice</button>
+</div>
+<div class="layout">
+<nav id="indice" aria-label="Indice">
+<ul>
+<li><a
+href="#capitolo-1-fondamenti-dellinformatica-evoluzione-del-calcolatore-e-codifica-binaria"
+id="toc-capitolo-1-fondamenti-dellinformatica-evoluzione-del-calcolatore-e-codifica-binaria"><strong>Capitolo
+1: Fondamenti dell'Informatica, Evoluzione del Calcolatore e Codifica
+Binaria</strong></a>
+<ul>
+<li><a href="#cosè-linformatica"
+id="toc-cosè-linformatica"><strong>Cos'è l'Informatica</strong></a></li>
+<li><a href="#evoluzione-storica-del-calcolatore"
+id="toc-evoluzione-storica-del-calcolatore"><strong>Evoluzione Storica
+del Calcolatore</strong></a></li>
+<li><a href="#rappresentazione-e-codifica-binaria"
+id="toc-rappresentazione-e-codifica-binaria"><strong>Rappresentazione e
+Codifica Binaria</strong></a></li>
+<li><a href="#la-programmazione-imperativa"
+id="toc-la-programmazione-imperativa"><strong>La Programmazione
+Imperativa</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-2-progettazione-degli-algoritmi-e-paradigma-della-programmazione-imperativa"
+id="toc-capitolo-2-progettazione-degli-algoritmi-e-paradigma-della-programmazione-imperativa"><strong>Capitolo
+2: Progettazione degli Algoritmi e Paradigma della Programmazione
+Imperativa</strong></a>
+<ul>
+<li><a href="#definizione-e-proprietà-di-un-algoritmo"
+id="toc-definizione-e-proprietà-di-un-algoritmo"><strong>Definizione e
+Proprietà di un Algoritmo</strong></a></li>
+<li><a href="#il-paradigma-della-programmazione-imperativa"
+id="toc-il-paradigma-della-programmazione-imperativa"><strong>Il
+Paradigma della Programmazione Imperativa</strong></a></li>
+<li><a href="#lesempio-della-moltiplicazione"
+id="toc-lesempio-della-moltiplicazione"><strong>L'Esempio della
+Moltiplicazione</strong></a></li>
+<li><a href="#verifica-della-correttezza-e-gestione-dei-casi-limite"
+id="toc-verifica-della-correttezza-e-gestione-dei-casi-limite"><strong>Verifica
+della Correttezza e Gestione dei Casi Limite</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-3-correttezza-logica-programmazione-strutturata-e-linguaggi-di-programmazione"
+id="toc-capitolo-3-correttezza-logica-programmazione-strutturata-e-linguaggi-di-programmazione"><strong>Capitolo
+3: Correttezza Logica, Programmazione Strutturata e Linguaggi di
+Programmazione</strong></a>
+<ul>
+<li><a href="#dalla-sequenza-di-salti-alla-programmazione-strutturata"
+id="toc-dalla-sequenza-di-salti-alla-programmazione-strutturata"><strong>Dalla
+Sequenza di Salti alla Programmazione Strutturata</strong></a></li>
+<li><a href="#i-tre-pilastri-della-programmazione-strutturata"
+id="toc-i-tre-pilastri-della-programmazione-strutturata"><strong>I Tre
+Pilastri della Programmazione Strutturata</strong></a></li>
+<li><a
+href="#rappresentazioni-dellalgoritmo-pseudo-codice-e-diagrammi-di-flusso"
+id="toc-rappresentazioni-dellalgoritmo-pseudo-codice-e-diagrammi-di-flusso"><strong>Rappresentazioni
+dell'Algoritmo: Pseudo-codice e Diagrammi di Flusso</strong></a></li>
+<li><a
+href="#classificazione-dei-linguaggi-di-programmazione-e-il-linguaggio-c"
+id="toc-classificazione-dei-linguaggi-di-programmazione-e-il-linguaggio-c"><strong>Classificazione
+dei Linguaggi di Programmazione e il Linguaggio C</strong></a></li>
+<li><a href="#il-modello-della-macchina-di-von-neumann"
+id="toc-il-modello-della-macchina-di-von-neumann"><strong>Il Modello
+della Macchina di Von Neumann</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-4-architettura-dei-calcolatori-e-modello-di-von-neumann"
+id="toc-capitolo-4-architettura-dei-calcolatori-e-modello-di-von-neumann"><strong>Capitolo
+4: Architettura dei Calcolatori e Modello di Von Neumann</strong></a>
+<ul>
+<li><a
+href="#evoluzione-storico-tecnologica-dalle-macchine-cablate-al-programma-memorizzato"
+id="toc-evoluzione-storico-tecnologica-dalle-macchine-cablate-al-programma-memorizzato"><strong>Evoluzione
+Storico-Tecnologica: Dalle Macchine Cablate al Programma
+Memorizzato</strong></a></li>
+<li><a
+href="#rappresentazione-dellinformazione-e-gerarchia-della-memoria"
+id="toc-rappresentazione-dellinformazione-e-gerarchia-della-memoria"><strong>Rappresentazione
+dell'Informazione e Gerarchia della Memoria</strong></a></li>
+<li><a href="#il-bit-binary-information-token"
+id="toc-il-bit-binary-information-token"><strong>Il Bit (Binary
+Information Token)</strong></a></li>
+<li><a href="#il-byte" id="toc-il-byte"><strong>Il
+Byte</strong></a></li>
+<li><a href="#la-parola-word" id="toc-la-parola-word"><strong>La Parola
+(Word)</strong></a></li>
+<li><a href="#anatomia-dellarchitettura-di-von-neumann"
+id="toc-anatomia-dellarchitettura-di-von-neumann"><strong>Anatomia
+dell'Architettura di Von Neumann</strong></a></li>
+<li><a href="#i-registri-fondamentali-della-cpu"
+id="toc-i-registri-fondamentali-della-cpu"><strong>I Registri
+Fondamentali della CPU</strong></a></li>
+<li><a
+href="#ciclo-di-esecuzione-deterministico-e-ruolo-del-programma-di-controllo"
+id="toc-ciclo-di-esecuzione-deterministico-e-ruolo-del-programma-di-controllo"><strong>Ciclo
+di Esecuzione Deterministico e Ruolo del Programma di
+Controllo</strong></a></li>
+<li><a href="#determinismo-e-assenza-di-terminazione-hardware"
+id="toc-determinismo-e-assenza-di-terminazione-hardware"><strong>Determinismo
+e Assenza di Terminazione Hardware</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-5-dal-linguaggio-macchina-al-c-e-la-filiera-di-compilazione"
+id="toc-capitolo-5-dal-linguaggio-macchina-al-c-e-la-filiera-di-compilazione"><strong>Capitolo
+5: Dal Linguaggio Macchina al C e la Filiera di
+Compilazione</strong></a>
+<ul>
+<li><a href="#dal-codice-macchina-al-linguaggio-assembly"
+id="toc-dal-codice-macchina-al-linguaggio-assembly"><strong>Dal Codice
+Macchina al Linguaggio Assembly</strong></a></li>
+<li><a
+href="#confronto-pratico-laddizione-e-la-moltiplicazione-a-basso-livello"
+id="toc-confronto-pratico-laddizione-e-la-moltiplicazione-a-basso-livello"><strong>Confronto
+Pratico: L'Addizione e la Moltiplicazione a Basso
+Livello</strong></a></li>
+<li><a
+href="#i-limiti-dellassembly-e-la-nascita-dei-linguaggi-di-alto-livello"
+id="toc-i-limiti-dellassembly-e-la-nascita-dei-linguaggi-di-alto-livello"><strong>I
+Limiti dell'Assembly e la Nascita dei Linguaggi di Alto
+Livello</strong></a></li>
+<li><a href="#nascita-scopi-e-caratteristiche-del-linguaggio-c"
+id="toc-nascita-scopi-e-caratteristiche-del-linguaggio-c"><strong>Nascita,
+Scopi e Caratteristiche del Linguaggio C</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-6-il-type-system-del-c-tipi-primitivi-e-astrazione-delle-variabili"
+id="toc-capitolo-6-il-type-system-del-c-tipi-primitivi-e-astrazione-delle-variabili"><strong>Capitolo
+6: Il Type System del C, Tipi Primitivi e Astrazione delle
+Variabili</strong></a>
+<ul>
+<li><a href="#dai-bit-ai-tipi-di-dato-il-type-system-del-c"
+id="toc-dai-bit-ai-tipi-di-dato-il-type-system-del-c"><strong>Dai Bit ai
+Tipi di Dato: Il Type System del C</strong></a></li>
+<li><a href="#tassonomia-dei-tipi-primitivi-e-finitudine-dei-domini"
+id="toc-tassonomia-dei-tipi-primitivi-e-finitudine-dei-domini"><strong>Tassonomia
+dei Tipi Primitivi e Finitudine dei Domini</strong></a></li>
+<li><a href="#loperatore-sizeof-e-relazioni-di-dimensione"
+id="toc-loperatore-sizeof-e-relazioni-di-dimensione"><strong>L'Operatore
+sizeof e Relazioni di Dimensione</strong></a></li>
+<li><a href="#anatomia-e-dichiarazione-delle-variabili"
+id="toc-anatomia-e-dichiarazione-delle-variabili"><strong>Anatomia e
+Dichiarazione delle Variabili</strong></a></li>
+<li><a href="#regole-sintattiche-per-gli-identificatori"
+id="toc-regole-sintattiche-per-gli-identificatori"><strong>Regole
+Sintattiche per gli Identificatori</strong></a></li>
+<li><a href="#dichiarazione-vs-inizializzazione-e-valore-indeterminato"
+id="toc-dichiarazione-vs-inizializzazione-e-valore-indeterminato"><strong>Dichiarazione
+vs Inizializzazione e Valore Indeterminato</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-7-modello-di-memoria-in-c-area-codice-e-gestione-dello-stack"
+id="toc-capitolo-7-modello-di-memoria-in-c-area-codice-e-gestione-dello-stack"><strong>Capitolo
+7: Modello di Memoria in C: Area Codice e Gestione dello
+Stack</strong></a>
+<ul>
+<li><a href="#organizzazione-dello-spazio-di-memoria-del-programma"
+id="toc-organizzazione-dello-spazio-di-memoria-del-programma"><strong>Organizzazione
+dello Spazio di Memoria del Programma</strong></a></li>
+<li><a href="#la-pila-stack-e-i-registri-di-gestione-fp-e-sp"
+id="toc-la-pila-stack-e-i-registri-di-gestione-fp-e-sp"><strong>La Pila
+(Stack) e i Registri di Gestione (FP e SP)</strong></a></li>
+<li><a
+href="#meccanismo-di-allocazione-automatica-e-valore-indeterminato"
+id="toc-meccanismo-di-allocazione-automatica-e-valore-indeterminato"><strong>Meccanismo
+di Allocazione Automatica e Valore Indeterminato</strong></a></li>
+<li><a href="#scope-lifetime-e-problema-dello-stack-overflow"
+id="toc-scope-lifetime-e-problema-dello-stack-overflow"><strong>Scope,
+Lifetime e Problema dello Stack Overflow</strong></a></li>
+<li><a href="#il-rischio-dello-stack-overflow"
+id="toc-il-rischio-dello-stack-overflow"><strong>Il Rischio dello Stack
+Overflow</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-8-listruzione-di-assegnamento-espressioni-aritmetiche-e-inputoutput-formattato"
+id="toc-capitolo-8-listruzione-di-assegnamento-espressioni-aritmetiche-e-inputoutput-formattato"><strong>Capitolo
+8: L'Istruzione di Assegnamento, Espressioni Aritmetiche e Input/Output
+Formattato</strong></a>
+<ul>
+<li><a href="#listruzione-di-assegnamento-e-la-semantica-lvalue-rvalue"
+id="toc-listruzione-di-assegnamento-e-la-semantica-lvalue-rvalue"><strong>L'Istruzione
+di Assegnamento e la Semantica Lvalue / Rvalue</strong></a></li>
+<li><a href="#forme-di-assegnamento-e-operatori-composti"
+id="toc-forme-di-assegnamento-e-operatori-composti"><strong>Forme di
+Assegnamento e Operatori Composti</strong></a></li>
+<li><a href="#traduzione-in-istruzioni-macchina-e-mappatura-dello-stack"
+id="toc-traduzione-in-istruzioni-macchina-e-mappatura-dello-stack"><strong>Traduzione
+in Istruzioni Macchina e Mappatura dello Stack</strong></a></li>
+<li><a href="#stampa-formattata-tramite-printf"
+id="toc-stampa-formattata-tramite-printf"><strong>Stampa Formattata
+tramite printf()</strong></a></li>
+<li><a
+href="#lettura-da-tastiera-tramite-scanf-e-loperatore-di-indirizzo"
+id="toc-lettura-da-tastiera-tramite-scanf-e-loperatore-di-indirizzo"><strong>Lettura
+da Tastiera tramite scanf() e l'Operatore di Indirizzo
+&amp;</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-9-il-referenziamento-e-lindirizzo-delle-variabili"
+id="toc-capitolo-9-il-referenziamento-e-lindirizzo-delle-variabili"><strong>Capitolo
+9: Il Referenziamento e l'Indirizzo delle Variabili</strong></a>
+<ul>
+<li><a href="#lindirizzo-di-una-variabile"
+id="toc-lindirizzo-di-una-variabile"><strong>L'indirizzo di una
+variabile</strong></a></li>
+<li><a href="#valore-e-indirizzo-sono-informazioni-diverse"
+id="toc-valore-e-indirizzo-sono-informazioni-diverse"><strong>Valore e
+indirizzo sono informazioni diverse</strong></a></li>
+<li><a href="#perché-è-utile-conoscere-gli-indirizzi"
+id="toc-perché-è-utile-conoscere-gli-indirizzi"><strong>Perché è utile
+conoscere gli indirizzi</strong></a></li>
+<li><a href="#stampare-un-indirizzo-con-p"
+id="toc-stampare-un-indirizzo-con-p"><strong>Stampare un indirizzo con
+%p</strong></a></li>
+<li><a href="#il-formato-concreto-degli-indirizzi"
+id="toc-il-formato-concreto-degli-indirizzi"><strong>Il formato concreto
+degli indirizzi</strong></a></li>
+</ul></li>
+<li><a href="#section" id="toc-section"></a></li>
+<li><a href="#capitolo-10-linput-da-tastiera-con-scanf"
+id="toc-capitolo-10-linput-da-tastiera-con-scanf"><strong>Capitolo 10:
+L'Input da Tastiera con scanf()</strong></a>
+<ul>
+<li><a href="#perché-scanf-ha-bisogno-dellindirizzo"
+id="toc-perché-scanf-ha-bisogno-dellindirizzo"><strong>Perché scanf ha
+bisogno dell'indirizzo</strong></a></li>
+<li><a href="#un-esempio-passo-per-passo"
+id="toc-un-esempio-passo-per-passo"><strong>Un esempio passo per
+passo</strong></a></li>
+<li><a href="#leggere-più-valori-con-una-sola-chiamata"
+id="toc-leggere-più-valori-con-una-sola-chiamata"><strong>Leggere più
+valori con una sola chiamata</strong></a></li>
+<li><a href="#il-valore-di-ritorno-e-i-limiti-di-scanf"
+id="toc-il-valore-di-ritorno-e-i-limiti-di-scanf"><strong>Il valore di
+ritorno e i limiti di scanf</strong></a></li>
+<li><a
+href="#dichiarare-avere-un-valore-avere-un-indirizzo-essere-inizializzata"
+id="toc-dichiarare-avere-un-valore-avere-un-indirizzo-essere-inizializzata"><strong>Dichiarare
+avere un valore, avere un indirizzo, essere
+inizializzata</strong></a></li>
+</ul></li>
+<li><a href="#section-1" id="toc-section-1"></a></li>
+<li><a href="#capitolo-11-i-puntatori"
+id="toc-capitolo-11-i-puntatori"><strong>Capitolo 11: I
+Puntatori</strong></a>
+<ul>
+<li><a href="#il-puntatore-come-tipo-di-dati"
+id="toc-il-puntatore-come-tipo-di-dati"><strong>Il puntatore come tipo
+di dati</strong></a></li>
+<li><a
+href="#loperatore-di-referenziamento-e-lassegnamento-a-un-puntatore"
+id="toc-loperatore-di-referenziamento-e-lassegnamento-a-un-puntatore"><strong>L'operatore
+di referenziamento e l'assegnamento a un puntatore</strong></a></li>
+<li><a href="#un-puntatore-è-una-variabile-come-le-altre"
+id="toc-un-puntatore-è-una-variabile-come-le-altre"><strong>Un puntatore
+è una variabile come le altre</strong></a></li>
+<li><a href="#due-errori-tipici" id="toc-due-errori-tipici"><strong>Due
+errori tipici</strong></a></li>
+<li><a href="#come-si-scrive-la-dichiarazione"
+id="toc-come-si-scrive-la-dichiarazione"><strong>Come si scrive la
+dichiarazione</strong></a></li>
+<li><a href="#scanf-riletta-con-i-puntatori"
+id="toc-scanf-riletta-con-i-puntatori"><strong>scanf riletta con i
+puntatori</strong></a></li>
+</ul></li>
+<li><a href="#section-2" id="toc-section-2"></a></li>
+<li><a href="#capitolo-12-dereferenziamento-alias-e-puntatore-nullo"
+id="toc-capitolo-12-dereferenziamento-alias-e-puntatore-nullo"><strong>Capitolo
+12: Dereferenziamento, Alias e Puntatore Nullo</strong></a>
+<ul>
+<li><a href="#loperatore-di-dereferenziamento"
+id="toc-loperatore-di-dereferenziamento"><strong>L'operatore di
+dereferenziamento *</strong></a></li>
+<li><a href="#leggere-e-modificare-tramite-il-puntatore"
+id="toc-leggere-e-modificare-tramite-il-puntatore"><strong>Leggere e
+modificare tramite il puntatore</strong></a></li>
+<li><a href="#riferimenti-multipli-e-aliasing"
+id="toc-riferimenti-multipli-e-aliasing"><strong>Riferimenti multipli e
+aliasing</strong></a></li>
+<li><a href="#puntatori-non-inizializzati-e-puntatore-nullo"
+id="toc-puntatori-non-inizializzati-e-puntatore-nullo"><strong>Puntatori
+non inizializzati e puntatore nullo</strong></a></li>
+<li><a href="#la-dimensione-di-un-puntatore"
+id="toc-la-dimensione-di-un-puntatore"><strong>La dimensione di un
+puntatore</strong></a></li>
+<li><a href="#e-sono-operazioni-complementari"
+id="toc-e-sono-operazioni-complementari"><strong>&amp; e * sono
+operazioni complementari</strong></a></li>
+<li><a href="#i-diversi-usi-del-simbolo"
+id="toc-i-diversi-usi-del-simbolo"><strong>I diversi usi del simbolo
+*</strong></a></li>
+</ul></li>
+<li><a href="#capitolo-13-scambio-di-variabili-e-variabile-temporanea"
+id="toc-capitolo-13-scambio-di-variabili-e-variabile-temporanea"><strong>Capitolo
+13: Scambio di Variabili e Variabile Temporanea</strong></a>
+<ul>
+<li><a href="#il-problema-dello-scambio"
+id="toc-il-problema-dello-scambio"><strong>Il problema dello
+scambio</strong></a></li>
+<li><a href="#lo-scambio-con-variabile-temporanea"
+id="toc-lo-scambio-con-variabile-temporanea"><strong>Lo scambio con
+variabile temporanea</strong></a></li>
+<li><a href="#perché-lordine-conta"
+id="toc-perché-lordine-conta"><strong>Perché l'ordine
+conta</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-14-numeri-reali-in-c-float-double-e-formati-di-stampa"
+id="toc-capitolo-14-numeri-reali-in-c-float-double-e-formati-di-stampa"><strong>Capitolo
+14: Numeri Reali in C: float, double e Formati di Stampa</strong></a>
+<ul>
+<li><a href="#i-tipi-per-i-numeri-reali"
+id="toc-i-tipi-per-i-numeri-reali"><strong>I tipi per i numeri
+reali</strong></a></li>
+<li><a href="#float-e-double-in-memoria"
+id="toc-float-e-double-in-memoria"><strong>float e double in
+memoria</strong></a></li>
+<li><a href="#stampare-i-numeri-reali-f-e-e-g"
+id="toc-stampare-i-numeri-reali-f-e-e-g"><strong>Stampare i numeri
+reali: %f, %e e %g</strong></a></li>
+<li><a href="#leggere-i-double-con-scanf"
+id="toc-leggere-i-double-con-scanf"><strong>Leggere i double con
+scanf</strong></a></li>
+</ul></li>
+<li><a href="#section-3" id="toc-section-3"></a></li>
+<li><a
+href="#capitolo-15-la-libreria-math.h-e-la-lettura-della-documentazione"
+id="toc-capitolo-15-la-libreria-math.h-e-la-lettura-della-documentazione"><strong>Capitolo
+15: La Libreria math.h e la Lettura della Documentazione</strong></a>
+<ul>
+<li><a href="#oltre-le-operazioni-di-base"
+id="toc-oltre-le-operazioni-di-base"><strong>Oltre le operazioni di
+base</strong></a></li>
+<li><a href="#un-esempio-quadrato-e-radice"
+id="toc-un-esempio-quadrato-e-radice"><strong>Un esempio: quadrato e
+radice</strong></a></li>
+</ul></li>
+<li><a href="#section-4" id="toc-section-4"></a></li>
+<li><a
+href="#capitolo-16-conversioni-di-tipo-implicite-promozione-ed-esplicite"
+id="toc-capitolo-16-conversioni-di-tipo-implicite-promozione-ed-esplicite"><strong>Capitolo
+16: Conversioni di Tipo: Implicite, Promozione ed Esplicite</strong></a>
+<ul>
+<li><a href="#perché-servono-le-conversioni"
+id="toc-perché-servono-le-conversioni"><strong>Perché servono le
+conversioni</strong></a></li>
+<li><a href="#le-conversioni-implicite"
+id="toc-le-conversioni-implicite"><strong>Le conversioni
+implicite</strong></a></li>
+<li><a href="#la-promozione-di-tipo"
+id="toc-la-promozione-di-tipo"><strong>La promozione di
+tipo</strong></a></li>
+<li><a href="#la-divisione-tra-interi"
+id="toc-la-divisione-tra-interi"><strong>La divisione tra
+interi</strong></a></li>
+<li><a href="#le-conversioni-esplicite-cast"
+id="toc-le-conversioni-esplicite-cast"><strong>Le conversioni esplicite
+(cast)</strong></a></li>
+</ul></li>
+<li><a href="#capitolo-17-espressioni-booleane-e-operatori-logici"
+id="toc-capitolo-17-espressioni-booleane-e-operatori-logici"><strong>Capitolo
+17: Espressioni Booleane e Operatori Logici</strong></a>
+<ul>
+<li><a href="#perché-servono-le-condizioni"
+id="toc-perché-servono-le-condizioni"><strong>Perché servono le
+condizioni</strong></a></li>
+<li><a href="#operatori-relazionali-e-logici-in-c"
+id="toc-operatori-relazionali-e-logici-in-c"><strong>Operatori
+relazionali e logici in C</strong></a></li>
+<li><a href="#il-tipo-bool" id="toc-il-tipo-bool"><strong>Il tipo
+bool</strong></a></li>
+<li><a href="#combinare-più-condizioni"
+id="toc-combinare-più-condizioni"><strong>Combinare più
+condizioni</strong></a></li>
+<li><a href="#le-tavole-di-verità"
+id="toc-le-tavole-di-verità"><strong>Le tavole di
+verità</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-18-intervalli-cortocircuitazione-e-semplificazione-delle-condizioni"
+id="toc-capitolo-18-intervalli-cortocircuitazione-e-semplificazione-delle-condizioni"><strong>Capitolo
+18: Intervalli, Cortocircuitazione e Semplificazione delle
+Condizioni</strong></a>
+<ul>
+<li><a href="#confronti-su-intervalli"
+id="toc-confronti-su-intervalli"><strong>Confronti su
+intervalli</strong></a></li>
+<li><a href="#la-cortocircuitazione"
+id="toc-la-cortocircuitazione"><strong>La
+cortocircuitazione</strong></a></li>
+<li><a href="#semplificare-le-espressioni-complesse"
+id="toc-semplificare-le-espressioni-complesse"><strong>Semplificare le
+espressioni complesse</strong></a></li>
+<li><a href="#loperatore-condizionale-ternario"
+id="toc-loperatore-condizionale-ternario"><strong>L'operatore
+condizionale ternario</strong></a></li>
+</ul></li>
+<li><a href="#section-5" id="toc-section-5"></a></li>
+<li><a href="#capitolo-19-il-controllo-di-flusso-e-il-costrutto-if"
+id="toc-capitolo-19-il-controllo-di-flusso-e-il-costrutto-if"><strong>Capitolo
+19: Il Controllo di Flusso e il Costrutto if</strong></a>
+<ul>
+<li><a href="#dalla-sequenza-alle-decisioni"
+id="toc-dalla-sequenza-alle-decisioni"><strong>Dalla sequenza alle
+decisioni</strong></a></li>
+<li><a href="#il-controllo-di-flusso-condizionato"
+id="toc-il-controllo-di-flusso-condizionato"><strong>Il controllo di
+flusso condizionato</strong></a></li>
+<li><a href="#il-costrutto-if" id="toc-il-costrutto-if"><strong>Il
+costrutto if</strong></a></li>
+<li><a href="#il-costrutto-if-else"
+id="toc-il-costrutto-if-else"><strong>Il costrutto
+if-else</strong></a></li>
+<li><a href="#il-costrutto-if-else-if-else"
+id="toc-il-costrutto-if-else-if-else"><strong>Il costrutto if-else
+if-else</strong></a></li>
+</ul></li>
+<li><a href="#section-6" id="toc-section-6"></a>
+<ul>
+<li><a href="#visibilità-nei-blocchi-condizionati"
+id="toc-visibilità-nei-blocchi-condizionati"><strong>Visibilità nei
+blocchi condizionati</strong></a></li>
+</ul></li>
+</ul>
+</nav>
+<main><article>
+<h1
+id="capitolo-1-fondamenti-dellinformatica-evoluzione-del-calcolatore-e-codifica-binaria"><strong>Capitolo
+1: Fondamenti dell'Informatica, Evoluzione del Calcolatore e Codifica
+Binaria</strong></h1>
+<h2 id="cosè-linformatica"><strong>Cos'è l'Informatica</strong></h2>
+<p>L'informatica non è semplicemente la scienza delle macchine, così
+come l'astronomia non è la scienza dei telescopi. L'oggetto centrale
+della disciplina è lo <strong><mark>studio scientifico degli
+algoritmi</mark></strong> e delle loro proprietà.</p>
+<p>Questo campo comprende l'analisi matematica di correttezza ed
+efficienza, la progettazione delle architetture
+<strong>hardware</strong>, lo sviluppo dei <strong>linguaggi di
+programmazione</strong> e la realizzazione di <strong>software</strong>
+per risolvere problemi concreti.</p>
+<h2 id="evoluzione-storica-del-calcolatore"><strong>Evoluzione Storica
+del Calcolatore</strong></h2>
+<p>Il significato della parola <strong>calcolatore</strong> si è
+trasformato radicalmente nel tempo:</p>
+<ul>
+<li><p><strong>Prima degli anni '50</strong>: indicava una
+<em>persona</em> incaricata di eseguire calcoli manuali o con ausili
+meccanici.</p></li>
+<li><p><strong>Anni '50</strong>: compaiono i primi dispositivi
+elettromeccanici programmabili.</p></li>
+</ul>
+<h2 id="rappresentazione-e-codifica-binaria"><strong>Rappresentazione e
+Codifica Binaria</strong></h2>
+<p>Per un calcolatore elettronico <strong><mark>"tutto è
+numero"</mark></strong>: qualsiasi dato (testo, immagine, suono)
+<mark>deve essere convertito in forma numerica</mark> prima di essere
+elaborato.</p>
+<p>A livello fisico, l'informazione viene gestita tramite la
+<strong><mark>codifica binaria</mark></strong> in
+<strong><mark>bit</mark></strong> (valori 0 e 1), che riflettono lo
+stato aperto o chiuso dei circuiti elettronici a transistor.</p>
+<h2 id="la-programmazione-imperativa"><strong>La Programmazione
+Imperativa</strong></h2>
+<p>La <strong>programmazione imperativa</strong> nasce direttamente da
+questa struttura fisica: programmare significa descrivere una
+<mark><strong>sequenza</strong> <strong>ordinata</strong> di
+istruzioni</mark> che modificano, riga per riga, lo stato dei dati
+contenuti nella memoria del calcolatore fino a raggiungere la
+soluzione.</p>
+<h1
+id="capitolo-2-progettazione-degli-algoritmi-e-paradigma-della-programmazione-imperativa"><strong>Capitolo
+2: Progettazione degli Algoritmi e Paradigma della Programmazione
+Imperativa</strong></h1>
+<h2 id="definizione-e-proprietà-di-un-algoritmo"><strong>Definizione e
+Proprietà di un Algoritmo</strong></h2>
+<p>Un <strong>algoritmo</strong> è definito formalmente come un
+<mark>insieme ordinato di operazioni non ambigue ed effettivamente
+computabili che, partendo da dati iniziali (<strong>input</strong>),
+produce un risultato (<strong>output</strong>) e si arresta in un tempo
+finito</mark>. Il termine deriva dal nome del matematico persiano
+Muhammad al-Khwarismi.</p>
+<p>Un algoritmo valido deve soddisfare due requisiti fondamentali:</p>
+<ul>
+<li><p><strong><mark>Correttezza</mark></strong>: capacità di produrre
+l'output esatto per qualsiasi input ammissibile.</p></li>
+<li><p><strong><mark>Terminazione</mark></strong>: garanzia che la
+sequenza di operazioni si concluda dopo un numero finito di
+passi.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> un algoritmo è come una ricetta di
+cucina: una lista di passi chiari, uno dopo l'altro, senza «aggiungi un
+po' di sale a occhio». Parte dagli ingredienti (input), arriva al piatto
+(output) e prima o poi finisce. Se i passi sono giusti il piatto viene
+sempre bene (correttezza); se la ricetta non finisse mai non sarebbe un
+algoritmo (terminazione).</p>
+<h2 id="il-paradigma-della-programmazione-imperativa"><strong>Il
+Paradigma della Programmazione Imperativa</strong></h2>
+<p>La <strong>programmazione imperativa</strong> modellizza il calcolo
+come una sequenza ordinata di comandi volti a modificare lo stato della
+memoria del calcolatore. A differenza dell'ambito matematico, il
+concetto di <strong><mark>variabile</mark></strong> in informatica
+indica una <mark>cella di memoria il cui valore può essere modificato
+nel tempo tramite l'operazione di
+<strong>assegnamento</strong>.</mark></p>
+<p><strong>In parole povere:</strong> in informatica una variabile non è
+una lettera che può valere qualsiasi cosa come in matematica, ma una
+scatola con un'etichetta: dentro c'è un valore alla volta e puoi
+buttarlo via e metterne un altro. Programmare in stile imperativo vuol
+dire dare ordini in fila («metti 5 nella scatola x, poi somma 1...») che
+cambiano via via il contenuto delle scatole.</p>
+<p>Come sintetizzato dal celebre principio dell'informatico Niklaus
+Wirth, <strong>Programma = Algoritmi + Strutture Dati</strong>. Un
+programma nasce infatti dall'unione indissolubile tra la
+rappresentazione dei dati e le procedure che li trasformano.</p>
+<h2 id="lesempio-della-moltiplicazione"><strong>L'Esempio della
+Moltiplicazione</strong></h2>
+<p>Per illustrare la progettazione di un algoritmo, i materiali
+esaminano il problema di calcolare la moltiplicazione tra due interi m
+ed n (n ≥ 0), ipotizzando che la macchina non conosca la moltiplicazione
+ma sappia eseguire solo operazioni elementari come
+<strong>somma</strong>, <strong>assegnamento</strong> e
+<strong>confronto</strong>.</p>
+<p>L'algoritmo scompone la moltiplicazione in <strong><mark>somme
+ripetute</mark></strong>, addizionando il valore m all'elemento neutro 0
+per n volte. Per gestire meccanicamente questo processo servono due
+componenti essenziali:</p>
+<ol type="1">
+<li><p><strong><mark>Accumulatore</mark> (s)</strong>: variabile
+inizializzata a 0 per <mark>conservare la somma
+parziale</mark>.</p></li>
+<li><p><strong><mark>Contatore</mark> (i)</strong>: variabile
+inizializzata a 0 per tracciare il numero di addizioni
+(<mark>iterazioni</mark>) già effettuate.</p></li>
+</ol>
+<p><strong>In parole povere:</strong> l'accumulatore è il «salvadanaio»
+in cui metti via via il risultato parziale (qui la somma che cresce); il
+contatore è il «segnapunti» che conta quanti giri hai già fatto. Per
+fare 4 × 3 sommi 4 per 3 volte: l'accumulatore tiene il totale (0, 4, 8,
+12), il contatore ti dice quando fermarti.</p>
+<p><img src="./media/image1.png"
+style="width:3.14961in;height:3.84217in" /></p>
+<p><em>Diagramma di flusso della moltiplicazione per somme
+ripetute.</em></p>
+<h2
+id="verifica-della-correttezza-e-gestione-dei-casi-limite"><strong>Verifica
+della Correttezza e Gestione dei Casi Limite</strong></h2>
+<p>Un momento critico nella progettazione è la <mark>verifica</mark>
+dell'algoritmo <mark>su <strong>tutti</strong> i possibili valori di
+input</mark>, con particolare attenzione ai <strong><mark>casi
+limite</mark></strong> come n = 0. Se l'algoritmo esegue la prima somma
+prima di controllare se i = n, nel caso n = 0 il contatore supererà il
+valore di arresto e la macchina entrerà in un <strong>ciclo
+infinito</strong>.</p>
+<p>Da questo errore emerge una regola generale per la scrittura dei
+programmi<mark>: <strong>verificare sempre le condizioni di controllo
+prima di eseguire le operazioni</strong></mark>. Effettuando il
+controllo all'inizio, se n = 0 l'iterazione viene saltata e l'algoritmo
+restituisce direttamente il valore corretto 0.</p>
+<h1
+id="capitolo-3-correttezza-logica-programmazione-strutturata-e-linguaggi-di-programmazione"><strong>Capitolo
+3: Correttezza Logica, Programmazione Strutturata e Linguaggi di
+Programmazione</strong></h1>
+<h2
+id="dalla-sequenza-di-salti-alla-programmazione-strutturata"><strong>Dalla
+Sequenza di Salti alla Programmazione Strutturata</strong></h2>
+<p>Nelle prime fasi di progettazione, un algoritmo viene spesso
+descritto mediante istruzioni di salto condizionato o incondizionato
+verso numeri di riga specifici. Tuttavia, fare affidamento sui numeri di
+riga rende la logica del programma opaca e difficile da seguire o da
+modificare.</p>
+<p>La <strong><mark>programmazione strutturata</mark></strong> supera
+questo problema organizzando le <mark>istruzioni in blocchi logici
+annidabili</mark>. Attraverso la convenzione
+dell'<strong><mark>indentazione</mark></strong> (il rientro visivo del
+testo), si rende immediata la comprensione della struttura gerarchica
+del codice e dell'appartenenza di ogni operazione al proprio blocco.</p>
+<p><strong>In parole povere:</strong> la programmazione strutturata è
+scrivere il programma a blocchi ordinati, uno dentro l'altro come
+scatole cinesi, invece di saltare a casaccio da una riga all'altra.
+L'indentazione è il rientro del testo: più sei rientrato, più sei
+«dentro» a un blocco, come i punti di un elenco puntato annidato.</p>
+<h2 id="i-tre-pilastri-della-programmazione-strutturata"><strong>I Tre
+Pilastri della Programmazione Strutturata</strong></h2>
+<p>I fondamenti della programmazione strutturata stabiliscono che
+<mark>qualsiasi algoritmo o funzione calcolabile può essere espresso
+combinando esclusivamente tre strutture di controllo
+elementari</mark>:</p>
+<ul>
+<li><p><strong><mark>Sequenza</mark></strong>: <strong>l'esecuzione
+ordinata delle istruzioni</strong>, una di seguito all'altra nell'ordine
+in cui compaiono.</p></li>
+<li><p><strong><mark>Selezione</mark> (scelta condizionata)</strong>: la
+deviazione del flusso di esecuzione verso blocchi differenti in base al
+verificarsi di una condizione.</p></li>
+<li><p><strong><mark>Iterazione</mark> (ripetizione
+condizionata)</strong>: la riesecuzione di un blocco di istruzioni
+finché una specifica condizione rimane valida.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> ogni programma, anche il più
+complicato, si costruisce con tre soli mattoncini. Sequenza: fai le cose
+in fila. Selezione: scegli una strada o un'altra a seconda di una
+condizione («se piove prendo l'ombrello»). Iterazione: ripeti finché una
+condizione vale («continua a mescolare finché non è sciolto»).</p>
+<p><img src="./media/image2.png"
+style="width:5.51181in;height:2.57645in" /></p>
+<p><em>Sequenza, selezione e iterazione.</em></p>
+<h2
+id="rappresentazioni-dellalgoritmo-pseudo-codice-e-diagrammi-di-flusso"><strong>Rappresentazioni
+dell'Algoritmo: Pseudo-codice e Diagrammi di Flusso</strong></h2>
+<p>Prima di tradurre un algoritmo in un vero e proprio linguaggio di
+programmazione, si utilizzano due notazioni intermedie principali:</p>
+<ul>
+<li><p><strong><mark>Pseudo-codice strutturato</mark></strong>: descrive
+il procedimento in forma testuale formale mettendo in evidenza
+l'annidamento e la gerarchia dei blocchi.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> lo pseudo-codice è scrivere
+l'algoritmo con parole quasi normali ma ordinate, come una ricetta ben
+impaginata con rientri per i punti dentro un ciclo o dentro una scelta.
+Non è un vero linguaggio e nessun computer lo esegue: serve a ragionare
+prima di scrivere il codice.</p>
+<ul>
+<li><p><strong><mark>Diagramma di flusso (flow-chart)</mark></strong>: è
+una rappresentazione grafico-testuale che mostra il flusso di controllo
+tra le istruzioni mediante blocchi geometrici e frecce orientate,
+rendendo visibili i percorsi decisionali e le ripetizioni.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> il diagramma di flusso è la stessa
+idea disegnata: ogni passo è una scatolina, le frecce dicono qual è il
+passo dopo, e quando c'è una scelta la freccia si biforca (sì/no). È
+come una mappa stradale dell'algoritmo, utile per vedere subito dove si
+decide e dove si ripete.</p>
+<h2
+id="classificazione-dei-linguaggi-di-programmazione-e-il-linguaggio-c"><strong>Classificazione
+dei Linguaggi di Programmazione e il Linguaggio C</strong></h2>
+<p>Un <strong>linguaggio di programmazione</strong> è un i<mark>nsieme
+formale di parole e regole sintattiche che consente di trasformare un
+algoritmo in un programma eseguibile dalla macchina</mark>. I linguaggi
+si articolano principalmente in due categorie:</p>
+<ul>
+<li><p><strong>Linguaggi di <mark>basso livello</mark></strong>: come il
+linguaggio macchina (sequenze di bit) o l'assembly (mnemonici testuali
+che lo rappresentano), strettamente legati all'architettura fisica della
+CPU.</p></li>
+<li><p><strong>Linguaggi di <mark>alto livello</mark></strong>: come il
+C, Python o Java<mark>, espressi in una forma più astratta e vicina al
+linguaggio naturale.</mark></p></li>
+</ul>
+<p><strong>In parole povere:</strong> un linguaggio di programmazione è
+una lingua con poche parole e regole rigidissime, pensata perché una
+macchina capisca esattamente cosa fare. Basso livello vuol dire «parlare
+come parla la macchina» (bit o sigle legate a quella CPU): preciso ma
+faticoso. Alto livello (C, Python, Java) vuol dire «parlare in modo più
+umano», lasciando al compilatore il compito di tradurre.</p>
+<p>L'obiettivo fondamentale del corso risiede nell'imparare a tradurre
+le specifiche logiche di un algoritmo espresso in italiano in codice
+eseguibile in <strong>linguaggio C</strong>.</p>
+<h2 id="il-modello-della-macchina-di-von-neumann"><strong>Il Modello
+della Macchina di Von Neumann</strong></h2>
+<p>Per comprendere come il codice scritto in linguaggio C venga
+elaborato concretamente dall'hardware, si fa riferimento
+all'architettura della <strong>macchina di Von Neumann</strong>. Questo
+<mark>modello teorico</mark> e strutturale definisce il
+<mark>funzionamento dei calcolatori moderni</mark>, nei quali sia i dati
+sia le istruzioni del programma vengono memorizzati nello stesso spazio
+di memoria ed elaborati dalla CPU.</p>
+<h1
+id="capitolo-4-architettura-dei-calcolatori-e-modello-di-von-neumann"><strong>Capitolo
+4: Architettura dei Calcolatori e Modello di Von Neumann</strong></h1>
+<h2
+id="evoluzione-storico-tecnologica-dalle-macchine-cablate-al-programma-memorizzato"><strong>Evoluzione
+Storico-Tecnologica: Dalle Macchine Cablate al Programma
+Memorizzato</strong></h2>
+<p>L'informatica moderna non è nata con i calcolatori elettronici, ma
+rappresenta il culmine di un lungo percorso di evoluzione tecnologica
+volta ad <mark>automatizzare il calcolo</mark>. Nelle sue prime fasi
+storiche, il termine <mark>"calcolatore" indicava una persona incaricata
+di eseguire manualmente calcoli complessi</mark> con l'ausilio di
+strumenti meccanici basilari. Il primo strumento computazionale noto
+dall'antichità è <mark>l'<strong>abaco</strong></mark>, un dispositivo
+meccanico che permetteva di memorizzare numeri tramite pallini o biglie.
+Tuttavia, l'abaco era <mark>privo di qualsiasi logica interna</mark>: la
+correttezza dell'algoritmo e l'esecuzione delle operazioni
+<mark>dipendevano interamente dall'operatore umano</mark>.</p>
+<p>Nel 1642, il matematico Blaise Pascal progettò la
+<mark><strong>Pascalina</strong>,</mark> una delle <mark>prime
+calcolatrici meccaniche ad ingranaggi</mark>. Ogni ingranaggio possedeva
+10 denti (corrispondenti alle cifre decimali da 0 a 9) e la macchina
+eseguiva addizioni in automatico grazie a una leva interposta tra
+ingranaggi adiacenti che realizzava il riporto delle decine. Sebbene la
+Pascalina incorporasse sia la memorizzazione dei dati sia un'operazione
+elementare (l'addizione), essa <mark>mancava ancora del concetto di
+<strong>programma</strong></mark>: le sequenze di <mark>operazioni
+venivano scelte e pilotate manualmente dall'utente</mark>.</p>
+<p>Queste prime macchine erano macchine cablate (<em>hard-wired</em>).
+In queste architetture la <mark>logica di funzionamento era scolpita
+direttamente nella struttura fisica dei circuiti o degli
+ingranaggi</mark>. Un calcolatore cablato era in grado di eseguire
+<mark>un'unica funzione specifica</mark> (tipicamente solo addizione e
+sottrazione) e non era programmabile: per introdurre nuove funzionalità
+o variare l'algoritmo occorreva riprogettare, ricablare o riconfigurare
+fisicamente la macchina tramite interruttori e cavi elettrici.</p>
+<p><strong>In parole povere:</strong> una macchina cablata ha il suo
+funzionamento «fisso nei fili»: fa un solo mestiere, come una
+calcolatrice che sa solo sommare. Per cambiarle compito bisogna
+rimontarla o ricollegare cavi e interruttori, perché non si può
+programmare.</p>
+<p>La <mark>svolta</mark> concettuale decisiva è arrivata con
+<mark>l'idea di <strong>separare l'hardware dal
+programma</strong>:</mark></p>
+<ol type="1">
+<li><p>Si individua un <mark>insieme ridotto di <strong>operazioni
+elementari</strong> realizzabili direttamente in hardware</mark>
+(addizione, confronto, lettura/scrittura).</p></li>
+<li><p><mark>Si combinano</mark> queste operazioni elementari in
+sequenze complesse (come la moltiplicazione per somme
+ripetute).</p></li>
+<li><p>Si <mark>codificano sia i dati sia le istruzioni operative
+mediante numeri</mark>, consentendo alla stessa macchina di eseguire
+compiti completamente diversi semplicemente cambiando la sequenza
+numerica delle istruzioni, <mark>senza alcuna modifica all'hardware
+sottostante</mark>.</p></li>
+</ol>
+<p>Tra le tappe fondamentali di questa evoluzione si annoverano la
+<strong>Macchina Analitica di Charles Babbage (descritta intorno al
+1840), primo esempio di macchina di calcolo programmabile, con dati e
+istruzioni su schede perforate</strong>, il modello astratto della
+<strong>Macchina Universale di Turing</strong> (1936), formulato da Alan
+Turing per analizzare i limiti matematici della computabilità, e
+l'<strong>ENIAC</strong> (1943-1945), il primo calcolatore elettronico
+<em>general purpose</em> a valvole termoioniche. L'ENIAC soffriva
+tuttavia di due limiti: utilizzava una complessa rappresentazione
+decimale e richiedeva ancora lunghe operazioni manuali di
+riconfigurazione dei cavi per cambiare programma.</p>
+<p>L'EDVAC, progettato nel 1944 da John Mauchly e J. Presper Eckert (già
+sviluppatori dell'ENIAC), introdusse tre intuizioni rivoluzionarie. Il
+matematico John von Neumann, consulente del progetto, descrisse e
+pubblicò per primo questa architettura nel 1945: da qui il celebre
+Modello di Von Neumann (o architettura EDVAC), che comprende <mark>che
+definiscono tuttora i calcolatori</mark> moderni:</p>
+<ul>
+<li><p><strong>Programma memorizzato</strong>: le <mark>istruzioni del
+programma</mark> sono caricate all'interno della <mark>memoria centrale
+della macchina</mark> anziché essere realizzate tramite collegamenti
+elettrici.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> programma memorizzato significa
+che le istruzioni stanno nella memoria come se fossero dati, invece di
+essere fissate nei circuiti. Per fare un lavoro diverso basta caricare
+un altro elenco di istruzioni, non cambiare l'hardware: come inserire
+un'altra ricetta nello stesso forno.</p>
+<ul>
+<li><p><strong>Memoria unificata</strong>: la <mark>memoria
+principale</mark> ospita nello stesso spazio d'indirizzamento sia le
+<mark>istruzioni del programma sia i dati d'esecuzione.</mark></p></li>
+</ul>
+<p><strong>In parole povere:</strong> memoria unificata significa un
+unico grande scaffale con un solo sistema di numerazione delle caselle,
+dove stanno sia le istruzioni sia i dati. Per la macchina sono entrambi
+solo numeri in caselle; li distingue solo il modo in cui vengono
+usati.</p>
+<ul>
+<li><p><strong>Rappresentazione binaria</strong>: <mark>tutte le
+informazioni</mark> (dati e comandi) sono codificate esclusivamente
+tramite <mark>sequenze di bit</mark>.</p></li>
+</ul>
+<h2
+id="rappresentazione-dellinformazione-e-gerarchia-della-memoria"><strong>Rappresentazione
+dell'Informazione e Gerarchia della Memoria</strong></h2>
+<p>Per un calcolatore elettronico <mark><strong>"tutto è
+numero"</strong>:</mark> testi, immagini, suoni, istruzioni e variabili
+sono memorizzati ed elaborati sotto forma di valori numerici
+binarizzati. La scelta della <strong>codifica binaria</strong> non
+risponde a una necessità matematica dell'uomo, ma a un <mark>vincolo
+d'efficienza e praticità dell'hardware elettronico</mark>.</p>
+<h2 id="il-bit-binary-information-token"><strong>Il Bit (Binary
+Information Token)</strong></h2>
+<p>Il <strong>bit</strong> è <mark>l'unità fondamentale
+dell'informazione</mark> e può assumere solo due stati distinti: 0
+oppure 1 (corrispondenti a spento/acceso, falso/vero). Dal punto di
+vista fisico, un bit è <mark>facilissimo ed economico da realizzare ed
+elaborare</mark> in modo stabile mediante dispositivi come relè, valvole
+o transistor, che realizzano circuiti a due stati stabili. Realizzare
+circuiti fisici con 10 stati stabili distinti per la rappresentazione
+decimale risulterebbe estremamente complesso, costoso e soggetto a
+errori d'interferenza.</p>
+<p><strong>In parole povere:</strong> il bit è la più piccola quantità
+di informazione: un interruttore che può essere solo spento (0) o acceso
+(1). Si usa perché è facile costruire un circuito che distingue solo due
+stati senza sbagliare, mentre distinguerne dieci sarebbe
+delicatissimo.</p>
+<p><mark>Raggruppando N bit si ottiene una crescita esponenziale della
+quantità di informazione</mark> <mark>rappresentabile</mark>: con N bit
+si possono codificare <mark>2<sup>N</sup></mark> stati o combinazioni
+distinte.</p>
+<h2 id="il-byte"><strong>Il Byte</strong></h2>
+<p>La dimensione elementare della memoria si è
+<mark>standardizzata</mark> attorno al
+<strong><mark>byte</mark></strong>, una sequenza ordinata di <strong>8
+bit</strong>. Un singolo byte consente di rappresentare
+<mark>2<sup>8</sup> = 256 combinazioni numeriche differenti</mark> (da 0
+a 255). Il byte costituisce <mark>l'<strong>unità base di indirizzamento
+della memoria</strong></mark>: all'interno della RAM, ogni singolo byte
+è identificato in modo univoco da un numero intero progressivo chiamato
+<strong>indirizzo di memoria</strong>, a partire dall'indirizzo 0.</p>
+<p><strong>In parole povere:</strong> il byte è un gruppo di 8
+interruttori (bit): con 8 on/off si possono fare 256 combinazioni
+diverse, da 0 a 255. La memoria è come una fila di caselle, ognuna
+grande un byte e numerata a partire da 0: quel numero di casella è il
+suo indirizzo, come il numero civico di una via.</p>
+<h2 id="la-parola-word"><strong>La Parola (Word)</strong></h2>
+<p>Nonostante il byte sia l'unità di indirizzamento, elaborare grandi
+quantità di dati un singolo byte alla volta risulterebbe troppo lento.
+<mark>La memoria e la CPU vengono quindi organizzate in <strong>parole
+(word)</strong>.</mark> Una parola è un <mark>raggruppamento fisso di
+byte</mark> (tipicamente 16, 32 o 64 bit, ovvero <mark>2, 4 o 8
+byte</mark>) che rappresenta <mark>l'<strong>unità operativa di
+elaborazione della CPU</strong></mark>. Nelle architetture a 64 bit, ad
+esempio, l'Unità Aritmetico-Logica lavora nativamente su blocchi di 8
+byte alla volta per effettuare calcoli algebrici rapidi ed
+efficienti.</p>
+<p><strong>In parole povere:</strong> la parola è il «boccone» che la
+CPU è in grado di mangiare in una volta sola. Una CPU a 64 bit lavora su
+blocchi da 8 byte alla volta, invece di spulciare un byte per volta: è
+come leggere una frase intera anziché lettera per lettera.</p>
+<p>La memoria centrale (RAM) viene modellata dalla CPU come una sequenza
+ordinata di celle suddivisa idealmente in due aree logiche distinte:</p>
+<ol type="1">
+<li><p><strong>Area del Programma</strong>: posizionata nella parte
+iniziale della memoria (a partire dall'indirizzo 0), contiene i codici
+binari delle istruzioni da eseguire.</p></li>
+<li><p><strong>Area dei Dati</strong>: posizionata nello spazio
+rimanente, viene utilizzata dal programma durante l'esecuzione per
+leggere e scrivere le variabili.</p></li>
+</ol>
+<p><img src="./media/image3.png"
+style="width:3.14961in;height:2.53485in" /></p>
+<p><em>La memoria centrale: area del programma e area dei dati.</em></p>
+<h2 id="anatomia-dellarchitettura-di-von-neumann"><strong>Anatomia
+dell'Architettura di Von Neumann</strong></h2>
+<p>L'architettura di Von Neumann si compone di <mark>quattro blocchi
+funzionali</mark> connessi tra loro:</p>
+<ol type="1">
+<li><p><img src="./media/image4.png"
+style="width:3.13403in;height:3.38194in" /><strong><mark>Memoria
+Principale (RAM</mark> - Random Access Memory)</strong>: è la
+<mark>memoria volatile ad accesso rapido</mark> che conserva sia il
+<mark>codice del programma</mark> sia i <mark>dati di
+lavoro.</mark></p></li>
+</ol>
+<p><strong>In parole povere:</strong> la RAM è la lavagna su cui il
+computer scrive, mentre lavora, sia il programma sia i dati. È
+velocissima, ma «volatile»: se spegni il computer la lavagna si
+cancella.</p>
+<ol start="2" type="1">
+<li><p><strong><mark>CPU</mark> (Central Processing Unit)</strong>: è il
+<mark>cervello</mark> elettronico che <mark>esegue le istruzioni a
+passi</mark> discreti cadenzati da un <mark>segnale d'orologio detto
+<strong>clock</strong></mark>. La CPU è suddivisa al suo interno in tre
+sottounità principali:</p>
+<ul>
+<li><p><strong><mark>Unità di Controllo (CU</mark> - Control
+Unit)</strong>: <mark>coordina e pilota tutti i componenti della
+macchina</mark>. Legge le istruzioni dalla RAM, le decodifica e attiva i
+circuiti appropriati.</p></li>
+</ul></li>
+</ol>
+<p><strong>In parole povere:</strong> l'unità di controllo è il
+direttore d'orchestra: legge l'istruzione dalla memoria, capisce di che
+cosa si tratta e dice agli altri componenti cosa fare. Non calcola,
+coordina.</p>
+<ul>
+<li><p><strong><mark>Unità Aritmetico-Logica (ALU</mark> - Arithmetic
+Logic Unit)</strong>: contiene i circuiti elettronici (addizionatori,
+comparatori) per eseguire le <mark>operazioni algebriche</mark> (somme,
+sottrazioni) <mark>e logiche</mark> (AND, OR, NOT, confronti).</p></li>
+</ul>
+<p><strong>In parole povere:</strong> l'ALU è la calcolatrice della CPU:
+fa le operazioni aritmetiche (somme, sottrazioni), i confronti e le
+operazioni logiche (AND, OR, NOT). Tutti i calcoli veri passano da
+qui.</p>
+<ul>
+<li><p><strong><mark>Registri</mark></strong>: <mark>memorie
+interne</mark> alla CPU ad <mark>altissima velocità e capacità
+ridotta</mark>, utilizzate come spazio di lavoro <mark>temporaneo</mark>
+o per la gestione dello stato della macchina. La CPU non lavora mai
+direttamente sui dati in RAM, ma carica i valori dalla RAM nei registri,
+li elabora tramite l'ALU e infine riscrive i risultati nella
+RAM.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> la CPU è il «cervello» che esegue
+le istruzioni un passo alla volta, al ritmo di un orologio interno
+(clock). I registri sono i suoi minuscoli appunti sul tavolo:
+pochissimi, ma a portata di mano e rapidissimi. La CPU non lavora
+direttamente sulla RAM: prende i numeri dalla RAM, li mette sul tavolo
+(registri), calcola e rimette il risultato in RAM.</p>
+<h2 id="i-registri-fondamentali-della-cpu"><strong>I Registri
+Fondamentali della CPU</strong></h2>
+<ul>
+<li><p><strong><mark>Program Counter (PC)</mark></strong>: contiene
+<mark>l'<strong>indirizzo di memoria della prossima
+istruzione</strong></mark> da prelevare ed eseguire. Durante il
+funzionamento ordinario il PC <mark>viene automaticamente
+incrementato</mark> per puntare all'istruzione successiva; in presenza
+di salti condizionati o incondizionati, il PC viene sovrascritto con un
+nuovo indirizzo per deviare il flusso di esecuzione.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> il program counter è il segnalibro
+del programma: contiene l'indirizzo dell'istruzione da eseguire adesso.
+Dopo ogni istruzione di solito avanza di una posizione; un salto non fa
+altro che spostare il segnalibro in un altro punto.</p>
+<ul>
+<li><p><strong><mark>Instruction Register (IR)</mark></strong>:
+memorizza il <mark>codice numerico dell'istruzione <strong>attualmente
+in fase di decodifica ed esecuzione</strong></mark>, prelevato dalla RAM
+durante la fase di <em>fetch</em>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> l'instruction register è la
+«scrivania» dove viene appoggiata l'istruzione che la CPU sta eseguendo
+in questo momento, dopo averla prelevata dalla RAM. Il program counter
+dice quale istruzione prendere, l'IR contiene quella presa.</p>
+<ul>
+<li><p><strong><mark>Registri Generali / Ausiliari</mark> (es. R0, R1,
+R2, R3)</strong>: celle di supporto utilizzate per
+<mark>contenere</mark> gli operandi e i risultati parziali
+dell'ALU.</p></li>
+</ul>
+<ol start="3" type="1">
+<li><p><strong><mark>Bus di Sistema</mark></strong>: il canale di
+comunicazione fisico (linee elettriche) che <mark>connette la CPU, la
+memoria RAM e i dispositivi di I/O</mark>, consentendo il trasferimento
+di indirizzi, dati e segnali di controllo.</p></li>
+</ol>
+<p><strong>In parole povere:</strong> il bus di sistema è l'insieme di
+fili che fa da «strada» tra CPU, memoria e dispositivi di
+ingresso/uscita: su quella strada viaggiano indirizzi («vai a leggere la
+casella 400»), dati e segnali di controllo.</p>
+<ol start="4" type="1">
+<li><p><strong><mark>Storage Secondario (Hard Disk</mark>, SSD,
+Nastri)</strong>: <mark>memoria non volatile ad alta capacità</mark>
+utilizzata per conservare permanentemente programmi e file quando il
+calcolatore è spento.</p></li>
+</ol>
+<p><strong>In parole povere:</strong> lo storage secondario (disco
+fisso, SSD) è l'archivio o lo scaffale di casa: capiente e non si
+cancella quando spegni, ma più lento. Programmi e file stanno lì a
+lungo; quando servono vengono portati nella RAM, che è il tavolo da
+lavoro.</p>
+<h2
+id="ciclo-di-esecuzione-deterministico-e-ruolo-del-programma-di-controllo"><strong>Ciclo
+di Esecuzione Deterministico e Ruolo del Programma di
+Controllo</strong></h2>
+<p>All'accensione del calcolatore, un programma di controllo residente
+chiamato <strong><mark>monitor</mark></strong> (l'antenato del moderno
+<strong>sistema operativo</strong>) <mark>legge il programma e i
+dati</mark> dallo storage secondario e li <mark>carica nella memoria
+RAM</mark> a partire da indirizzi fissati (il programma all'indirizzo
+0). Completato il caricamento, <mark>la CPU viene avviata impostando il
+Program Counter all'indirizzo 0</mark>.</p>
+<p><strong>In parole povere:</strong> il monitor è un piccolo programma
+sempre presente, l'antenato del sistema operativo, che all'accensione fa
+da «magazziniere»: prende il programma dal disco, lo mette in RAM
+dall'indirizzo 0 e poi dà il via alla CPU puntando il program counter
+all'indirizzo 0.</p>
+<p>La CPU opera eseguendo in modo indefinito e deterministico il
+<strong><mark>ciclo Fetch-Decode-Execute</mark></strong> (Prelevamento,
+Decodifica, Esecuzione) guidato dagli impulsi del clock:</p>
+<ol type="1">
+<li><p><img src="./media/image5.png"
+style="width:3.65069in;height:4.37569in" /><strong>Fetch
+(<mark>Prelievo</mark>)</strong>: l'Unità di <mark>Controllo legge il
+valore presente nel Program Counter</mark> (PC) e richiede al bus di
+<mark>sistema il contenuto della cella di memoria RAM</mark>
+corrispondente a quell'indirizzo. L'istruzione prelevata viene
+<mark>salvata nell'Instruction Register (IR)</mark>. Contemporaneamente,
+il PC viene incrementato per puntare alla cella successiva.</p></li>
+<li><p><strong>Decode (<mark>Decodifica</mark>)</strong>: l'Unità di
+Controllo <mark>analizza la sequenza di bit</mark> presente nell'IR,
+consultando una tabella interna cablata per <mark>identificare
+l'operazione da svolgere</mark> e gli eventuali operandi/registri
+coinvolti.</p></li>
+<li><p><strong>Execute (<mark>Esecuzione</mark>)</strong>: la CU
+<mark>attiva i moduli fisici necessari.</mark> Se l'istruzione richiede
+un calcolo algebrico, l'ALU preleva i dati dai registri, esegue
+l'operazione e scrive il risultato nel registro di destinazione. Se
+l'istruzione è un salto (JMP), il valore del PC viene sovrascritto con
+il nuovo indirizzo di destinazione.</p></li>
+</ol>
+<p><strong>In parole povere:</strong> il ciclo fetch-decode-execute è
+ciò che la CPU fa all'infinito, come uno scrivano: fetch = va a prendere
+la prossima istruzione (guardando il program counter), decode = capisce
+cosa chiede, execute = la esegue. Poi ricomincia con la successiva.</p>
+<h2
+id="determinismo-e-assenza-di-terminazione-hardware"><strong>Determinismo
+e Assenza di Terminazione Hardware</strong></h2>
+<p>Ogni singolo passo del ciclo modifica lo <strong>stato della
+macchina</strong> (inteso come l'insieme dei valori contenuti nella RAM
+e nei registri). L'esecuzione è strettamente
+<strong>deterministica</strong>: fissati lo stato iniziale e la sequenza
+delle istruzioni, la macchina produrrà sempre esattamente lo stesso
+stato finale e gli stessi risultati.</p>
+<p><strong>In parole povere:</strong> lo stato della macchina è la
+«fotografia» di tutto ciò che c'è in memoria e nei registri in un dato
+istante. Deterministico significa che non c'è casualità: stessa
+fotografia di partenza e stesse istruzioni portano sempre alla stessa
+fotografia finale, come una ricetta seguita alla lettera.</p>
+<p>Inoltre, a livello hardware la CPU non possiede un concetto nativo di
+"fine programma": essa continua ad eseguire il ciclo
+<em>fetch-decode-execute</em> all'infinito. La terminazione del
+programma deve quindi essere esplicitamente programmata cedendo il
+controllo al sistema operativo tramite un'istruzione apposita o un salto
+di arresto.</p>
+<h1
+id="capitolo-5-dal-linguaggio-macchina-al-c-e-la-filiera-di-compilazione"><strong>Capitolo
+5: Dal Linguaggio Macchina al C e la Filiera di
+Compilazione</strong></h1>
+<h2 id="dal-codice-macchina-al-linguaggio-assembly"><strong>Dal Codice
+Macchina al Linguaggio Assembly</strong></h2>
+<p>I <mark>primi calcolatori venivano programmati direttamente in
+<strong>linguaggio macchina</strong></mark>, impostando manualmente i
+singoli bit all'interno dei registri attraverso interruttori fisici o
+schede perforate. Il <mark>linguaggio macchina rappresenta l'unico
+livello espressivo direttamente comprensibile ed eseguibile
+dall'hardware di un processore</mark>. Esso è costituito esclusivamente
+da sequenze numeriche binarie (stringhe di 0 e 1) che codificano le
+istruzioni esecutive e gli indirizzi degli operandi.</p>
+<p><strong>In parole povere:</strong> il linguaggio macchina è l'unica
+lingua che il processore capisce davvero: istruzioni scritte come lunghe
+file di 0 e 1. Va benissimo per la macchina e malissimo per le persone,
+che sbagliano a scrivere o leggere sequenze del genere.</p>
+<p><mark>Ciascuna famiglia di CPU adotta un proprio insieme di
+istruzioni macchina, noto come <strong>Instruction Set
+Architecture</strong></mark> <strong>(ISA)</strong> (come x86, ARM o
+RISC-V). Di conseguenza, <mark>il codice macchina è strettamente
+dipendente dall'hardware e <strong>non è portabile</strong></mark>: un
+programma compilato per un'architettura non può funzionare su un
+processore dotato di un ISA differente. Inoltre, la programmazione in
+codice binario risulta estremamente laboriosa, soggetta a errori e del
+tutto illeggibile per un essere umano.</p>
+<p><strong>In parole povere:</strong> ogni famiglia di CPU (x86, ARM,
+RISC-V) ha il suo «vocabolario» di istruzioni macchina, chiamato ISA. Un
+programma in codice macchina per un tipo di CPU non funziona su
+un'altra, come un libro in una lingua che il lettore non conosce.</p>
+<p><mark>Per superare questa barriera si è introdotto il
+<strong>linguaggio assembly</strong></mark>, che costituisce una
+<mark>rappresentazione simbolica e testuale del linguaggio
+macchina</mark>. L'assembly <mark>sostituisce le sequenze numeriche
+binarie con codici mnemonici leggibili</mark> (come LOAD, STORE, ADD,
+CMP, JMP, INC) per identificare le operazioni e i registri. Ogni
+istruzione assembly (LOAD, ADD, STORE, …) corrisponde a una singola
+istruzione macchina; le direttive come ADDR A = 400 definiscono soltanto
+indirizzi simbolici e non producono codice macchina.</p>
+<p><strong>In parole povere:</strong> l'assembly è il linguaggio
+macchina con i nomi al posto dei numeri: invece di una fila di bit
+scrivi LOAD (carica), ADD (somma), STORE (salva), che si ricordano.
+Resta una riga per ogni istruzione della CPU: è lo stesso discorso, solo
+leggibile.</p>
+<p>La <mark>traduzione dal codice assembly al codice macchina viene
+effettuata automaticamente da un programma speciale chiamato
+<strong>assembler</strong></mark> (o assemblatore). Sebbene l'assembly
+sia molto più comprensibile per il programmatore rispetto al binario
+puro, esso rimane un <mark>linguaggio di <strong>basso livello</strong>
+e <strong>non portabile</strong></mark>, poiché riflette in modo
+speculare la struttura fisica e i registri della CPU sottostante.</p>
+<p><strong>In parole povere:</strong> l'assembler (assemblatore) è il
+traduttore automatico che trasforma le sigle dell'assembly nelle
+sequenze di 0 e 1 che la CPU capisce. L'assembly è più comodo del
+binario, ma è ancora legato a quella specifica CPU.</p>
+<h2
+id="confronto-pratico-laddizione-e-la-moltiplicazione-a-basso-livello"><strong>Confronto
+Pratico: L'Addizione e la Moltiplicazione a Basso Livello</strong></h2>
+<p>Per comprendere l'operatività dell'assembly, consideriamo il problema
+di sommare due numeri interi memorizzati nella RAM agli indirizzi A =
+400 e B = 404, salvando il risultato nell'indirizzo A. A basso livello,
+la CPU non possiede un'istruzione unica in grado di manipolare
+direttamente due celle di memoria RAM. L'operazione deve quindi essere
+scomposta nei seguenti passi elementari:</p>
+<ol type="1">
+<li><p><strong>LOAD, R0, @A</strong>: la CPU richiede alla memoria
+centrale il contenuto della cella 400 (es. il valore 12) tramite il bus
+di sistema e lo carica nel registro interno R0.</p></li>
+<li><p><strong>LOAD, R1, @B</strong>: viene prelevato il dato alla cella
+404 (es. il valore -8) e memorizzato nel registro R1.</p></li>
+<li><p><strong>ADD, R0, R1</strong>: l'Unità di Controllo attiva l'Unità
+Aritmetico-Logica (<strong>ALU</strong>), la quale preleva i valori da
+R0 ed R1, esegue la somma (12 + (-8) = 4) e sovrascrive il risultato
+all'interno di R0.</p></li>
+<li><p><strong>STORE, R0, @A</strong>: il valore aggiornato (4) presente
+in R0 viene inviato sul bus e riscritto nella cella di memoria RAM
+400.</p></li>
+</ol>
+<p><img src="./media/image6.png"
+style="width:4.33071in;height:3.34425in" /></p>
+<p><em>Come la CPU esegue la somma A + B: due LOAD, ADD, STORE.</em></p>
+<p>Durante ognuno di questi passaggi, la CPU segue il ciclo
+deterministico guidato dal clock: il <strong>Program Counter
+(PC)</strong> conserva l'indirizzo dell'istruzione da caricare, mentre
+l'<strong>Instruction Register (IR)</strong> memorizza il codice
+numerico dell'istruzione in fase di decodifica ed esecuzione.</p>
+<p>Se analizziamo un algoritmo leggermente più complesso, come la
+<strong>moltiplicazione tra interi tramite somme ripetute</strong>, la
+complessità dell'assembly aumenta drasticamente. Per implementare la
+logica dell'accumulatore s e del contatore i, il programma assembly deve
+coordinare quattro registri di lavoro (R0 per s, R1 per i, R2 per m, R3
+per n) gestendo esplicitamente i salti e i confronti:</p>
+<blockquote>
+<p>1. LOAD, R0, 0 // Inizializza R0 (accumulatore s) a 0</p>
+<p>2. LOAD, R1, 0 // Inizializza R1 (contatore i) a 0</p>
+<p>3. LOAD, R2, @m // Carica il valore all'indirizzo m in R2</p>
+<p>4. LOAD, R3, @n // Carica il valore all'indirizzo n in R3</p>
+<p>5. CMP R1, R3 // Confronta il registro R1 (i) con R3 (n)</p>
+<p>6. JMPEQ &lt;riga 10&gt; // Se i == n salta alla riga 10 (uscita),
+altrimenti prosegue</p>
+<p>7. ADD, R0, R2 // R0 &lt;- R0 + R2 (s &lt;- s + m)</p>
+<p>8. INC, R1 // R1 &lt;- R1 + 1 (i &lt;- i + 1)</p>
+<p>9. JMP &lt;riga 5&gt; // Salto incondizionato alla riga 5 per
+rivalutare il ciclo</p>
+<p>10. STORE, R0, @m // Salva il risultato contenuto in R0 all'indirizzo
+m</p>
+</blockquote>
+<h2
+id="i-limiti-dellassembly-e-la-nascita-dei-linguaggi-di-alto-livello"><strong>I
+Limiti dell'Assembly e la Nascita dei Linguaggi di Alto
+Livello</strong></h2>
+<p>L'esempio della moltiplicazione mette in luce i <mark>profondi limiti
+metodologici della programmazione a basso livello</mark>:</p>
+<ul>
+<li><p><strong>Verbosità e prolissità</strong>: un <mark>algoritmo
+semplice come la moltiplicazione richiede 10 righe di assembly</mark> (e
+l'addizione 4).</p></li>
+<li><p><strong>Opacità semantica</strong>: i <mark>nomi dei
+registri</mark> (R0, R1, …) e le <mark>istruzioni di salto</mark> (JMP,
+JMPEQ) <mark>non trasmettono il significato logico delle
+operazioni</mark>.</p></li>
+<li><p><strong>Mancanza di struttura</strong>: il <mark>flusso di
+esecuzione</mark> è <mark>gestito</mark> da <mark>salti grezzi verso
+numeri di riga</mark> o indirizzi di memoria, <mark>privo dei blocchi
+annidati caratteristici della programmazione
+strutturata.</mark></p></li>
+<li><p><strong>Totale assenza di portabilità</strong>: se si sostituisce
+la CPU, il <mark>codice assembly deve essere riscritto integralmente da
+capo rispettando il nuovo hardware</mark>.</p></li>
+</ul>
+<p>Per svincolare lo sviluppo software dalle peculiarità fisiche dei
+singoli processori, a partire dagli anni '50 sono stati ideati i
+<strong><mark>linguaggi di programmazione di alto
+livello</mark></strong>. Questi linguaggi <mark>adottano una sintassi
+astratta, più vicina al linguaggio matematico e naturale, nascondendo la
+gestione di basso livello dei registri e degli indirizzi di
+memoria</mark>.</p>
+<h2
+id="nascita-scopi-e-caratteristiche-del-linguaggio-c"><strong>Nascita,
+Scopi e Caratteristiche del Linguaggio C</strong></h2>
+<p>Unix nasce nel 1969 ai Bell Labs (Ken Thompson, PDP-7, scritto in
+assembly); per superare i limiti dell'assembly Dennis Ritchie
+<mark>progetta il linguaggio C</mark> (prima versione nel 1972) e Unix
+viene poi riscritto in C. Il linguaggio C è diventato uno dei pilastri
+fondamentali dell'informatica. <mark>Il C è stato concepito per offrire
+un bilanciamento ideale: garantisce un controllo diretto ed efficiente
+sull'hardware e sulla memoria, mantenendo al contempo un livello di
+astrazione, strutturazione e portabilità elevato.</mark></p>
+<p>Il C si definisce attraverso <mark>quattro caratteristiche
+fondamentali</mark>:</p>
+<ol type="1">
+<li><p><strong>Compilato</strong>: il <mark>codice sorgente testuale
+scritto dal programmatore viene tradotto integralmente in codice
+macchina prima</mark> di poter essere eseguito dal calcolatore.</p></li>
+</ol>
+<p><strong>In parole povere:</strong> un linguaggio compilato funziona
+come un libro tradotto per intero prima di essere letto: il compilatore
+trasforma tutto il testo C in codice macchina in anticipo, e poi la
+macchina esegue direttamente il risultato, senza più bisogno del testo
+originale.</p>
+<p><img src="./media/image7.png"
+style="width:4.52756in;height:1.20647in" /></p>
+<p><em>Il C è compilato: il sorgente viene tradotto in codice macchina
+prima di essere eseguito.</em></p>
+<ol start="2" type="1">
+<li><p><strong>Imperativo</strong>: il <mark>programma è formulato come
+una sequenza ordinata di istruzioni e comandi</mark> che
+<mark>modificano</mark> progressivamente lo <mark>stato delle variabili
+in memoria</mark>.</p></li>
+<li><p><strong>Strutturato</strong>: il <mark>codice si organizza in
+moduli (funzioni)</mark> e <mark>blocchi di istruzioni racchiusi da
+delimitatori formali</mark> (le parentesi graffe {}), per cui non
+servono salti a numeri di riga.</p></li>
+<li><p><strong>Fortemente tipizzato</strong>: <mark>ogni variabile o
+dato utilizzato deve essere preventivamente dichiarato specificandone il
+<strong>tipo</strong></mark> (es. int, float, char). Il tipo attribuisce
+un significato semantico e una dimensione specifica alla sequenza di bit
+memorizzata nella RAM.</p></li>
+</ol>
+<p><strong>In parole povere:</strong> fortemente tipizzato vuol dire che
+ogni variabile deve dichiarare in anticipo che «tipo» di cosa contiene
+(intero, decimale, carattere). È come etichettare le scatole: «solo
+viti», «solo bulloni». Il tipo decide quanto spazio occupa e come
+interpretare i bit che ci stanno dentro.</p>
+<h1
+id="capitolo-6-il-type-system-del-c-tipi-primitivi-e-astrazione-delle-variabili"><strong>Capitolo
+6: Il Type System del C, Tipi Primitivi e Astrazione delle
+Variabili</strong></h1>
+<h2 id="dai-bit-ai-tipi-di-dato-il-type-system-del-c"><strong>Dai Bit ai
+Tipi di Dato: Il Type System del C</strong></h2>
+<p>Nel modello di calcolo hardware di Von Neumann, la <mark>memoria
+centrale (RAM) è modellata come una sequenza lineare di byte</mark>
+contenente esclusivamente <mark>stringhe indistinguibili di bit
+binari.</mark> Per consentire al software di rappresentare e manipolare
+la complessità del mondo reale (numeri, caratteri, decisioni), è
+<mark>necessario attribuire un significato formale alle sequenze di bit
+memorizzate</mark>. Questo compito è svolto dal <strong><mark>tipo di
+dato</mark></strong>, che agisce come un <mark>ponte semantico tra i bit
+binari</mark> <mark>dell'hardware e il senso logico assegnato</mark> ai
+dati dal programmatore.</p>
+<p>In C, che è un linguaggio <strong>fortemente tipizzato</strong>,
+<mark>un tipo di dato qualifica una sequenza di bit in memoria secondo
+<strong>sei dimensioni fondamentali</strong></mark>:</p>
+<ul>
+<li><p><strong>Nome</strong>: <mark>l'identificatore simbolico</mark>
+utilizzato nel codice sorgente <mark>per indicare il tipo</mark> (ad
+esempio int, float, char).</p></li>
+<li><p><strong>Dimensione in memoria</strong>: quanti byte occupa nella
+RAM un dato di quel tipo (tipicamente 4 byte per un int e 8 per un
+double; dipende dalla piattaforma).</p></li>
+<li><p><strong>Dominio di valori</strong>: <mark>l'insieme</mark>
+discreto di <mark>valori validi</mark> che una variabile di quel tipo
+può contenere.</p></li>
+<li><p><strong>Operazioni consentite</strong>: l'<mark>insieme di
+operatori e funzioni algebriche o logiche applicabili ai dati</mark> di
+quel tipo (ad esempio la somma tra interi o l'estrazione della radice
+quadrata sui numeri reali).</p></li>
+<li><p><strong>Rappresentazione interna</strong>: la <mark>regola di
+codifica binaria adottata dall'hardware</mark> per strutturare i bit (ad
+esempio il <strong>complemento a 2</strong> per gli interi con segno o
+lo standard <strong>IEEE 754</strong> per i numeri in virgola
+mobile).</p></li>
+<li><p><strong>Compatibilità e conversione</strong>: <mark>l'insieme di
+regole</mark> implicite ed esplicite (<em>cast</em>) che disciplinano
+<mark>l'interazione tra tipi differenti all'interno delle
+espressioni</mark>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> un tipo di dato dice al computer
+come interpretare una fila di bit: senza tipo sono solo 0 e 1, col tipo
+diventano per esempio un numero intero, un decimale o una lettera. Il
+tipo stabilisce anche quanto spazio occupa, quali valori ammette e quali
+operazioni hanno senso (sommare due interi sì, la radice quadrata di una
+lettera no).</p>
+<h2
+id="tassonomia-dei-tipi-primitivi-e-finitudine-dei-domini"><strong>Tassonomia
+dei Tipi Primitivi e Finitudine dei Domini</strong></h2>
+<p>I tipi nativi (<em>built-in</em>) messi a disposizione dal linguaggio
+C si articolano nelle seguenti categorie principali:</p>
+<p><strong>Un tipo nativo (o primitivo/built-in) è</strong> un tipo di
+dato fornito direttamente dal linguaggio (come int, float o char) che
+stabilisce la dimensione occupata in memoria, la codifica binaria e le
+operazioni consentite</p>
+<p><strong>In parole povere:</strong> un tipo nativo è un tipo «di
+fabbrica», già fornito dal linguaggio senza che tu debba costruirlo:
+int, float, char sono i mattoncini base con cui poi si costruisce tutto
+il resto.</p>
+<ul>
+<li><p><strong>Numeri Interi (ℤ)</strong>: rappresentano <mark>numeri
+relativi con segno</mark>. Il <mark>tipo fondamentale è int</mark>
+(tipicamente allocato su 4 byte), affiancato dalle varianti
+<mark>short</mark> (intero a dimensione ridotta, 2 byte), <mark>long (4
+o 8 byte a seconda di architettura e sistema operativo)</mark> e
+<mark>long long</mark> (8 byte).</p></li>
+<li><p><strong>Numeri Naturali (ℕ)</strong>: definiti applicando il
+<mark>qualificatore <strong>unsigned</strong> ai tipi interi</mark>
+(come unsigned int o unsigned short). <mark>Rimuovendo la
+rappresentazione del segno negativo</mark>, l'intervallo dei valori
+positivi rappresentabili raddoppia (ad esempio un unsigned int a 32 bit
+copre l'intervallo da 0 a 2<sup>32</sup>-1 = 4.294.967.295).</p></li>
+<li><p><strong>Numeri Reali (ℝ)</strong>: codificano <mark>valori in
+virgola mobile</mark> e sono rappresentati dai tipi <mark>float</mark>
+(singola precisione, 4 byte) e <mark>double</mark> (doppia precisione, 8
+byte).</p></li>
+<li><p><strong>Tipi Accessori e Speciali</strong>:</p>
+<ul>
+<li><p><strong>char</strong>: gestisce <mark>singoli caratteri del
+codice ASCII</mark> e occupa esattamente <strong>1 byte</strong> (8
+bit).</p></li>
+<li><p><strong>bool</strong>: tipo logico <mark>booleano che ammette i
+valori 0/1</mark> (false/true), definito nell'header file
+&lt;stdbool.h&gt;.</p></li>
+<li><p><strong>size_t</strong>: <mark>tipo intero senza segno</mark>
+(unsigned) utilizzato per <mark>esprimere la dimensione delle
+allocazioni di memoria</mark>, definito nell'header file
+&lt;stddef.h&gt;.</p></li>
+</ul></li>
+</ul>
+<p>Sebbene le categorie matematiche ℕ, ℤ e ℝ indichino insiemi infiniti,
+<strong><mark>i tipi numerici del C sono modelli finiti</mark></strong>
+dei corrispondenti domini matematici, poiché ciascun dato viene
+memorizzato in un numero fisso di bit.</p>
+<p>I <mark>vincoli di memoria</mark> introducono <mark>limiti</mark>
+rigorosi:</p>
+<ul>
+<li><p>Per gli interi, il <mark>superamento dell'intervallo massimo
+genera un errore di <strong>overflow</strong></mark> non sempre
+rilevabile dal compilatore, che di solito fa "ripartire" <mark>il ciclo
+numerico dal limite minimo negativo</mark>. Per gli interi con segno lo
+standard C lo lascia formalmente indefinito.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> l'overflow capita quando il
+risultato di un calcolo è troppo grande per il numero di bit
+disponibili: è come il contachilometri che arriva a 99999 e ricomincia
+da 00000. Con un int a 32 bit, dopo il massimo si ripassa dai valori
+negativi, senza che il programma si lamenti.</p>
+<ul>
+<li><p>Per i numeri reali (float/double), la rappresentazione binaria
+offre una precisione finita con <mark>possibili errori di
+arrotondamento.</mark></p></li>
+<li><p>L'assegnamento di un <mark>valore reale a una variabile</mark>
+intera causa il <strong><mark>troncamento</mark></strong> (rimozione
+della parte frazionaria senza arrotondamento).</p></li>
+</ul>
+<p><strong>In parole povere:</strong> il troncamento è il «taglio con la
+forbice» della parte dopo la virgola: 8,89 diventa 8 (non 9, perché non
+si arrotonda). Succede quando metti un numero con la virgola in una
+variabile intera.</p>
+<blockquote>
+<p>int x = 2147483647; // Valore massimo per un int con segno a 32
+bit</p>
+<p>x = x + 1; // OVERFLOW (indefinito per gli int con segno):
+tipicamente x diventa -2147483648</p>
+<p>int y = 8.89; // TRONCAMENTO: il decimale viene scartato, y vale
+8</p>
+</blockquote>
+<h2 id="loperatore-sizeof-e-relazioni-di-dimensione"><strong>L'Operatore
+sizeof e Relazioni di Dimensione</strong></h2>
+<p>Per garantire la portabilità del codice su architetture hardware
+differenti (a 16, 32 o 64 bit), <mark>il linguaggio C non fissa in modo
+rigido la dimensione assoluta in byte di tutti i tipi primitivi</mark>.
+L'operatore unario sizeof permette di ricavare, a tempo di compilazione,
+il numero esatto di byte occupati <mark>da un tipo o da una
+variabile</mark>, restituendo un valore di tipo size_t.</p>
+<p><strong>In parole povere:</strong> sizeof è un operatore che risponde
+alla domanda «quanti byte occupa questo tipo o questa variabile?». Serve
+perché la dimensione può cambiare da un computer all'altro, quindi
+invece di ricordarla a memoria la si chiede alla macchina.</p>
+<p>Il C garantisce formalmente le seguenti relazioni d'ordine sulle
+dimensioni:</p>
+<p>sizeof(char) ≤ sizeof(short) ≤ sizeof(int) ≤ sizeof(long) ≤
+sizeof(long long)</p>
+<p>sizeof(float) ≤ sizeof(double)</p>
+<h2 id="anatomia-e-dichiarazione-delle-variabili"><strong>Anatomia e
+Dichiarazione delle Variabili</strong></h2>
+<p>Nelle architetture hardware di Von Neumann/EDVAC, le <mark>operazioni
+di calcolo agiscono direttamente su valori memorizzati a specifici
+indirizzi fisici della RAM</mark>. La
+<strong><mark>variabile</mark></strong> costituisce l'astrazione
+fondamentale fornita dai linguaggi di alto livello per <mark>associare
+un nome simbolico e un tipo di dato a una porzione di memoria</mark>,
+svincolando il programmatore dalla gestione manuale degli indirizzi
+esadecimali.</p>
+<p><mark>Ogni variabile</mark> presente all'interno di un programma C è
+<mark>identificata univocamente da una <strong>quaterna di
+attributi</strong>:</mark></p>
+<ol type="1">
+<li><p><strong>Nome (Identificatore)</strong>: il <mark>termine
+simbolico</mark> scelto dal programmatore per fare riferimento alla
+variabile nel codice sorgente.</p></li>
+<li><p><strong>Tipo</strong>: la <mark>regola semantica</mark> che
+determina la <mark>dimensione in byte</mark>, la <mark>codifica
+binaria</mark> e le <mark>operazioni valide per quel
+dato</mark>.</p></li>
+<li><p><strong>Indirizzo</strong>: la <mark>posizione fisica della prima
+cella di RAM in cui il dato è memorizzato</mark>, determinata
+automaticamente dal compilatore e dal sistema di esecuzione.</p></li>
+<li><p><strong>Valore</strong>: il <mark>contenuto informativo espresso
+in bit</mark> memorizzato nella cella, che può variare nel corso
+dell'esecuzione.</p></li>
+</ol>
+<p><strong>In parole povere:</strong> una variabile è una porzione di
+memoria a cui dai un nome comodo. Ogni variabile ha quattro
+caratteristiche: il nome (l'etichetta sulla scatola), il tipo (cosa ci
+puoi mettere), l'indirizzo (dove sta lo scaffale, scelto dal
+compilatore) e il valore (cosa c'è dentro ora, che può cambiare). Il
+nome è un modo per non dover ricordare gli indirizzi.</p>
+<blockquote>
+<p>int contatore = 1; // Indirizzo: es. 0x904A, Tipo: int (4 byte),
+Valore: 1</p>
+<p>float media = 60.54f; // Indirizzo: es. 0x367F, Tipo: float (4 byte),
+Valore: 60.54</p>
+</blockquote>
+<p><img src="./media/image8.png"
+style="width:4.33071in;height:1.72893in" /></p>
+<p><em>Ogni variabile ha nome, tipo, indirizzo e valore.</em></p>
+<h2 id="regole-sintattiche-per-gli-identificatori"><strong>Regole
+Sintattiche per gli Identificatori</strong></h2>
+<p><mark>L'assegnazione dei nomi alle variabili</mark> deve rispettare
+regole sintattiche stringenti:</p>
+<ul>
+<li><p><mark>L'identificatore</mark> deve essere <strong><mark>univoco
+all'interno del suo ambito</mark> di visibilità
+(<em>scope</em>)</strong>.</p></li>
+<li><p><mark>Può contenere esclusivamente lettere</mark> (maiuscole o
+minuscole, considerando che il C è un linguaggio
+<em>case-sensitive</em>), <mark>cifre numeriche e il carattere di
+<em>underscore</em></mark> _.</p></li>
+<li><p>Deve <strong><mark>iniziare obbligatoriamente con una lettera o
+con un <em>underscore</em></mark></strong>; non può mai iniziare con una
+cifra numerica.</p></li>
+<li><p><mark>Non può contenere spazi o simboli speciali</mark> (!, @, #,
+$, %).</p></li>
+<li><p><mark>Non può coincidere con le <strong>parole
+chiave</strong></mark> <strong>(<em>keywords</em>) <mark>riservate del
+linguaggio</mark></strong> (come int, double, char, sizeof, return, if,
+while) <mark>né con i nomi delle funzioni della libreria standard</mark>
+(main, printf).</p></li>
+</ul>
+<h2
+id="dichiarazione-vs-inizializzazione-e-valore-indeterminato"><strong>Dichiarazione
+vs Inizializzazione e Valore Indeterminato</strong></h2>
+<p>La <strong><mark>dichiarazione</mark></strong> è
+l<mark>'istruzione</mark> formale con cui <mark>si comunica al
+compilatore l'intenzione di utilizzare una variabile</mark>,
+<mark>specificandone il tipo e il nome</mark> (ad esempio int x;). La
+dichiarazione forza il sistema a riservare lo spazio di memoria
+necessario all'interno dell'area dati dello <strong>stack
+(pila)</strong>.</p>
+<p><strong>In parole povere:</strong> dichiarare una variabile è
+avvisare il compilatore «mi serve una scatola di questo tipo e la chiamo
+così»: lui riserva lo spazio in memoria. È come prenotare un tavolo al
+ristorante: il tavolo è tuo, ma non c'è ancora nessuno seduto.</p>
+<p>Se una variabile locale viene dichiarata senza assegnarle un valore
+iniziale (assenza di <strong>inizializzazione contestuale</strong>), lo
+spazio di memoria viene allocato, ma la cella mantiene i bit
+preesistenti lasciati da precedenti elaborazioni della RAM. Di
+conseguenza, <strong><mark>il valore iniziale di una variabile non
+inizializzata è indeterminato</mark></strong> (rappresentato
+convenzionalmente negli schemi teorici con il simbolo ?).</p>
+<p><strong>In parole povere:</strong> inizializzare una variabile è
+metterci un valore al momento della dichiarazione. Se non lo fai, la
+scatola contiene quello che c'era prima, come una lavagna non
+cancellata: un valore casuale e imprevedibile, detto indeterminato (nei
+disegni si scrive «?»). Prima di usarla conviene sempre darle un
+valore.</p>
+<blockquote>
+<p>int main(void) {</p>
+<p>int x; // Dichiarazione: allocati 4 byte sullo stack, valore
+indeterminato (?)</p>
+<p>x = 10; // Assegnamento successivo: il valore diventa 10</p>
+<p>float y = 3.14f; // Inizializzazione contestuale: dichiarazione e
+valore simultanei</p>
+<p>}</p>
+</blockquote>
+<h1
+id="capitolo-7-modello-di-memoria-in-c-area-codice-e-gestione-dello-stack"><strong>Capitolo
+7: Modello di Memoria in C: Area Codice e Gestione dello
+Stack</strong></h1>
+<h2
+id="organizzazione-dello-spazio-di-memoria-del-programma"><strong>Organizzazione
+dello Spazio di Memoria del Programma</strong></h2>
+<p>All'atto del caricamento (<em>loading</em>) dell'eseguibile dalla
+memoria secondaria alla <mark>RAM</mark>, il sistema operativo riserva
+al <mark>programma uno spazio di memoria strutturato in due sezioni
+logiche distinte</mark>:</p>
+<ul>
+<li><p><strong>Area Codice</strong>: una <mark>porzione di memoria a
+<strong>dimensione fissa</strong></mark> che ospita le <mark>istruzioni
+binarie</mark> in linguaggio macchina <mark>da eseguire</mark>. Il
+<strong><mark>Program Counter (PC)</mark></strong> viene
+<mark>posizionato all'indirizzo iniziale</mark> dell'area codice
+corrispondente al punto d'ingresso della funzione main().</p></li>
+</ul>
+<p><strong>In parole povere:</strong> l'area codice è la parte di
+memoria che contiene le istruzioni del programma già tradotte in
+linguaggio macchina. Ha una grandezza fissa e il program counter parte
+dall'inizio di main(): è lo scaffale con il «libro delle
+istruzioni».</p>
+<ul>
+<li><p><strong>Area Dati</strong>: una porzione di memoria
+<mark>riservata al mantenimento delle variabili e delle strutture usate
+dal programma durante l'esecuzione</mark>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> l'area dati è la parte di memoria
+in cui il programma tiene le sue variabili mentre lavora: il suo banco
+di lavoro, dove legge e scrive.</p>
+<blockquote>
+<p>[ AREA CODICE ] ---&gt; Contiene le istruzioni binarie del main()
+(dimensione fissa)</p>
+<p>---------------------------------------------------------------------------------</p>
+<p>[ AREA DATI / STACK ] (Cresce verso indirizzi di memoria più
+bassi)</p>
+</blockquote>
+<h2 id="la-pila-stack-e-i-registri-di-gestione-fp-e-sp"><strong>La Pila
+(Stack) e i Registri di Gestione (FP e SP)</strong></h2>
+<p><mark>All'interno dell'area dati</mark>, la <mark>sezione dedicata
+alla gestione delle variabili</mark> locali prende il nome di
+<strong><mark>Stack</mark> <mark>(Pila)</mark></strong><mark>.</mark>
+Nel modello di riferimento adottato, lo stack è posizionato nella parte
+superiore dell'area dati e si sviluppa convenzionalmente
+<strong><mark>verso indirizzi di memoria
+decrescenti</mark></strong>.</p>
+<p><strong>In parole povere:</strong> lo stack (pila) è la parte della
+memoria dove vengono messe le variabili locali, una sopra l'altra come
+una pila di piatti: l'ultima appoggiata è la prima a essere tolta. In
+questo modello si «riempie verso il basso», cioè verso indirizzi più
+bassi.</p>
+<p><mark>L'allocazione</mark> e il <mark>tracciamento</mark> delle
+variabili all'interno dello stack sono <mark>coordinati da due
+registri</mark> dedicati della CPU:</p>
+<ul>
+<li><p><strong>Frame Pointer (FP)</strong>: <mark>conserva l'indirizzo
+base fisso da cui parte l'allocazione</mark> delle variabili della
+funzione o del blocco corrente (main()).</p></li>
+</ul>
+<p><strong>In parole povere:</strong> il frame pointer è la linea di
+partenza fissa dell'area di lavoro della funzione: da lì in giù vengono
+appoggiate le variabili. Non si muove finché si lavora in quella
+funzione.</p>
+<ul>
+<li><p><strong>Stack Pointer (SP)</strong>: <mark>indica l'indirizzo
+dinamico a cui allocare la variabile successiva (la cima corrente dello
+stack) e si sposta man mano che si allocano variabili.</mark>
+<mark>All'avvio del programma</mark>, prima di dichiarare le variabili,
+<mark>i registri <strong>FP</strong> e <strong>SP</strong>
+coincidono</mark> allo stesso indirizzo base.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> lo stack pointer è il dito che
+indica fino a dove la pila è piena: la prima casella libera. Ogni volta
+che dichiari una variabile scende di quanti byte servono; all'inizio
+coincide con il frame pointer perché non c'è ancora nulla.</p>
+<blockquote>
+<p>Indirizzo Alto ┌───────────────────────────┐ &lt;--- Frame Pointer
+(FP)</p>
+<p>│ Variabile x (int: 4B) │</p>
+<p>├───────────────────────────┤</p>
+<p>│ Variabile y (int: 4B) │</p>
+<p>├───────────────────────────┤</p>
+<p>│ Variabile z (int: 4B) │</p>
+<p>Indirizzo Basso └───────────────────────────┘ &lt;--- Stack Pointer
+(SP)</p>
+</blockquote>
+<h2
+id="meccanismo-di-allocazione-automatica-e-valore-indeterminato"><strong>Meccanismo
+di Allocazione Automatica e Valore Indeterminato</strong></h2>
+<p>Quando il flusso esecutivo incontra la <mark>dichiarazione di una
+nuova variabile</mark> (ad esempio int x;), il sistema esegue
+l'allocazione automatica sullo stack seguendo una <mark>sequenza
+precisa</mark>:</p>
+<ol type="1">
+<li><p>Il registro <strong>Stack Pointer <mark>(SP)</mark></strong>
+<mark>viene decrementato di un numero di byte pari alla dimensione
+richiesta dal tipo di dato</mark> (ad esempio -4 byte per un tipo
+int).</p></li>
+<li><p>Lo <mark>spazio di memoria compreso tra il vecchio e il nuovo
+indirizzo</mark> di <strong>SP</strong> viene riservato alla
+<mark>variabile dichiarata</mark>.</p></li>
+<li><p>Le variabili locali vengono così collocate nello stack
+<strong>una dopo l'altra in <mark>ordine stretto di
+dichiarazione</mark></strong>.</p></li>
+</ol>
+<blockquote>
+<p>int main(void) {</p>
+<p>int x; // SP decrementato di 4 byte -&gt; allocata x (valore ?)</p>
+<p>int y; // SP decrementato di 4 byte -&gt; allocata y (valore ?)</p>
+<p>int z; // SP decrementato di 4 byte -&gt; allocata z (valore ?)</p>
+<p>}</p>
+</blockquote>
+<p><img src="./media/image9.png"
+style="width:3.34646in;height:2.61158in" /></p>
+<p><em>Lo stack con FP e SP dopo tre dichiarazioni.</em></p>
+<p>Dichiarare una variabile riserva lo spazio di memoria necessario, ma
+non vi scrive alcun valore predefinito. Pertanto, il contenuto iniziale
+di una variabile locale non inizializzata è
+<strong>indeterminato</strong> (indicato negli schemi concettuali con il
+simbolo ?), in quanto mantiene i bit residui lasciati da precedenti
+elaborazioni della RAM.</p>
+<h2 id="scope-lifetime-e-problema-dello-stack-overflow"><strong>Scope,
+Lifetime e Problema dello Stack Overflow</strong></h2>
+<p>La <mark>gestione dello stack</mark> disciplina <mark>due proprietà
+fondamentali</mark> delle variabili: la <mark>visibilità logica nel
+sorgente</mark> e la <mark>permanenza fisica nella memoria</mark>.</p>
+<ul>
+<li><p><strong>Visibilità (<mark>Scope</mark>)</strong>: indica la
+<mark>porzione di codice</mark> all'interno della quale
+<mark>l'identificatore della variabile è accessibile e
+utilizzabile</mark>. Le variabili locali (dette anche
+<strong>automatiche</strong>) hanno uno <strong>scope locale</strong>:
+sono visibili ed utilizzabili esclusivamente all'interno del blocco di
+codice delimitato dalle parentesi graffe { ... } in cui sono state
+dichiarate.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> lo scope è «da dove si vede» una
+variabile: una variabile locale esiste, per il codice, solo dentro le
+graffe del blocco in cui l'hai dichiarata. Fuori da quelle graffe il suo
+nome non si può usare, come un oggetto chiuso in una stanza che si usa
+solo se si è dentro.</p>
+<ul>
+<li><p><strong>Durata (<mark>Lifetime</mark>)</strong>: definisce
+<mark>l'intervallo temporale di esecuzione</mark> in cui la
+<mark>variabile esiste fisicamente allocata nello stack</mark>. La vita
+di una variabile automatica inizia al momento della sua dichiarazione
+nel blocco e termina quando l'esecuzione esce da quel blocco, momento in
+cui lo spazio occupato sullo stack viene rilasciato riavanzando lo
+<strong>Stack Pointer (SP)</strong>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> il lifetime (durata) è «per quanto
+tempo esiste davvero» una variabile in memoria: nasce quando viene
+dichiarata e muore quando si esce dal blocco, momento in cui lo spazio
+sullo stack torna libero. Lo scope dice dove puoi nominarla, il lifetime
+dice quando esiste: per le variabili locali coincidono.</p>
+<h2 id="il-rischio-dello-stack-overflow"><strong>Il Rischio dello Stack
+Overflow</strong></h2>
+<p>Poiché lo <mark>spazio dell'area dati</mark> riservato allo
+<mark>stack</mark> ha una <mark>dimensione massima prefissata</mark> dal
+sistema operativo, la <mark>quantità di memoria allocabile per le
+variabili è finita</mark>. Se il programma tenta di allocare una
+quantità di variabili locali che supera la capienza dello stack, il
+registro <strong>Stack Pointer (SP)</strong> supera i limiti dell'area
+consentita, generando un errore critico a runtime di <strong>stack
+overflow</strong> che causa l'interruzione immediata del programma.</p>
+<p><strong>In parole povere:</strong> lo stack overflow è lo stack che
+«trabocca»: la pila ha una capienza massima e, se ci metti troppe
+variabili, esce dallo spazio concesso e il programma viene interrotto
+con un errore. È come impilare piatti fino a far cadere tutto.</p>
+<h1
+id="capitolo-8-listruzione-di-assegnamento-espressioni-aritmetiche-e-inputoutput-formattato"><strong>Capitolo
+8: L'Istruzione di Assegnamento, Espressioni Aritmetiche e Input/Output
+Formattato</strong></h1>
+<h2
+id="listruzione-di-assegnamento-e-la-semantica-lvalue-rvalue"><strong>L'Istruzione
+di Assegnamento e la Semantica Lvalue / Rvalue</strong></h2>
+<p><mark>L'<strong>assegnamento</strong></mark> è <mark>l'operazione
+fondamentale della programmazione imperativa</mark> che permette di
+modificare lo stato del programma sovrascrivendo il valore memorizzato
+in una cella di memoria RAM. La sintassi generale dell'assegnamento in C
+è espressa nella forma:</p>
+<p><mark>variabile = espressione</mark>;</p>
+<p>L'operatore di assegnamento <mark>=</mark> impone una rigorosa
+distinzione semantica tra il lato sinistro e il lato destro
+dell'istruzione:</p>
+<ul>
+<li><p><strong>Lato sinistro (<mark>Lvalue - <em>left
+value</em></mark>)</strong>: deve <mark>identificare una locazione di
+memoria fisica modificabile</mark> (ovvero un'area dello stack riservata
+a una variabile) destinata a contenere il risultato.</p></li>
+<li><p><strong>Lato destro (<mark>Rvalue - <em>right
+value</em></mark>)</strong>: rappresenta <mark>un valore costante o una
+formula algebrica complessa che viene preventivamente calcolata e
+valutata dal sistema</mark> (<em>evaluated</em>).</p></li>
+<li><p><strong>Meccanismo esecutivo</strong>: una volta <mark>completata
+la valutazione</mark> dell'Rvalue, il valore calcolato <mark>viene
+copiato direttamente nella cella di memoria RAM associata
+all'Lvalue</mark>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> l'assegnamento è l'azione «metti
+questo valore in quella scatola»: il valore di prima viene cancellato e
+sostituito. A sinistra del segno = ci vuole una scatola (lvalue: la
+variabile che riceve), a destra ciò che si calcola (rvalue: un numero o
+un'operazione). Prima si calcola il lato destro, poi il risultato viene
+copiato nella scatola di sinistra. Per questo 5 = x non ha senso: 5 non
+è una scatola.</p>
+<blockquote>
+<p>int a, b, c;</p>
+<p>a = 10; // 10 e' un Rvalue costante; 'a' e' l'Lvalue che riceve il
+valore</p>
+<p>b = a + 5; // 'a + 5' viene prima valutato (15) e poi copiato nella
+cella di 'b'</p>
+</blockquote>
+<h2 id="forme-di-assegnamento-e-operatori-composti"><strong>Forme di
+Assegnamento e Operatori Composti</strong></h2>
+<p>Il linguaggio C contempla <mark>diverse modalità di
+assegnamento</mark>:</p>
+<ol type="1">
+<li><p><strong>Inizializzazione contestuale</strong>: assegna un valore
+alla variabile nello <mark>stesso istante della sua dichiarazione</mark>
+(es. int x = 10;).</p></li>
+<li><p><strong>Assegnamento successivo</strong>: viene <mark>eseguito su
+una variabile già dichiarata</mark> in un momento precedente del codice
+(es. int x; x = 10;).</p></li>
+<li><p><strong>Assegnamento multiplo</strong>: consente di
+<mark>assegnare lo stesso valore a più variabili</mark> all'interno di
+un'unica istruzione concatenata (es. a = b = c = 0;).</p></li>
+<li><p><strong>Assegnamento da input</strong>: acquisisce il valore
+<mark>direttamente dall'esterno mediante funzioni</mark> della libreria
+standard (es. <mark>scanf()</mark>).</p></li>
+</ol>
+<p>Per combinare un'operazione algebrica con la scrittura del risultato
+nella medesima variabile, si utilizzano gli <strong><mark>operatori di
+assegnamento composti</mark></strong>:</p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 31%" />
+<col style="width: 17%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Operatore composto</strong></th>
+<th><strong>Espansione equivalente</strong></th>
+<th><strong>Esempio in C</strong></th>
+<th><strong>Esito (x parte da 5)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>+=</td>
+<td>x = x + y;</td>
+<td>x += 3;</td>
+<td>x diventa 8</td>
+</tr>
+<tr class="even">
+<td>-=</td>
+<td>x = x - y;</td>
+<td>x -= 2;</td>
+<td>x diventa 3</td>
+</tr>
+<tr class="odd">
+<td>*=</td>
+<td>x = x * y;</td>
+<td>x *= 4;</td>
+<td>x diventa 20</td>
+</tr>
+<tr class="even">
+<td>/=</td>
+<td>x = x / y;</td>
+<td>x /= 5;</td>
+<td>x diventa 1</td>
+</tr>
+<tr class="odd">
+<td>%=</td>
+<td>x = x % y;</td>
+<td>x %= 3;</td>
+<td>x diventa 2</td>
+</tr>
+</tbody>
+</table>
+<p>Per incrementare o decrementare una variabile intera di una singola
+unità si usano gli operatori unari di <strong><mark>incremento</mark>
+(++)</strong> e <strong><mark>decremento</mark> (--)</strong>:</p>
+<blockquote>
+<p>x++; // Equivalente all'istruzione: x = x + 1; oppure x += 1;</p>
+<p>x--; // Equivalente all'istruzione: x = x - 1; oppure x -= 1;</p>
+</blockquote>
+<h2
+id="traduzione-in-istruzioni-macchina-e-mappatura-dello-stack"><strong>Traduzione
+in Istruzioni Macchina e Mappatura dello Stack</strong></h2>
+<blockquote>
+<p>z = x + y; // Assegnamento del risultato dell'espressione</p>
+</blockquote>
+<p>L'istruzione z = x + y; <mark>non può essere eseguita direttamente
+dalla RAM</mark>. Il compilatore la traduce nelle seguenti istruzioni
+assembly (poi tradotte in codice macchina), eseguite dalla CPU:</p>
+<ol type="1">
+<li><p><strong>LOAD, R0, @x</strong>: il valore di x (5) viene letto
+dallo stack e caricato nel registro interno R0.</p></li>
+<li><p><strong>LOAD, R1, @y</strong>: il valore di y (2) viene letto
+dallo stack e caricato nel registro interno R1.</p></li>
+<li><p><strong>ADD, R0, R1</strong>: l'Unità Aritmetico-Logica
+(<strong>ALU</strong>) esegue la somma tra i registri (5 + 2 = 7) e
+salva il risultato in R0.</p></li>
+<li><p><strong>STORE, R0, @z</strong>: il valore aggiornato contenuto in
+R0 (7) viene scritto nella cella dello stack riservata alla variabile
+z.</p></li>
+</ol>
+<p><img src="./media/image10.png"
+style="width:4.33071in;height:3.34425in" /></p>
+<p><em>Esecuzione di z = x + y: due LOAD, ADD, STORE.</em></p>
+<blockquote>
+<p>[ STATO DELLO STACK DI MEMORIA ]</p>
+<p>Indirizzo Alto ┌───────────────────────────┐ &lt;--- Frame Pointer
+(FP)</p>
+<p>│ Variabile x (int): 5 │</p>
+<p>├───────────────────────────┤</p>
+<p>│ Variabile y (int): 2 │</p>
+<p>├───────────────────────────┤</p>
+<p>│ Variabile z (int): 7 │ &lt;--- Risultato di (5 + 2)</p>
+<p>Indirizzo Basso └───────────────────────────┘ &lt;--- Stack Pointer
+(SP)</p>
+</blockquote>
+<h2 id="stampa-formattata-tramite-printf"><strong>Stampa Formattata
+tramite printf()</strong></h2>
+<p>La <mark>funzione printf</mark>() permette di stampare testo a
+terminale intercalando i valori attuali delle variabili attraverso la
+<strong>stringa di formato</strong> e gli <strong>specificatori di
+conversione</strong>:</p>
+<blockquote>
+<p>printf("Le variabili x, y e z valgono %d, %d e %d\n", x, y, z);</p>
+</blockquote>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 35%" />
+<col style="width: 49%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Tipo di Dato</strong></th>
+<th><strong>Specificatore di Conversione</strong></th>
+<th><strong>Descrizione</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>char</td>
+<td>%c</td>
+<td>Singoli caratteri ASCII.</td>
+</tr>
+<tr class="even">
+<td>short</td>
+<td>%hd</td>
+<td>Numeri interi con segno a 16 bit.</td>
+</tr>
+<tr class="odd">
+<td>int</td>
+<td>%d</td>
+<td>Numeri interi con segno standard (32 bit).</td>
+</tr>
+<tr class="even">
+<td>long</td>
+<td>%ld</td>
+<td>Numeri interi estesi.</td>
+</tr>
+<tr class="odd">
+<td>size_t</td>
+<td>%zu</td>
+<td>Dimensioni restituite dall'operatore sizeof.</td>
+</tr>
+<tr class="even">
+<td>float</td>
+<td>%f</td>
+<td>Numeri reali in virgola mobile.</td>
+</tr>
+<tr class="odd">
+<td>double</td>
+<td>%lf</td>
+<td>Numeri reali a doppia precisione.</td>
+</tr>
+</tbody>
+</table>
+<p>È possibile <mark>specificare l'ampiezza</mark> e la
+<mark>formattazione</mark> della stampa <mark>aggiungendo cifre tra
+%</mark> e lo specificatore:</p>
+<ul>
+<li><p><strong>%6d</strong>: allinea il valore a destra <mark>occupando
+un'ampiezza minima di 6 caratteri</mark> (<em>padding</em> con spazi a
+sinistra).</p></li>
+<li><p><strong>%06d</strong>: allinea il valore a destra
+<mark>riempiendo gli spazi vuoti con zeri iniziali</mark>
+(<em>zeroing</em>, ad esempio 7 diventa 000007).</p></li>
+</ul>
+<h2
+id="lettura-da-tastiera-tramite-scanf-e-loperatore-di-indirizzo"><strong>Lettura
+da Tastiera tramite scanf() e l'Operatore di Indirizzo
+&amp;</strong></h2>
+<p>La funzione <mark>scanf()</mark> <mark>legge i caratteri digitati
+dall'utente sul terminale</mark>, li converte nel tipo specificato e li
+memorizza nella RAM.</p>
+<p>A differenza di printf(), la funzione scanf() richiede <mark>l'uso
+tassativo dell'<strong>operatore di indirizzo &amp;</strong> anteposto
+all'identificatore della variabile</mark>:</p>
+<blockquote>
+<p>int n;</p>
+<p>printf("Inserisci un numero intero: ");</p>
+<p>scanf("%d", &amp;n); // Passa a scanf l'indirizzo di memoria di 'n'
+nello stack</p>
+</blockquote>
+<p><mark>L'operatore &amp; ricava l'<strong>indirizzo fisico di memoria
+RAM</strong> in cui la variabile n è allocata nello stack</mark>.
+Passare l'indirizzo anziché il semplice valore consente a scanf() di
+individuare esattamente la cella di memoria da sovrascrivere con l'input
+fornito dall'utente.</p>
+<h1
+id="capitolo-9-il-referenziamento-e-lindirizzo-delle-variabili"><strong>Capitolo
+9: Il Referenziamento e l'Indirizzo delle Variabili</strong></h1>
+<h2 id="lindirizzo-di-una-variabile"><strong>L'indirizzo di una
+variabile</strong></h2>
+<p>Nel modello di Von Neumann <mark>ogni variabile è memorizzata nella
+memoria centrale e occupa una certa quantità di byte</mark>. Per
+identificarla, la <mark>CPU usa il suo <strong>indirizzo di
+memoria</strong></mark>: un numero senza segno e univoco, analogo al
+numero civico di una casa. Per compattezza un indirizzo si visualizza di
+solito in formato esadecimale (ad esempio 0x7fffd0624e0c).</p>
+<p><strong>In parole povere:</strong> l'indirizzo di una variabile è il
+suo numero civico nella memoria: dice in quale casella (byte) comincia.
+Il valore dice che cosa c'è dentro la casa, l'indirizzo dice dove si
+trova la casa. Di solito si scrive in esadecimale.</p>
+<p>Il <mark>linguaggio C permette di ottenere questo indirizzo tramite
+l'<strong>operatore di referenziamento</strong> &amp;</mark>
+(<em>ampersand</em>). <mark>L'espressione &amp;x si legge "l'indirizzo
+della variabile x"</mark>. L'operatore era già comparso nel capitolo 8,
+nella lettura con scanf: qui lo studiamo in dettaglio.</p>
+<p><strong>In parole povere:</strong> l'operatore &amp;
+(referenziamento) si pone davanti a una variabile e significa «dammi il
+suo indirizzo». Se x è una variabile, &amp;x non è il contenuto della
+scatola ma l'indirizzo di dove sta la scatola.</p>
+<h2 id="valore-e-indirizzo-sono-informazioni-diverse"><strong>Valore e
+indirizzo sono informazioni diverse</strong></h2>
+<p>Ogni variabile ha due caratteristiche distinte: <mark>un valore e un
+indirizzo</mark>. Dato il codice:</p>
+<p>int main(void) {</p>
+<p>int x = 5;</p>
+<p>}</p>
+<p>Qui <mark>x è il <strong>valore</strong></mark>, cioè il contenuto
+della cella di memoria (5), mentre <mark>&amp;x è
+l'<strong>indirizzo</strong></mark>, cioè la posizione della cella in
+memoria (nello schema del corso, 0x03FC). Le due espressioni non vanno
+confuse: indicano cose diverse.</p>
+<h2 id="perché-è-utile-conoscere-gli-indirizzi"><strong>Perché è utile
+conoscere gli indirizzi</strong></h2>
+<p><mark>Poter nominare l'indirizzo di una variabile permette</mark> di
+scrivere istruzioni del tipo "<mark>moltiplica due numeri e memorizza il
+risultato in questa cella di memoria</mark>" oppure "leggi da tastiera
+un numero e memorizzalo nello spazio di memoria di una certa variabile".
+Ma c'è di più:</p>
+<ul>
+<li><p><mark>è indispensabile per lavorare con i
+<strong>puntatori</strong></mark>, cioè variabili il cui valore è un
+indirizzo di memoria;</p></li>
+<li><p><mark>rende possibile gestire la memoria dinamica</mark>, le
+strutture dati complesse e la comunicazione efficiente tra
+funzioni.</p></li>
+</ul>
+<p><mark>Per cominciare ci limitiamo a un uso semplice: stampare gli
+indirizzi a video</mark>. (Come nelle slide, negli esempi si omette la
+riga #include &lt;stdio.h&gt;, necessaria per usare printf e scanf.)</p>
+<h2 id="stampare-un-indirizzo-con-p"><strong>Stampare un indirizzo con
+%p</strong></h2>
+<p><mark>La funzione printf usa lo specificatore di conversione
+<strong>%p</strong> per mostrare un indirizzo, normalmente in forma
+esadecimale</mark>:</p>
+<p>int main(void) {</p>
+<p>int x = 5;</p>
+<p>int y = 2;</p>
+<p>int z = x + y;</p>
+<p>printf("La var x all'indirizzo %p vale %d \n", &amp;x, x);</p>
+<p>printf("La var y all'indirizzo %p vale %d \n", &amp;y, y);</p>
+<p>printf("La var z all'indirizzo %p vale %d \n", &amp;z, z);</p>
+<p>}</p>
+<p>Un'esecuzione possibile produce:</p>
+<p>La var x all'indirizzo 0x7fffd0624e0c vale 5</p>
+<p>La var y all'indirizzo 0x7fffd0624e08 vale 2</p>
+<p>La var z all'indirizzo 0x7fffd0624e04 vale 7</p>
+<p>Si nota che le variabili dichiarate dopo hanno indirizzi più bassi, e
+che i tre interi da 4 byte occupano celle contigue: è coerente con il
+modello dello stack usato nel corso, che si sviluppa verso indirizzi
+decrescenti (capitolo 7).</p>
+<p><img src="./media/image11.png"
+style="width:3.74016in;height:1.43592in" /></p>
+<p><em>Gli indirizzi di x, y e z nello schema del corso.</em></p>
+<h2 id="il-formato-concreto-degli-indirizzi"><strong>Il formato concreto
+degli indirizzi</strong></h2>
+<p>Il <mark>valore concreto di un indirizzo dipende dalla
+piattaforma</mark> e dalla singola esecuzione del programma; <mark>di
+solito è un numero molto grande</mark> (i dettagli si vedono nel corso
+di Sistemi Operativi). Per questo il valore stampato <strong><mark>non
+deve mai essere incorporato nella logica del
+programma</mark></strong>.</p>
+<p>Negli esempi del corso si usano indirizzi simbolici più corti, come
+0x03FC, 0x03F8 e 0x03F4, per rendere leggibili gli schemi della memoria.
+Ciò che conta non è il valore numerico dell'indirizzo, ma il fatto che
+identifichi una posizione in memoria.</p>
+<h1 id="section"></h1>
+<h1 id="capitolo-10-linput-da-tastiera-con-scanf"><strong>Capitolo 10:
+L'Input da Tastiera con scanf()</strong></h1>
+<h2 id="perché-scanf-ha-bisogno-dellindirizzo"><strong>Perché scanf ha
+bisogno dell'indirizzo</strong></h2>
+<p>Un programma non deve solo mostrare risultati, ma spesso anche
+<mark>ricevere dati dall'utente</mark>. In C <mark>questo si fa con la
+funzione <strong>scanf()</strong></mark> (le basi sono nel capitolo 8,
+qui ne approfondiamo il funzionamento), <mark>che legge i valori
+digitati da tastiera e li memorizza direttamente in variabili</mark>.
+Per leggere un intero in una variabile x già dichiarata si scrive:</p>
+<p><mark>scanf("%d", &amp;x);</mark></p>
+<p>Passando l'indirizzo <mark>&amp;x, si permette a scanf() di sapere in
+quale cella di memoria scrivere il dato letto</mark>. La funzione
+termina quando l'utente ha inserito l'input e preme INVIO.</p>
+<h2 id="un-esempio-passo-per-passo"><strong>Un esempio passo per
+passo</strong></h2>
+<p>Nel programma seguente le tre variabili occupano, nello schema del
+corso, gli indirizzi 0x03FC (x), 0x03F8 (y) e 0x03F4 (z):</p>
+<p>int main(void) {</p>
+<p>int x, y, z;</p>
+<p>printf("Inserisci x: ");</p>
+<p>scanf("%d", &amp;x);</p>
+<p>printf("Inserisci y: ");</p>
+<p>scanf("%d", &amp;y);</p>
+<p>z = x + y;</p>
+<p>printf("%d + %d = %d\n", x, y, z);</p>
+<p>}</p>
+<p>Ecco come cambia la memoria durante l'esecuzione:</p>
+<ul>
+<li><p>all'inizio x, y e z hanno un valore indeterminato (nello schema,
+"?");</p></li>
+<li><p>se l'utente digita 5, la prima scanf scrive 5 nella cella di
+x;</p></li>
+<li><p>se poi digita 2, la seconda scanf scrive 2 nella cella di
+y;</p></li>
+<li><p>l'assegnamento calcola z = 7 e l'ultima printf stampa "5 + 2 =
+7".</p></li>
+</ul>
+<p><img src="./media/image12.png"
+style="width:4.33071in;height:2.16323in" /></p>
+<p><em>Lo stato della memoria durante l'esecuzione del programma con
+scanf.</em></p>
+<h2 id="leggere-più-valori-con-una-sola-chiamata"><strong>Leggere più
+valori con una sola chiamata</strong></h2>
+<p><mark>Con una sola scanf si possono leggere più valori, indicando più
+specificatori e più indirizzi:</mark></p>
+<p><mark>scanf("%d%d", &amp;x, &amp;y);</mark></p>
+<p>L'utente può separare i due numeri con uno o più caratteri di
+spaziatura (ad esempio "5 2").</p>
+<h2 id="il-valore-di-ritorno-e-i-limiti-di-scanf"><strong>Il valore di
+ritorno e i limiti di scanf</strong></h2>
+<p><mark>La gestione dell'input è un punto critico: l'utente può sempre
+inserire valori sbagliati o incompleti</mark>. La funzione <mark>scanf()
+prova a interpretare l'input in base al formato specificato</mark> e,
+<mark>se</mark> incontra un dato <mark>incompatibile</mark> (per esempio
+un carattere al posto di un numero), <mark><strong>smette di
+leggere</strong> e restituisce il numero di valori letti con
+successo</mark>, che può essere minore di quelli attesi. Per esempio,
+dopo</p>
+<p>int x, y;</p>
+<p>int n = scanf("%d%d", &amp;x, &amp;y);</p>
+<ul>
+<li><p>se n vale 2, entrambi i valori sono stati letti
+correttamente;</p></li>
+<li><p>se n vale 1, solo il primo valore era valido;</p></li>
+<li><p>se n vale 0, nessun valore è stato letto e le variabili non sono
+state aggiornate.</p></li>
+</ul>
+<p>Vediamo il comportamento con un programma che legge un solo intero e
+stampa quanti valori ha letto:</p>
+<p>int main(void) {</p>
+<p>int x;</p>
+<p>printf("Inserisci un intero: ");</p>
+<p>int n = scanf("%d", &amp;x);</p>
+<p>printf("Valori letti correttamente: %d\n", n);</p>
+<p>printf("x vale %d \n", x);</p>
+<p>}</p>
+<ul>
+<li><p>con input 1234, scanf legge 1234 e restituisce 1;</p></li>
+<li><p>con input 1234.56, il formato %d si aspetta un intero: viene
+letto "1234" e ".56" rimane non consumato nell'input; n vale 1 e x vale
+1234;</p></li>
+<li><p>con input A, la lettera non si può interpretare come numero
+decimale: n vale 0 e <strong>x non viene aggiornata</strong>. Poiché x
+non era stata inizializzata, la printf tenta di leggere un valore
+indeterminato e il comportamento del programma è indefinito.</p></li>
+</ul>
+<h2
+id="dichiarare-avere-un-valore-avere-un-indirizzo-essere-inizializzata"><strong>Dichiarare
+avere un valore, avere un indirizzo, essere inizializzata</strong></h2>
+<p>L'ultimo esempio mette in luce quattro nozioni da tenere distinte:
+<mark>la <strong>dichiarazione</strong> di una variabi</mark>le, il suo
+<strong><mark>valore</mark></strong>, il suo
+<strong><mark>indirizzo</mark></strong> e il fatto che il <mark>valore
+sia stato <strong>inizializzato</strong></mark>. In particolare è
+<mark>lecito ottenere &amp;x anche se x non è ancora
+inizializzata</mark>: stiamo usando l'indirizzo di x e non leggendo il
+suo valore. Ma se x non viene inizializzata (in questo caso da scanf),
+non si può assumere nulla sul suo valore.</p>
+<p>Se invece x era stata inizializzata, per esempio con int x = -1, e
+l'input non è interpretabile secondo la specifica di conversione, la
+variabile non viene modificata e conserva il suo valore (nell'esempio,
+resta -1). Se scanf non aggiorna una variabile non inizializzata, il suo
+valore resta indeterminato.</p>
+<p><strong>Buona pratica</strong>: conviene sempre controllare il valore
+restituito da scanf prima di usare le variabili lette. Per capire fino
+in fondo perché scanf richiede un indirizzo servono i puntatori, che
+vediamo nel prossimo capitolo.</p>
+<h1 id="section-1"></h1>
+<h1 id="capitolo-11-i-puntatori"><strong>Capitolo 11: I
+Puntatori</strong></h1>
+<h2 id="il-puntatore-come-tipo-di-dati"><strong>Il puntatore come tipo
+di dati</strong></h2>
+<p>Un <mark><strong>puntatore</strong> è una variabile che memorizza
+l'indirizzo di memoria di un'altra variabile</mark>, detta <em>variabile
+puntata</em>. Il valore contenuto in un puntatore è quindi un
+<mark>indirizzo</mark>, anziché direttamente il dato puntato. Se per
+esempio la variabile int x = 5 ha indirizzo &amp;x pari a 0x03FC, ci
+serve un posto dove memorizzare 0x03FC: quel posto è una variabile
+puntatore.</p>
+<p><strong>In parole povere:</strong> un puntatore è una variabile
+speciale che non contiene un dato normale ma l'indirizzo di un'altra
+variabile. È come un biglietto con scritto «la chiave è al numero 12»:
+non è la chiave, ma ti dice dove andare a prenderla. La variabile a cui
+punta è quella «puntata».</p>
+<p>In C, <mark>per ciascun tipo di dati T esiste il corrispondente
+<strong>tipo puntatore</strong> T*</mark> ("T star"): <mark>le variabili
+di tipo T* servono a memorizzare gli indirizzi delle variabili di tipo
+T</mark>. Per esempio:</p>
+<ul>
+<li><p>int è il tipo delle variabili intere;</p></li>
+<li><p>int* è il tipo delle variabili puntatore che possono contenere
+indirizzi di variabili int;</p></li>
+<li><p>float* è il tipo dei puntatori a float.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> per ogni tipo T esiste il tipo T*,
+«puntatore a T»: un puntatore a int può contenere solo indirizzi di
+variabili int, uno a float solo indirizzi di float. Il tipo ricorda al
+compilatore che genere di dato troverà arrivando a quell'indirizzo, come
+l'etichetta «qui si trovano uova» su uno scaffale.</p>
+<p>int x = 5;</p>
+<p>int* pX;</p>
+<p>Qui x è una variabile di tipo int e pX è una variabile "puntatore
+agli interi", di tipo int*. Per convenzione si usa spesso il prefisso p
+nei nomi dei puntatori. Attenzione: dopo la sola dichiarazione, pX
+<strong>non contiene ancora un indirizzo valido</strong> da usare.</p>
+<h2
+id="loperatore-di-referenziamento-e-lassegnamento-a-un-puntatore"><strong>L'operatore
+di referenziamento e l'assegnamento a un puntatore</strong></h2>
+<p><mark>L'operatore &amp;</mark> (<em>address-of</em>), <mark>applicato
+a una variabile, ne restituisce l'indirizzo con tipo "puntatore al tipo
+della variabile"</mark>. Possiamo allora inizializzare il puntatore:</p>
+<p>int x = 5;</p>
+<p>int* pX = &amp;x; // pX riceve l'indirizzo di x</p>
+<p>Le tre espressioni si interpretano così:</p>
+<ul>
+<li><p>x è una variabile intera, di valore 5;</p></li>
+<li><p>&amp;x è un'espressione che vale l'indirizzo di x, di tipo int*
+(se x è int, allora &amp;x è int*);</p></li>
+<li><p>pX è un puntatore a intero che memorizza l'indirizzo di
+x.</p></li>
+</ul>
+<p>L'operatore &amp; va applicato a qualcosa che identifica una
+posizione di memoria: non si può applicare a un semplice valore né al
+risultato temporaneo di un calcolo. Sono quindi errori:</p>
+<p>&amp;5 // ERRORE</p>
+<p>&amp;(x + 1) // ERRORE</p>
+<h2 id="un-puntatore-è-una-variabile-come-le-altre"><strong>Un puntatore
+è una variabile come le altre</strong></h2>
+<p>Nello schema della memoria la variabile x contiene il valore 5
+all'indirizzo 0x03FC, mentre la variabile pX contiene 0x03FC, cioè
+l'indirizzo di x, e si trova a sua volta a un indirizzo proprio
+(nell'esempio 0x03F8). Un <mark>puntatore contiene un indirizzo, ma
+essendo una variabile occupa memoria e ha anche un suo indirizzo</mark>.
+L'assegnamento pX = &amp;x è corretto perché &amp;x e pX hanno lo stesso
+tipo, int*.</p>
+<p>Per vederlo si possono stampare sia l'indirizzo del puntatore
+(&amp;pX) sia il suo valore (pX):</p>
+<p>int main(void) {</p>
+<p>int x = 5;</p>
+<p>int* pX;</p>
+<p>pX = &amp;x;</p>
+<p>printf("Il ptr pX all'ind %p vale %p \n", &amp;pX, pX);</p>
+<p>}</p>
+<p>Con gli indirizzi simbolici dello schema, l'output sarebbe "Il ptr pX
+all'ind 0x03F8 vale 0x03FC".</p>
+<p><img src="./media/image13.png"
+style="width:3.74016in;height:1.64618in" /></p>
+<p><em>Il puntatore pX contiene l'indirizzo di x.</em></p>
+<h2 id="due-errori-tipici"><strong>Due errori tipici</strong></h2>
+<ul>
+<li><p><strong>Usare &amp;x prima di aver dichiarato x</strong>: il
+compilatore segnala un errore ("'x' undeclared"), perché al momento di
+int* pX = &amp;x la variabile x non esiste ancora.</p></li>
+<li><p><strong>Tipi incompatibili</strong>: se x è un float, &amp;x ha
+tipo float* e non è compatibile con una variabile int*; il compilatore
+avverte con un warning ("initialization of 'int *' from incompatible
+pointer type 'float *'"). Nei compilatori più recenti (ad esempio GCC
+14) questo caso è invece un errore di compilazione.</p></li>
+</ul>
+<h2 id="come-si-scrive-la-dichiarazione"><strong>Come si scrive la
+dichiarazione</strong></h2>
+<p>Finora abbiamo scritto int* pX, ma è in uso frequente anche la
+convenzione int *pX. Il simbolo * ha anche un altro significato nelle
+operazioni sui puntatori, il dereferenziamento, che vediamo nel prossimo
+capitolo.</p>
+<h2 id="scanf-riletta-con-i-puntatori"><strong>scanf riletta con i
+puntatori</strong></h2>
+<p><mark>La documentazione di scanf richiede che ogni conversione riceva
+un <strong>puntatore al tipo appropriato</strong></mark>: per %d serve
+un int*. Con int x, l'espressione &amp;x ha proprio tipo int*, ed è per
+questo che scanf("%d", &amp;x) funziona: scanf può scrivere in quella
+cella il valore letto. Ma allora al posto di &amp;x si può passare
+direttamente un puntatore che contiene lo stesso indirizzo:</p>
+<p>int main(void) {</p>
+<p>int x;</p>
+<p>int* pX = &amp;x;</p>
+<p>printf("Inserisci un intero: ");</p>
+<p>scanf("%d", pX);</p>
+<p>printf("La var x all'ind %p vale %d \n", pX, x);</p>
+<p>}</p>
+<p>L'assegnamento pX = &amp;x è lecito anche se x non è ancora
+inizializzata (si usa l'indirizzo, non il valore). Dopo che l'utente ha
+digitato 5, la cella di x contiene 5, e la printf mostra l'indirizzo
+contenuto in pX e il valore di x.</p>
+<h1 id="section-2"></h1>
+<h1
+id="capitolo-12-dereferenziamento-alias-e-puntatore-nullo"><strong>Capitolo
+12: Dereferenziamento, Alias e Puntatore Nullo</strong></h1>
+<h2 id="loperatore-di-dereferenziamento"><strong>L'operatore di
+dereferenziamento *</strong></h2>
+<p><mark>L'operatore unario <strong>asterisco</strong></mark>
+<strong>(*)</strong> (<em>dereference</em> o <em>indirect access</em>)
+<mark>permette di accedere alla variabile puntata attraverso l'indirizzo
+memorizzato nel puntatore</mark>. <mark>Dereferenziare un puntatore
+significa usare l'indirizzo che contiene per accedere indirettamente
+alla variabile puntata</mark>. Per esempio:</p>
+<p>int y = 5;</p>
+<p>int* pY = &amp;y;</p>
+<p>printf("%d", *pY);</p>
+<p><mark>Qui *pY accede alla stessa cella di memoria di y, perché pY ne
+contiene l'indirizzo.</mark> Il tipo segue una regola semplice: <mark>se
+un puntatore p ha tipo T*, allora l'espressione *p ha tipo T</mark>.
+Negli esempi di questo capitolo si alternano le scritture int* pX e int
+*pX, equivalenti.</p>
+<p><strong>In parole povere:</strong> dereferenziare un puntatore vuol
+dire «seguire il biglietto»: usare l'indirizzo che contiene per andare
+davvero alla variabile puntata. Se pY contiene l'indirizzo di y, *pY è y
+stessa: puoi leggerne il valore o cambiarlo. Il simbolo * davanti al
+puntatore significa «ciò che c'è a quell'indirizzo».</p>
+<h2 id="leggere-e-modificare-tramite-il-puntatore"><strong>Leggere e
+modificare tramite il puntatore</strong></h2>
+<p>Con int x = 5; e int* pX = &amp;x; si può accedere alla variabile
+puntata in due modi:</p>
+<ul>
+<li><p><strong>in lettura</strong>: <mark>printf("%d\n", *pX) stampa 5,
+il valore della variabile puntata, come x</mark>;</p></li>
+<li><p><strong>in modifica</strong>: *<mark>pX = 10; assegna un nuovo
+valore alla variabile puntata; dopo l'istruzione x vale
+10</mark>.</p></li>
+</ul>
+<p>int x = 5;</p>
+<p>int *pX = &amp;x;</p>
+<p>printf("x = %d\n", x); // stampa 5</p>
+<p>printf("*pX = %d\n", *pX); // stampa ancora 5</p>
+<p>*pX = 10; // modifica x tramite pX</p>
+<p>printf("x = %d\n", x); // stampa 10</p>
+<p>x e *pX <mark>accedono alla <strong>stessa cella</strong>,</mark>
+quindi leggono lo stesso valore: scrivere in *pX modifica x.</p>
+<h2 id="riferimenti-multipli-e-aliasing"><strong>Riferimenti multipli e
+aliasing</strong></h2>
+<p><mark>Due puntatori possono contenere lo stesso indirizzo:</mark></p>
+<p>int x = 5;</p>
+<p>int* pX = &amp;x;</p>
+<p>int* pXbis = pX;</p>
+<p>*pXbis = 1234;</p>
+<p>printf("x = %d\n", x); // 1234</p>
+<p>printf("*pX = %d\n", *pX); // 1234</p>
+<p>printf("*pXbis = %d\n", *pXbis);// 1234</p>
+<p><mark>La scrittura su *pXbis avviene nella cella di x: x, *pX e
+*pXbis indicano la stessa variabile</mark> (*pX e *pXbis sono alias di
+x). <mark>pX e pXbis sono due variabili puntatore diverse, ma contengono
+lo stesso indirizzo.</mark> Di conseguenza le tre istruzioni scanf("%d",
+&amp;x), scanf("%d", pX) e scanf("%d", pXbis) sono equivalenti: indicano
+sempre la stessa cella.</p>
+<p><img src="./media/image14.png"
+style="width:3.74016in;height:1.98736in" /></p>
+<p><em>Aliasing: due puntatori alla stessa variabile.</em></p>
+<p>Questo fenomeno si chiama <strong>aliasing</strong>. Quando si
+dichiara una variabile in C, essa è accessibile tramite un solo nome
+simbolico (x). Con i puntatori più "etichette" possono invece fare
+riferimento allo stesso dato: sia il nome diretto della variabile, sia
+uno o più puntatori che ne contengono l'indirizzo. Modificando la
+variabile attraverso uno degli alias, anche gli altri "vedono" il nuovo
+valore, perché accedono allo stesso indirizzo.</p>
+<p><strong>In parole povere:</strong> aliasing vuol dire che la stessa
+variabile ha più «nomi» per raggiungerla: la variabile stessa (x) e
+tutti i puntatori che ne contengono l'indirizzo. È come una persona con
+un nome e un soprannome: se qualcuno cambia qualcosa passando dal
+soprannome, il cambiamento lo vedi anche chiamandola per nome, perché è
+la stessa persona.</p>
+<h2 id="puntatori-non-inizializzati-e-puntatore-nullo"><strong>Puntatori
+non inizializzati e puntatore nullo</strong></h2>
+<p>Si <mark>può dereferenziare un puntatore <strong>solo se contiene un
+indirizzo valido</strong></mark>. Dopo la sola dichiarazione, un
+<mark>puntatore ha un valore indeterminato</mark>, come ogni variabile
+automatica non inizializzata, e <mark>quel valore non può essere usato
+come indirizzo</mark>: dereferenziarlo è un errore a tempo di esecuzione
+(comportamento indefinito).</p>
+<p>int* pX; // non inizializzato</p>
+<p>*pX = 10; // ERRORE</p>
+<p>Per <mark>dare a un puntatore un valore esplicito che significa "non
+punta a niente" si usa <strong>NULL</strong></mark>, valore di puntatore
+che indica che quel puntatore non fa riferimento ad alcuna variabile. Si
+usa come valore di inizializzazione o come valore sentinella:</p>
+<p>int main(void) {</p>
+<p>int *p = NULL; // inizializzazione sicura</p>
+<p>*p = 10; // ERRORE: p non contiene un indirizzo accessibile</p>
+<p>}</p>
+<p>NULL consente di inizializzare esplicitamente un puntatore, evitando
+un valore indeterminato, e di riconoscere esplicitamente il caso "non
+punta ad alcuna variabile". Attenzione: dereferenziare un puntatore NULL
+produce un comportamento indefinito (in genere un errore che termina il
+programma).</p>
+<p><strong>In parole povere:</strong> NULL è il valore «non punto a
+niente»: un biglietto lasciato volutamente in bianco, invece di uno con
+un indirizzo qualsiasi lasciato dal caso. Meglio un puntatore
+dichiaratamente vuoto che uno con un valore casuale, ma attenzione:
+provare a seguirlo (dereferenziarlo) manda in errore il programma.</p>
+<h2 id="la-dimensione-di-un-puntatore"><strong>La dimensione di un
+puntatore</strong></h2>
+<p>Un <mark>puntatore occupa memoria come ogni variabile</mark>, ma la
+sua <mark>dimensione dipende dalla <strong>piattaforma</strong> e non
+dalla dimensione del tipo puntato</mark>. Su una tipica CPU a 64 bit un
+puntatore occupa 8 byte, su una tipica CPU a 32 bit 4 byte:</p>
+<p>int x;</p>
+<p>int* pX;</p>
+<p>printf("sizeof(x) %zu B\n", sizeof(x)); // 4 B</p>
+<p>printf("sizeof(pX) %zu B\n", sizeof(pX)); // 8 B su piattaforma a 64
+bit</p>
+<h2 id="e-sono-operazioni-complementari"><strong>&amp; e * sono
+operazioni complementari</strong></h2>
+<p>Se int a = 7; e int* pA = &amp;a;, allora l'indirizzo di a, il valore
+di pA, &amp;*pA e *&amp;pA coincidono, mentre a e *pA valgono entrambi
+7: <mark>gli operatori &amp; e * si "annullano" a vicenda</mark>.</p>
+<h2 id="i-diversi-usi-del-simbolo"><strong>I diversi usi del simbolo
+*</strong></h2>
+<p>Il simbolo * (<em>star</em>) si usa in C con quattro significati:</p>
+<p>1. operatore di <strong>moltiplicazione</strong>: int x = a * b;</p>
+<p>2. <strong>dichiarazione</strong> di una variabile di tipo puntatore:
+int* pX = &amp;x;</p>
+<p>3. <strong>dereferenziamento</strong> di un puntatore: int x =
+*pX;</p>
+<p>4. <strong>puntatore a puntatore</strong> (non trattato nel corso):
+int** ppX = &amp;pX; pX = *ppX; **ppX = 10;</p>
+<p>Distinguere il contesto in cui compare l'asterisco è il modo per non
+confondere questi usi. I puntatori sono la base per gestire la memoria
+dinamica, le strutture dati complesse e la comunicazione efficiente tra
+funzioni.</p>
+<h1
+id="capitolo-13-scambio-di-variabili-e-variabile-temporanea"><strong>Capitolo
+13: Scambio di Variabili e Variabile Temporanea</strong></h1>
+<h2 id="il-problema-dello-scambio"><strong>Il problema dello
+scambio</strong></h2>
+<p>Lo <strong><mark>scambio</mark></strong> (in inglese <em>swap</em>)
+<mark>dei valori di due variabili è un'operazione fondamentale in
+programmazione</mark>, usata in molti algoritmi, per esempio nel
+<mark>bubble sort.</mark> Sembra banale, ma il metodo più ovvio e
+intuitivo non funziona, e capire perché è un buon modo per fissare che
+cosa fa davvero un assegnamento.</p>
+<p>Per introdurre il problema si usa un'analogia. Abbiamo due tazze (le
+chiameremo X e Y), una con tè verde e una con tè nero, e vogliamo
+scambiarne il contenuto. Non possiamo versare direttamente una tazza
+nell'altra, perché i due tè si mescolerebbero. Una soluzione c'è: usare
+altre due tazze vuote, travasarci i due tè e poi rimetterli ciascuno
+nella tazza opposta. Funziona, ma non è efficiente, perché usa il doppio
+dello spazio. Si può fare meglio con <strong>una sola tazza
+ausiliaria</strong> A:</p>
+<p>1. si versa il tè verde nella tazza vuota;</p>
+<p>2. si versa il tè nero nella tazza che era del tè verde;</p>
+<p>3. si versa infine il tè verde, che aspettava nella tazza ausiliaria,
+nella tazza che era del tè nero.</p>
+<p>Questa soluzione funziona ed è efficiente, ma la sequenza dei travasi
+deve avvenire nell'ordine giusto: con un ordine diverso uno dei due tè
+andrebbe perso. Con le variabili vale lo stesso, e la tazza ausiliaria
+diventerà una variabile d'appoggio.</p>
+<p><img src="./media/image15.png"
+style="width:4.92126in;height:2.84756in" /></p>
+<p><em>Lo scambio delle tazze con una sola tazza ausiliaria (in rosso le
+tazze il cui contenuto è cambiato).</em></p>
+<h2 id="lo-scambio-con-variabile-temporanea"><strong>Lo scambio con
+variabile temporanea</strong></h2>
+<p>Per <mark>scambiare correttamente i valori di due variabili serve una
+terza variabile di supporto</mark>, dello stesso tipo, che conservi
+temporaneamente uno dei due valori. Questo metodo si chiama
+<strong>scambio con <mark>variabile temporanea</mark></strong> (o
+variabile d'appoggio) ed è l'esatto equivalente della tazza ausiliaria.
+I passi sono tre:</p>
+<p>1. si salva il valore di x nella variabile d'appoggio;</p>
+<p>2. si copia il valore di y in x;</p>
+<p>3. si copia in y il valore conservato nella variabile d'appoggio.</p>
+<p><strong>In parole povere:</strong> la variabile temporanea (o
+d'appoggio) è una scatola in più usata solo per parcheggiare un valore
+un momento, così non va perso quando ne sovrascrivi un altro. Come la
+tazza vuota per scambiare due tè: prima versi un tè nella tazza vuota,
+poi sposti l'altro, poi versi dalla tazza d'appoggio.</p>
+<p>I nomi tipici delle variabili d'appoggio sono temp, aux, prevX,
+savedX, backup.</p>
+<p>int main(void) {</p>
+<p>int x = 5;</p>
+<p>int y = 2;</p>
+<p>int temp;</p>
+<p>temp = x; // 1: salvo il vecchio valore di x</p>
+<p>x = y; // 2: ora posso sovrascrivere x</p>
+<p>y = temp; // 3: recupero il valore salvato</p>
+<p>printf("Le var x, y valgono %d, %d\n", x, y);</p>
+<p>}</p>
+<p>Sullo stack, <mark>la dichiarazione int temp</mark>; alloca altri 4
+byte con valore indeterminato (il simbolo "?" con cui si indica un
+contenuto indeterminato, come visto nel capitolo 7). Poi, passo per
+passo:</p>
+<ul>
+<li><p>temp = x; copia 5 in temp: ora il valore originale di x esiste in
+due celle;</p></li>
+<li><p>x = y; sovrascrive x con 2, ma questa volta nessuna informazione
+è persa, perché il 5 è al sicuro in temp;</p></li>
+<li><p>y = temp; copia in y il 5 salvato.</p></li>
+</ul>
+<p>Il programma stampa Le var x, y valgono 2, 5: i valori sono stati
+scambiati.</p>
+<p><img src="./media/image16.png"
+style="width:4.92126in;height:2.4897in" /></p>
+<p><em>Scambio con variabile temporanea: il 5 resta al sicuro in temp
+finché y non lo riceve (in rosso le celle il cui valore è
+cambiato).</em></p>
+<h2 id="perché-lordine-conta"><strong>Perché l'ordine
+conta</strong></h2>
+<p>Come nell'esempio delle tazze, la sequenza dei tre assegnamenti non
+si può cambiare a piacere: ogni assegnamento deve avvenire quando il
+valore che sta per essere sovrascritto è già stato salvato altrove. Per
+esempio, scrivendo x = y; temp = x; y = temp; si copia in temp un valore
+di x che è già stato sovrascritto, e alla fine x, y e temp valgono tutti
+2: il 5 è stato perso proprio come nel metodo ovvio.</p>
+<p>Il prezzo della soluzione corretta è piccolo: una sola variabile in
+più, cioè 4 byte per degli int, a fronte di un'operazione che il metodo
+ovvio non sa fare. Lo scambio con variabile temporanea sarà utile ogni
+volta che un algoritmo dovrà riordinare dei valori; nel prossimo
+capitolo passiamo invece ai numeri reali, con i tipi float e double.</p>
+<h1
+id="capitolo-14-numeri-reali-in-c-float-double-e-formati-di-stampa"><strong>Capitolo
+14: Numeri Reali in C: float, double e Formati di Stampa</strong></h1>
+<h2 id="i-tipi-per-i-numeri-reali"><strong>I tipi per i numeri
+reali</strong></h2>
+<p>Nel calcolo scientifico e in moltissime applicazioni pratiche
+(grafica, simulazioni, elaborazione di dati) occorre lavorare con numeri
+reali, cioè con valori che hanno una parte intera e una parte
+frazionaria. In C sono rappresentati principalmente da due tipi:
+<strong><mark>float</mark></strong>, tipicamente a <mark>32</mark> bit,
+e <strong><mark>double</mark></strong>, tipicamente a <mark>64</mark>
+bit. <mark>Hanno entrambi una codifica in virgola mobile</mark>, che
+segue lo standard IEEE 754, argomento che si vedrà nel corso di
+Fondamenti dell'Informatica. Come già osservato nel capitolo 6, sono
+modelli finiti dei numeri reali: i due tipi si distinguono proprio per
+la <strong>precisione</strong> e per l'<strong>intervallo</strong> di
+valori che riescono a rappresentare.</p>
+<ul>
+<li><p><strong>float</strong>: 32 bit (4 byte), circa 7 cifre decimali
+di precisione, valori da circa 10<sup>-38</sup> a circa 10<sup>38</sup>.
+È adatto quando serve risparmiare memoria o per calcoli meno
+critici.</p></li>
+<li><p><strong>double</strong>: 64 bit (8 byte), circa 15-16 cifre
+decimali, valori da circa 10<sup>-308</sup> a circa 10<sup>308</sup>. È
+il tipo per i calcoli scientifici e per le applicazioni che richiedono
+alta precisione.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> float e double sono i tipi per
+numeri con la virgola. Il float usa 32 bit (circa 7 cifre giuste), il
+double 64 bit (circa 15-16 cifre giuste): il double è più preciso e
+arriva più lontano, ma occupa il doppio. Sono numeri «in virgola
+mobile»: la virgola si sposta, come nella notazione scientifica, e
+proprio per questo il numero è solo un'approssimazione.</p>
+<p>Sui numeri reali valgono le quattro operazioni aritmetiche: addizione
+(+), sottrazione (-), moltiplicazione (*) e divisione (/). Non c'è
+invece l'operatore modulo (%), che in C è definito solo per gli interi:
+esiste una funzione di libreria con questo scopo, chiamata fmod, ma il
+corso non la userà.</p>
+<h2 id="float-e-double-in-memoria"><strong>float e double in
+memoria</strong></h2>
+<p>Vediamo un primo esempio. Il programma calcola la divisione tra due
+variabili reali e stampa i tre valori:</p>
+<p>int main(void) {</p>
+<p>float x = 5, y = 2, z;</p>
+<p>z = x / y;</p>
+<p>printf("La var x vale %f\n", x);</p>
+<p>printf("La var y vale %f\n", y);</p>
+<p>printf("La var z vale %f\n", z);</p>
+<p>}</p>
+<p>L'output è La var x vale 5.000000, La var y vale 2.000000 e La var z
+vale 2.500000. Poiché gli operandi sono reali, la divisione mantiene la
+parte frazionaria: 5 / 2 dà 2.5. In memoria ciascuna delle tre variabili
+float occupa 4 byte. Se si sostituisce float con <strong>double</strong>
+il risultato stampato è identico, ma ogni variabile occupa 8 byte (64
+bit). I due tipi si possono anche mescolare: se x e y sono float e z è
+un double, la divisione tra x e y dà comunque 2.5, che viene memorizzato
+in una variabile da 8 byte.</p>
+<p><img src="./media/image17.png"
+style="width:4.72441in;height:2.83553in" /></p>
+<p><em>float e double in memoria: stesse operazioni, ma 4 byte per ogni
+float e 8 byte per ogni double.</em></p>
+<h2 id="stampare-i-numeri-reali-f-e-e-g"><strong>Stampare i numeri
+reali: %f, %e e %g</strong></h2>
+<p>Per stampare un numero reale con printf si usano tre specificatori di
+conversione, che differiscono per la notazione. Prendiamo come esempio
+double z = 2.5;:</p>
+<ul>
+<li><p><strong>%f</strong>: <mark>notazione decimale fissa</mark>, con 6
+cifre decimali di default (2.500000). È la scelta per la
+rappresentazione "naturale" di un numero reale.</p></li>
+<li><p><strong>%e</strong>: <mark>notazione scientifica o
+esponenziale</mark> (2.500000e+00). È utile per numeri molto grandi o
+molto piccoli.</p></li>
+<li><p><strong>%g</strong>: <mark>formato adattivo, che sceglie tra %f e
+%e quello più compatto ed elimina gli zeri inutili</mark> (2.5). Si usa
+quando serve una stampa leggibile e compatta, senza preoccuparsi della
+notazione; stampa al più 6 cifre significative.</p></li>
+</ul>
+<p><mark>Come per gli interi, dove %6d fissa la larghezza minima del
+campo (capitolo 8), anche qui si può controllare la
+formattazione</mark>: scrivendo un punto e un numero tra il simbolo % e
+la lettera, come in %.3f, si indica la <strong>precisione</strong>, cioè
+quante cifre decimali stampare. Con la stessa variabile z:</p>
+<p>printf("z vale %f</p>
+<p>", z); // z vale 2.500000</p>
+<p>printf("z vale %.3f</p>
+<p>", z); // z vale 2.500</p>
+<p>printf("z vale %.3e</p>
+<p>", z); // z vale 2.500e+00</p>
+<p><mark>Con %.3f la stampa si ferma al terzo decimale</mark> (più
+precisamente il valore viene arrotondato: 2.5678 con %.3f diventa
+2.568); <mark>con %.3e la notazione esponenziale mostra tre
+decimali</mark>. Gli specificatori di printf sono descritti nel manuale
+della libreria C di GNU (sezione sull'output formattato), a cui conviene
+abituarsi a ricorrere.</p>
+<h2 id="leggere-i-double-con-scanf"><strong>Leggere i double con
+scanf</strong></h2>
+<p>I<mark>n printf lo specificatore <strong>%f</strong> va bene sia per
+i float sia per i double, ed è quello usato negli esempi
+precedenti</mark>. <mark>Con scanf la distinzione invece conta: per
+leggere un <strong>double</strong> non si possono usare %f, %e e %g, ma
+gli specificatori con la lettera l, cioè <strong>%lf</strong>,
+<strong>%le</strong> e <strong>%lg</strong></mark>. La ragione sta nel
+funzionamento di scanf, che scrive direttamente nella memoria
+all'indirizzo passato (&amp;x, capitolo 9) e deve sapere quanti byte
+occupa la variabile: 8 per un double, 4 per un float. Usare %f con un
+double significherebbe scriverne solo una parte, con un valore letto
+sbagliato. La tabella dei tipi del corso riporta coerentemente %f per il
+float e %lf per il double.</p>
+<p>In sintesi, per i numeri reali si stampa con %f, %e o %g (a seconda
+della notazione che si vuole) e si legge con %f, %e o %g per un float e
+con %lf, %le o %lg per un double.</p>
+<p>I numeri reali sono approssimati, e le conversioni tra i tipi
+numerici possono far perdere informazione: è il tema del capitolo 16. Il
+prossimo capitolo introduce invece le funzioni matematiche della
+libreria math.h.</p>
+<h1 id="section-3"></h1>
+<h1
+id="capitolo-15-la-libreria-math.h-e-la-lettura-della-documentazione"><strong>Capitolo
+15: La Libreria math.h e la Lettura della Documentazione</strong></h1>
+<h2 id="oltre-le-operazioni-di-base"><strong>Oltre le operazioni di
+base</strong></h2>
+<p><mark>Gli operatori del C (+, -, *, / e, per gli interi, %) coprono
+solo le operazioni aritmetiche di base</mark>. Per le <mark>funzioni
+matematiche più avanzate, come radici, potenze, logaritmi e funzioni
+trigonometriche, si usa</mark> <mark>la libreria
+<strong>math.h</strong></mark>, da includere con:</p>
+<p>#include &lt;math.h&gt;</p>
+<p>La libreria fornisce una serie di funzioni utili, tra cui
+<strong><mark>sqrt</mark>()</strong> (radice quadrata),
+<strong><mark>pow</mark>()</strong> (potenza),
+<strong><mark>sin</mark>()</strong> e
+<strong><mark>cos</mark>()</strong>, disponibili in versioni per float,
+double e long double (con i suffissi f e l; un argomento int viene
+convertito automaticamente a double). L'elenco completo è consultabile
+nella documentazione online della libreria (per esempio su
+cppreference.com, alla pagina dedicata all'header math.h).</p>
+<p><strong>In parole povere:</strong> una libreria è una cassetta degli
+attrezzi già pronta: tante funzioni scritte da altri (qui sqrt per la
+radice, pow per le potenze) che puoi usare senza riscriverle. Con
+#include dici al programma quale cassetta usare; math.h è quella della
+matematica.</p>
+<p>C'è un'avvertenza pratica per chi lavora in ambiente Unix: l'uso di
+math.h richiede di indicare al compilatore anche la libreria matematica,
+con l'opzione <strong>-lm</strong> da aggiungere alla fine del comando,
+per esempio gcc programma.c -lm. Senza questa opzione la fase di
+collegamento può fallire sulle funzioni di math.h (tipicamente con un
+errore di "undefined reference").</p>
+<h2 id="un-esempio-quadrato-e-radice"><strong>Un esempio: quadrato e
+radice</strong></h2>
+<p>Il programma seguente calcola il quadrato e la radice quadrata di un
+numero reale e li stampa con due decimali:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;math.h&gt;</p>
+<p>int main(void) {</p>
+<p>float num = 9.0, radice, quadrato;</p>
+<p>quadrato = pow(num, 2);</p>
+<p>radice = sqrt(num);</p>
+<p>printf("Il quadrato di %.0f è %.2f\n", num, quadrato);</p>
+<p>printf("La radice di %.0f è %.2f\n", num, radice);</p>
+<p>}</p>
+<p>Qui pow(num, 2) calcola 9 elevato alla seconda, cioè 81, e sqrt(num)
+calcola la radice quadrata di 9, cioè 3. L'output è:</p>
+<p>Il quadrato di 9 è 81.00</p>
+<p>La radice di 9 è 3.00</p>
+<p><mark>Nella printf, %.0f stampa num senza decimali</mark> (9),
+<mark>mentre %.2f stampa i due risultati con due decimali</mark>
+(capitolo 14). Le funzioni di math.h lavorano in genere con valori
+double; qui il risultato viene assegnato a variabili float, con una
+conversione di tipo implicita di cui si parlerà nel capitolo 16.</p>
+<h1 id="section-4"></h1>
+<h1
+id="capitolo-16-conversioni-di-tipo-implicite-promozione-ed-esplicite"><strong>Capitolo
+16: Conversioni di Tipo: Implicite, Promozione ed
+Esplicite</strong></h1>
+<h2 id="perché-servono-le-conversioni"><strong>Perché servono le
+conversioni</strong></h2>
+<p><mark>Quando in un programma si usano variabili di tipi diversi
+(interi, reali, caratteri), queste non hanno la stessa rappresentazione
+né le stesse caratteristiche</mark>. Per poterle usare in una stessa
+espressione, i valori devono essere <mark>trasformati in un formato
+compatibile</mark>: questo processo si chiama <strong><mark>conversione
+di tipo</mark></strong>. In C esistono due modalità:</p>
+<ul>
+<li><p>le <strong>conversioni implicite</strong>, <mark>eseguite
+automaticamente dal compilatore</mark>;</p></li>
+<li><p>le <strong>conversioni esplicite</strong> (dette
+<strong><mark>cast</mark></strong>), <mark>richieste in modo volontario
+dal programmatore</mark>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> la conversione di tipo è
+trasformare un valore da un tipo a un altro, come cambiare euro in
+dollari: il valore è «lo stesso» ma scritto in un altro formato, e
+spesso nel cambio si perde qualcosa. Implicita: la fa il compilatore da
+solo. Esplicita (cast): la chiedi tu.</p>
+<p>In entrambi i casi la conversione può comportare una perdita di
+informazione o di precisione, ed è proprio questo il punto su cui
+occorre stare attenti.</p>
+<h2 id="le-conversioni-implicite"><strong>Le conversioni
+implicite</strong></h2>
+<p>Il <mark>C permette di combinare nella stessa espressione variabili
+di tipi diversi</mark> (per esempio int, float e double): il
+comp<mark>ilatore provvede da solo a uniformarli, con un meccanismo
+chiamato <strong>implicit casting</strong></mark>. L'avvertenza
+importante è che queste conversioni possono causare <mark>perdite di
+precisione <strong>senza generare errori o avvisi</strong></mark>.
+L'esempio tipico, già incontrato nel capitolo 6 con int y = 8.89;, è
+assegnare un valore float a una variabile int: la parte frazionaria
+viene eliminata in silenzio.</p>
+<p>I casi principali sono questi:</p>
+<ul>
+<li><p><strong>int → float</strong> e <strong>int → double</strong>: la
+conversione è implicita e di norma non perde dati (il float può perdere
+precisione solo per interi molto grandi). Con int x = 5; float y = x; si
+ottiene y = 5.0;</p></li>
+<li><p><strong>float → int</strong> e <strong>double → int</strong>: la
+parte frazionaria va persa, senza errore. Con float x = 3.7; int y = x;
+y vale 3, e con double x = 9.9; int y = x; vale 9. Se il valore è fuori
+dall'intervallo degli interi il comportamento è indefinito;</p></li>
+<li><p><strong>double → float</strong>: si perde precisione. Con double
+a = 3.14159; float b = a; b vale circa 3.14159, ma con meno cifre
+affidabili;</p></li>
+<li><p><strong>char → int</strong>: il valore ASCII del carattere viene
+promosso a int. Con char c = 'A'; int x = c; x vale 65;</p></li>
+<li><p><strong>conversioni non compatibili</strong>: il compilatore le
+segnala come errore, come int x = 5; int *p = x;, che assegna un intero
+a un puntatore.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> nel casting implicito è il
+compilatore a convertire da solo, senza chiederti niente, quando mescoli
+tipi diversi. Passare da int a float è sicuro; da float a int taglia i
+decimali (3.7 diventa 3) senza avvisare. Il pericolo è proprio che non
+ti dice che ha perso qualcosa.</p>
+<h2 id="la-promozione-di-tipo"><strong>La promozione di
+tipo</strong></h2>
+<p>Quando si scrivono espressioni aritmetiche con operandi di tipo
+diverso, occorre capire i tipi di ciascun operando, <mark>seguendo le
+regole di <strong>promozione di tipo</strong> applicate dal
+compilatore</mark>, <mark>e valutare se la combinazione può causare una
+perdita di precisione o un risultato inatteso</mark>. <mark>Il principio
+è che i tipi "più piccoli" vengono promossi a tipi più grandi</mark>
+(char → short → int → long, e float → double quando l'altro operando è
+un double), così da ridurre la perdita di informazione. Se i tipi
+differiscono, il compilatore converte l'operando al tipo più ampio o più
+preciso. Se uno dei due è intero e l'altro reale, la promozione è a
+reale. Per esempio:</p>
+<ul>
+<li><p>char + int viene promosso a int;</p></li>
+<li><p>int + double viene promosso a double.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> la promozione di tipo è la regola
+con cui il compilatore, davanti a un'operazione tra due tipi diversi,
+porta quello «più piccolo» al tipo più grande e preciso, così da non
+perdere informazioni: int + double dà double, char + int dà int. Come
+mettere entrambi nel contenitore più capiente prima di sommare.</p>
+<h2 id="la-divisione-tra-interi"><strong>La divisione tra
+interi</strong></h2>
+<p>La promozione spiega un errore molto frequente. Consideriamo questo
+programma:</p>
+<p>int main(void) {</p>
+<p>int x = 5, y = 2;</p>
+<p>float z = x / y;</p>
+<p>printf("La var x vale %d\n", x);</p>
+<p>printf("La var y vale %d\n", y);</p>
+<p>printf("La var z vale %f\n", z);</p>
+<p>}</p>
+<p>Si potrebbe pensare che z valga 2.5, perché z è un float. Invece
+l'espressione x / y ha due operandi interi, quindi la divisione è una
+<strong><mark>divisione tra interi</mark></strong> e dà 2: la parte
+frazionaria si perde già durante la divisione. Il valore 2 viene poi
+assegnato a z con una conversione implicita da int a float, e z vale
+2.000000. L'ultima printf stampa quindi La var z vale 2.000000.</p>
+<p>Il contrario accade con un'altra variante:</p>
+<p>int main(void) {</p>
+<p>float x = 5, y = 2;</p>
+<p>int z = x / y;</p>
+<p>printf("La var x vale %f\n", x);</p>
+<p>printf("La var y vale %f\n", y);</p>
+<p>printf("La var z vale %d\n", z);</p>
+<p>}</p>
+<p>Ora la divisione tra float non ha problemi e dà 2.5, ma questo valore
+viene assegnato a una variabile int: è un casting implicito da float a
+int con perdita della parte frazionaria, e z vale 2. La stampa è La var
+z vale 2.</p>
+<p><img src="./media/image18.png"
+style="width:4.92126in;height:2.54577in" /></p>
+<p><em>Tre divisioni con tipi diversi: dove si perde la parte
+frazionaria (le prime due sono quelle di questa sezione, la terza è con
+il cast della sezione seguente).</em></p>
+<h2 id="le-conversioni-esplicite-cast"><strong>Le conversioni esplicite
+(cast)</strong></h2>
+<p><mark>Per decidere noi se e quando convertire si usa il <strong>cast
+esplicito</strong></mark>, che si scrive indicando il tipo desiderato
+tra parentesi davanti all'espressione:</p>
+<p><strong>In parole povere:</strong> il cast esplicito è quando sei tu
+a dire al compilatore «tratta questo valore come di quest'altro tipo»,
+scrivendo il tipo tra parentesi: (float)y. Riguarda solo l'espressione
+che sta subito a destra, e non cambia il tipo originale della variabile:
+ne usa una copia convertita.</p>
+<p>int x = 5;</p>
+<p>float z = (float)x; // x viene convertito in float</p>
+<p>È <mark>importante quando si vuole controllare il tipo di una
+specifica operazione</mark>, per esempio nella divisione tra interi:</p>
+<p>int x = 5, y = 2;</p>
+<p>float z = x / (float)y; // y convertito a float: risultato 2.5</p>
+<p>Qui y viene convertito esplicitamente a float; di conseguenza, per le
+regole di promozione, nella divisione anche il valore di x viene portato
+a float (la variabile x resta int) e la divisione è tra reali, quindi z
+vale 2.500000. Il cast evita la perdita della parte frazionaria che si
+avrebbe con la divisione intera x / y.</p>
+<p>Il cast agisce <strong>solo sull'espressione immediatamente alla sua
+destra</strong>. In int x = 10, y = 3; float z = x / (float)y; viene
+convertita in float soltanto l'espressione y, mentre x resta di tipo int
+(nella divisione il suo valore viene poi promosso a float dalle regole
+viste sopra, e z vale 3.333333). Il cast cambia il tipo dell'espressione
+durante la valutazione, non il tipo delle variabili coinvolte: x e y
+rimangono interi.</p>
+<h1
+id="capitolo-17-espressioni-booleane-e-operatori-logici"><strong>Capitolo
+17: Espressioni Booleane e Operatori Logici</strong></h1>
+<h2 id="perché-servono-le-condizioni"><strong>Perché servono le
+condizioni</strong></h2>
+<p>Un programma non si limita a fare calcoli: deve anche <mark>prendere
+decisioni</mark>. Le <strong><mark>condizioni</mark></strong> permettono
+di dire al computer "se succede questo, allora fai quello", e le
+<strong><mark>espressioni booleane</mark></strong> sono il linguaggio
+con cui le scriviamo. Con le <mark>espressioni booleane traduciamo
+domande</mark> come "il numero di somme ripetute richieste è stato
+raggiunto?" (il contatore dell'algoritmo di moltiplicazione del capitolo
+2), "l'input da tastiera è corretto?" oppure "lo studente ha superato
+l'esame?". Sono il ponte tra i dati numerici e le scelte logiche: senza
+di esse un programma sarebbe soltanto una lunga sequenza rigida di
+calcoli.</p>
+<p><strong>In parole povere:</strong> un'espressione booleana è una
+domanda a cui si risponde solo sì o no (vero o falso), per esempio «x è
+maggiore di 18?». I programmi la usano per decidere cosa fare: è il modo
+di scrivere le condizioni del tipo «se ... allora ...».</p>
+<h2 id="operatori-relazionali-e-logici-in-c"><strong>Operatori
+relazionali e logici in C</strong></h2>
+<p>Per scrivere le condizioni il C mette a disposizione operatori
+relazionali, che <mark>confrontano due valori</mark>, e <mark>operatori
+logici, che combinano condizioni</mark>. Accanto a ciascuno si indica la
+notazione matematica corrispondente:</p>
+<ul>
+<li><p><strong>==</strong> (uguaglianza, x = y in matematica): x == y
+vale 1 se i due valori sono uguali, altrimenti 0;</p></li>
+<li><p><strong>!=</strong> (diversità, x ≠ y): x != y vale 1 se sono
+diversi, altrimenti 0;</p></li>
+<li><p><strong>&gt;</strong> e <strong>&lt;</strong> (maggiore e
+minore): x &gt; y e x &lt; y valgono 1 se la relazione è vera,
+altrimenti 0;</p></li>
+<li><p><strong>&gt;=</strong> e <strong>&lt;=</strong> (maggiore o
+uguale, minore o uguale, x ≥ y e x ≤ y): valgono 1 se la relazione è
+vera, altrimenti 0;</p></li>
+<li><p><strong>&amp;&amp;</strong> (AND, congiunzione, b ∧ c): x &gt; 0
+&amp;&amp; y &gt; 0 vale 1 se entrambe le condizioni sono vere;</p></li>
+<li><p><strong>||</strong> (OR, disgiunzione, b ∨ c): x == 0 || y == 0
+vale 1 se almeno una delle due è vera;</p></li>
+<li><p><strong>!</strong> (NOT, negazione, ¬b): !(x &gt; 0) inverte il
+valore logico della condizione.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> gli operatori relazionali
+confrontano due valori (uguale, diverso, maggiore, minore...) e
+rispondono vero o falso. Gli operatori logici (AND, OR, NOT) combinano
+più risposte: AND vuole che siano vere entrambe («ho il biglietto E il
+documento»), OR ne basta una («pago in contanti O con carta»), NOT
+inverte. In C vero è 1 e falso è 0. Attenzione: == confronta, =
+assegna.</p>
+<p>Il <mark>risultato di ogni espressione di questo tipo è quindi un
+numero, 1 per vero e 0 per falso</mark>. Gli operatori relazionali si
+usano spesso fra numeri: contatore != n verifica se le ripetizioni sono
+completate, pinInserito == pinCorretto confronta due codici, temperatura
+&lt;= limiteMax controlla un limite e voto &gt;= 18 verifica la
+sufficienza all'esame.</p>
+<p>C'è un errore da non commettere mai: <strong>==</strong> è
+l'uguaglianza, mentre <strong>=</strong> è l'assegnamento (capitolo 8).
+Scrivere x = y dentro una condizione non confronta due valori: copia y
+in x, e l'espressione vale il valore copiato (se ne vedrà la conseguenza
+nel capitolo 20).</p>
+<h2 id="il-tipo-bool"><strong>Il tipo bool</strong></h2>
+<p>Le <mark>condizioni</mark>, nella logica di <mark>Boole</mark>,
+possono assumere solo due valori: <mark><strong>true</strong> (vero) e
+<strong>false</strong> (falso)</mark>. La logica di Boole, o algebra
+booleana, è il sistema matematico basato su questi due valori e sugli
+operatori fondamentali AND, OR e NOT, alla base dei circuiti digitali
+(le porte logiche di Fondamenti dell'Informatica) e della
+programmazione.</p>
+<p><strong>In parole povere:</strong> la logica di Boole è la
+«matematica del sì e del no»: esistono solo due valori, vero e falso, e
+tre operazioni (AND, OR, NOT) per combinarli. È la base dei circuiti dei
+computer e delle condizioni dei programmi.</p>
+<p>Storicamente il C non aveva un tipo booleano fra i tipi primitivi, e
+si usavano gli interi con questa interpretazione: <strong>0 è falso, un
+valore diverso da 0 è vero</strong>. Nel C moderno (dal C99) esiste
+l'header &lt;stdbool.h&gt;, che introduce:</p>
+<ul>
+<li><p>il <mark>tipo <strong>bool</strong></mark>, simile a int ma che
+chiarisce che la variabile è booleana;</p></li>
+<li><p>le <mark>costanti <strong>true</strong> e
+<strong>false</strong></mark>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> bool è il tipo delle variabili che
+contengono solo vero o falso, come un interruttore a due posizioni o una
+casella da spuntare. In C vero è 1 e falso è 0; con stdbool.h si possono
+scrivere le parole true e false. Si usa per «ricordarsi» il risultato di
+una condizione, per esempio superato.</p>
+<p>Nel corso si userà il C moderno dove possibile. Nello schema della
+memoria una variabile booleana si rappresenta come un singolo bit, 0
+oppure 1. Nel programma seguente ci sono due int, x e y, e un bool b
+inizializzato a false: nello schema b occupa un solo bit, che vale
+0.</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;stdbool.h&gt;</p>
+<p>int main(void) {</p>
+<p>int x = 1;</p>
+<p>bool b = false;</p>
+<p>int y = 2;</p>
+<p>}</p>
+<p>Una variabile booleana può memorizzare il risultato della valutazione
+di una condizione. Nel programma seguente superato vale 1 perché 25 è
+maggiore o uguale a 18:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;stdbool.h&gt;</p>
+<p>int main(void) {</p>
+<p>int votoScritto = 25;</p>
+<p>int sogliaSuff = 18;</p>
+<p>bool superato = votoScritto &gt;= sogliaSuff;</p>
+<p>printf("Lo studente supera l'esame? %d\n", superato);</p>
+<p>}</p>
+<p>L'output è Lo studente supera l'esame? 1. Per il tipo bool
+<strong>non esiste uno specificatore di formato dedicato</strong>: si
+usa %d, come per gli interi, e quindi viene stampato 0 oppure 1.</p>
+<h2 id="combinare-più-condizioni"><strong>Combinare più
+condizioni</strong></h2>
+<p>Nei programmi spesso non basta verificare una sola condizione:
+<mark>occorre stabilire il rapporto logico fra più condizioni
+contemporaneamente</mark>. Le condizioni si combinano con tre
+operatori:</p>
+<ul>
+<li><p>la <mark><strong>congiunzione</strong></mark> condizione1
+<mark>&amp;&amp;</mark> condizione2, <mark>vera se entrambe le
+condizioni sono vere;</mark></p></li>
+<li><p>la <strong><mark>disgiunzione</mark></strong> condizione1
+<mark>||</mark> condizione2, <mark>vera se almeno una è
+vera</mark>;</p></li>
+<li><p>la <mark><strong>negazione</strong> !</mark>condizione, <mark>che
+dà l'opposto del valore della condizione</mark>.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> AND (congiunzione) è vera solo se
+entrambe le condizioni sono vere; OR (disgiunzione) è vera se almeno una
+lo è; NOT (negazione) rovescia il risultato. Esempio: «entro se ho il
+biglietto E non è scaduto»; «sconto se sei minorenne O tesserato»; «NOT
+piove» è vero quando non piove.</p>
+<p>Alcuni esempi tradotti in C:</p>
+<p>bool login = (numTentativi &lt; 3) &amp;&amp; !accountBloccato; // il
+login è possibile se i tentativi sono meno di 3 e l'account non è
+bloccato</p>
+<p>bool riscaldamento = (temperatura &lt; 18) &amp;&amp; termostatoOn;
+// il riscaldamento si accende se fa freddo e il termostato è attivo</p>
+<p>bool sconto = (eta &lt; 12) || tesserato; // lo sconto spetta ai
+minori di 12 anni oppure ai tesserati</p>
+<p>bool ventolaAccesa = (temperatura &gt;= 28) || modoManuale; // la
+ventola si accende se fa caldo oppure è in modo manuale</p>
+<h2 id="le-tavole-di-verità"><strong>Le tavole di verità</strong></h2>
+<p>Gli operatori si definiscono con le loro tavole di verità, le stesse
+viste in Fondamenti dell'Informatica per i connettivi logici.
+L'operatore <strong><mark>AND</mark></strong> restituisce vero (1) solo
+se entrambe le condizioni sono vere, e falso (0) in tutti gli altri
+casi. L'operatore <strong><mark>OR</mark></strong> restituisce vero se
+almeno una delle due condizioni è vera, ed è falso solo se entrambe sono
+false. L'operatore <strong><mark>NOT</mark></strong> restituisce
+l'opposto della condizione: vera diventa falsa e falsa diventa vera.</p>
+<p><strong>In parole povere:</strong> la tavola di verità è una tabella
+che elenca tutte le combinazioni possibili di vero/falso per le
+condizioni e dice che cosa restituisce ogni operatore. È come il
+«libretto delle istruzioni» di AND, OR e NOT: guardando la riga giusta
+sai subito il risultato.</p>
+<p><img src="./media/image19.png"
+style="width:5.11811in;height:1.62385in" /></p>
+<p><em>Le tavole di verità di AND, OR e NOT.</em></p>
+<p>Nel prossimo capitolo si vede come usare questi operatori per
+confrontare un valore con un intervallo, come il C valuta le condizioni
+e come semplificare le espressioni complesse.</p>
+<h1
+id="capitolo-18-intervalli-cortocircuitazione-e-semplificazione-delle-condizioni"><strong>Capitolo
+18: Intervalli, Cortocircuitazione e Semplificazione delle
+Condizioni</strong></h1>
+<h2 id="confronti-su-intervalli"><strong>Confronti su
+intervalli</strong></h2>
+<p>Nei programmi spesso si deve verificare se un valore cade in un certo
+intervallo: un indice, una temperatura, un'età. In matematica la
+condizione si scrive in modo compatto, min ≤ x ≤ max. In C bisogna
+invece <mark><strong>spezzare il confronto in due condizioni</strong> e
+combinarle con un AND</mark>: min &lt;= x &amp;&amp; x &lt;= max, che è
+la forma più vicina alla notazione matematica.</p>
+<p>Scrivere in C min &lt;= x &lt;= max non produce l'effetto sperato, e
+il pericolo è proprio che compila senza errori. Il confronto si valuta
+da sinistra a destra: prima min &lt;= x, che dà 0 oppure 1, e poi quel
+risultato viene confrontato con max. Con min = 0, x = 20 e max = 10, per
+esempio, 0 &lt;= 20 vale 1 e 1 &lt;= 10 è vero, anche se 20 non sta
+nell'intervallo.</p>
+<p>I quattro tipi di intervallo si traducono così:</p>
+<ul>
+<li><p><strong>chiuso</strong> (inclusivo), x ∈ [min, max]: min &lt;= x
+&amp;&amp; x &lt;= max;</p></li>
+<li><p><strong>semiaperto sinistro</strong>, x ∈ [min, max): min &lt;= x
+&amp;&amp; x &lt; max;</p></li>
+<li><p><strong>semiaperto destro</strong>, x ∈ (min, max]: min &lt; x
+&amp;&amp; x &lt;= max;</p></li>
+<li><p><strong>aperto</strong> (esclusivo), x ∈ (min, max): min &lt; x
+&amp;&amp; x &lt; max.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> un intervallo è l'insieme dei
+valori compresi fra un minimo e un massimo. Chiuso: gli estremi ci sono
+(come «dalle 9 alle 17 comprese»). Aperto: gli estremi sono esclusi.
+Semiaperto: ne includi uno e l'altro no. In C si scrive spezzando in due
+confronti collegati da &amp;&amp; (min &lt;= x &amp;&amp; x &lt;= max),
+non con la forma matematica.</p>
+<p><img src="./media/image20.png"
+style="width:5.11811in;height:1.90621in" /></p>
+<p><em>I quattro tipi di intervallo e la loro espressione in C: il
+cerchio pieno include l'estremo, quello vuoto lo esclude.</em></p>
+<p>Le denominazioni "sinistro" e "destro" sono quelle usate nel corso:
+contano le notazioni tra parentesi. Nel corso si userà molto questa
+notazione per verificare se un indice appartiene a un intervallo
+semiaperto sinistro.</p>
+<h2 id="la-cortocircuitazione"><strong>La
+cortocircuitazione</strong></h2>
+<p><mark>Quando si combinano più condizioni con AND oppure OR, il C
+interrompe la valutazione appena il risultato è già determinato</mark>
+(lo standard lo garantisce). Questo comportamento <mark>si chiama</mark>
+<strong><mark>cortocircuitazione</mark></strong> (in inglese
+*short-circuit evaluation*):</p>
+<ul>
+<li><p>con l'<strong>AND</strong>, se la prima condizione è falsa il
+risultato è sicuramente falso, e la seconda non viene valutata;</p></li>
+<li><p>con l'<strong>OR</strong>, se la prima condizione è vera il
+risultato è sicuramente vero, e la seconda non viene valutata.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> la cortocircuitazione è la
+pigrizia intelligente del C: se dopo la prima condizione il risultato è
+già deciso, non guarda la seconda. Con AND, se la prima è falsa, il
+totale è sicuramente falso; con OR, se la prima è vera, il totale è
+sicuramente vero. Come chi, per sapere se tutti hanno il biglietto,
+smette di controllare appena ne trova uno senza.</p>
+<p>La corto<mark>circuitazione non è solo un risparmio di tempo, ma
+permette di scrivere condizioni che altrimenti sarebbero
+pericolose.</mark> Per verificare che il divisore sia diverso da zero e
+che la divisione dia un risultato maggiore di 5 si scrive:</p>
+<p>bool condizione = (divisore != 0) &amp;&amp; ((numeratore / divisore)
+&gt; 5);</p>
+<p>Se il divisore è 0 la seconda parte non viene eseguita, e si evita
+l'errore a tempo di esecuzione della divisione per zero. Un altro
+esempio verifica che l'utente abbia inserito un numero e che sia
+pari:</p>
+<p>int valore;</p>
+<p>bool scanPari = (scanf("%d", &amp;valore) == 1) &amp;&amp; (valore %
+2 == 0);</p>
+<p>Se scanf non riesce a leggere il valore (il suo risultato, come visto
+nel capitolo 10, non è 1), la parte a destra non viene valutata e non si
+guarda il contenuto di valore, che in quel caso non è affidabile.</p>
+<p>Lo stesso schema si ritrova in un programma completo, che legge un
+numero e stampa tre risultati:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;stdbool.h&gt;</p>
+<p>int main(void) {</p>
+<p>int numero;</p>
+<p>bool letto, positivo, dispari;</p>
+<p>printf("Inserisci un numero intero: ");</p>
+<p>letto = (scanf("%d", &amp;numero) == 1); // true se scanf ha letto
+correttamente</p>
+<p>positivo = letto &amp;&amp; (numero &gt; 0); // input valido e
+maggiore di 0</p>
+<p>dispari = letto &amp;&amp; (numero % 2 != 0); // input valido e non
+divisibile per 2</p>
+<p>// stampa i risultati (0 = falso, 1 = vero)</p>
+<p>printf("Input valido? %d\n", letto);</p>
+<p>printf("Numero positivo? %d\n", positivo);</p>
+<p>printf("Numero dispari? %d\n", dispari);</p>
+<p>}</p>
+<p>Se l'utente inserisce 7 il programma stampa 1 per tutte e tre le
+domande; se inserisce una lettera, letto vale 0 e di conseguenza anche
+le altre due condizioni valgono 0.</p>
+<h2 id="semplificare-le-espressioni-complesse"><strong>Semplificare le
+espressioni complesse</strong></h2>
+<p><mark>Le espressioni booleane con molti AND e OR mescolati diventano
+difficili da leggere, facili da scrivere in modo sbagliato e complicate
+da modificare</mark>. Ecco un esempio:</p>
+<p>bool sconto = registrato &amp;&amp; spesaTotale &gt;= 100 ||</p>
+<p>(codiceNonScaduto &amp;&amp; attivatoDallUtente);</p>
+<p>Si procede spezzando l'espressione in sotto-condizioni con nomi
+chiari, usando variabili booleane intermedie e rendendo la condizione
+finale la combinazione semplice di pochi termini:</p>
+<p>bool clientePremium = registrato &amp;&amp; (spesaTotale &gt;=
+100);</p>
+<p>bool promoExtra = codiceNonScaduto &amp;&amp; attivatoDallUtente;</p>
+<p>bool sconto = clientePremium || promoExtra;</p>
+<p><mark>Le due versioni calcolano la stessa cosa, perché in C l'AND ha
+la precedenza sull'OR; ma la seconda si legge a colpo d'occhio e ogni
+condizione ha un nome che spiega a che cosa serve.</mark></p>
+<h2 id="loperatore-condizionale-ternario"><strong>L'operatore
+condizionale ternario</strong></h2>
+<p><mark>L'<strong>operatore ternario</strong> è un operatore
+condizionale compatto, che ha la forma condizione ? valore_se_vero :
+valore_se_falso. Si valuta la condizione: se è vera l'espressione vale
+il primo</mark> <mark>valore, se è falsa vale il secondo</mark>. È
+<mark>utile per piccole espressioni condizionali</mark>, ma solo se non
+pregiudica la semplicità del codice:</p>
+<p><strong>In parole povere:</strong> l'operatore ternario è un mini
+«se... altrimenti» che dà direttamente un valore: condizione ? se_vero :
+se_falso. È come dire «se piove ombrello, altrimenti cappello» in una
+sola frase. Comodo per casi semplici, ma per scelte complicate meglio
+usare if-else.</p>
+<p>int x = 5;</p>
+<p>int y = (x % 2 == 0) ? 100 : 200; // y = 200, perché x è dispari</p>
+<p>Per condizioni più articolate è meglio usare i blocchi if..else, che
+sono l'argomento del prossimo capitolo.</p>
+<h1 id="section-5"></h1>
+<h1
+id="capitolo-19-il-controllo-di-flusso-e-il-costrutto-if"><strong>Capitolo
+19: Il Controllo di Flusso e il Costrutto if</strong></h1>
+<h2 id="dalla-sequenza-alle-decisioni"><strong>Dalla sequenza alle
+decisioni</strong></h2>
+<p>Finora abbiamo scritto programmi in cui le istruzioni vengono
+eseguite prevalentemente una dopo l'altra. <mark>Per costruire algoritmi
+più articolati dobbiamo invece poter <strong>controllare
+l'ordine</strong> con cui le istruzioni vengono eseguite</mark>. La
+programmazione strutturata (capitolo 3) utilizza tre strutture di
+controllo fondamentali:</p>
+<ul>
+<li><p>la <strong>sequenza</strong>: <mark>esecuzione ordinata delle
+istruzioni</mark>;</p></li>
+<li><p>la <strong>selezione</strong>: <mark>scelta fra
+alternative,</mark> che si realizza con l'if;</p></li>
+<li><p>l'<strong>iterazione</strong>: <mark>ripetizione
+condizionata</mark>, con while, for e do-while.</p></li>
+</ul>
+<p>In questo capitolo ci occupiamo della selezione, mentre l'iterazione
+verrà dopo.</p>
+<h2 id="il-controllo-di-flusso-condizionato"><strong>Il controllo di
+flusso condizionato</strong></h2>
+<p>Vediamo come rappresentare le scelte: <mark>se una condizione è vera
+si esegue un blocco di codice; se è falsa si fa qualcos'altro oppure si
+passa oltre</mark>. <mark>Questo meccanismo si chiama <strong>controllo
+di flusso condizionato</strong></mark>. Un esempio quotidiano: se piove
+prendo l'ombrello, altrimenti esco senza (qui piove è una variabile
+booleana).</p>
+<p>if (piove) {</p>
+<p>printf("Prendi l'ombrello.\n");</p>
+<p>}</p>
+<p>else {</p>
+<p>printf("Esci senza.\n");</p>
+<p>}</p>
+<p>La condizione fra parentesi è un'espressione booleana, di quelle
+viste nei capitoli 17 e 18.</p>
+<p><strong>In parole povere:</strong> il controllo di flusso
+condizionato è la possibilità del programma di prendere strade diverse
+in base a una condizione, come un bivio: se la condizione è vera va per
+una strada (esegue un blocco), altrimenti per un'altra o prosegue
+dritto.</p>
+<h2 id="il-costrutto-if"><strong>Il costrutto if</strong></h2>
+<p><mark>L'<strong>if</strong> è il costrutto che permette al programma
+di scegliere che cosa fare in base a una condizione logica.</mark> La
+sintassi è:</p>
+<p>if (condizione) {</p>
+<p>// codice eseguito solo se la condizione è vera</p>
+<p>}</p>
+<p>Se la condizione è vera (1) il programma entra nel blocco; se è falsa
+(0) lo salta e continua dopo. Per esempio:</p>
+<p><strong>In parole povere:</strong> l'if è il «se» del programma: la
+condizione tra parentesi viene controllata; se è vera si esegue il
+blocco tra graffe, se è falsa lo si salta e si va avanti. È come «se hai
+la febbre, prendi la tachipirina»: la medicina si prende solo in quel
+caso.</p>
+<p>int voto = 25;</p>
+<p>if (voto &gt;= 18) {</p>
+<p>printf("Esame superato!\n");</p>
+<p>}</p>
+<h2 id="il-costrutto-if-else"><strong>Il costrutto if-else</strong></h2>
+<p><mark>L'<strong>if-else</strong> estende l'if permettendo di gestire
+due percorsi alternativi</mark>:</p>
+<p>if (condizione) {</p>
+<p>// blocco A: se la condizione è vera</p>
+<p>}</p>
+<p>else {</p>
+<p>// blocco B: se la condizione è falsa</p>
+<p>}</p>
+<p>Se la condizione è vera si entra nel blocco A, se è falsa nel blocco
+B. Un esempio:</p>
+<p><strong>In parole povere:</strong> l'if-else è un bivio con due sole
+strade: un blocco se la condizione è vera, un altro se è falsa. Una
+delle due viene eseguita sempre, mai entrambe. Come «se piove prendo
+l'ombrello, altrimenti esco senza».</p>
+<p>int batteria = 15;</p>
+<p>if (batteria &lt; 20) {</p>
+<p>printf("Batteria quasi scarica! Collega il caricatore.\n");</p>
+<p>}</p>
+<p>else {</p>
+<p>printf("Batteria sufficiente.\n");</p>
+<p>}</p>
+<p>Con batteria uguale a 15 la condizione batteria &lt; 20 è vera, e il
+programma stampa il primo messaggio.</p>
+<h2 id="il-costrutto-if-else-if-else"><strong>Il costrutto if-else
+if-else</strong></h2>
+<p><mark>L'<strong>if-else if-else</strong> è la generalizzazione
+dell'if-else</mark> a più alternative:</p>
+<p>if (condizione1) {</p>
+<p>// blocco 1</p>
+<p>}</p>
+<p>else if (condizione2) {</p>
+<p>// blocco 2</p>
+<p>}</p>
+<p>else {</p>
+<p>// blocco di default</p>
+<p>}</p>
+<p><mark>Se la condizione1 è vera si entra nel blocco 1; altrimenti, se
+è vera la condizione2, si entra nel blocco 2</mark>; e così via. Se
+tutte le condizioni precedenti sono false si entra nel blocco di
+default. Le condizioni sono valutate nell'ordine in cui sono scritte e
+si esegue al più un solo blocco (esattamente uno se c'è l'else finale).
+Per esempio, un semaforo:</p>
+<p><strong>In parole povere:</strong> if-else if-else è l'if con più
+alternative, controllate in ordine come una serie di porte: la prima
+condizione vera vince e le altre non si guardano più. L'else finale è il
+«tutti gli altri casi». Esempio: semaforo rosso, giallo, verde, e per
+qualsiasi altro colore «non valido».</p>
+<p>char colore = 'G'; // R = Rosso, G = Giallo, V = Verde</p>
+<p>if (colore == 'R') {</p>
+<p>printf("Fermati!\n");</p>
+<p>}</p>
+<p>else if (colore == 'G') {</p>
+<p>printf("Attenzione, rallenta.\n");</p>
+<p>}</p>
+<p>else if (colore == 'V') {</p>
+<p>printf("Puoi passare.\n");</p>
+<p>}</p>
+<p>else {</p>
+<p>printf("Colore non valido!\n");</p>
+<p>}</p>
+<p>Con colore uguale a 'G' il programma stampa Attenzione, rallenta.; il
+blocco finale gestisce tutti i colori non previsti.</p>
+<p><img src="./media/image21.png"
+style="width:5.51181in;height:2.47325in" /></p>
+<p><em>Il flusso di esecuzione di if, if-else e if-else
+if-else.</em></p>
+<p>Il prossimo capitolo raccoglie gli errori più comuni con questi
+costrutti, la visibilità delle variabili dentro i blocchi e alcuni
+schemi che si ripetono spesso.</p>
+<h1 id="section-6"></h1>
+<h2 id="visibilità-nei-blocchi-condizionati"><strong>Visibilità nei
+blocchi condizionati</strong></h2>
+<p>Nello scambio condizionato la variabile temp è dichiarata
+<strong>dentro il blocco</strong> dell'if. Seguiamo l'esecuzione con x =
+10 e y = 5, quando la condizione y &lt; x è vera:</p>
+<ul>
+<li><p>all'inizio sullo stack ci sono solo x e y, con i valori
+inseriti;</p></li>
+<li><p>entrando nel blocco, la dichiarazione di temp la rende visibile e
+la inizializza a 10;</p></li>
+<li><p>x = y; copia 5 in x e y = temp; copia 10 in y: i valori sono
+scambiati;</p></li>
+<li><p>all'uscita dal blocco, temp esce dalla visibilità: viene rimossa
+dallo stack e non è più accessibile.</p></li>
+</ul>
+<p>Il programma stampa 5 10. Come nel capitolo 7, <mark>la
+<strong>visibilità</strong> (scope) di una variabile è quindi limitata
+al blocco in cui è dichiarata, e la sua durata (lifetime) finisce quando
+il blocco termina</mark>.</p>
+<p><img src="./media/image22.png"
+style="width:5.11811in;height:2.45482in" /></p>
+<p><em>Lo scambio condizionato: temp esiste solo dentro il blocco
+dell'if (in rosso le celle che cambiano).</em></p>
+</article></main>
+</div>
+<a class="top" href="#top" aria-label="Torna su">&uarr;</a>
+<script>
+(function(){
+  var b=document.getElementById('btn-indice'), n=document.getElementById('indice');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',String(o));b.textContent=o?'Chiudi':'Indice';});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='Indice';}});
+})();
+</script>
+</body>
+</html>

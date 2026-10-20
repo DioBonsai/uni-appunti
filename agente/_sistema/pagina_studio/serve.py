@@ -58,6 +58,12 @@ def make_handler(port):
                 f = PAG / "img" / mi.group(1)
                 tipo = {"png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg", "gif": "image/gif", "webp": "image/webp"}[mi.group(2)]
                 return self._send(200, f.read_bytes(), tipo) if f.exists() else self._send(404, b"manca")
+            mr = re.match(r"^/riassunti/([a-z\-]+)/(index\.html|media/[A-Za-z0-9_\-]+\.(png|jpe?g|gif|webp|svg|emf|wmf))$", path)
+            if mr:  # riassunti integrali (costruisci_riassunti.py)
+                f = PAG / "riassunti" / mr.group(1) / mr.group(2)
+                ext = f.suffix.lower().lstrip(".")
+                tipo = "text/html; charset=utf-8" if ext == "html" else {"png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg", "gif": "image/gif", "webp": "image/webp", "svg": "image/svg+xml"}.get(ext, "application/octet-stream")
+                return self._send(200, f.read_bytes(), tipo) if f.is_file() else self._send(404, b"manca")
             if path in FILES:
                 name, ctype = FILES[path]
                 f = PAG / name
@@ -105,7 +111,7 @@ def main():
             webbrowser.open(url)
         return
     if not a.no_build:
-        r = subprocess.run([sys.executable, str(BASE / "scripts" / "costruisci_pagina_studio.py")], capture_output=True, text=True, encoding="utf-8", stdin=subprocess.DEVNULL, creationflags=0x08000000)  # senza finestra, anche sotto pythonw
+        r = subprocess.run([sys.executable, str(BASE / "scripts" / "costruisci_pagina_studio.py")], capture_output=True, text=True, encoding="utf-8", stdin=subprocess.DEVNULL, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))  # senza finestra, anche sotto pythonw
         print((r.stdout or r.stderr).strip().splitlines()[0] if (r.stdout or r.stderr) else "build eseguita")
     srv = ThreadingHTTPServer(("127.0.0.1", a.port), make_handler(a.port))
     print(f"Quaderno di ripasso su {url} (Ctrl+C per fermare)")

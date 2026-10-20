@@ -568,3 +568,10 @@ details[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
 
 /* sopralineatura (negazione booleana) nei quiz */
 .ov { display: inline-block; border-top: 1.5px solid currentColor; line-height: 1.05; padding: 0 .08em; }
+
+/* Riassunti: elenco delle materie */
+.riass-list { list-style: none; margin: 0; padding: 0; }
+.riass-list li + li { border-top: 1px solid var(--line); }
+.riass-list a { display: flex; flex-direction: column; gap: 2px; padding: 14px 4px; min-height: 48px; color: var(--ink); text-decoration: none; }
+.riass-list a:hover b { color: var(--accent); }
+.riass-list b { font-family: var(--font-display); font-size: 1.1rem; }

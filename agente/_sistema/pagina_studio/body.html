@@ -12,6 +12,7 @@
         <button class="tab" role="tab" id="t-quiz" data-tab="quiz" aria-selected="false" aria-controls="tab-quiz" tabindex="-1">Quiz</button>
         <button class="tab" role="tab" id="t-problemi" data-tab="problemi" aria-selected="false" aria-controls="tab-problemi" tabindex="-1">Problemi</button>
         <button class="tab" role="tab" id="t-schede" data-tab="schede" aria-selected="false" aria-controls="tab-schede" tabindex="-1">Schede</button>
+        <button class="tab" role="tab" id="t-riassunti" data-tab="riassunti" aria-selected="false" aria-controls="tab-riassunti" tabindex="-1">Riassunti</button>
       </nav>
       <div class="tools">
         <button class="icon-btn" id="theme-btn" aria-label="Tema: automatico. Tocca per cambiare" title="Tema"><span id="theme-ic"></span></button>
@@ -116,6 +117,20 @@
       </div>
       <div id="cards-run" class="run" hidden></div>
     </section>
+
+    <!-- RIASSUNTI -->
+    <section id="tab-riassunti" class="view narrow" role="tabpanel" aria-label="Riassunti" aria-labelledby="t-riassunti" hidden>
+      <div class="stack">
+        <div class="view-head"><h1>Riassunti integrali</h1><p class="muted">Il testo completo dei Word, con figure e formule, leggibile da qualunque dispositivo. Dalla pagina si torna qui con «Quaderno».</p></div>
+        <div class="card"><ul class="riass-list">
+          <li><a href="riassunti/algebra-lineare/index.html"><b>Algebra lineare</b><span class="muted">Matrici, sottospazi, Span</span></a></li>
+          <li><a href="riassunti/fondamenti-informatica/index.html"><b>Fondamenti di Informatica</b><span class="muted">Logica, codifica, automi</span></a></li>
+          <li><a href="riassunti/laboratorio/index.html"><b>Laboratorio</b><span class="muted">Appunti di laboratorio</span></a></li>
+          <li><a href="riassunti/matematica-discreta/index.html"><b>Matematica discreta</b><span class="muted">Insiemi, relazioni, permutazioni, aritmetica modulare</span></a></li>
+          <li><a href="riassunti/programmazione/index.html"><b>Programmazione</b><span class="muted">Linguaggio e algoritmi</span></a></li>
+        </ul></div>
+      </div>
+    </section>
   </main>
 
   <nav class="bottomnav" role="tablist" aria-label="Sezioni (barra in basso)" id="bnav">
@@ -123,6 +138,7 @@
     <button class="bn" role="tab" data-tab="quiz" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.6a2.6 2.6 0 1 1 3.6 2.4c-.7.4-1.1.9-1.1 1.7M12 17h.01"/></svg><span>Quiz</span></button>
     <button class="bn" role="tab" data-tab="problemi" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-4L16.5 4.5a2 2 0 0 1 3 3L8 19zM14 7l3 3"/></svg><span>Problemi</span></button>
     <button class="bn" role="tab" data-tab="schede" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="14" height="14" rx="2"/><path d="M7 7V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-2"/></svg><span>Schede</span></button>
+    <button class="bn" role="tab" data-tab="riassunti" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h10a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3zM5 17a3 3 0 0 1 3-3h10M9 8h5"/></svg><span>Riassunti</span></button>
   </nav>
 
   <div id="toasts" class="toasts" role="status" aria-live="polite"></div>

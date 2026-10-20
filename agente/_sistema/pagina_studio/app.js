@@ -195,7 +195,7 @@ function chapterHint(theme, mat) {
 const subjIdx = m => Math.max(0, Object.keys(DATA.materie).indexOf(m));
 
 /* ---------- navigazione ---------- */
-const TABS = ['oggi', 'quiz', 'problemi', 'schede'];
+const TABS = ['oggi', 'quiz', 'problemi', 'schede', 'riassunti'];
 let current = 'oggi', pending = null;
 function moveInd(instant) {
   const b = $('#t-' + current), ind = $('#seg-ind'); if (!b || !b.offsetWidth) return;

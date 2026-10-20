@@ -1,0 +1,2673 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Algebra lineare</title>
+<style>
+:root { --bg:#f4f6fb; --surface:#fff; --ink:#151b2e; --muted:#5a6479; --line:#dbe1ec; --accent:#2744a8; --accent-soft:#e2e8fb; --mark:#fff176; --mark-ink:#151b2e; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#0f131b; --surface:#181d28; --ink:#e9edf5; --muted:#9ba6ba; --line:#2b3444; --accent:#8fadff; --accent-soft:#1f2e57; --mark:#6b5d00; --mark-ink:#fff6c2; } }
+:root[data-theme="dark"] { --bg:#0f131b; --surface:#181d28; --ink:#e9edf5; --muted:#9ba6ba; --line:#2b3444; --accent:#8fadff; --accent-soft:#1f2e57; --mark:#6b5d00; --mark-ink:#fff6c2; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 18px/1.65 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; }
+.bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 10px; padding: 10px max(16px, env(safe-area-inset-right)) 10px max(16px, env(safe-area-inset-left)); background: var(--surface); border-bottom: 1px solid var(--line); }
+.bar a, .bar button { font: inherit; font-size: 15px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border: 0; border-radius: 10px; padding: 8px 12px; text-decoration: none; cursor: pointer; min-height: 40px; }
+.bar .t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; font-size: 16px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 1180px; margin: 0 auto; }
+nav#indice { display: none; padding: 16px; font-size: 15px; line-height: 1.4; }
+nav#indice.open { display: block; position: fixed; inset: 61px 0 0 0; z-index: 15; overflow-y: auto; background: var(--surface); padding-bottom: 80px; }
+nav#indice ul { list-style: none; margin: 0; padding-left: 14px; }
+nav#indice > ul { padding-left: 0; }
+nav#indice > ul > li { margin: 10px 0 2px; font-weight: 700; }
+nav#indice > ul > li > ul > li { font-weight: 500; margin: 3px 0; }
+nav#indice a { color: var(--ink); text-decoration: none; display: block; padding: 5px 0; }
+nav#indice a:hover { color: var(--accent); }
+main { padding: 20px max(16px, env(safe-area-inset-right)) 80px max(16px, env(safe-area-inset-left)); min-width: 0; }
+article { max-width: 760px; margin: 0 auto; overflow-wrap: break-word; }
+h1, h2, h3, h4 { font-family: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif; line-height: 1.2; margin: 1.8em 0 .5em; }
+h1 { font-size: 1.7rem; border-top: 3px solid var(--accent); padding-top: .6em; }
+h2 { font-size: 1.35rem; } h3 { font-size: 1.15rem; } h4 { font-size: 1rem; color: var(--muted); }
+h1:first-child { margin-top: .2em; }
+p { margin: .7em 0; }
+mark { background: var(--mark); color: var(--mark-ink); border-radius: 3px; padding: 0 2px; }
+img { max-width: 100%; height: auto; background: #fff; border-radius: 8px; }
+figure { margin: 1.2em 0; text-align: center; } figcaption { color: var(--muted); font-size: .9em; font-style: italic; }
+table { border-collapse: collapse; display: block; overflow-x: auto; max-width: 100%; margin: 1em 0; font-size: .92em; }
+th, td { border: 1px solid var(--line); padding: 6px 10px; vertical-align: top; }
+th { background: var(--accent-soft); }
+blockquote { margin: 1em 0; padding: .1em 1em; border-left: 4px solid var(--accent); background: var(--surface); border-radius: 0 8px 8px 0; }
+pre, code { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: .85em; }
+pre { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+math { font-size: 1.08em; }
+math[display="block"] { display: block; overflow-x: auto; padding: 4px 0; }
+.top { position: fixed; right: 14px; bottom: 14px; z-index: 10; width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: var(--surface); display: grid; place-items: center; text-decoration: none; font-size: 20px; box-shadow: 0 4px 14px rgba(0,0,0,.3); }
+@media (min-width: 1000px) {
+  .layout { grid-template-columns: 300px minmax(0, 1fr); }
+  nav#indice, nav#indice.open { display: block; position: sticky; inset: auto; top: 61px; align-self: start; max-height: calc(100vh - 61px); overflow-y: auto; background: transparent; padding: 16px 8px 40px 16px; }
+  #btn-indice { display: none; }
+  main { padding-left: 32px; }
+}
+@media print { .bar, nav#indice, .top { display: none; } body { background: #fff; color: #000; } }
+</style>
+<script>(function(){try{var t=localStorage.getItem('quaderno-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<div class="bar" id="top">
+  <a href="../../index.html" aria-label="Torna al Quaderno">&larr; Quaderno</a>
+  <span class="t">Algebra lineare</span>
+  <button type="button" id="btn-indice" aria-expanded="false" aria-controls="indice">Indice</button>
+</div>
+<div class="layout">
+<nav id="indice" aria-label="Indice">
+<ul>
+<li><a
+href="#introduzione-allalgebra-lineare-e-applicazioni-in-informatica"
+id="toc-introduzione-allalgebra-lineare-e-applicazioni-in-informatica"><strong>1.
+Introduzione all'Algebra Lineare e Applicazioni in
+Informatica</strong></a>
+<ul>
+<li><a
+href="#gli-oggetti-fondamentali-vettori-spazi-vettoriali-e-mappe-lineari"
+id="toc-gli-oggetti-fondamentali-vettori-spazi-vettoriali-e-mappe-lineari"><strong>Gli
+oggetti fondamentali: Vettori, Spazi Vettoriali e Mappe
+Lineari</strong></a></li>
+<li><a href="#motivazioni-ed-esempi-applicativi-in-informatica"
+id="toc-motivazioni-ed-esempi-applicativi-in-informatica"><strong>Motivazioni
+ed Esempi Applicativi in Informatica</strong></a></li>
+</ul></li>
+<li><a href="#section" id="toc-section"></a></li>
+<li><a href="#costruzione-degli-insiemi-numerici-e-struttura-di-campo-𝕂"
+id="toc-costruzione-degli-insiemi-numerici-e-struttura-di-campo-𝕂"><strong>2.
+Costruzione degli Insiemi Numerici e Struttura di Campo (𝕂)</strong></a>
+<ul>
+<li><a href="#la-costruzione-gerarchica-degli-insiemi-numerici"
+id="toc-la-costruzione-gerarchica-degli-insiemi-numerici"><strong>La
+Costruzione Gerarchica degli Insiemi Numerici</strong></a></li>
+<li><a href="#il-limite-dei-razionali-e-la-nascita-dei-reali-ℝ"
+id="toc-il-limite-dei-razionali-e-la-nascita-dei-reali-ℝ"><strong>Il
+limite dei Razionali e la nascita dei Reali (ℝ)</strong></a></li>
+<li><a href="#le-9-proprietà-dellaritmetica-e-la-definizione-di-campo-𝕂"
+id="toc-le-9-proprietà-dellaritmetica-e-la-definizione-di-campo-𝕂"><strong>Le
+9 Proprietà dell'Aritmetica e la Definizione di Campo
+(𝕂)</strong></a></li>
+<li><a href="#la-struttura-algebrica-di-campo-field"
+id="toc-la-struttura-algebrica-di-campo-field"><strong>La struttura
+algebrica di Campo (Field)</strong></a></li>
+<li><a href="#ruolo-del-campo-nellalgebra-lineare"
+id="toc-ruolo-del-campo-nellalgebra-lineare"><strong>Ruolo del Campo
+nell'Algebra Lineare</strong></a></li>
+</ul></li>
+<li><a href="#introduzione-ai-numeri-complessi-e-definizione-algebrica"
+id="toc-introduzione-ai-numeri-complessi-e-definizione-algebrica"><strong>3.
+Introduzione ai Numeri Complessi e Definizione Algebrica</strong></a>
+<ul>
+<li><a href="#motivazione-teorica-e-lestensione-dei-reali"
+id="toc-motivazione-teorica-e-lestensione-dei-reali"><strong>Motivazione
+Teorica e l'Estensione dei Reali</strong></a></li>
+<li><a href="#la-forma-algebrica-e-lunità-immaginaria"
+id="toc-la-forma-algebrica-e-lunità-immaginaria"><strong>La Forma
+Algebrica e l'Unità Immaginaria</strong></a></li>
+<li><a href="#operazioni-algebriche-fondamentali"
+id="toc-operazioni-algebriche-fondamentali"><strong>Operazioni
+Algebriche Fondamentali</strong></a></li>
+</ul></li>
+<li><a href="#proprietà-algebriche-e-struttura-di-campo-ℂ"
+id="toc-proprietà-algebriche-e-struttura-di-campo-ℂ"><strong>4.
+Proprietà Algebriche e Struttura di Campo (ℂ)</strong></a>
+<ul>
+<li><a href="#le-9-proprietà-dellaritmetica-e-la-struttura-di-campo"
+id="toc-le-9-proprietà-dellaritmetica-e-la-struttura-di-campo"><strong>Le
+9 Proprietà dell'Aritmetica e la Struttura di Campo</strong></a></li>
+<li><a href="#la-mancanza-di-ordinamento-in-ℂ"
+id="toc-la-mancanza-di-ordinamento-in-ℂ"><strong>La Mancanza di
+Ordinamento in ℂ</strong></a></li>
+</ul></li>
+<li><a
+href="#i-tre-concetti-chiave-coniugato-modulo-e-inverso-moltiplicativo"
+id="toc-i-tre-concetti-chiave-coniugato-modulo-e-inverso-moltiplicativo"><strong>5.
+I Tre Concetti Chiave: Coniugato, Modulo e Inverso
+Moltiplicativo</strong></a>
+<ul>
+<li><a href="#il-coniugato-di-un-numero-complesso-z"
+id="toc-il-coniugato-di-un-numero-complesso-z"><strong>Il Coniugato di
+un Numero Complesso (z̄)</strong></a></li>
+<li><a href="#il-modulo-o-valore-assoluto-z"
+id="toc-il-modulo-o-valore-assoluto-z"><strong>Il Modulo o Valore
+Assoluto (|z|)</strong></a></li>
+<li><a href="#la-relazione-fondamentale"
+id="toc-la-relazione-fondamentale"><strong>La Relazione
+Fondamentale</strong></a></li>
+<li><a href="#linverso-moltiplicativo-z1"
+id="toc-linverso-moltiplicativo-z1"><strong>L'Inverso Moltiplicativo
+(z<sup>−1</sup>)</strong></a></li>
+<li><a href="#esempio-pratico" id="toc-esempio-pratico"><strong>Esempio
+Pratico</strong></a></li>
+</ul></li>
+<li><a href="#interpretazione-geometrica-nel-piano-di-argand-gauss-ℝ2"
+id="toc-interpretazione-geometrica-nel-piano-di-argand-gauss-ℝ2"><strong>6.
+Interpretazione Geometrica nel Piano di Argand-Gauss
+(ℝ<sup>2</sup>)</strong></a>
+<ul>
+<li><a href="#la-rappresentazione-del-piano-complesso"
+id="toc-la-rappresentazione-del-piano-complesso"><strong>La
+Rappresentazione del Piano Complesso</strong></a></li>
+<li><a href="#significato-geometrico-delle-operazioni"
+id="toc-significato-geometrico-delle-operazioni"><strong>Significato
+Geometrico delle Operazioni</strong></a></li>
+<li><a
+href="#il-limite-della-rappresentazione-cartesiana-e-lintroduzione-alle-coordinate-polari"
+id="toc-il-limite-della-rappresentazione-cartesiana-e-lintroduzione-alle-coordinate-polari"><strong>Il
+Limite della Rappresentazione Cartesiana e l'Introduzione alle
+Coordinate Polari</strong></a></li>
+</ul></li>
+<li><a href="#section-1" id="toc-section-1"></a></li>
+<li><a
+href="#coordinate-polari-e-forma-esponenziale-dei-numeri-complessi"
+id="toc-coordinate-polari-e-forma-esponenziale-dei-numeri-complessi"><strong>7.
+Coordinate Polari e Forma Esponenziale dei Numeri Complessi</strong></a>
+<ul>
+<li><a href="#dalle-coordinate-cartesiane-alle-coordinate-polari"
+id="toc-dalle-coordinate-cartesiane-alle-coordinate-polari"><strong>Dalle
+coordinate cartesiane alle coordinate polari</strong></a></li>
+<li><a href="#modulo-e-argomento"
+id="toc-modulo-e-argomento"><strong>Modulo e argomento</strong></a></li>
+<li><a href="#la-notazione-esponenziale"
+id="toc-la-notazione-esponenziale"><strong>La notazione
+esponenziale</strong></a></li>
+<li><a href="#due-esempi" id="toc-due-esempi"><strong>Due
+esempi</strong></a></li>
+<li><a href="#quando-due-forme-polari-rappresentano-lo-stesso-numero"
+id="toc-quando-due-forme-polari-rappresentano-lo-stesso-numero"><strong>Quando
+due forme polari rappresentano lo stesso numero</strong></a></li>
+</ul></li>
+<li><a href="#prodotto-inverso-e-coniugio-in-forma-polare"
+id="toc-prodotto-inverso-e-coniugio-in-forma-polare"><strong>8.
+Prodotto, Inverso e Coniugio in Forma Polare</strong></a>
+<ul>
+<li><a href="#lesponenziale-complesso-si-comporta-come-un-esponenziale"
+id="toc-lesponenziale-complesso-si-comporta-come-un-esponenziale"><strong>L'esponenziale
+complesso si comporta come un esponenziale</strong></a></li>
+<li><a
+href="#il-prodotto-i-moduli-si-moltiplicano-gli-angoli-si-sommano"
+id="toc-il-prodotto-i-moduli-si-moltiplicano-gli-angoli-si-sommano"><strong>Il
+prodotto: i moduli si moltiplicano, gli angoli si
+sommano</strong></a></li>
+<li><a href="#coniugio-e-inverso"
+id="toc-coniugio-e-inverso"><strong>Coniugio e inverso</strong></a></li>
+</ul></li>
+<li><a href="#potenze-e-radici-n-esime-di-un-numero-complesso"
+id="toc-potenze-e-radici-n-esime-di-un-numero-complesso"><strong>9.
+Potenze e Radici n-esime di un Numero Complesso</strong></a>
+<ul>
+<li><a href="#le-potenze-in-forma-polare"
+id="toc-le-potenze-in-forma-polare"><strong>Le potenze in forma
+polare</strong></a></li>
+<li><a href="#le-radici-n-esime-il-problema"
+id="toc-le-radici-n-esime-il-problema"><strong>Le radici n-esime: il
+problema</strong></a></li>
+<li><a href="#come-si-trovano" id="toc-come-si-trovano"><strong>Come si
+trovano</strong></a></li>
+<li><a href="#esempi" id="toc-esempi"><strong>Esempi</strong></a></li>
+<li><a href="#trabocchetti-desame"
+id="toc-trabocchetti-desame"><strong>Trabocchetti
+d'Esame</strong></a></li>
+</ul></li>
+<li><a href="#polinomi-monomi-grado-e-insiemi-di-polinomi"
+id="toc-polinomi-monomi-grado-e-insiemi-di-polinomi"><strong>10.
+Polinomi: Monomi, Grado e Insiemi di Polinomi</strong></a>
+<ul>
+<li><a href="#i-monomi" id="toc-i-monomi"><strong>I
+monomi</strong></a></li>
+<li><a href="#il-grado" id="toc-il-grado"><strong>Il
+grado</strong></a></li>
+<li><a href="#i-polinomi" id="toc-i-polinomi"><strong>I
+polinomi</strong></a></li>
+<li><a href="#polinomi-in-una-variabile"
+id="toc-polinomi-in-una-variabile"><strong>Polinomi in una
+variabile</strong></a></li>
+<li><a href="#gli-insiemi-di-polinomi"
+id="toc-gli-insiemi-di-polinomi"><strong>Gli insiemi di
+polinomi</strong></a></li>
+</ul></li>
+<li><a href="#divisione-con-resto-fra-polinomi"
+id="toc-divisione-con-resto-fra-polinomi"><strong>11. Divisione con
+Resto fra Polinomi</strong></a>
+<ul>
+<li><a href="#come-con-i-numeri-interi"
+id="toc-come-con-i-numeri-interi"><strong>Come con i numeri
+interi</strong></a></li>
+<li><a href="#il-teorema-per-i-polinomi"
+id="toc-il-teorema-per-i-polinomi"><strong>Il teorema per i
+polinomi</strong></a></li>
+<li><a href="#il-procedimento" id="toc-il-procedimento"><strong>Il
+procedimento</strong></a></li>
+<li><a href="#quando-un-polinomio-ne-divide-un-altro"
+id="toc-quando-un-polinomio-ne-divide-un-altro"><strong>Quando un
+polinomio ne divide un altro</strong></a></li>
+</ul></li>
+<li><a href="#radici-di-un-polinomio-e-molteplicità"
+id="toc-radici-di-un-polinomio-e-molteplicità"><strong>12. Radici di un
+Polinomio e Molteplicità</strong></a>
+<ul>
+<li><a href="#che-cosè-una-radice"
+id="toc-che-cosè-una-radice"><strong>Che cos'è una
+radice</strong></a></li>
+<li><a href="#il-criterio-con-la-divisione"
+id="toc-il-criterio-con-la-divisione"><strong>Il criterio con la
+divisione</strong></a></li>
+<li><a href="#la-molteplicità" id="toc-la-molteplicità"><strong>La
+molteplicità</strong></a></li>
+<li><a href="#esempio-1-x³-1" id="toc-esempio-1-x³-1"><strong>Esempio 1:
+x³ − 1</strong></a></li>
+<li><a href="#esempio-2-x³-2x²-x"
+id="toc-esempio-2-x³-2x²-x"><strong>Esempio 2: x³ − 2x² +
+x</strong></a></li>
+<li><a href="#radici-contate-con-molteplicità"
+id="toc-radici-contate-con-molteplicità"><strong>Radici "contate con
+molteplicità"</strong></a></li>
+</ul></li>
+<li><a
+href="#quante-radici-ha-un-polinomio-induzione-grado-2-e-teorema-fondamentale-dellalgebra"
+id="toc-quante-radici-ha-un-polinomio-induzione-grado-2-e-teorema-fondamentale-dellalgebra"><strong>13.
+Quante Radici Ha un Polinomio: Induzione, Grado 2 e Teorema Fondamentale
+dell'Algebra</strong></a>
+<ul>
+<li><a href="#al-massimo-n-radici"
+id="toc-al-massimo-n-radici"><strong>Al massimo n
+radici</strong></a></li>
+<li><a href="#un-richiamo-sullinduzione"
+id="toc-un-richiamo-sullinduzione"><strong>Un richiamo
+sull'induzione</strong></a></li>
+<li><a href="#la-dimostrazione" id="toc-la-dimostrazione"><strong>La
+dimostrazione</strong></a></li>
+<li><a href="#equazioni-di-secondo-grado"
+id="toc-equazioni-di-secondo-grado"><strong>Equazioni di secondo
+grado</strong></a></li>
+<li><a href="#il-teorema-fondamentale-dellalgebra"
+id="toc-il-teorema-fondamentale-dellalgebra"><strong>Il teorema
+fondamentale dell'algebra</strong></a></li>
+<li><a href="#due-complementi-non-svolti-a-lezione"
+id="toc-due-complementi-non-svolti-a-lezione"><strong>Due complementi
+(non svolti a lezione)</strong></a></li>
+</ul></li>
+<li><a
+href="#lo-spazio-euclideo-ℝn-vettori-coordinate-e-rappresentazioni"
+id="toc-lo-spazio-euclideo-ℝn-vettori-coordinate-e-rappresentazioni"><strong>14.
+Lo Spazio Euclideo ℝ<sup>n</sup>: Vettori, Coordinate e
+Rappresentazioni</strong></a>
+<ul>
+<li><a href="#perché-un-punto-di-vista-algebrico"
+id="toc-perché-un-punto-di-vista-algebrico"><strong>Perché un punto di
+vista algebrico</strong></a></li>
+<li><a href="#che-cosè-ℝn" id="toc-che-cosè-ℝn"><strong>Che cos'è
+ℝ<sup>n</sup></strong></a></li>
+<li><a href="#i-casi-ℝ²-e-ℝ³" id="toc-i-casi-ℝ²-e-ℝ³"><strong>I casi ℝ²
+e ℝ³</strong></a></li>
+<li><a href="#tre-modi-di-vedere-un-vettore"
+id="toc-tre-modi-di-vedere-un-vettore"><strong>Tre modi di vedere un
+vettore</strong></a></li>
+</ul></li>
+<li><a href="#somma-e-prodotto-per-scalare-in-ℝn"
+id="toc-somma-e-prodotto-per-scalare-in-ℝn"><strong>15. Somma e Prodotto
+per Scalare in ℝ<sup>n</sup></strong></a>
+<ul>
+<li><a href="#quali-operazioni-si-possono-fare"
+id="toc-quali-operazioni-si-possono-fare"><strong>Quali operazioni si
+possono fare</strong></a></li>
+<li><a href="#la-somma-di-vettori"
+id="toc-la-somma-di-vettori"><strong>La somma di
+vettori</strong></a></li>
+<li><a href="#il-prodotto-per-uno-scalare"
+id="toc-il-prodotto-per-uno-scalare"><strong>Il prodotto per uno
+scalare</strong></a></li>
+<li><a href="#gli-scalari" id="toc-gli-scalari"><strong>Gli
+scalari</strong></a></li>
+</ul></li>
+<li><a href="#le-proprietà-di-ℝn-e-i-gruppi"
+id="toc-le-proprietà-di-ℝn-e-i-gruppi"><strong>16. Le Proprietà di
+ℝ<sup>n</sup> e i Gruppi</strong></a>
+<ul>
+<li><a href="#le-otto-proprietà-di-somma-e-prodotto"
+id="toc-le-otto-proprietà-di-somma-e-prodotto"><strong>Le otto proprietà
+di somma e prodotto</strong></a></li>
+<li><a href="#i-gruppi" id="toc-i-gruppi"><strong>I
+gruppi</strong></a></li>
+</ul></li>
+<li><a href="#gli-spazi-vettoriali-su-un-campo"
+id="toc-gli-spazi-vettoriali-su-un-campo"><strong>17. Gli Spazi
+Vettoriali su un Campo</strong></a>
+<ul>
+<li><a href="#il-campo-degli-scalari"
+id="toc-il-campo-degli-scalari"><strong>Il campo degli
+scalari</strong></a></li>
+<li><a href="#la-definizione" id="toc-la-definizione"><strong>La
+definizione</strong></a></li>
+<li><a href="#i-quattro-ingredienti"
+id="toc-i-quattro-ingredienti"><strong>I quattro
+ingredienti</strong></a></li>
+<li><a href="#esempi-1"
+id="toc-esempi-1"><strong>Esempi</strong></a></li>
+</ul></li>
+<li><a href="#zero-opposto-e-altri-esempi-di-spazi-vettoriali"
+id="toc-zero-opposto-e-altri-esempi-di-spazi-vettoriali"><strong>18.
+Zero, Opposto e Altri Esempi di Spazi Vettoriali</strong></a>
+<ul>
+<li><a href="#come-trovare-lo-zero-e-lopposto"
+id="toc-come-trovare-lo-zero-e-lopposto"><strong>Come trovare lo zero e
+l'opposto</strong></a></li>
+<li><a href="#ogni-campo-è-uno-spazio-vettoriale-su-sé-stesso"
+id="toc-ogni-campo-è-uno-spazio-vettoriale-su-sé-stesso"><strong>Ogni
+campo è uno spazio vettoriale su sé stesso</strong></a></li>
+<li><a href="#cambiare-il-campo-degli-scalari-ℂ-su-ℝ"
+id="toc-cambiare-il-campo-degli-scalari-ℂ-su-ℝ"><strong>Cambiare il
+campo degli scalari: ℂ su ℝ</strong></a></li>
+<li><a href="#lo-spazio-delle-funzioni"
+id="toc-lo-spazio-delle-funzioni"><strong>Lo spazio delle
+funzioni</strong></a></li>
+<li><a href="#un-controesempio-i-polinomi-di-grado-esattamente-k"
+id="toc-un-controesempio-i-polinomi-di-grado-esattamente-k"><strong>Un
+controesempio: i polinomi di grado esattamente k</strong></a></li>
+</ul></li>
+<li><a href="#le-matrici-e-lo-spazio-mm-n-𝕂"
+id="toc-le-matrici-e-lo-spazio-mm-n-𝕂"><strong>19. Le Matrici e lo
+Spazio M(m, n, 𝕂)</strong></a>
+<ul>
+<li><a href="#un-nuovo-esempio-fondamentale"
+id="toc-un-nuovo-esempio-fondamentale"><strong>Un nuovo esempio
+fondamentale</strong></a></li>
+<li><a href="#che-cosè-una-matrice"
+id="toc-che-cosè-una-matrice"><strong>Che cos'è una
+matrice</strong></a></li>
+<li><a href="#qualche-esempio" id="toc-qualche-esempio"><strong>Qualche
+esempio</strong></a></li>
+<li><a href="#somma-e-prodotto-per-scalare"
+id="toc-somma-e-prodotto-per-scalare"><strong>Somma e prodotto per
+scalare</strong></a></li>
+<li><a href="#mm-n-𝕂-è-uno-spazio-vettoriale"
+id="toc-mm-n-𝕂-è-uno-spazio-vettoriale"><strong>M(m, n, 𝕂) è uno spazio
+vettoriale</strong></a></li>
+</ul></li>
+<li><a href="#i-sottospazi-vettoriali"
+id="toc-i-sottospazi-vettoriali"><strong>20. I Sottospazi
+Vettoriali</strong></a>
+<ul>
+<li><a href="#uno-spazio-dentro-un-altro-spazio"
+id="toc-uno-spazio-dentro-un-altro-spazio"><strong>Uno spazio dentro un
+altro spazio</strong></a></li>
+<li><a href="#un-esempio-che-funziona-e-uno-che-non-funziona-in-ℝ³"
+id="toc-un-esempio-che-funziona-e-uno-che-non-funziona-in-ℝ³"><strong>Un
+esempio che funziona e uno che non funziona in ℝ³</strong></a></li>
+<li><a href="#altri-esempi-nel-piano"
+id="toc-altri-esempi-nel-piano"><strong>Altri esempi nel
+piano</strong></a></li>
+<li><a href="#i-polinomi-1" id="toc-i-polinomi-1"><strong>I
+polinomi</strong></a></li>
+</ul></li>
+<li><a href="#sottospazi-di-matrici-quadrate"
+id="toc-sottospazi-di-matrici-quadrate"><strong>21. Sottospazi di
+Matrici Quadrate</strong></a>
+<ul>
+<li><a href="#matrici-quadrate-e-diagonale-principale"
+id="toc-matrici-quadrate-e-diagonale-principale"><strong>Matrici
+quadrate e diagonale principale</strong></a></li>
+<li><a href="#esempi-2"
+id="toc-esempi-2"><strong>Esempi</strong></a></li>
+<li><a href="#una-matrice-può-stare-in-più-classi"
+id="toc-una-matrice-può-stare-in-più-classi"><strong>Una matrice può
+stare in più classi</strong></a></li>
+<li><a href="#sono-tutti-sottospazi"
+id="toc-sono-tutti-sottospazi"><strong>Sono tutti
+sottospazi</strong></a></li>
+</ul></li>
+<li><a href="#combinazioni-lineari-e-sottospazio-generato-span"
+id="toc-combinazioni-lineari-e-sottospazio-generato-span"><strong>22.
+Combinazioni Lineari e Sottospazio Generato (Span)</strong></a>
+<ul>
+<li><a href="#due-modi-di-costruire-sottospazi"
+id="toc-due-modi-di-costruire-sottospazi"><strong>Due modi di costruire
+sottospazi</strong></a></li>
+<li><a href="#combinazioni-lineari"
+id="toc-combinazioni-lineari"><strong>Combinazioni
+lineari</strong></a></li>
+<li><a href="#lo-span" id="toc-lo-span"><strong>Lo
+Span</strong></a></li>
+<li><a href="#esercizi"
+id="toc-esercizi"><strong>Esercizi</strong></a></li>
+</ul></li>
+</ul>
+</nav>
+<main><article>
+<h1
+id="introduzione-allalgebra-lineare-e-applicazioni-in-informatica"><strong>1.
+Introduzione all'Algebra Lineare e Applicazioni in
+Informatica</strong></h1>
+<h2
+id="gli-oggetti-fondamentali-vettori-spazi-vettoriali-e-mappe-lineari"><strong>Gli
+oggetti fondamentali: Vettori, Spazi Vettoriali e Mappe
+Lineari</strong></h2>
+<p>L'introduzione della lezione supera la visione classica del vettore
+inteso semplicemente come un segmento orientato — la tipica "freccia"
+dotata di direzione, verso e intensità utilizzata in fisica — per
+abbracciare un concetto algebrico molto più generale e astratto.
+<mark>In questo contesto formale, un <strong>vettore</strong> viene
+definito come un qualsiasi elemento che appartenga a uno <strong>spazio
+vettoriale</strong></mark>.</p>
+<p>Uno <mark>spazio vettoriale non è altro che un insieme o collezione
+di oggetti sui quali sono definite due operazioni essenziali</mark>:</p>
+<ul>
+<li><p><strong>La <mark>somma tra elementi</mark></strong><mark>, che
+sul piano geometrico corrisponde alla classica regola del
+parallelogramma;</mark></p></li>
+</ul>
+<p><img src="./media/image1.png"
+style="width:1.97747in;height:1.74567in" /></p>
+<p><em>La somma di due vettori con la regola del
+parallelogramma.</em></p>
+<ul>
+<li><p><strong>Il <mark>prodotto per un numero</mark></strong> (detto
+<em>scalare</em>), c<mark>he ha l'effetto di allungare, accorciare o
+invertire il verso del vettore</mark>.</p></li>
+</ul>
+<p>Mentre gli <mark>spazi vettoriali fungono da contenitori dei
+dati</mark>, le <mark><strong>mappe lineari</strong> rappresentano il
+linguaggio con cui questi spazi comunicano tra loro.</mark> Una
+<mark><strong>mappa lineare</strong> è una funzione tra spazi vettoriali
+che preserva la struttura algebrica, cioè rispetta sia la somma tra
+vettori che la moltiplicazione per uno scalare</mark>. Se pensiamo ai
+vettori come agli oggetti che trasportano l'informazione, le mappe
+lineari sono lo strumento matematico che ci permette di prendere tale
+informazione e trasformarla in qualcosa di utile.</p>
+<p><strong>In parole povere:</strong> una mappa lineare è una
+trasformazione "ben educata": se prima sommi due vettori e poi li
+trasformi, ottieni lo stesso risultato che trasformandoli separatamente
+e sommando dopo; lo stesso vale se allunghi un vettore di un fattore
+qualsiasi. Ruotare o ingrandire un'immagine sono esempi tipici.</p>
+<h2
+id="motivazioni-ed-esempi-applicativi-in-informatica"><strong>Motivazioni
+ed Esempi Applicativi in Informatica</strong></h2>
+<p>Sebbene queste definizioni possano sembrare molto astratte,
+<mark>l'algebra lineare è fondamentale in informatica</mark>. In
+qualsiasi programma software, infatti, i <mark>dati in ingresso (input)
+e i risultati prodotti (output) vengono memorizzati e trasmessi come
+sequenze o stringhe di numeri, comunemente note come
+<em>array</em></mark>. Poiché gli <mark>array</mark> si comportano a
+tutti gli effetti come <mark>vettori</mark>, <mark>l'insieme di tutti i
+possibili input o output forma uno spazio vettoriale</mark>, e molte
+elaborazioni dei dati sono composte da mappe lineari.</p>
+<p>La lezione illustra questo legame attraverso due esempi concreti:</p>
+<ul>
+<li><p><strong>Veicoli autonomi e Intelligenza Artificiale</strong>:
+Un'auto a guida autonoma riceve in continuazione dati dai suoi sensori e
+dalle telecamere. Un'immagine catturata da una telecamera è composta da
+una griglia di pixel, dove ciascun colore è identificato da una tripla
+di numeri RGB (rosso, verde, blu); allo stesso modo, la distanza da un
+ostacolo è un ulteriore valore numerico fornito da un sensore. Tutti
+questi dati insieme formano un lungo vettore di input che un algoritmo
+elabora per generare un vettore di output contenente i comandi di guida,
+come quanto accelerare, frenare o sterzare. Anche nelle reti neurali e
+nei modelli di IA generativa (come ChatGPT), i parametri o "pesi"
+appresi durante l'addestramento sono i coefficienti di mappe lineari,
+alternate a funzioni non lineari: l'algebra lineare è quindi una
+componente fondamentale di questi modelli.</p></li>
+<li><p><strong>Teoria dei segnali e filtraggio del rumore</strong>: Un
+segnale — che sia un'onda audio, una trasmissione elettromagnetica, un
+elettrocardiogramma (ECG) o un elettroencefalogramma (EEG) — viene
+descritto matematicamente come una funzione del tempo che ne misura
+l'ampiezza in ogni istante. Poiché le funzioni si possono sommare tra
+loro e moltiplicare per un numero, lo spazio dei segnali forma uno
+spazio vettoriale. Durante la registrazione o la trasmissione, un
+segnale viene spesso alterato da rumori ambientali o errori di canale.
+Per "ripulire" il segnale e recuperare l'informazione corretta si usa
+spesso un'opportuna mappa lineare.</p></li>
+</ul>
+<h1 id="section"></h1>
+<h1
+id="costruzione-degli-insiemi-numerici-e-struttura-di-campo-𝕂"><strong>2.
+Costruzione degli Insiemi Numerici e Struttura di Campo
+(𝕂)</strong></h1>
+<h2 id="la-costruzione-gerarchica-degli-insiemi-numerici"><strong>La
+Costruzione Gerarchica degli Insiemi Numerici</strong></h2>
+<p><mark>Per poter definire in modo rigoroso cosa sia uno spazio
+vettoriale</mark>, occorre prima c<mark>hiarire <strong>che cos'è un
+numero</strong></mark> e da dove provengono gli oggetti che usiamo per
+fare i calcoli. La matematica costruisce i sistemi numerici come una
+catena di insiemi incapsulati l'uno nell'altro (ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ), dove ℤ
+nasce per poter sottrarre, ℚ per poter dividere e ℝ per colmare i
+"buchi" dei razionali (completezza); ℂ, come vedremo, per risolvere
+equazioni prive di soluzioni reali.</p>
+<ul>
+<li><p><strong>Numeri Naturali (ℕ = {0, 1, 2, …})</strong>:
+Rappresentano il punto di partenza. La loro definizione teorica formale
+è complessa (richiede la teoria degli insiemi e le classi di
+equivalenza), quindi nel corso vengono assunti come concetto primario e
+intuitivo.</p></li>
+<li><p><strong>Numeri Interi (ℤ = {…, -2, -1, 0, 1, 2, …})</strong>:
+Nascono unendo ai naturali i loro <strong>opposti negativi</strong>.
+Questo estende il sistema permettendo di definire compiutamente la
+sottrazione.</p></li>
+<li><p><strong>Numeri Razionali (ℚ = {a/b | a, b ∈ ℤ, b ≠ 0})</strong>:
+Vengono costruiti introducendo i rapporti (frazioni) tra interi. Questo
+passaggio permette di definire la divisione (ovvero la moltiplicazione
+per l'inverso).</p></li>
+</ul>
+<h2 id="il-limite-dei-razionali-e-la-nascita-dei-reali-ℝ"><strong>Il
+limite dei Razionali e la nascita dei Reali (ℝ)</strong></h2>
+<p>Rappresentando i numeri razionali su una retta, verrebbe da pensare
+che essi riempiano tutti i punti disponibili. Tuttavia, secondo la
+tradizione, già nell'antica Grecia un membro della scuola pitagorica si
+accorse che la diagonale di un quadrato di lato 1, lunga √2, non è
+commensurabile con il lato. Come dimostrato formalmente per assurdo, √2
+non può essere espresso come rapporto tra due interi: esistono quindi
+dei "buchi" sulla retta numerica che i razionali non riescono a
+coprire.</p>
+<p>Per "tappare" tutti questi buchi e completare la retta si costruisce
+l'insieme dei <strong>Numeri Reali (ℝ)</strong>. Formalmente, un numero
+reale viene definito attraverso <strong>classi di equivalenza di
+successioni di Cauchy di numeri razionali</strong>.</p>
+<p><strong>In parole povere:</strong> un numero reale è un punto della
+retta che si può avvicinare quanto vuoi con frazioni sempre più precise.
+Un numero come π è il "punto di arrivo" di una sequenza di
+approssimazioni razionali (3; 3,1; 3,14; 3,141...) che si stringono
+sempre di più, anche se nessuna frazione lo raggiunge davvero.</p>
+<p>Al di là del rigore formale, la lezione sottolinea come un numero
+reale (specialmente se irrazionale, come π o e) debba essere inteso
+operativamente non come un oggetto "finito e statico", ma come un
+<strong>processo dinamico in divenire</strong>: una successione di
+approssimazioni razionali via via più precise.</p>
+<p>Questo approccio operativo è indispensabile per il calcolo
+informatico e matematico; basti pensare al calcolo di una potenza ad
+esponente reale come 2<sup>π</sup>: non potendo moltiplicare 2 per se
+stesso π volte, si calcola la sequenza delle potenze con esponenti
+razionali che approssimano π (2<sup>3.1</sup>, 2<sup>3.14</sup>,
+2<sup>3.141</sup>, …), avvicinandosi arbitrariamente al valore
+desiderato.</p>
+<h2
+id="le-9-proprietà-dellaritmetica-e-la-definizione-di-campo-𝕂"><strong>Le
+9 Proprietà dell'Aritmetica e la Definizione di Campo (𝕂)</strong></h2>
+<p>Sull'insieme dei numeri reali ℝ sono definite due operazioni
+fondamentali, la <strong>somma</strong> e la
+<strong>moltiplicazione</strong>, che soddisfano <strong>9 proprietà
+algebriche fondamentali</strong>:</p>
+<ol type="1">
+<li><p><strong>Proprietà della Somma</strong>:</p>
+<ul>
+<li><p><em>Commutativa</em>: a + b = b + a.</p></li>
+<li><p><em>Associativa</em>: (a + b) + c = a + (b + c).</p></li>
+<li><p><em>Elemento neutro</em>: Esiste lo 0 tale che a + 0 =
+a.</p></li>
+<li><p><em>Esistenza dell'opposto</em>: Per ogni a esiste -a tale che a
++ (-a) = 0.</p></li>
+</ul></li>
+<li><p><strong>Proprietà del Prodotto</strong>:</p>
+<ul>
+<li><p><em>Commutativa</em>: a · b = b · a.</p></li>
+<li><p><em>Associativa</em>: (a · b) · c = a · (b · c).</p></li>
+<li><p><em>Elemento neutro</em>: Esiste l'1 tale che a · 1 = a.</p></li>
+<li><p><em>Esistenza dell'inverso</em>: Per ogni a ≠ 0 esiste
+a<sup>−1</sup> (o 1/a) tale che a · a<sup>−1</sup> = 1.</p></li>
+</ul></li>
+<li><p><strong>Proprietà distributiva (lega somma e
+prodotto):</strong></p>
+<ul>
+<li><p><em>Proprietà distributiva</em> del prodotto rispetto alla somma:
+a · (b + c) = a · b + a · c.</p></li>
+</ul></li>
+</ol>
+<h2 id="la-struttura-algebrica-di-campo-field"><strong>La struttura
+algebrica di Campo (Field)</strong></h2>
+<p>In matematica, un <mark>qualsiasi insieme dotato di due operazioni
+che soddisfano tutte e 9 queste proprietà prende il nome formale di
+<strong>Campo</strong></mark> (spesso indicato con il simbolo generico
+𝕂).</p>
+<p><strong>In parole povere:</strong> un campo è un insieme di numeri
+dentro cui puoi fare le quattro operazioni (somma, sottrazione,
+prodotto, divisione per numeri diversi da zero) con le solite regole,
+senza mai uscire dall'insieme. I razionali e i reali sono campi; gli
+interi no, perché dividendo 1 per 2 esci dagli interi.</p>
+<p>Analizzando i vari insiemi numerici alla luce di questa
+definizione:</p>
+<ul>
+<li><p><strong>ℕ NON è un campo</strong>: mancano sia gli opposti sia
+gli inversi.</p></li>
+<li><p><strong>ℤ NON è un campo</strong>: possiede gli opposti ma
+mancano gli inversi (ad esempio 2 ∈ ℤ, ma il suo inverso 1/2 ∉
+ℤ).</p></li>
+<li><p><mark><strong>ℚ e ℝ SONO campi</strong>: soddisfano interamente
+tutte e 9 le proprietà</mark>. (In seguito si vedrà che anche l'insieme
+dei numeri complessi ℂ costituisce un campo).</p></li>
+</ul>
+<h2 id="ruolo-del-campo-nellalgebra-lineare"><strong>Ruolo del Campo
+nell'Algebra Lineare</strong></h2>
+<p><mark>La nozione di campo è cruciale</mark> per il prosieguo del
+corso: quando definiremo formalmente gli <strong>spazi
+vettoriali</strong>, stabiliremo che i vettori si possono moltiplicare
+per dei numeri presi da un opportuno campo 𝕂. <mark>Gli elementi del
+campo prendono il nome di <strong>scalari</strong></mark>. <mark>Nel
+corso dell'anno, il campo degli scalari di riferimento sarà generalmente
+ℝ oppure ℂ</mark> (la definizione vale però per qualsiasi campo).</p>
+<h1
+id="introduzione-ai-numeri-complessi-e-definizione-algebrica"><strong>3.
+Introduzione ai Numeri Complessi e Definizione Algebrica</strong></h1>
+<h2 id="motivazione-teorica-e-lestensione-dei-reali"><strong>Motivazione
+Teorica e l'Estensione dei Reali</strong></h2>
+<p>Nel percorso di costruzione dei sistemi numerici (ℕ ⊂ ℤ ⊂ ℚ ⊂ ℝ ⊂ ℂ),
+ogni ampliamento nasce da un'esigenza precisa: sottrarre (ℤ), dividere
+(ℚ), colmare i "buchi" dei razionali (ℝ), risolvere equazioni prive di
+soluzioni reali (ℂ). Così come l'introduzione dei numeri reali ℝ ha
+consentito di risolvere equazioni come x<sup>2</sup> = 2 (impossibili da
+completare in ℚ), <mark>l'estensione ai <strong>numeri complessi
+ℂ</strong> risponde alla necessità di risolvere equazioni algebriche
+prive di soluzioni reali, la cui forma più elementare è</mark>:</p>
+<p><img src="./media/image2.png"
+style="width:3.54331in;height:2.62957in" /></p>
+<p><em>Gli insiemi numerici come scatole una dentro l'altra.</em></p>
+<p>x<sup>2</sup> + 1 = 0   ⟺   x<sup>2</sup> = -1</p>
+<p>Nell'insieme dei numeri reali, il quadrato di qualsiasi numero non
+nullo è sempre strettamente positivo (x<sup>2</sup> &gt; 0<mark>), il
+che rende impossibile estrarre la radice quadrata di un numero negativo.
+Introducendo l'insieme ℂ, la matematica costruisce un sistema numerico
+con proprietà algebriche superiori</mark>. Come evidenziato a lezione,
+<mark>sebbene l'unità immaginaria possa sembrare un concetto astratto, i
+numeri complessi costituiscono uno strumento indispensabile come
+passaggio intermedio</mark> in ambiti come la fisica e l'ingegneria,
+permettendo di risolvere problemi il cui risultato finale torna poi a
+essere una grandezza reale e misurabile.</p>
+<h2 id="la-forma-algebrica-e-lunità-immaginaria"><strong>La Forma
+Algebrica e l'Unità Immaginaria</strong></h2>
+<p>Un numero complesso z ∈ ℂ viene definito come un oggetto algebrico
+espresso in <strong><mark>forma cartesiana</mark></strong> (o
+algebrica):</p>
+<p><mark>z = a + bi</mark></p>
+<p>I componenti di questa espressione sono definiti come segue:</p>
+<ul>
+<li><p>a e b sono due numeri reali arbitrari (a, b ∈ ℝ), chiamati
+rispettivamente <mark>parte reale</mark> (a = Re(z)) e <mark>parte
+immaginaria</mark> (b = Im(z)): <mark>la parte immaginaria è il numero
+reale b</mark>, non bi.</p></li>
+<li><p><mark>i è il simbolo speciale denominato <strong>unità
+immaginaria</strong></mark>, caratterizzato dalla regola
+fondamentale:</p></li>
+</ul>
+<p><mark>i<sup>2</sup> = -1</mark> <mark>i<sup>4</sup> =1</mark></p>
+<p><strong>In parole povere:</strong> un numero complesso è una coppia
+di numeri reali scritta in modo speciale: una parte "normale" (a) e una
+parte che moltiplica i, una radice quadrata inventata di -1 (b). È come
+un punto del piano con due coordinate, dove la seconda è la parte
+immaginaria. Esempio: 3 + 2i ha parte reale 3 e parte immaginaria 2 (non
+2i).</p>
+<p>I numeri reali costituiscono un sottoinsieme proprio dei numeri
+complessi (ℝ ⊂ ℂ): quando la componente b = 0, il numero z = a + 0i
+coincide con il comune numero reale a. Quando invece a = 0 e b ≠ 0, il
+numero z = bi prende il nome di <strong>immaginario puro</strong>.</p>
+<p><strong>In parole povere:</strong> i reali sono i numeri complessi
+"senza parte immaginaria" (stanno sull'asse orizzontale), mentre gli
+immaginari puri sono quelli "senza parte reale", come 5i, che stanno
+sull'asse verticale.</p>
+<h2 id="operazioni-algebriche-fondamentali"><strong>Operazioni
+Algebriche Fondamentali</strong></h2>
+<p>L'algebra dei numeri complessi segue le classiche regole operative
+dell'aritmetica reale, applicando l'unica avvertenza di sostituire ogni
+occorrenza di i<sup>2</sup> con il valore -1.</p>
+<ul>
+<li><p><strong>Somma</strong>: <mark>L'addizione tra due numeri
+complessi z<sub>1</sub> = a + bi e z<sub>2</sub> = c + di si effettua
+sommando separatamente le parti reali e le parti
+immaginarie</mark>:</p></li>
+</ul>
+<p>(a + bi) + (c + di) = (a + c) + (b + d)i</p>
+<ul>
+<li><p><strong>Prodotto</strong>: <mark>La moltiplicazione si calcola
+sviluppando il prodotto delle due parentesi tramite la normale proprietà
+distributiva e applicando la relazione i<sup>2</sup> =
+-1</mark>:</p></li>
+</ul>
+<p>(a + bi) · (c + di) = ac + adi + bci + bdi<sup>2</sup> = (ac - bd) +
+(ad + bc)i</p>
+<h1 id="proprietà-algebriche-e-struttura-di-campo-ℂ"><strong>4.
+Proprietà Algebriche e Struttura di Campo (ℂ)</strong></h1>
+<h2
+id="le-9-proprietà-dellaritmetica-e-la-struttura-di-campo"><strong>Le 9
+Proprietà dell'Aritmetica e la Struttura di Campo</strong></h2>
+<p>Come già osservato per i numeri reali ℝ, anche sull'insieme dei
+numeri complessi ℂ sono definite le due operazioni binarie fondamentali
+— la <strong>somma</strong> e la <strong>moltiplicazione</strong> — che
+soddisfano rigorosamente le stesse <strong><mark>9 proprietà algebriche
+dell'aritmetica</mark></strong>:</p>
+<ul>
+<li><p><strong>Proprietà della Somma</strong>:</p>
+<ul>
+<li><p><em><mark>Commutativa</mark></em>: z<sub>1</sub> + z<sub>2</sub>
+= z<sub>2</sub> + z<sub>1</sub> per ogni z<sub>1</sub>, z<sub>2</sub> ∈
+ℂ.</p></li>
+<li><p><em><mark>Associativa</mark></em>: (z<sub>1</sub> +
+z<sub>2</sub>) + z<sub>3</sub> = z<sub>1</sub> + (z<sub>2</sub> +
+z<sub>3</sub>) per ogni z<sub>1</sub>, z<sub>2</sub>, z<sub>3</sub> ∈
+ℂ.</p></li>
+<li><p><em><mark>Elemento neutro</mark></em>: Esiste l'elemento neutro 0
+∈ ℂ (espresso come 0 + 0i) tale che z + 0 = z.</p></li>
+<li><p><em><mark>Esistenza dell'opposto</mark></em>: Per ogni z = a + bi
+∈ ℂ, esiste l'opposto -z = -a - bi tale che z + (-z) = 0.</p></li>
+</ul></li>
+<li><p><strong>Proprietà del Prodotto</strong>:</p>
+<ul>
+<li><p><em>Commutativa</em>: z<sub>1</sub> · z<sub>2</sub> =
+z<sub>2</sub> · z<sub>1</sub> per ogni z<sub>1</sub>, z<sub>2</sub> ∈
+ℂ.</p></li>
+<li><p><em>Associativa</em>: (z<sub>1</sub> · z<sub>2</sub>) ·
+z<sub>3</sub> = z<sub>1</sub> · (z<sub>2</sub> · z<sub>3</sub>) per ogni
+z<sub>1</sub>, z<sub>2</sub>, z<sub>3</sub> ∈ ℂ.</p></li>
+<li><p><em>Elemento neutro</em>: Esiste l'unità 1 ∈ ℂ (espressa come 1 +
+0i) tale che z · 1 = z.</p></li>
+<li><p><em><mark>Esistenza dell'inverso</mark></em>: Per ogni numero
+complesso non nullo z ≠ 0, esiste un inverso moltiplicativo
+z<sup>−1</sup> tale che z · z<sup>−1</sup> = 1.</p></li>
+</ul></li>
+<li><p><strong>Proprietà Distributiva</strong>:</p>
+<ul>
+<li><p><mark>Il prodotto si distribuisce rispetto alla somma</mark>:
+z<sub>1</sub> · (z<sub>2</sub> + z<sub>3</sub>) = z<sub>1</sub> ·
+z<sub>2</sub> + z<sub>1</sub> · z<sub>3</sub>.</p></li>
+</ul></li>
+</ul>
+<p>Soddisfando tutti e 9 gli assiomi dell'aritmetica, l'insieme dei
+numeri complessi costituisce formalmente un <strong>Campo</strong>
+(indicato genericamente con il simbolo 𝕂). Di conseguenza, ℂ condivide
+la medesima dignità algebrica di ℝ e ℚ, e costituisce una struttura
+fondamentale da cui estrarre gli scalari per la definizione degli spazi
+vettoriali.</p>
+<h2 id="la-mancanza-di-ordinamento-in-ℂ"><strong>La Mancanza di
+Ordinamento in ℂ</strong></h2>
+<p>Nonostante ℂ sia un campo algebrico completo, la lezione pone
+l'accento su una <mark><strong>differenza fondamentale</strong> rispetto
+agli insiemi numerici precedentemente studiati</mark> (ℕ, ℤ, ℚ e
+ℝ<mark>): <strong>l'insieme dei numeri complessi non è un insieme
+ordinato</strong></mark>.</p>
+<p><mark>Nei numeri reali è sempre possibile confrontare due elementi
+distinti stabilendo quale sia maggiore o minore dell'altro</mark> (a
+&gt; b oppure b &gt; a) e distinguere chiaramente i numeri positivi da
+quelli negativi. <mark>In ℂ, al contrario, non esiste alcuna relazione
+d'ordine che sia compatibile con le operazioni algebriche di somma e
+prodotto</mark>.</p>
+<p>La motivazione teorica di questo limite deriva direttamente dalla
+definizione dell'unità immaginaria:</p>
+<ul>
+<li><p>In un qualsiasi campo ordinato, il quadrato di un elemento non
+nullo deve risultare strettamente positivo.</p></li>
+<li><p>Nei numeri complessi, tuttavia, la regola cardine stabilisce che
+i<sup>2</sup> = -1. Se si tentasse di definire un ordine, si arriverebbe
+alla contraddizione per cui -1 dovrebbe essere considerato un numero
+positivo.</p></li>
+</ul>
+<p><mark>Per questo motivo, non ha alcun significato matematico scrivere
+espressioni come z<sub>1</sub> &gt; z<sub>2</sub> o chiedere se un
+numero complesso sia "positivo" o "negativo"</mark>. I numeri complessi
+come tali si possono solo confrontare per uguaglianza (z<sub>1</sub> =
+z<sub>2</sub>) o diversità (z<sub>1</sub> ≠ z<sub>2</sub>). Si possono
+invece ordinare grandezze reali associate, come i moduli (|z1| &lt;
+|z2|) o le parti reali (Re(z1) &lt; Re(z2)).</p>
+<h1
+id="i-tre-concetti-chiave-coniugato-modulo-e-inverso-moltiplicativo"><strong>5.
+I Tre Concetti Chiave: Coniugato, Modulo e Inverso
+Moltiplicativo</strong></h1>
+<h2 id="il-coniugato-di-un-numero-complesso-z"><strong>Il Coniugato di
+un Numero Complesso (z̄)</strong></h2>
+<p>Dato un numero complesso z = a + bi, si definisce
+<strong><mark>coniugato</mark></strong> (o coniugio) <mark>di z,</mark>
+indicato convenzionalmente con il simbolo <mark>z̄</mark>, <mark>il
+numero complesso ottenuto invertendo il segno della sola parte
+immaginaria</mark>:</p>
+<p><mark>z̄ = a - bi</mark></p>
+<p>Il coniugio lascia inalterata la parte reale e cambia il segno della
+parte immaginaria (Re(z̄) = Re(z) e Im(z̄) = -Im(z)). Se si applica
+l'operazione due volte di fila, si torna al numero di partenza (z̿ =
+z).</p>
+<p><strong>In parole povere:</strong> il coniugato è lo "specchio" di un
+numero complesso rispetto all'asse orizzontale: tieni la parte reale e
+cambi solo il segno di quella immaginaria. Il coniugato di 2 + 3i è 2 -
+3i; specchiandolo due volte torni dov'eri.</p>
+<p>Questa operazione permette di caratterizzare in modo elegante i
+numeri reali all'interno dell'insieme dei complessi:</p>
+<ul>
+<li><p>Se z ∈ ℝ, la sua parte immaginaria è nulla (Im(z) = 0), da cui
+segue che z = z̄.</p></li>
+<li><p>Sui numeri reali l'operazione di coniugio non produce alcun
+effetto; nei numeri complessi rappresenta invece una trasformazione
+fondamentale.</p></li>
+</ul>
+<h2 id="il-modulo-o-valore-assoluto-z"><strong>Il Modulo o Valore
+Assoluto (|z|)</strong></h2>
+<p>Il <strong><mark>modulo</mark></strong> (o valore assoluto) di un
+numero complesso z = a + bi viene definito come <mark>la radice quadrata
+della somma dei quadrati della parte reale e della parte
+immaginaria</mark>:</p>
+<p><mark>|z| = √(a<sup>2</sup> + b<sup>2</sup>)</mark></p>
+<p>Poiché a e b sono numeri reali, i loro quadrati a<sup>2</sup> e
+b<sup>2</sup> sono quantità non negative; di conseguenza, la radice
+quadrata è sempre ben definita nei reali e restituisce uno scalare reale
+non negativo (|z| ∈ ℝ e |z| ≥ 0). <mark>Il modulo si annulla se e solo
+se il numero complesso è lo zero (z = 0 + 0i).</mark></p>
+<p><strong>In parole povere:</strong> il modulo è la distanza del numero
+dall'origine, calcolata con Pitagora: la parte reale e quella
+immaginaria sono i due cateti e il modulo è l'ipotenusa. Per 3 + 4i il
+modulo è 5. È sempre un numero reale maggiore o uguale a zero ed è zero
+solo per il numero zero.</p>
+<h2 id="la-relazione-fondamentale"><strong>La Relazione
+Fondamentale</strong></h2>
+<p>Moltiplicando un numero complesso z per il suo coniugato z̄, <mark>si
+ottiene un'identità algebrica di primaria importanza:</mark></p>
+<p><mark>z · z̄</mark> = (a + bi)(a - bi) = a<sup>2</sup> - b<sup>2</sup>
+i<sup>2</sup> = a<sup>2</sup> + b<sup>2</sup> =
+<mark>|z|<sup>2</sup></mark></p>
+<p>Il prodotto tra un numero complesso e il suo coniugato restituisce
+sempre un <strong><mark>numero reale non negativo</mark></strong>,
+<mark>pari al quadrato del modulo del numero stesso (z · z̄ =
+|z|<sup>2</sup>).</mark></p>
+<h2 id="linverso-moltiplicativo-z1"><strong>L'Inverso Moltiplicativo
+(z<sup>−1</sup>)</strong></h2>
+<p>Dimostrare che l'insieme dei numeri complessi ℂ costituisce un campo
+richiede di garantire l'esistenza dell'inverso moltiplicativo
+z<sup>−1</sup> per qualsiasi elemento non nullo z ≠ 0. Cercare un numero
+z<sup>−1</sup> tale che z · z<sup>−1</sup> = 1 in forma cartesiana
+potrebbe sembrare complicato; tuttavia, l<mark>a relazione z · z̄ =
+|z|<sup>2</sup> ne fornisce la costruzione rigorosa.</mark></p>
+<p><mark>Essendo z ≠ 0, il modulo al quadrato |z|<sup>2</sup> è un
+numero reale strettamente positivo; è quindi possibile dividere entrambi
+i membri dell'identità per |z|<sup>2</sup></mark>:</p>
+<p>z · ( (z̄)/(|z|<sup>2</sup>) ) = 1   ⟹ <mark>  z<sup>−1</sup> =</mark>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mfrac><mover><mi>z</mi><mo accent="true">‾</mo></mover><msup><mrow><mo stretchy="true" form="prefix">|</mo><mi>z</mi><mo stretchy="true" form="postfix">|</mo></mrow><mn>2</mn></msup></mfrac><annotation encoding="application/x-tex">\frac{\bar{z}}{|z|^{2}}</annotation></semantics></math></p>
+<p>Esplicitando z = a + bi, la formula dell'inverso in forma cartesiana
+diventa:</p>
+<p>z<sup>−1</sup> = (a - bi)/(a<sup>2</sup> + b<sup>2</sup>) = (
+a/(a<sup>2</sup> + b<sup>2</sup>) ) + ( (-b)/(a<sup>2</sup> +
+b<sup>2</sup>) )i</p>
+<h2 id="esempio-pratico"><strong>Esempio Pratico</strong></h2>
+<p>Per calcolare l'inverso del numero complesso z = 2 + 5i:</p>
+<ol type="1">
+<li><p>Si calcola il modulo al quadrato: |z|<sup>2</sup> = 2<sup>2</sup>
++ 5<sup>2</sup> = 4 + 25 = 29.</p></li>
+<li><p>Si scrive il coniugato: z̄ = 2 - 5i.</p></li>
+<li><p>L'inverso risulta: z<sup>−1</sup> = (2 - 5i)/29 = 2/29 -
+(5/29)i.</p></li>
+</ol>
+<p>Moltiplicando z · z<sup>−1</sup> = (2 + 5i) ( 2/29 - (5/29)i ), si
+verifica immediatamente che il risultato è 1.</p>
+<h1
+id="interpretazione-geometrica-nel-piano-di-argand-gauss-ℝ2"><strong>6.
+Interpretazione Geometrica nel Piano di Argand-Gauss
+(ℝ<sup>2</sup>)</strong></h1>
+<h2 id="la-rappresentazione-del-piano-complesso"><strong>La
+Rappresentazione del Piano Complesso</strong></h2>
+<p>Mentre i numeri reali ℝ trovano collocazione geometrica naturale
+lungo una retta monodimensionale, i numeri complessi ℂ <mark>necessitano
+di uno spazio bidimensionale</mark>. Ogni numero complesso espresso in
+forma cartesiana z = a + bi può <mark>essere univocamente identificato
+con il punto di coordinate cartesiane (a, b) nel piano
+ℝ<sup>2</sup></mark>, noto come <strong>Piano di Argand-Gauss</strong> o
+<mark>piano complesso</mark>. <mark>In alternativa, z può essere
+interpretato come un <strong>vettore</strong> con applicazione
+nell'origine (0, 0) e punta posizionata nel punto (a, b)</mark>.</p>
+<p>Gli assi cartesiani assumono un significato algebrico specifico:</p>
+<ul>
+<li><p><strong>Asse delle ascisse (Asse Reale Re)</strong>: <mark>ospita
+i numeri reali, corrispondenti ai complessi con parte immaginaria
+nulla</mark> (a + 0i).</p></li>
+<li><p><strong>Asse delle ordinate (Asse Immaginario Im)</strong>:
+<mark>ospita i numeri della forma bi con b ∈ ℝ</mark> (immaginari puri
+per b ≠ 0, più l'origine).</p></li>
+</ul>
+<h2 id="significato-geometrico-delle-operazioni"><strong>Significato
+Geometrico delle Operazioni</strong></h2>
+<p>Interpretare i numeri complessi nel piano cartesiano permette di
+associare ad alcune operazioni algebriche una chiara trasformazione
+geometrica:</p>
+<ul>
+<li><p><strong>Somma Vettoriale e Regola del Parallelogramma</strong>:
+<mark>L'addizione tra due numeri complessi</mark> z<sub>1</sub> = (a, b)
+e z<sub>2</sub> = (c, d) <mark>avviene sommando separatamente le
+componenti orizzontali e verticali</mark>: z<sub>1</sub> + z<sub>2</sub>
+= (a+c, b+d). <mark>Geometricamente, questa operazione coincide con la
+<strong>regola del parallelogramma</strong></mark> utilizzata in fisica
+per la composizione delle forze e dei vettori.</p></li>
+</ul>
+<p><img src="./media/image3.png"
+style="width:2.59204in;height:2.50052in" /></p>
+<p><em>La somma di due numeri complessi nel piano di
+Argand-Gauss.</em></p>
+<ul>
+<li><p><strong>Riflessione del Coniugato (z̄)</strong>: Il coniugato z̄ =
+a - bi mantiene inalterata la coordinata reale a e inverte il segno
+della coordinata immaginaria b. <mark>Nel piano complesso, questo
+corrisponde a una <strong>riflessione speculare</strong> del punto
+rispetto all'asse reale</mark>.</p></li>
+<li><p><strong>Modulo come Distanza (|z|)</strong>: Il modulo |z| =
+√(a<sup>2</sup> + b<sup>2</sup>) <mark>rappresenta la lunghezza euclidea
+del vettore, ossia la <strong>distanza geometrica</strong> del punto (a,
+b) dall'origine (0, 0) calcolata tramite il teorema di
+Pitagora</mark>.</p></li>
+</ul>
+<p><img src="./media/image4.png"
+style="width:3.34646in;height:3.13578in" /></p>
+<p><em>z = a + bi nel piano complesso: il modulo è la lunghezza del
+vettore, il coniugato è il simmetrico rispetto all'asse reale.</em></p>
+<h2
+id="il-limite-della-rappresentazione-cartesiana-e-lintroduzione-alle-coordinate-polari"><strong>Il
+Limite della Rappresentazione Cartesiana e l'Introduzione alle
+Coordinate Polari</strong></h2>
+<p>Se la somma complessa possiede un'immediata interpretazione
+geometrica tramite i vettori, la <strong><mark>moltiplicazione
+algebrica</mark></strong>:</p>
+<p>(a, b) · (c, d) = (ac - bd, ad + bc)</p>
+<p>produce un nuovo vettore il cui legame geometrico con i due fattori
+di partenza risulta oscuro e poco intuitivo se analizzato unicamente
+tramite le coordinate cartesiane.</p>
+<p>Come sottolineato a lezione, <mark>per comprendere appieno il
+significato geometrico del prodotto occorre abbandonare la griglia
+cartesiana</mark> (x, y) <mark>in favore delle <strong>coordinate
+polari</strong></mark> (r, θ), <mark>definite dalla distanza
+dall'origine</mark> (il modulo r = |z|) e <mark>dall'angolo di
+inclinazione rispetto all'asse reale</mark> (l'argomento θ). In questa
+nuova rappresentazione, <mark>la moltiplicazione rivela la sua vera
+natura: <strong>i moduli si moltiplicano e gli angoli si
+sommano</strong></mark>.</p>
+<h1 id="section-1"></h1>
+<h1
+id="coordinate-polari-e-forma-esponenziale-dei-numeri-complessi"><strong>7.
+Coordinate Polari e Forma Esponenziale dei Numeri
+Complessi</strong></h1>
+<h2
+id="dalle-coordinate-cartesiane-alle-coordinate-polari"><strong>Dalle
+coordinate cartesiane alle coordinate polari</strong></h2>
+<p>Nel capitolo precedente abbiamo identificato ogni numero complesso z
+= a + bi con il punto P = (a, b) del piano di Argand-Gauss. Per un punto
+diverso dall'origine O esiste però un secondo modo, del tutto
+equivalente, di indicarne la posizione: <mark>invece di dire "di quanto
+ci si sposta in orizzontale e in verticale", si dice <strong>a che
+distanza dall'origine</strong> si trova il punto e <strong>in quale
+direzione</strong></mark>. Si ottengono così le <mark><strong>coordinate
+polari</strong> (r, θ)</mark>, definite da:</p>
+<ul>
+<li><p><mark>r è la lunghezza del segmento OP</mark>, cioè la distanza
+di P dall'origine O;</p></li>
+<li><p><mark>θ</mark> (la lettera greca <em><mark>theta</mark></em>)
+<mark>è l'angolo, misurato in radianti, che il segmento OP forma con il
+semiasse positivo delle ascisse</mark>, contando le rotazioni in senso
+antiorario.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> invece di dire "vai a destra di a
+e in alto di b", si dice "cammina per una distanza r in una direzione
+ruotata di un angolo θ rispetto all'asse orizzontale". È come indicare
+un luogo con distanza e direzione (come una bussola) invece che con le
+coordinate della griglia.</p>
+<p><mark>Il legame con le coordinate cartesiane passa per le funzioni
+seno e coseno</mark>, che si interpretano sulla circonferenza di raggio
+1: <mark>se un punto sulla circonferenza forma un angolo θ con il
+semiasse positivo delle x, il suo coseno è l'ascissa e il suo seno è
+l'ordinata</mark>. Un punto a distanza r dall'origine ha quindi
+coordinate r volte più grandi:</p>
+<ul>
+<li><p><mark>dalle polari alle cartesiane</mark>: <mark>a = r cos θ, b =
+r sen θ</mark>;</p></li>
+<li><p><mark>dalle cartesiane alle polari</mark>: <mark>r =
+√(a<sup>2</sup> + b<sup>2</sup>)</mark>, <mark>cos θ = a / r, sen θ = b
+/ r</mark>.</p></li>
+</ul>
+<p><img src="./media/image5.png"
+style="width:3.34646in;height:3.22962in" /></p>
+<p><em>Coordinate polari di un punto: distanza r dall'origine e angolo
+θ.</em></p>
+<h2 id="modulo-e-argomento"><strong>Modulo e argomento</strong></h2>
+<p>Applicando queste formule a un numero complesso z = a + bi ≠ 0 lo si
+può scrivere in coordinate polari come:</p>
+<p><mark>z = r (cos θ + i sen θ)</mark></p>
+<p>Il <mark>numero r = |z|</mark> è il <strong>modulo</strong> di z, già
+incontrato come distanza dall'origine (e per z = 0 vale |z| = 0).
+<mark>L'angolo θ si chiama <strong>argomento</strong></mark> (o
+<em>fase</em>) <mark>di z e si indica con Arg(z)</mark>. Due
+precisazioni importanti:</p>
+<ul>
+<li><p><mark>l'argomento <strong>non è unico</strong>: aggiungendo o
+togliendo un giro completo si torna nello stesso punto, quindi θ è
+definito a meno di multipli di 2π</mark>. Per fissare una scelta si
+prende di solito θ ∈ [0, 2π), oppure θ ∈ (−π, π]: l'importante è
+dichiarare quale convenzione si usa;</p></li>
+<li><p><mark>per z = 0 l'argomento <strong>non è definito</strong>,
+perché l'origine non ha una direzione</mark>: ogni angolo va
+bene.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> l'argomento di un numero complesso
+è l'angolo della direzione in cui sta, misurato in senso antiorario a
+partire dall'asse orizzontale positivo. Siccome un giro completo riporta
+nello stesso punto, l'angolo è ambiguo di giri interi (come le 25 sulle
+lancette sono le 1): per questo si fissa un intervallo. Per lo zero non
+c'è nessuna direzione, quindi l'argomento non esiste.</p>
+<p><strong>Trabocchetto d'Esame: ricavare θ da a e b.</strong> Non basta
+calcolare arctan(b/a). Questa funzione restituisce solo angoli tra −π/2
+e π/2, quindi bisogna distinguere i casi (qui con la convenzione θ ∈ [0,
+2π)):</p>
+<ul>
+<li><p>se a &gt; 0 e b ≥ 0 (primo quadrante e semiasse reale positivo):
+θ = arctan(b/a);</p></li>
+<li><p>se a &gt; 0 e b &lt; 0 (quarto quadrante): θ = arctan(b/a) + 2π,
+perché arctan(b/a) è negativo;</p></li>
+<li><p>se a &lt; 0 (secondo e terzo quadrante): θ = arctan(b/a) +
+π;</p></li>
+<li><p>se a = 0 il rapporto b/a non esiste: θ = π/2 per b &gt; 0 e θ =
+3π/2 per b &lt; 0.</p></li>
+</ul>
+<p><img src="./media/image6.png"
+style="width:3.74016in;height:3.93729in" /></p>
+<p><em>Quale formula usare per θ a seconda del quadrante.</em></p>
+<p>In caso di dubbio conviene sempre controllare con un disegno in quale
+quadrante si trova il punto. Per esempio, per z = −1 + i si ha r = √2 e
+arctan(1/(−1)) = −π/4; poiché a &lt; 0 si aggiunge π e si ottiene θ =
+3π/4, coerente con il fatto che il punto sta nel secondo quadrante.</p>
+<h2 id="la-notazione-esponenziale"><strong>La notazione
+esponenziale</strong></h2>
+<p><mark>La scrittura in coordinate polari si può rendere molto più
+compatta introducendo la notazione:</mark></p>
+<p><mark>e<sup>iθ</sup> = cos θ + i sen θ</mark></p>
+<p>Con questa scelta ogni numero complesso z ≠ 0 diventa:</p>
+<p><mark>z = r e<sup>iθ</sup></mark></p>
+<p>che si chiama <strong><mark>rappresentazione polare</mark></strong>
+(o <em><mark>esponenziale</mark></em>) di z. Il motivo profondo per cui
+compare proprio il numero e riguarda lo sviluppo in serie di potenze
+delle funzioni e<sup>x</sup>, sen x e cos x, e va oltre gli obiettivi
+del corso: per il momento basta considerare e<sup>iθ</sup> come un
+simbolo che <em>significa</em> cos θ + i sen θ. È un simbolo ben scelto,
+perché si comporta come un vero esponenziale (lo dimostriamo nel
+prossimo capitolo).</p>
+<p><strong>In parole povere:</strong> la forma esponenziale è solo una
+scrittura abbreviata per "distanza r, angolo θ". Il simbolo e^(iθ) vuol
+dire semplicemente cos θ + i sen θ, cioè il punto sulla circonferenza di
+raggio 1 a quell'angolo; moltiplicandolo per r lo si porta alla distanza
+giusta.</p>
+<p><mark>I numeri e<sup>iθ</sup>, al variare di θ, sono esattamente i
+punti della <strong>circonferenza unitaria</strong>,</mark> cioè quelli
+con <mark>modulo 1</mark>. Due valori particolari sono molto noti:</p>
+<ul>
+<li><p>per θ = π si ottiene e<sup>iπ</sup> = cos π + i sen π = −1, da
+cui la celebre <strong>identità di Eulero</strong> e<sup>iπ</sup> + 1 =
+0;</p></li>
+<li><p>per θ = 2π si ottiene e<sup>2πi</sup> = 1: dopo un giro completo
+si torna al punto di partenza.</p></li>
+</ul>
+<p><img src="./media/image7.png"
+style="width:3.34646in;height:2.97632in" /></p>
+<p><em>I punti della circonferenza unitaria sono i numeri cos θ + i sen
+θ.</em></p>
+<h2 id="due-esempi"><strong>Due esempi</strong></h2>
+<p><strong>Dalla forma cartesiana a quella polare.</strong> Vogliamo
+scrivere z = −5 in forma polare. Il punto sta sul semiasse reale
+negativo, a distanza 5 dall'origine, quindi r = 5, e l'angolo formato
+con il semiasse positivo è mezzo giro, θ = π. Dunque −5 = 5
+e<sup>iπ</sup>.</p>
+<p><strong>Dalla forma polare a quella cartesiana.</strong> Dato z = 2
+e<sup>iπ/4</sup>, si ha:</p>
+<p>z = 2 (cos(π/4) + i sen(π/4)) = 2 (√2/2 + i √2/2) = √2 + i √2</p>
+<h2
+id="quando-due-forme-polari-rappresentano-lo-stesso-numero"><strong>Quando
+due forme polari rappresentano lo stesso numero</strong></h2>
+<p>Poiché l'argomento è definito solo a meno di giri completi, due
+scritture r<sub>1</sub> e<sup>iθ1</sup> e r<sub>2</sub> e<sup>iθ2</sup>
+rappresentano lo stesso numero complesso se e solo se valgono entrambe
+le condizioni:</p>
+<ul>
+<li><p>r<sub>1</sub> = r<sub>2</sub>, cioè hanno lo stesso
+modulo;</p></li>
+<li><p>θ<sub>2</sub> = θ<sub>1</sub> + 2kπ per qualche k ∈ ℤ, cioè gli
+angoli differiscono per un multiplo di 2π.</p></li>
+</ul>
+<p>È un dettaglio facile da trascurare, ma sarà indispensabile quando
+risolveremo le equazioni con le radici n-esime: due coppie (r, θ)
+diverse possono indicare lo stesso punto, e l'equazione va trattata
+tenendo conto di tutte. Nel prossimo capitolo vedremo però il vantaggio
+principale della rappresentazione polare: rende molto semplice il
+prodotto di due numeri complessi.</p>
+<h1 id="prodotto-inverso-e-coniugio-in-forma-polare"><strong>8.
+Prodotto, Inverso e Coniugio in Forma Polare</strong></h1>
+<h2
+id="lesponenziale-complesso-si-comporta-come-un-esponenziale"><strong>L'esponenziale
+complesso si comporta come un esponenziale</strong></h2>
+<p>Alla fine del capitolo 6 avevamo osservato che il prodotto in
+coordinate cartesiane, (a, b) · (c, d) = (ac − bd, ad + bc), produce un
+risultato il cui legame geometrico con i due fattori resta oscuro.
+<mark>Con la rappresentazione polare il quadro cambia
+completamente</mark>. Il punto di partenza è la proprietà che giustifica
+la scelta della notazione e<sup>iθ</sup>.</p>
+<p><strong>Proposizione.</strong> <mark>Per ogni coppia di angoli
+θ<sub>1</sub> e θ<sub>2</sub> vale e<sup>i(θ1 + θ2)</sup> =
+e<sup>iθ1</sup> · e<sup>iθ2</sup>.</mark></p>
+<p><em>Dimostrazione.</em> Si sviluppa il prodotto applicando la
+definizione di e<sup>iθ</sup> e la proprietà distributiva, ricordando
+che i<sup>2</sup> = −1:</p>
+<p>1. e<sup>iθ1</sup> · e<sup>iθ2</sup> = (cos θ<sub>1</sub> + i sen
+θ<sub>1</sub>) (cos θ<sub>2</sub> + i sen θ<sub>2</sub>), per
+definizione di e<sup>iθ</sup>;</p>
+<p>2. = (cos θ<sub>1</sub> cos θ<sub>2</sub> − sen θ<sub>1</sub> sen
+θ<sub>2</sub>) + i (cos θ<sub>1</sub> sen θ<sub>2</sub> + sen
+θ<sub>1</sub> cos θ<sub>2</sub>), sviluppando il prodotto e usando
+i<sup>2</sup> = −1;</p>
+<p>3. = cos(θ<sub>1</sub> + θ<sub>2</sub>) + i sen(θ<sub>1</sub> +
+θ<sub>2</sub>), perché le due parentesi sono proprio le formule di
+addizione di coseno e seno;</p>
+<p>4. = e<sup>i(θ1 + θ2)</sup>, di nuovo per definizione. ∎</p>
+<h2
+id="il-prodotto-i-moduli-si-moltiplicano-gli-angoli-si-sommano"><strong>Il
+prodotto: i moduli si moltiplicano, gli angoli si sommano</strong></h2>
+<p>Siano z<sub>1</sub> = r<sub>1</sub> e<sup>iθ1</sup> e z<sub>2</sub> =
+r<sub>2</sub> e<sup>iθ2</sup>. Grazie alla proposizione precedente il
+prodotto si calcola in una riga:</p>
+<p>z<sub>1</sub> z<sub>2</sub> = r<sub>1</sub> e<sup>iθ1</sup> ·
+r<sub>2</sub> e<sup>iθ2</sup> = (r<sub>1</sub> r<sub>2</sub>) e<sup>i(θ1
++ θ2)</sup></p>
+<p><mark>Leggendo modulo e argomento del risultato si ottengono due
+regole molto comode:</mark></p>
+<ul>
+<li><p><mark>|z<sub>1</sub> z<sub>2</sub>| = r<sub>1</sub> r<sub>2</sub>
+= |z<sub>1</sub>| · |z<sub>2</sub>|,</mark> <mark>cioè il modulo del
+prodotto è il prodotto dei moduli</mark>;</p></li>
+<li><p><mark>Arg(z<sub>1</sub> z<sub>2</sub>)</mark> =
+<mark>θ<sub>1</sub> + θ<sub>2</sub></mark> = <mark>Arg(z<sub>1</sub>) +
+Arg(z<sub>2</sub>)</mark>, <mark>cioè l'argomento del prodotto è la
+somma degli argomenti</mark> (sempre a meno di multipli di 2π).</p></li>
+</ul>
+<p><strong>Significato geometrico.</strong> <mark>Moltiplicare
+z<sub>1</sub> per z<sub>2</sub> equivale a <strong>ruotare</strong>
+z<sub>1</sub> dell'angolo θ<sub>2</sub> e a <strong>riscalarne</strong>
+la lunghezza del fattore r<sub>2</sub></mark>. È la spiegazione
+geometrica che cercavamo: la moltiplicazione complessa è una rotazione
+combinata con un ingrandimento (o una riduzione).</p>
+<p><strong>Esempio.</strong> Calcoliamo (1 + i) · (1 + i). Il numero 1 +
+i ha modulo √2 e argomento π/4, quindi 1 + i = √2 e<sup>iπ/4</sup>.
+Elevando al quadrato:</p>
+<p>(1 + i)<sup>2</sup> = (√2)<sup>2</sup> e<sup>iπ/2</sup> = 2
+e<sup>iπ/2</sup> = 2i</p>
+<p>Si può controllare con le coordinate cartesiane: (1 + i)<sup>2</sup>
+= 1 + 2i + i<sup>2</sup> = 2i.</p>
+<p><img src="./media/image8.png"
+style="width:3.14961in;height:2.50158in" /></p>
+<p><em>(1 + i)² = 2i: il modulo passa da √2 a 2, l'argomento da π/4 a
+π/2.</em></p>
+<h2 id="coniugio-e-inverso"><strong>Coniugio e inverso</strong></h2>
+<p>Per scrivere il coniugato in forma polare partiamo da z = a + bi = r
+e<sup>iθ</sup>. Il coniugato z̄ = a − bi ha la stessa parte reale e parte
+immaginaria opposta: il punto viene riflesso rispetto all'asse reale,
+quindi mantiene il modulo e cambia segno all'angolo. Lo si verifica
+direttamente, perché cos(−θ) = cos θ e sen(−θ) = −sen θ:</p>
+<p><mark>z̄</mark> = r e<sup>−iθ</sup> = r cos θ <mark>−</mark> i r sen θ
+= a <mark>−</mark> bi</p>
+<p>Nel capitolo 5 avevamo ricavato l'inverso di un numero z ≠ 0 come
+z<sup>-1</sup> = z̄ / |z|<sup>2</sup>. In forma polare il calcolo è
+immediato:</p>
+<p>z<sup>-1</sup> = z̄ / |z|<sup>2</sup> = r e<sup>−iθ</sup> /
+r<sup>2</sup> = (1/r) e<sup>−iθ</sup></p>
+<p>In parole: l'inverso ha <strong>modulo inverso</strong> (1/r) e
+<strong>argomento opposto</strong> (−θ). Come verifica, il prodotto z ·
+z<sup>-1</sup> = r · (1/r) · e<sup>i(θ − θ)</sup> = e<sup>i·0</sup> =
+cos 0 + i sen 0 = 1.</p>
+<p><img src="./media/image9.png"
+style="width:3.54331in;height:2.79571in" /></p>
+<p><em>Coniugato e inverso in forma polare.</em></p>
+<p><mark>Combinando prodotto e inverso si ottiene anche la regola per la
+divisione, valida per z<sub>2</sub> ≠ 0: z<sub>1</sub> / z<sub>2</sub> =
+z<sub>1</sub> · z<sub>2</sub><sup>-1</sup> = (r<sub>1</sub> /
+r<sub>2</sub>) e<sup>i(θ1 − θ2)</sup>, cioè si dividono i moduli e si
+sottraggono gli argomenti.</mark></p>
+<p>Resta da vedere cosa succede quando lo stesso numero viene
+moltiplicato per se stesso più volte: è il tema del prossimo capitolo,
+che porterà alle potenze e alle radici n-esime.</p>
+<h1 id="potenze-e-radici-n-esime-di-un-numero-complesso"><strong>9.
+Potenze e Radici n-esime di un Numero Complesso</strong></h1>
+<h2 id="le-potenze-in-forma-polare"><strong>Le potenze in forma
+polare</strong></h2>
+<p>Il prodotto in forma polare rende banale il calcolo delle potenze.
+<mark>Se z = r e<sup>iθ</sup> e n ≥ 1 è un numero naturale, elevare z
+alla n significa moltiplicare r per se stesso n volte</mark> (si ottiene
+<mark>r<sup>n</sup></mark>) e sommare θ a se stesso n volte (si ottiene
+nθ):</p>
+<p><mark>z<sup>n</sup> =</mark> (r e<sup>iθ</sup>)<sup>n</sup> =
+r<sup>n</sup> e<sup>inθ</sup> = <mark>r<sup>n</sup> (cos nθ + i sen
+nθ)</mark></p>
+<p>Questa è la <mark><strong>formula di De Moivre</strong></mark> (nei
+testi classici il nome indica il caso r = 1, ma la struttura è la
+stessa). Ne seguono due regole:</p>
+<ul>
+<li><p><mark>|z<sup>n</sup>| = |z|<sup>n</sup></mark>, cioè <mark>il
+modulo si eleva alla n</mark>;</p></li>
+<li><p><mark>Arg(z<sup>n</sup>) = n · Arg(z)</mark>, cioè
+<mark>l'argomento si moltiplica per n</mark> (come sempre, a meno di
+multipli di 2π).</p></li>
+</ul>
+<p><strong>Esempio.</strong> Calcoliamo (1 + i)<sup>2000</sup>, che in
+forma cartesiana sarebbe impraticabile. Poiché 1 + i = √2
+e<sup>iπ/4</sup>:</p>
+<p>(1 + i)<sup>2000</sup> = (√2)<sup>2000</sup> e<sup>i · 2000π/4</sup>
+= 2<sup>1000</sup> e<sup>i · 500π</sup></p>
+<p>Ora 500π = 250 · 2π è un multiplo intero di 2π, quindi e<sup>i ·
+500π</sup> = 1 e il risultato è (1 + i)<sup>2000</sup> =
+2<sup>1000</sup>.</p>
+<h2 id="le-radici-n-esime-il-problema"><strong>Le radici n-esime: il
+problema</strong></h2>
+<p>Dato z<sub>0</sub> ∈ ℂ, diciamo che w ∈ ℂ è una <strong>radice
+n-esima</strong> di z<sub>0</sub> se w<sup>n</sup> = z<sub>0</sub>.
+Vedremo che, per z<sub>0</sub> ≠ 0, le radici n-esime sono
+<strong>esattamente n</strong>, tutte distinte. (Per z<sub>0</sub> = 0
+l'unica radice è w = 0.)</p>
+<p><strong>In parole povere:</strong> <mark>la radice n-esima di un
+numero è un numero che, elevato alla n, restituisce quello di
+partenza</mark>. Come per i reali, dove 4 ha due radici quadrate (2 e
+-2), qui ogni numero non nullo ha n radici n-esime, tutte diverse tra
+loro.</p>
+<h2 id="come-si-trovano"><strong>Come si trovano</strong></h2>
+<p>Sia z<sub>0</sub> = r<sub>0</sub> e<sup>iθ0</sup> ≠ 0 e cerchiamo w =
+r e<sup>iθ</sup> tale che w<sup>n</sup> = z<sub>0</sub>. Per la formula
+delle potenze l'equazione diventa:</p>
+<p>r<sup>n</sup> e<sup>inθ</sup> = r<sub>0</sub> e<sup>iθ0</sup></p>
+<p>Per quanto visto nel capitolo 7, due forme polari rappresentano lo
+stesso numero se e solo se hanno lo stesso modulo e angoli che
+differiscono per un multiplo di 2π. Si ottengono quindi due
+condizioni:</p>
+<ul>
+<li><p>sul modulo, r<sup>n</sup> = r<sub>0</sub>, da cui r =
+ⁿ√r<sub>0</sub>, dove con il simbolo ⁿ√r<sub>0</sub> si intende la
+radice reale positiva del numero reale positivo r<sub>0</sub>;</p></li>
+<li><p>sull'angolo, nθ = θ<sub>0</sub> + 2kπ per qualche k ∈ ℤ, da cui θ
+= θ<sub>0</sub>/n + 2kπ/n.</p></li>
+</ul>
+<p>Al variare di k gli angoli crescono ogni volta di 2π/n. Le soluzioni
+distinte sono esattamente quelle con k = 0, 1, …, n − 1, per due
+motivi:</p>
+<ul>
+<li><p>due indici diversi j ≠ k in {0, …, n − 1} danno angoli che
+differiscono di 2π(j − k)/n, e poiché 0 &lt; |j − k| &lt; n questa
+differenza non è un multiplo intero di 2π: i numeri ottenuti sono
+diversi;</p></li>
+<li><p>ogni altro intero k si scrive come k = qn + s con 0 ≤ s &lt; n, e
+l'angolo corrispondente è quello di s più q giri completi: si ritrova
+quindi la radice con indice s.</p></li>
+</ul>
+<p>Le radici sono dunque le n soluzioni:</p>
+<p>w<sub>k</sub> = ⁿ√r<sub>0</sub> · e<sup>i(θ0/n + 2kπ/n)</sup>, per k
+= 0, 1, …, n − 1</p>
+<p><strong>Interpretazione geometrica.</strong> Le n radici hanno tutte
+lo stesso modulo ⁿ√r<sub>0</sub>, quindi stanno su una circonferenza
+centrata nell'origine, e i loro angoli sono equidistanziati di 2π/n.
+Sono quindi i <strong>vertici di un poligono regolare</strong> con n
+lati.</p>
+<h2 id="esempi"><strong>Esempi</strong></h2>
+<p><strong>Radici terze di 8.</strong> Qui z<sub>0</sub> = 8 = 8
+e<sup>i·0</sup>, quindi r<sub>0</sub> = 8, θ<sub>0</sub> = 0 e n = 3. Il
+modulo delle radici è ³√8 = 2 e gli angoli sono 2kπ/3:</p>
+<ul>
+<li><p>k = 0: w<sub>0</sub> = 2 e<sup>i·0</sup> = 2;</p></li>
+<li><p>k = 1: w<sub>1</sub> = 2 e<sup>i2π/3</sup> = 2 (−1/2 + i √3/2) =
+−1 + i√3;</p></li>
+<li><p>k = 2: w<sub>2</sub> = 2 e<sup>i4π/3</sup> = 2 (−1/2 − i √3/2) =
+−1 − i√3.</p></li>
+</ul>
+<p>Sul piano complesso sono i vertici di un triangolo equilatero
+inscritto nella circonferenza di raggio 2, con un vertice nel punto (2,
+0).</p>
+<p><img src="./media/image10.png"
+style="width:2.95276in;height:3.03914in" /></p>
+<p><em>Le radici terze di 8 sono i vertici di un triangolo equilatero di
+raggio 2.</em></p>
+<p><strong>Soluzioni di z<sup>3</sup> = −8.</strong> Si ha −8 = 8
+e<sup>iπ</sup>, quindi r<sub>0</sub> = 8, θ<sub>0</sub> = π e n = 3. Il
+modulo delle radici è ³√8 = 2 e gli angoli sono π/3 + 2kπ/3, cioè π/3, π
+e 5π/3. Le tre soluzioni sono:</p>
+<ul>
+<li><p>2 e<sup>iπ/3</sup> = 2 (1/2 + i √3/2) = 1 + i√3;</p></li>
+<li><p>2 e<sup>iπ</sup> = −2;</p></li>
+<li><p>2 e<sup>i5π/3</sup> = 2 (1/2 − i √3/2) = 1 − i√3.</p></li>
+</ul>
+<p><img src="./media/image11.png"
+style="width:2.95276in;height:3.03914in" /></p>
+<p><em>Le soluzioni di z³ = −8: stesso triangolo, ruotato di
+π/3.</em></p>
+<p><strong>Radici n-esime dell'unità.</strong> L'equazione z<sup>n</sup>
+= 1 ha come soluzioni z<sub>k</sub> = e<sup>i·2kπ/n</sup> per k = 0, 1,
+…, n − 1: sono i vertici di un poligono regolare di raggio 1 con n lati,
+che ha 1 come vertice.</p>
+<p><img src="./media/image12.png"
+style="width:2.95276in;height:2.92632in" /></p>
+<p><em>Le radici seste dell'unità formano un esagono regolare.</em></p>
+<h2 id="trabocchetti-desame"><strong>Trabocchetti d'Esame</strong></h2>
+<ul>
+<li><p>In ℂ la scrittura "radice n-esima di z" non indica un numero
+solo, ma l'insieme delle n soluzioni dell'equazione w<sup>n</sup> = z.
+Quando si risolve un'equazione di questo tipo bisogna sempre elencarle
+tutte.</p></li>
+<li><p>Non si può calcolare la radice di un numero complesso "per
+componenti": in generale ⁿ√(a + bi) è diverso da ⁿ√a + i ⁿ√b. Si passa
+sempre dalla forma polare.</p></li>
+<li><p>Ricavando θ da a e b, attenzione al quadrante: quando a &lt; 0 il
+solo arctan(b/a) dà l'angolo sbagliato (si veda il capitolo 7).</p></li>
+</ul>
+<p>Le radici e le potenze che abbiamo imparato a calcolare torneranno
+utili nel prossimo argomento del corso, i polinomi, dove si vedrà quante
+soluzioni può avere un'equazione algebrica nel campo dei numeri
+complessi.</p>
+<h1 id="polinomi-monomi-grado-e-insiemi-di-polinomi"><strong>10.
+Polinomi: Monomi, Grado e Insiemi di Polinomi</strong></h1>
+<h2 id="i-monomi"><strong>I monomi</strong></h2>
+<p>I <strong>polinomi</strong> sono tipi particolarmente semplici di
+funzioni, ottenute combinando numeri e variabili con le sole operazioni
+di somma, differenza e prodotto. Si parte dai monomi: un
+<strong>monomio</strong> è un'espressione algebrica con una
+<strong>parte numerica</strong> (il coefficiente) e una <strong>parte
+letterale</strong> (le variabili), in cui sulle variabili si usano solo
+le operazioni di somma, sottrazione e moltiplicazione (le potenze con
+esponente naturale sono moltiplicazioni ripetute). Esempi di monomi sono
+4x, −2xy² e √5·x⁴. L'esponente 4 in x⁴ è soltanto una notazione per
+x·x·x·x, quindi si usa ancora solo la moltiplicazione.</p>
+<p>Non sono invece monomi sin(x), x/y e √x, perché sulle variabili
+compaiono operazioni diverse da somma, sottrazione e moltiplicazione.
+Come ha sottolineato il docente, la radice in √5·x⁴ non è un problema:
+√5 è semplicemente un numero (un 2,23… scritto in modo poco comodo) e fa
+parte del coefficiente, mentre una radice <strong>sulla parte
+letterale</strong>, come in √x, non va bene.</p>
+<p><strong>In parole povere:</strong> un monomio è un "mattoncino" fatto
+da un numero moltiplicato per lettere elevate a potenze intere, come 4x
+o -2xy². Si può fare solo somma, sottrazione e prodotto sulle lettere:
+niente seni, niente divisioni per una lettera, niente radici di una
+lettera.</p>
+<h2 id="il-grado"><strong>Il grado</strong></h2>
+<p>Il <strong>grado di un monomio</strong> è la somma degli esponenti
+delle sue variabili. L'esponente 1 non si scrive, quindi:</p>
+<ul>
+<li><p>4x ha grado 1;</p></li>
+<li><p>−2xy² ha grado 1 + 2 = 3;</p></li>
+<li><p>√5·x⁴ ha grado 4.</p></li>
+</ul>
+<p>Un monomio di grado zero è semplicemente un numero.</p>
+<p><strong>In parole povere:</strong> il grado di un monomio si ottiene
+contando quante lettere vengono moltiplicate tra loro in totale
+(sommando le potenze). In 3x²y ci sono x, x e y, quindi il grado è
+3.</p>
+<h2 id="i-polinomi"><strong>I polinomi</strong></h2>
+<p>Un <strong>polinomio</strong> è una somma di monomi, e il suo
+<strong>grado</strong> è il massimo dei gradi dei suoi monomi. Per
+esempio 4x − 2xy² + √5·x⁴ ha monomi di grado 1, 3 e 4, quindi è un
+polinomio di grado 4. Un polinomio può avere un numero qualsiasi di
+variabili (anche 113), ma in questo corso interessano soprattutto i
+polinomi in <strong>una sola variabile</strong>, che indichiamo con x e
+scriviamo p(x), o più semplicemente p.</p>
+<p><strong>In parole povere:</strong> un polinomio è una somma di
+mattoncini (monomi), e il suo grado è quello del mattoncino "più alto".
+Per esempio x³ - 2x + 5 è fatto da pezzi di grado 3, 1 e 0, quindi ha
+grado 3.</p>
+<h2 id="polinomi-in-una-variabile"><strong>Polinomi in una
+variabile</strong></h2>
+<p>Se compare solo la variabile x, in ogni monomio c'è x con qualche
+esponente (oppure nessuna x). Si possono quindi riunire i monomi con la
+stessa potenza di x e ordinarli dalla potenza più alta alla più
+bassa:</p>
+<p>p(x) = a<sub>n</sub>x<sup>n</sup> + a<sub>n−1</sub>x<sup>n−1</sup> +
+… + a<sub>1</sub>x + a<sub>0</sub>, con a<sub>n</sub> ≠ 0.</p>
+<p>In questo caso p ha grado n, perché n è il massimo grado dei monomi.
+Gli esempi sono x³ − 2x + 5 (grado 3) e 4x² − 7 (grado 2). Un polinomio
+di grado zero è semplicemente un numero a<sub>0</sub>.</p>
+<p>C'è una sola eccezione: il <strong>polinomio zero</strong>, per il
+quale non esiste nessun coefficiente a<sub>n</sub> diverso da zero. Lo
+si scrive p(x) ≡ 0, con tre barre: è un'identità tra funzioni, perché a
+sinistra c'è un'espressione che in generale dipenderebbe da x, mentre a
+destra il valore è 0 per ogni x.</p>
+<h2 id="gli-insiemi-di-polinomi"><strong>Gli insiemi di
+polinomi</strong></h2>
+<p>Si indica con <strong>ℝ[x]</strong> l'insieme di tutti i polinomi
+nella variabile x con <strong>coefficienti reali</strong>, e con
+<strong>ℂ[x]</strong> l'analogo con coefficienti complessi. Con
+<strong>ℝ<sub>k</sub>[x]</strong> si indica l'insieme dei polinomi di
+ℝ[x] di grado <strong>minore o uguale a k</strong> (e analogamente
+ℂ<sub>k</sub>[x]).</p>
+<p><strong>In parole povere:</strong> R[x] è il "contenitore" di tutti i
+polinomi in x con coefficienti reali, C[x] lo stesso con coefficienti
+complessi. R_k[x] è il sottocontenitore dei polinomi che non superano il
+grado k: per esempio R_2[x] contiene x² - 3, 5x e il numero 7, ma non
+x³.</p>
+<p>Perché "≤ k" e non "= k"? Perché con "≤ k" vale una proprietà
+importante: <strong>se p e q appartengono a ℝ<sub>k</sub>[x], anche p +
+q appartiene a ℝ<sub>k</sub>[x]</strong>. Con "= k" la proprietà si
+perderebbe. Un esempio: p(x) = 2x² − x + 2 e q(x) = −2x² + 3x − 1 hanno
+entrambi grado 2, ma</p>
+<p>p(x) + q(x) = (2x² − 2x²) + (−x + 3x) + (2 − 1) = 2x + 1,</p>
+<p>che ha grado 1: i termini di grado 2 si cancellano. Nella somma il
+grado può quindi <strong>diminuire</strong>, ma non può mai aumentare:
+il risultato resta in ℝ₂[x] (e anche nel sottoinsieme più piccolo
+ℝ₁[x]), senza che possa comparire un polinomio di grado 3 o 7.</p>
+<p>Il prossimo capitolo parte da una proprietà che i polinomi
+condividono con i numeri interi: la divisione con resto.</p>
+<h1 id="divisione-con-resto-fra-polinomi"><strong>11. Divisione con
+Resto fra Polinomi</strong></h1>
+<h2 id="come-con-i-numeri-interi"><strong>Come con i numeri
+interi</strong></h2>
+<p>I polinomi assomigliano ai numeri interi sotto molti aspetti: si
+possono sommare, moltiplicare, sottrarre, e si può fare la
+<strong>divisione con resto</strong>, controllando il resto come si fa
+con gli interi. Ricordiamo come funziona con i numeri: dividendo 44 per
+6 si ottiene quoziente 7 e resto 2, cioè</p>
+<p>44 = 6 · 7 + 2.</p>
+<p>Il 44 è il <strong>dividendo</strong>, il 6 il
+<strong>divisore</strong>, 7 il <strong>quoziente</strong> e 2 il
+<strong>resto</strong>. Il resto deve essere <strong>strettamente minore
+del divisore</strong>: se alle elementari si scrivesse 44 = 6 · 5 + 14
+il maestro direbbe che è sbagliato, perché il 6 sta ancora due volte nel
+14, e bisogna prendere sempre il quoziente più grande possibile. Senza
+questa condizione non c'è un risultato unico (44 = 6·5 + 14 vale quanto
+44 = 6·7 + 2).</p>
+<h2 id="il-teorema-per-i-polinomi"><strong>Il teorema per i
+polinomi</strong></h2>
+<p>Se p(x) è un polinomio (il dividendo) e d(x) un polinomio non nullo
+(il divisore), esistono due polinomi q(x) (il
+<strong>quoziente</strong>) e r(x) (il <strong>resto</strong>), e sono
+<strong>unici</strong>, tali che</p>
+<p>p(x) = d(x) · q(x) + r(x), con grado di r(x) &lt; grado di d(x).</p>
+<p>Per i polinomi la condizione "il resto è più piccolo del divisore" si
+traduce in una condizione sul <strong>grado</strong>: il grado del resto
+deve essere strettamente minore del grado del divisore. È questa
+condizione che rende il risultato unico.</p>
+<h2 id="il-procedimento"><strong>Il procedimento</strong></h2>
+<p>Alle superiori si impara a fare questa divisione con regole come
+quella di Ruffini, ma basta ricordare la procedura della divisione in
+colonna tra interi. Per esempio con 734 : 12: in 73 il 12 sta 6 volte (6
+· 12 = 72), si sottrae e resta 1; si abbassa il 4 e in 14 il 12 sta 1
+volta, resta 2. Quindi 734 = 12 · 61 + 2.</p>
+<p>Con i polinomi si fa lo stesso, guardando solo i <strong>monomi di
+grado massimo</strong>. Esempio: dividiamo p(x) = x⁴ − 2x³ + 2x² + x − 1
+per d(x) = x² − 1.</p>
+<p>1. Il termine di grado massimo di p è x⁴ e quello del divisore è x²:
+x⁴ : x² = x². Si moltiplica x² per il divisore, x²(x² − 1) = x⁴ − x², e
+si sottrae da p: restano −2x³ + 3x² + x − 1.</p>
+<p>2. Ora −2x³ : x² = −2x. Si sottrae −2x(x² − 1) = −2x³ + 2x e resta
+3x² − x − 1.</p>
+<p>3. Poi 3x² : x² = 3. Si sottrae 3(x² − 1) = 3x² − 3 e resta −x +
+2.</p>
+<p>Il resto −x + 2 ha grado 1, minore del grado di d, quindi la
+divisione termina. Il quoziente è x² − 2x + 3 e il resto è −x + 2:</p>
+<p>x⁴ − 2x³ + 2x² + x − 1 = (x² − 1)(x² − 2x + 3) + (−x + 2).</p>
+<p>Si può controllare sviluppando il secondo membro: (x² − 1)(x² − 2x +
+3) = x⁴ − 2x³ + 2x² + 2x − 3, e aggiungendo −x + 2 si ritrova il
+polinomio di partenza.</p>
+<h2 id="quando-un-polinomio-ne-divide-un-altro"><strong>Quando un
+polinomio ne divide un altro</strong></h2>
+<p>Con i numeri interi si dice che 9 divide 18 perché la divisione ha
+resto 0, mentre 7 non divide 18 perché il resto è 4. Lo stesso vale per
+i polinomi: se il resto è <strong>zero</strong>, si dice che d(x)
+<strong>divide</strong> p(x) e si scrive d(x) | p(x), con la barra
+verticale come simbolo di "divide". In quel caso p(x) = d(x)q(x) per
+qualche quoziente q(x).</p>
+<p><strong>In parole povere:</strong> come 3 divide 12 perché 12 è
+esattamente tre volte 4 senza resto, un polinomio d(x) divide p(x)
+quando p(x) si ottiene moltiplicando d(x) per un altro polinomio, senza
+nulla che avanza. Per esempio (x - 1) divide x² - 1 perché x² - 1 = (x -
+1)(x + 1).</p>
+<p>Esempi: 9 | 18 ma 7 ∤ 18; (x − 1) | (x² − 1), perché x² − 1 = (x −
+1)(x + 1) e la divisione non lascia resto; invece (x − 2) non divide x²
+− 1, perché la divisione lascerebbe un resto non nullo.</p>
+<p>Questa nozione di divisibilità è proprio quella che serve nel
+capitolo successivo, per le radici di un polinomio.</p>
+<h1 id="radici-di-un-polinomio-e-molteplicità"><strong>12. Radici di un
+Polinomio e Molteplicità</strong></h1>
+<h2 id="che-cosè-una-radice"><strong>Che cos'è una radice</strong></h2>
+<p>Se p(x) è un polinomio e a è un numero (reale o complesso), si indica
+con p(a) il numero che si ottiene <strong>sostituendo</strong> a al
+posto di x. Per esempio, se p(x) = x² − 2 e a = −2, allora p(−2) = (−2)²
+− 2 = 4 − 2 = 2. Si può interpretare un polinomio come una funzione: si
+sceglie un valore per x e il polinomio restituisce p(x).</p>
+<p>Un numero a è una <strong>radice</strong> di p(x) se e solo se p(a) =
+0. Determinare le radici di un polinomio è uno dei problemi più classici
+dell'algebra.</p>
+<p><strong>In parole povere:</strong> una radice di un polinomio è un
+valore che, messo al posto di x, fa diventare il polinomio uguale a
+zero. Per x² - 4 le radici sono 2 e -2, perché sostituendole viene
+0.</p>
+<h2 id="il-criterio-con-la-divisione"><strong>Il criterio con la
+divisione</strong></h2>
+<p><strong>Proposizione.</strong> a è una radice di p(x) se e solo se (x
+− a) divide p(x), cioè se e solo se p(x) = (x − a)q(x) per qualche
+polinomio q(x), senza resto.</p>
+<p><strong>Dimostrazione.</strong></p>
+<p>1. Si fa la divisione con resto di p(x) per (x − a): esistono q(x) e
+r(x) con p(x) = (x − a)q(x) + r(x).</p>
+<p>2. Il grado di r(x) è strettamente minore del grado di (x − a), che
+vale 1: quindi r(x) è una costante r₀ (eventualmente nulla), che non
+dipende da x.</p>
+<p>3. Si calcola p in a: p(a) = (a − a)q(a) + r₀ = 0 + r₀ = r₀.</p>
+<p>4. Quindi a è radice di p ⟺ p(a) = 0 ⟺ r₀ = 0 ⟺ il resto è zero ⟺ (x
+− a) divide p(x).</p>
+<p>Il senso del risultato: a è radice se e solo se si può
+<strong>togliere un fattore (x − a)</strong> dal polinomio.</p>
+<h2 id="la-molteplicità"><strong>La molteplicità</strong></h2>
+<p>Se a è una radice, si può dividere p(x) per (x − a) e, nel quoziente,
+forse dividere ancora per (x − a), e magari una terza volta. La
+<strong>molteplicità</strong> di una radice a è il massimo numero
+naturale k tale che (x − a)<sup>k</sup> divide p(x); è sempre almeno 1,
+altrimenti a non sarebbe una radice. In un certo senso, nel polinomio ci
+sono k fattori (x − a).</p>
+<p><strong>In parole povere:</strong> la molteplicità dice quante volte
+un fattore (x - a) compare nel polinomio. Se p(x) = (x - 1)²·x, la
+radice 1 ha molteplicità 2 (il fattore compare due volte) e la radice 0
+ha molteplicità 1.</p>
+<h2 id="esempio-1-x³-1"><strong>Esempio 1: x³ − 1</strong></h2>
+<p>Sia p(x) = x³ − 1, un polinomio di grado 3 a coefficienti reali. Si
+vede subito che a = 1 è una radice: p(1) = 1³ − 1 = 0. Per la
+proposizione (x − 1) divide p(x). Si fa la divisione:</p>
+<p>1. x³ : x = x²; x²(x − 1) = x³ − x², sottratto da p lascia x² −
+1.</p>
+<p>2. x² : x = x; x(x − 1) = x² − x, sottratto lascia x − 1.</p>
+<p>3. x − 1 : (x − 1) = 1, resto 0.</p>
+<p>Quindi x³ − 1 = (x − 1)(x² + x + 1) e il resto è zero, come doveva
+essere. La molteplicità è almeno 1. Per vedere se si può togliere un
+secondo fattore (x − 1) bisogna controllare se 1 è radice del quoziente
+q(x) = x² + x + 1: q(1) = 1 + 1 + 1 = 3 ≠ 0. Quindi (x − 1) non divide
+q(x) e la <strong>molteplicità di 1 è 1</strong>.</p>
+<h2 id="esempio-2-x³-2x²-x"><strong>Esempio 2: x³ − 2x² +
+x</strong></h2>
+<p>Sia p(x) = x³ − 2x² + x. Anche qui a = 1 è una radice: p(1) = 1 − 2 +
+1 = 0. La divisione per (x − 1) dà il quoziente x² − x con resto 0,
+quindi p(x) = (x − 1)(x² − x). Si controlla se 1 è radice anche di q(x)
+= x² − x: q(1) = 1 − 1 = 0, quindi sì. Dividendo ancora, x² − x = (x −
+1)x e così</p>
+<p>p(x) = (x − 1)² · x.</p>
+<p>Non si può togliere un terzo fattore (x − 1), perché dividendo x per
+(x − 1) resterebbe un resto. La <strong>molteplicità di 1 è 2</strong>.
+C'è anche la radice <strong>0</strong>, con molteplicità 1 (è il fattore
+x).</p>
+<p><img src="./media/image13.png"
+style="width:3.34646in;height:2.40017in" /></p>
+<p><em>Una radice doppia: il grafico tocca l'asse x senza
+attraversarlo.</em></p>
+<h2 id="radici-contate-con-molteplicità"><strong>Radici "contate con
+molteplicità"</strong></h2>
+<p>Nel secondo esempio il polinomio ha grado 3 e ha due radici distinte,
+1 e 0, ma 1 ha molteplicità 2: contata con la sua molteplicità vale come
+due radici, quindi in totale si hanno 2 + 1 = 3 radici. Questo è il
+senso di "radici contate con molteplicità": le due radici "uguali" sono
+lo stesso numero, ma si contano due volte.</p>
+<p>Nel prossimo capitolo si vede quante radici può avere al massimo un
+polinomio.</p>
+<h1
+id="quante-radici-ha-un-polinomio-induzione-grado-2-e-teorema-fondamentale-dellalgebra"><strong>13.
+Quante Radici Ha un Polinomio: Induzione, Grado 2 e Teorema Fondamentale
+dell'Algebra</strong></h1>
+<h2 id="al-massimo-n-radici"><strong>Al massimo n radici</strong></h2>
+<p><strong>Proposizione.</strong> Un polinomio di grado n ≥ 1 ha al
+massimo n radici, contate con molteplicità.</p>
+<p>Nell'ultimo esempio del capitolo 12 un polinomio di grado 3 aveva 3
+radici contate con molteplicità (1 doppia e 0 semplice): non può averne
+4 o 5, ne può avere al massimo 3, e potrebbe averne di meno.</p>
+<h2 id="un-richiamo-sullinduzione"><strong>Un richiamo
+sull'induzione</strong></h2>
+<p>La dimostrazione usa l'<strong>induzione</strong>, che il docente ha
+spiegato prima di usarla. Si vuole dimostrare che una proprietà vale per
+<strong>tutti</strong> i numeri naturali, qui per tutti i gradi n ≥ 1.
+Farlo grado per grado non finirebbe mai. Si dimostrano invece due
+cose:</p>
+<p>1. la proprietà vale per n = 1 (il caso base);</p>
+<p>2. se vale per un n qualsiasi, allora vale anche per n + 1 (il passo
+induttivo).</p>
+<p>Il passo 2 si applica a ripetizione: dal caso base 1 si arriva a 2,
+da 2 a 3, da 3 a 4, e così via fino a qualunque grado.</p>
+<h2 id="la-dimostrazione"><strong>La dimostrazione</strong></h2>
+<p><strong>Caso base, n = 1.</strong> Un polinomio di grado 1 è del tipo
+ax + b (con a ≠ 0; i coefficienti possono essere reali, come in 7x + 13,
+o complessi). Si ha ax + b = 0 se e solo se ax = −b, cioè x = −b/a: c'è
+<strong>esattamente una</strong> radice, quindi al massimo una.</p>
+<p><strong>Passo induttivo.</strong> Si assume che la proposizione valga
+per un certo n e si dimostra per n + 1. Sia p(x) un polinomio di grado n
++ 1. Ci sono due possibilità.</p>
+<p>1. p non ha nessuna radice. Non c'è nulla da dimostrare, perché "al
+massimo n + 1" ammette anche zero radici.</p>
+<p>2. p ha almeno una radice a. Per la proposizione del capitolo 12, (x
+− a) divide p, cioè p(x) = (x − a)q(x), e q(x) ha grado n. Per l'ipotesi
+induttiva q ha al massimo n radici contate con molteplicità. Ma p(x) = 0
+vale solo quando uno dei due fattori è zero (un prodotto è nullo se e
+solo se lo è uno dei fattori): o x = a, o x è una radice di q. Le radici
+di p, contate con molteplicità, sono esattamente quelle di q più a: in
+tutto al massimo n + 1.</p>
+<p>Il grado zero è escluso dall'enunciato: un polinomio di grado 0 è un
+numero; se non è zero non ha radici, ma il polinomio zero ha infinite
+radici (ogni valore è una radice).</p>
+<h2 id="equazioni-di-secondo-grado"><strong>Equazioni di secondo
+grado</strong></h2>
+<p>Sia p(x) = ax² + bx + c con a, b, c reali e a ≠ 0. Con il
+<strong>discriminante</strong> Δ = b² − 4ac:</p>
+<ul>
+<li><p>se Δ &gt; 0, p ha due radici reali distinte x = (−b ±
+√Δ)/(2a);</p></li>
+<li><p>se Δ = 0, p ha una sola radice x = −b/(2a), con molteplicità
+2;</p></li>
+<li><p>se Δ &lt; 0, p non ha radici reali.</p></li>
+</ul>
+<p><img src="./media/image14.png"
+style="width:5.51181in;height:1.89734in" /></p>
+<p><em>I tre casi del discriminante per un polinomio di grado
+2.</em></p>
+<p>Ci sono dunque polinomi senza radici reali. Per questo si sono
+introdotti i numeri complessi: in ℂ si può calcolare la radice quadrata
+di qualsiasi numero, anche negativo o complesso. Per Δ ≠ 0 i due valori
+±√Δ sono i due numeri complessi distinti che risolvono z² = Δ (basta la
+radice quadrata, tra le radici n-esime del capitolo 9); per Δ = 0
+coincidono e la radice è doppia. Quindi un polinomio di grado 2 ha
+<strong>sempre due radici complesse</strong>: possono essere due reali
+distinte, due uguali o due complessi non reali.</p>
+<h2 id="il-teorema-fondamentale-dellalgebra"><strong>Il teorema
+fondamentale dell'algebra</strong></h2>
+<p><strong>Teorema (fondamentale dell'algebra).</strong> Un polinomio
+p(x) a coefficienti complessi di grado n ≥ 1 ha
+<strong>esattamente</strong> n radici complesse, contate con
+molteplicità.</p>
+<p>Il docente non lo dimostra: le dimostrazioni accessibili usano
+strumenti di analisi più avanzati, quindi nel corso si enuncia soltanto.
+Esempio: x² + 1 non ha radici reali, ma ha le due radici complesse i e
+−i, perché i² = −1 e (−i)² = −1, e in entrambi i casi si ottiene p = 0.
+È il motivo principale per cui si sono introdotti i numeri complessi:
+studiando i polinomi si vogliono sempre trovare <strong>tutte</strong>
+le radici, e il numero giusto di radici (il grado) si ottiene solo con i
+numeri complessi.</p>
+<h2 id="due-complementi-non-svolti-a-lezione"><strong>Due complementi
+(non svolti a lezione)</strong></h2>
+<p>Sono due risultati che non sono stati trattati in aula.</p>
+<p><strong>Radici complesse di un polinomio di grado 2.</strong> Per ax²
++ bx + c la formula x = (−b ± √Δ)/(2a) vale anche con i complessi, dove
+±√Δ indica le due radici quadrate complesse di Δ. Esempio: le radici di
+x² + (1 − i)x − i hanno Δ = (1 − i)² + 4i = 2i, con radici quadrate ±(1
++ i), quindi x = (−(1 − i) ± (1 + i))/2, cioè x₊ = i e x₋ = −1.</p>
+<p><strong>Polinomi a coefficienti reali.</strong> Se p(x) ha
+coefficienti reali e z è una radice complessa, allora anche il coniugato
+z̄ è una radice. Dimostrazione: da p(z) = a<sub>n</sub>zⁿ + … +
+a<sub>1</sub>z + a<sub>0</sub> = 0, applicando il coniugio a entrambi i
+membri si ottiene a<sub>n</sub>z̄ⁿ + … + a<sub>1</sub>z̄ + a<sub>0</sub> =
+0, perché il coniugio rispetta somme e prodotti (e quindi le potenze,
+capitolo 5) e i coefficienti, essendo reali, coincidono con i loro
+coniugati. Dunque p(z̄) = 0.</p>
+<p>Con questo si chiude la parte sui polinomi; il corso passa agli spazi
+vettoriali.</p>
+<h1
+id="lo-spazio-euclideo-ℝn-vettori-coordinate-e-rappresentazioni"><strong>14.
+Lo Spazio Euclideo ℝ<sup>n</sup>: Vettori, Coordinate e
+Rappresentazioni</strong></h1>
+<h2 id="perché-un-punto-di-vista-algebrico"><strong>Perché un punto di
+vista algebrico</strong></h2>
+<p>Dopo aver costruito gli strumenti necessari (i campi, i numeri
+complessi, i polinomi), si possono finalmente definire gli <strong>spazi
+vettoriali</strong>, che saranno gli oggetti fondamentali del corso. Non
+si parte però dalla definizione generale, ma da un esempio speciale: lo
+<strong>spazio euclideo</strong>.</p>
+<p>Lo spazio euclideo è lo spazio su cui si fa la geometria classica,
+quella di punti e rette. Gli spazi che si riescono a vedere e su cui si
+può fare geometria visiva hanno però dimensione due o tre, mentre nelle
+applicazioni servono spesso spazi molto più grandi, che non si possono
+disegnare. Per manipolare questi oggetti bisogna quindi farlo in modo
+<strong>algebrico</strong>: è per questo che lo spazio euclideo si
+definisce con una formula e non con un disegno.</p>
+<h2 id="che-cosè-ℝn"><strong>Che cos'è ℝ<sup>n</sup></strong></h2>
+<p>Sia n ≥ 1 un numero naturale.</p>
+<p><strong>Definizione.</strong> Lo <strong>spazio euclideo
+n-dimensionale</strong> è l'insieme ℝ<sup>n</sup> = ℝ × ℝ × … × ℝ (n
+copie di ℝ).</p>
+<p>Chi ha visto il prodotto cartesiano in Matematica discreta riconosce
+subito la costruzione: ℝ<sup>n</sup> è il prodotto cartesiano di ℝ con
+sé stesso n volte. I suoi elementi sono quindi le
+<strong>n-uple</strong> (x<sub>1</sub>, …, x<sub>n</sub>) di n numeri
+reali. Per pura comodità, anziché scriverle in orizzontale come si fa di
+solito, le n-uple si scrivono <strong>in verticale</strong>:</p>
+<p>v = (x<sub>1</sub>, x<sub>2</sub>, …, x<sub>n</sub>), con
+x<sub>1</sub>, …, x<sub>n</sub> ∈ ℝ,</p>
+<p>cioè come <strong>vettore colonna</strong>, con x<sub>1</sub> in alto
+e x<sub>n</sub> in basso. Nelle formule in questo riassunto un vettore
+colonna si indica per brevità con le sue componenti separate da
+virgole.</p>
+<p><strong>In parole povere:</strong> R^n è l'insieme di tutte le liste
+ordinate di n numeri reali. Per n = 2 sono le coppie (x, y), cioè i
+punti del piano; per n = 3 le terne, i punti dello spazio; per n più
+grande non si disegna, ma si lavora allo stesso modo, come un elenco di
+n misure (per esempio altezza, peso, età: tre numeri).</p>
+<p>Un elemento di ℝ<sup>n</sup> si chiama <strong>vettore</strong>. Il
+termine in realtà ha un significato più generale, che si vedrà con gli
+spazi vettoriali, ma per ora "vettore" vuol dire semplicemente "elemento
+di ℝ<sup>n</sup>". Dato v = (x<sub>1</sub>, …, x<sub>n</sub>), il numero
+x<sub>i</sub> è la <strong>i-esima componente</strong> o <strong>i-esima
+coordinata</strong> di v: x<sub>1</sub> è la prima componente,
+x<sub>2</sub> la seconda e così via.</p>
+<p>Il vettore con tutte le componenti nulle, (0, …, 0), si chiama
+<strong>origine</strong> e si indica con 0 oppure con O.</p>
+<p><strong>In parole povere:</strong> un vettore di R^n è semplicemente
+una lista di n numeri, e ogni numero della lista è una sua componente.
+Nel piano (3, 2) è un vettore con prima componente 3 e seconda 2.
+L'origine è la lista fatta di soli zeri, il punto di partenza.</p>
+<p>Il nome "n-dimensionale" va letto per ora come una parola unica: la
+nozione di dimensione non è ancora stata definita. Come sottolineato a
+lezione, si vedrà più avanti che ℝ<sup>n</sup> è effettivamente uno
+spazio di dimensione n, ma serve prima definire che cosa significa.</p>
+<h2 id="i-casi-ℝ²-e-ℝ³"><strong>I casi ℝ² e ℝ³</strong></h2>
+<p>Due casi speciali si possono rappresentare geometricamente.</p>
+<ul>
+<li><p>Per n = 2, ℝ² = { (x, y) | x, y ∈ ℝ } è l'insieme delle coppie di
+numeri reali, il <strong>piano cartesiano</strong>: un vettore di
+coordinate a e b si rappresenta con il punto del piano di coordinate a e
+b. Per esempio il punto (3, 2) si ottiene partendo dall'origine, andando
+avanti di 3 unità nella direzione dell'asse x e poi su di 2 unità nella
+direzione dell'asse y.</p></li>
+<li><p>Per n = 3, ℝ³ = { (x, y, z) | x, y, z ∈ ℝ } è lo <strong>spazio
+cartesiano</strong> a tre dimensioni: il vettore di coordinate a, b, c
+corrisponde al punto che si raggiunge partendo dall'origine, spostandosi
+di a unità lungo x, poi di b unità lungo y e infine di c unità lungo z.
+I tre assi sono tre direzioni indipendenti (alla lavagna un asse esce
+dal piano della lavagna e non si può disegnare fedelmente). Per esempio
+il punto con x = 3, y = 4 e z = 2 corrisponde al vettore (3, 4,
+2).</p></li>
+</ul>
+<p><img src="./media/image15.png"
+style="width:5.11811in;height:2.59394in" /></p>
+<p><em>Il vettore (3, 2) in ℝ² e il vettore (3, 4, 2) in ℝ³: punto e
+freccia dall'origine.</em></p>
+<h2 id="tre-modi-di-vedere-un-vettore"><strong>Tre modi di vedere un
+vettore</strong></h2>
+<p>In generale un vettore di ℝ<sup>n</sup> si può rappresentare in tre
+modi:</p>
+<ul>
+<li><p>come <strong>n-upla</strong> di numeri (x<sub>1</sub>, …,
+x<sub>n</sub>): è il modo che si usa di più, perché è quello che
+permette di fare i conti;</p></li>
+<li><p>come <strong>punto</strong> di coordinate (x<sub>1</sub>, …,
+x<sub>n</sub>);</p></li>
+<li><p>come <strong>freccia</strong> che va dall'origine al punto di
+coordinate (x<sub>1</sub>, …, x<sub>n</sub>).</p></li>
+</ul>
+<p>Queste tre rappresentazioni sono sostanzialmente equivalenti, e si
+sceglie ogni volta la scrittura più comoda: quando serve calcolare si
+usa la n-upla, quando serve disegnare il punto o la freccia. Di solito
+si usano le lettere maiuscole P, Q per i punti e le minuscole v, w per i
+vettori, ma questo dipende dal contesto.</p>
+<p>Il capitolo successivo introduce le due operazioni fondamentali che
+si possono fare con i vettori di ℝ<sup>n</sup>: la somma e la
+moltiplicazione per un numero.</p>
+<h1 id="somma-e-prodotto-per-scalare-in-ℝn"><strong>15. Somma e Prodotto
+per Scalare in ℝ<sup>n</sup></strong></h1>
+<h2 id="quali-operazioni-si-possono-fare"><strong>Quali operazioni si
+possono fare</strong></h2>
+<p>Come sottolineato a lezione, il punto dell'algebra è questo: ogni
+volta che si introduce un insieme, ci si deve chiedere <strong>quali
+operazioni si possono fare</strong> su di esso. Su ℝ<sup>n</sup> le
+operazioni importanti sono due: una <strong>somma</strong> tra vettori e
+una <strong>moltiplicazione</strong> di un vettore per un numero
+reale.</p>
+<h2 id="la-somma-di-vettori"><strong>La somma di vettori</strong></h2>
+<p>La somma prende come input due vettori e restituisce un nuovo
+vettore. Si calcola <strong>termine a termine</strong>: se v =
+(x<sub>1</sub>, …, x<sub>n</sub>) e w = (y<sub>1</sub>, …,
+y<sub>n</sub>), allora</p>
+<p>v + w = (x<sub>1</sub> + y<sub>1</sub>, …, x<sub>n</sub> +
+y<sub>n</sub>).</p>
+<p>La prima componente della somma è la somma delle prime componenti, la
+seconda è la somma delle seconde, e così via fino alla n-esima. Per
+esempio in ℝ² con v = (3, 1) e w = (1, 2) si ha v + w = (3 + 1, 1 + 2) =
+(4, 3).</p>
+<p>A livello geometrico la somma si ottiene con la <strong>regola del
+parallelogramma</strong>. Si pensano i due vettori come frecce uscenti
+dall'origine e si costruisce il parallelogramma che ha v e w come lati:
+il vertice opposto all'origine è esattamente la somma v + w.
+Nell'esempio si parte da (3, 1) e (1, 2) e si arriva al punto (4, 3),
+come in figura.</p>
+<h2 id="il-prodotto-per-uno-scalare"><strong>Il prodotto per uno
+scalare</strong></h2>
+<p>Dato un vettore v = (x<sub>1</sub>, …, x<sub>n</sub>) e un numero
+reale a, il <strong>prodotto</strong> a·v è ancora un vettore, le cui
+componenti si ottengono moltiplicando tutte le componenti di v per
+a:</p>
+<p>a·v = (a x<sub>1</sub>, …, a x<sub>n</sub>).</p>
+<p>Geometricamente, moltiplicare per a vuol dire
+<strong>allungare</strong> (o accorciare) la freccia di un fattore a.
+Con v = (3, 1) e a = 2 si ottiene 2v = (6, 2): la freccia ha lunghezza
+doppia. Se il numero a è <strong>negativo</strong>, il vettore a·v ha
+lunghezza |a| volte quella di v e verso opposto a quello di v:
+moltiplicare per un numero negativo vuol dire invertire il verso. Per
+esempio −v = (−3, −1) è la freccia di v con il verso invertito.</p>
+<p><img src="./media/image16.png"
+style="width:5.31496in;height:2.29093in" /></p>
+<p><em>Somma di due vettori di ℝ² con la regola del parallelogramma, e
+prodotto di un vettore per lo scalare 2 e per −1.</em></p>
+<p>Il <strong>coefficiente angolare</strong> di una freccia, cioè il
+rapporto tra la y e la x, non cambia quando la si moltiplica per uno
+scalare: per v = (3, 1) vale 3 diviso 1 e quello di 2v = (6, 2) è 6
+diviso 2, lo stesso numero (il rapporto non è definito se x = 0). Il
+coefficiente angolare individua la retta su cui sta la freccia, mentre
+il segno dello scalare ne determina il verso: moltiplicare per uno
+scalare non sposta dunque la freccia fuori dalla sua retta, ma ne cambia
+la lunghezza e, se lo scalare è negativo, il verso.</p>
+<h2 id="gli-scalari"><strong>Gli scalari</strong></h2>
+<p>Nella moltiplicazione per un numero i numeri hanno un ruolo
+particolare: non servono a quantificare nulla, ma a <strong>moltiplicare
+vettori</strong>. In questo contesto i numeri si chiamano
+<strong>scalari</strong>, e l'operazione si chiama
+<strong>moltiplicazione per scalare</strong>.</p>
+<p><strong>Definizione.</strong> Uno <strong>scalare</strong> è un
+numero o, più precisamente, un elemento di un campo. Il campo va scelto
+in anticipo: potrebbe essere il campo dei numeri reali, e allora gli
+scalari sono numeri reali, oppure il campo dei numeri complessi, e
+allora gli scalari sono numeri complessi, e così via. Per ora, in
+ℝ<sup>n</sup>, gli scalari sono numeri reali.</p>
+<p><strong>In parole povere:</strong> gli scalari sono i numeri "per cui
+si può moltiplicare" un vettore, cioè le manopole con cui si allunga o
+si accorcia. Quali siano (reali, complessi...) va deciso all'inizio, e
+devono formare un campo.</p>
+<p>Il capitolo successivo raccoglie le proprietà di queste due
+operazioni e dà il nome alla struttura algebrica che ne risulta.</p>
+<h1 id="le-proprietà-di-ℝn-e-i-gruppi"><strong>16. Le Proprietà di
+ℝ<sup>n</sup> e i Gruppi</strong></h1>
+<h2 id="le-otto-proprietà-di-somma-e-prodotto"><strong>Le otto proprietà
+di somma e prodotto</strong></h2>
+<p>In ℝ<sup>n</sup> la somma e la moltiplicazione per scalare hanno otto
+proprietà. Le prime quattro riguardano <strong>solo la somma</strong>,
+le altre quattro mettono insieme la somma e il prodotto per scalare. Per
+ogni u, v, w ∈ ℝ<sup>n</sup> e per ogni a, b ∈ ℝ valgono:</p>
+<p>1. <strong>associatività</strong> della somma: (u + v) + w = u + (v +
+w);</p>
+<p>2. <strong>elemento neutro</strong>: esiste un vettore 0<sub>ℝⁿ</sub>
+∈ ℝ<sup>n</sup> tale che 0<sub>ℝⁿ</sub> + v = v + 0<sub>ℝⁿ</sub> = v per
+ogni v;</p>
+<p>3. <strong>opposto</strong>: per ogni v esiste un vettore u tale che
+v + u = u + v = 0<sub>ℝⁿ</sub>;</p>
+<p>4. <strong>commutatività</strong> della somma: u + v = v + u;</p>
+<p>5. a·(b·v) = (ab)·v;</p>
+<p>6. (a + b)·v = a·v + b·v;</p>
+<p>7. a·(v + w) = a·v + a·w;</p>
+<p>8. 1·v = v.</p>
+<p>Il vettore della proprietà 2 si scrive con il simbolo 0<sub>ℝⁿ</sub>
+per non confonderlo con il numero zero: è il vettore con tutte le
+componenti nulle, cioè l'origine (0, …, 0). L'opposto della proprietà 3
+di un vettore v = (x<sub>1</sub>, …, x<sub>n</sub>) è semplicemente u =
+(−x<sub>1</sub>, …, −x<sub>n</sub>), che si indica con −v.</p>
+<p>Sulle ultime quattro proprietà conviene essere precisi sulle
+operazioni che compaiono, perché sono di tipi diversi:</p>
+<ul>
+<li><p>nella proprietà 5 il prodotto "ab" è un prodotto tra numeri, cioè
+una moltiplicazione <strong>in ℝ</strong>; tutte le altre
+moltiplicazioni sono moltiplicazioni per scalare. Dice che moltiplicare
+un vettore prima per b e poi per a dà lo stesso risultato che
+moltiplicarlo per il numero ab;</p></li>
+<li><p>nella proprietà 6 la somma a + b è una somma <strong>di numeri
+reali</strong>, mentre la somma a destra, a·v + b·v, è una somma di
+vettori;</p></li>
+<li><p>la proprietà 7 è un'altra distributività, in cui tutte le
+operazioni sono tra vettori o per scalare;</p></li>
+<li><p>nella proprietà 8 il numero 1 è l'elemento neutro del prodotto in
+ℝ (come in ogni campo, esiste un elemento neutro del prodotto); la
+proprietà dice che moltiplicare un vettore per 1 non lo cambia.</p></li>
+</ul>
+<p>Perché la commutatività (la proprietà 4) è separata
+dall'associatività? Come spiegato a lezione, perché si vuole impostare
+tutto in modo da poterlo applicare a contesti più generali, in cui
+l'ordine dell'operazione può essere importante.</p>
+<p>Queste proprietà andrebbero dimostrate verificandole una per una
+sulle componenti: non è difficile, ma non lo si fa a lezione. Non è una
+lista scritta per divertimento: queste sono proprio le proprietà che
+definiscono uno spazio vettoriale, come si vedrà nel capitolo 17.</p>
+<h2 id="i-gruppi"><strong>I gruppi</strong></h2>
+<p>Le prime tre proprietà coinvolgono una sola operazione, la somma. Un
+insieme dotato di una operazione che soddisfa proprietà di questo tipo
+prende un nome.</p>
+<p><strong>Definizione.</strong> Un <strong>gruppo</strong> è un insieme
+G dotato di un'operazione binaria, cioè di una funzione che a ogni
+coppia di elementi (a, b) di G associa un elemento di G, indicato con a
+⋆ b, in modo che siano soddisfatte tre proprietà:</p>
+<p>1. <strong>associatività</strong>: (a ⋆ b) ⋆ c = a ⋆ (b ⋆ c) per ogni
+a, b, c;</p>
+<p>2. <strong>elemento neutro</strong>: esiste e ∈ G con e ⋆ a = a ⋆ e =
+a per ogni a;</p>
+<p>3. <strong>inversi</strong>: per ogni a esiste a′ ∈ G con a ⋆ a′ = a′
+⋆ a = e.</p>
+<p><strong>In parole povere:</strong> un gruppo è un insieme con una
+sola operazione che si comporta in modo "ragionevole": raggruppare le
+operazioni non cambia il risultato, esiste un elemento che non cambia
+nulla (come lo 0 per la somma) e ogni elemento può essere "annullato" da
+un altro (il suo opposto). Per esempio gli interi con la somma formano
+un gruppo.</p>
+<p>Il simbolo ⋆ (asterisco) è un nome astratto per l'operazione: nel
+caso di ℝ<sup>n</sup> l'operazione è la somma, e si usa +. Quando
+l'operazione assomiglia a una moltiplicazione, l'elemento a′ si chiama
+<strong>inverso</strong>; nel caso speciale dell'addizione si chiama
+<strong>opposto</strong>.</p>
+<p>Un gruppo si dice <strong>commutativo</strong> (o
+<strong>abeliano</strong>) se vale anche la commutatività: a ⋆ b = b ⋆ a
+per ogni a, b. Il docente ha osservato che in Matematica discreta si
+incontreranno gruppi molto importanti, come i gruppi di permutazioni,
+che non sono abeliani: in essi l'ordine dell'operazione conta.</p>
+<p><strong>In parole povere:</strong> in un gruppo abeliano l'ordine non
+conta: fare a poi b è come fare b poi a. La somma di numeri lo è; invece
+mettersi prima i calzini e poi le scarpe non si può invertire, e lo
+stesso vale per molte operazioni più complesse (come comporre
+permutazioni).</p>
+<p><strong>Esempi.</strong> ℝ<sup>n</sup> con la somma è un gruppo
+abeliano, perché valgono le proprietà 1-4. Anche l'insieme ℤ dei numeri
+interi con la somma è un gruppo commutativo, e lo stesso vale per ℚ, ℝ e
+ℂ con la somma. Gli insiemi ℚ ∖ {0}, ℝ ∖ {0} e ℂ ∖ {0} sono gruppi
+commutativi anche con la moltiplicazione. Non sono invece gruppi: ℕ con
+la somma, perché manca l'opposto (la proprietà 3), e ℤ con la
+moltiplicazione, perché manca l'inverso: per esempio 2 non ha inverso
+moltiplicativo in ℤ.</p>
+<p>Con le definizioni di gruppo e di gruppo abeliano si può dire in
+breve che le proprietà 1-4 di ℝ<sup>n</sup> equivalgono a dire che
+(ℝ<sup>n</sup>, +) è un gruppo abeliano, e il capitolo successivo parte
+proprio da qui.</p>
+<h1 id="gli-spazi-vettoriali-su-un-campo"><strong>17. Gli Spazi
+Vettoriali su un Campo</strong></h1>
+<h2 id="il-campo-degli-scalari"><strong>Il campo degli
+scalari</strong></h2>
+<p>Un insieme che ha due operazioni, una somma e una moltiplicazione per
+scalare, con le stesse proprietà di ℝ<sup>n</sup>, è uno <strong>spazio
+vettoriale</strong>. Prima di darne la definizione bisogna essere
+precisi su un punto: gli scalari sono elementi di un campo, ma
+<strong>quale</strong> campo? Va scelto a priori. L'ordine corretto per
+definire uno spazio vettoriale è quindi scegliere prima il campo degli
+scalari, cioè i numeri per cui si vuole poter moltiplicare, e solo dopo
+l'insieme e le sue operazioni.</p>
+<p>Richiamiamo la definizione di campo del capitolo 2, riformulandola
+con il linguaggio dei gruppi: un <strong>campo</strong> è un insieme
+dotato di due operazioni, una somma e un prodotto, tali che l'insieme
+sia un gruppo commutativo con la somma (elemento neutro 0), che
+l'insieme privato dello 0 sia un gruppo commutativo con il prodotto
+(elemento neutro 1) e che valga la proprietà distributiva a·(b + c) =
+a·b + a·c. Sono campi ℚ, ℝ e ℂ, mentre ℤ non lo è, perché 2 non ha
+inverso moltiplicativo.</p>
+<h2 id="la-definizione"><strong>La definizione</strong></h2>
+<p><strong>Definizione.</strong> Fissiamo un campo 𝕂. Uno <strong>spazio
+vettoriale su 𝕂</strong> è un insieme V, i cui elementi si chiamano
+<strong>vettori</strong>, con due operazioni:</p>
+<ul>
+<li><p>una <strong>somma</strong> + : V × V → V, che a due vettori v, w
+associa un vettore v + w;</p></li>
+<li><p>una <strong>moltiplicazione per scalare</strong> · : 𝕂 × V → V,
+che a uno scalare a e a un vettore v associa un vettore a·v,</p></li>
+</ul>
+<p>tali che siano soddisfatte:</p>
+<ul>
+<li><p>le proprietà 1-4 del capitolo 16, cioè (V, +) è un gruppo
+abeliano;</p></li>
+<li><p>le proprietà 5-8, dove gli scalari sono elementi di 𝕂.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> uno spazio vettoriale è un insieme
+di oggetti (i vettori) che puoi sommare tra loro e allungare o
+accorciare con numeri presi da un campo, seguendo le solite regole di
+calcolo, e restando sempre dentro l'insieme. Non conta che cosa siano
+gli oggetti (frecce, liste di numeri, polinomi, funzioni): contano solo
+le due operazioni e le loro proprietà.</p>
+<p>Nelle dispense questo si enuncia con cinque condizioni: (V, +) è un
+gruppo commutativo e valgono λ(v + w) = λv + λw, (λ + μ)v = λv + μv,
+(λμ)v = λ(μv) e 1v = v, per ogni v, w ∈ V e λ, μ ∈ 𝕂. Sono le stesse
+proprietà elencate a lezione, raggruppate in modo diverso: il gruppo
+commutativo corrisponde alle proprietà 1-4, λ(v + w) = λv + λw alla 7,
+(λ + μ)v = λv + μv alla 6, (λμ)v = λ(μv) alla 5 e 1v = v alla 8. Per noi
+il campo 𝕂 sarà di solito ℝ oppure ℂ, ma per la definizione può essere
+qualsiasi campo.</p>
+<p>L'elemento neutro del gruppo (V, +) si indica con 0<sub>V</sub>, o
+semplicemente con 0, ed è l'<strong>origine</strong> dello spazio
+vettoriale. Non va confuso con lo zero del campo 𝕂: il simbolo 0 può
+indicare cose diverse e il significato si capisce dal contesto.</p>
+<h2 id="i-quattro-ingredienti"><strong>I quattro
+ingredienti</strong></h2>
+<p>Come sottolineato a lezione, per comunicare uno spazio vettoriale, a
+un collega, a un computer o a chi legge, bisogna dire quattro cose:</p>
+<p>1. l'<strong>insieme</strong> V;</p>
+<p>2. il <strong>campo degli scalari</strong> 𝕂;</p>
+<p>3. come è definita la <strong>somma</strong>;</p>
+<p>4. come è definita la <strong>moltiplicazione per
+scalare</strong>.</p>
+<p>Non sono informazioni che si possono ricavare: vanno specificate, e
+tutte e quattro. Ovviamente le due operazioni devono soddisfare le
+proprietà della definizione, ma a livello di comunicazione servono tutti
+e quattro gli ingredienti.</p>
+<h2 id="esempi-1"><strong>Esempi</strong></h2>
+<p><strong>ℝ<sup>n</sup> su ℝ.</strong> L'insieme è ℝ<sup>n</sup>, il
+campo è ℝ, la somma è la somma termine a termine e il prodotto per
+scalare moltiplica ogni componente per un numero reale (capitolo
+15).</p>
+<p><strong>Lo spazio ℝ[x] dei polinomi.</strong> L'insieme è quello dei
+polinomi a coefficienti reali, il campo è ℝ. La somma è la somma di
+polinomi già vista: si sommano termine a termine i coefficienti,
+(a<sub>n</sub>x<sup>n</sup> + … + a<sub>1</sub>x + a<sub>0</sub>) +
+(b<sub>n</sub>x<sup>n</sup> + … + b<sub>1</sub>x + b<sub>0</sub>) =
+(a<sub>n</sub> + b<sub>n</sub>)x<sup>n</sup> + … + (a<sub>1</sub> +
+b<sub>1</sub>)x + (a<sub>0</sub> + b<sub>0</sub>) (se i due polinomi
+hanno gradi diversi, si completa quello di grado minore con coefficienti
+nulli). Il prodotto per uno scalare reale c moltiplica ogni coefficiente
+per c: c·(a<sub>n</sub>x<sup>n</sup> + … + a<sub>0</sub>) = c
+a<sub>n</sub>x<sup>n</sup> + … + c a<sub>1</sub>x + c a<sub>0</sub>. Con
+queste operazioni ℝ[x] è uno spazio vettoriale su ℝ. Un esempio con i
+numeri: (x³ − 2x + 1) + (4x⁴ + x − 3) = 4x⁴ + x³ − x − 2, e 3·(x³ − 2x)
+= 3x³ − 6x.</p>
+<p><strong>Lo spazio 𝕂<sup>n</sup>.</strong> Non c'è nulla di speciale
+nei numeri reali: per un qualsiasi campo 𝕂 si definisce 𝕂<sup>n</sup>
+come l'insieme delle n-uple (x<sub>1</sub>, …, x<sub>n</sub>) con
+x<sub>1</sub>, …, x<sub>n</sub> ∈ 𝕂. Si possono considerare, per
+esempio, ℂ<sup>n</sup> (n-uple di numeri complessi) o ℚ<sup>n</sup>. Le
+operazioni sono le stesse di ℝ<sup>n</sup>, con la differenza importante
+che lo scalare a vive ora nel campo 𝕂 scelto, e non più in ℝ. Con queste
+operazioni 𝕂<sup>n</sup> è uno spazio vettoriale su 𝕂. Alcuni esempi in
+ℂ²: (1 + i, −2) + (3i, 1 − i) = (1 + 4i, −1 − i), e (2 + i)·(3, 1 − i) =
+(6 + 3i, 3 − i).</p>
+<p><strong>Lo spazio 𝕂[x] dei polinomi.</strong> Fissato un campo 𝕂, si
+indica con 𝕂[x] l'insieme dei polinomi con coefficienti in 𝕂. Valgono le
+stesse formule di ℝ[x], con la differenza che quando si moltiplica un
+polinomio per uno scalare, lo scalare deve essere in 𝕂. Con queste due
+operazioni 𝕂[x] è uno spazio vettoriale su 𝕂.</p>
+<p>Resta da controllare che in tutti questi esempi valgano davvero le
+proprietà della definizione: si fa verificando le proprietà componente
+per componente (o coefficiente per coefficiente), usando le proprietà
+del campo. Per esempio, per la proprietà 7 in 𝕂<sup>n</sup>: a·(v + w)
+ha come componenti a(x<sub>i</sub> + y<sub>i</sub>), che per la
+distributività nel campo diventano a x<sub>i</sub> + a y<sub>i</sub>,
+cioè le componenti di a·v + a·w.</p>
+<h1 id="zero-opposto-e-altri-esempi-di-spazi-vettoriali"><strong>18.
+Zero, Opposto e Altri Esempi di Spazi Vettoriali</strong></h1>
+<h2 id="come-trovare-lo-zero-e-lopposto"><strong>Come trovare lo zero e
+l'opposto</strong></h2>
+<p>Tra le proprietà di uno spazio vettoriale ce ne sono due che conviene
+ricordare: esiste sempre un elemento neutro per la somma, lo zero
+0<sub>V</sub>, e ogni vettore ammette un opposto. Saper calcolare lo
+zero di uno spazio vettoriale e l'opposto di un vettore è spesso
+importante, e c'è un modo semplice per farlo sempre.</p>
+<p><strong>Proposizione.</strong> Sia V uno spazio vettoriale su un
+campo 𝕂.</p>
+<ul>
+<li><p>Per ogni vettore v ∈ V si ha 0·v = 0<sub>V</sub>: moltiplicando
+un qualunque vettore per lo scalare 0 si ottiene lo zero dello
+spazio.</p></li>
+<li><p>Per ogni vettore v ∈ V, (−1)·v è l'opposto di v, e si indica con
+−v.</p></li>
+</ul>
+<p>Nell'enunciato il simbolo 0 compare in due ruoli diversi: nella
+formula 0·v = 0<sub>V</sub> il primo 0 è lo zero del campo e il secondo
+è lo zero dello spazio vettoriale.</p>
+<p><strong>Dimostrazione.</strong></p>
+<p>1. Poiché 0 è l'elemento neutro della somma in 𝕂, si ha 0 = 0 + 0,
+quindi 0·v = (0 + 0)·v.</p>
+<p>2. Per la proprietà 6, (0 + 0)·v = 0·v + 0·v. Si ha quindi 0·v = 0·v
++ 0·v.</p>
+<p>3. Sommando a entrambi i membri l'opposto di 0·v (che esiste per la
+proprietà 3) si ottiene 0<sub>V</sub> = 0·v + (−0·v) = (0·v + 0·v) +
+(−0·v) = 0·v + (0·v + (−0·v)) = 0·v + 0<sub>V</sub> = 0·v, usando
+l'associatività e l'elemento neutro. È il passaggio che si indica come
+"semplificare".</p>
+<p>4. Per l'opposto: v + (−1)·v = 1·v + (−1)·v = (1 + (−1))·v = 0·v =
+0<sub>V</sub>, usando la proprietà 8 e poi la proprietà 6. Dunque (−1)·v
+soddisfa la proprietà che definisce l'opposto di v. ∎</p>
+<p>Il secondo punto si dimostra in due righe.</p>
+<p><strong>Esempi.</strong></p>
+<ul>
+<li><p>In ℝ[x] lo zero è il <strong>polinomio nullo</strong>
+0x<sup>n</sup> + … + 0x + 0. Se non si riesce a "vederlo", si prende un
+polinomio qualunque, per esempio x + 1, e lo si moltiplica per 0: 0·(x +
+1) = 0x + 0 = 0, il polinomio nullo. L'opposto di p(x) =
+a<sub>n</sub>x<sup>n</sup> + … + a<sub>1</sub>x + a<sub>0</sub> si
+ottiene moltiplicandolo per −1: è −p(x) = −a<sub>n</sub>x<sup>n</sup> −
+… − a<sub>1</sub>x − a<sub>0</sub>, cioè il polinomio con tutti i
+coefficienti cambiati di segno.</p></li>
+<li><p>In 𝕂<sup>n</sup> lo zero è 0·(x<sub>1</sub>, …, x<sub>n</sub>) =
+(0·x<sub>1</sub>, …, 0·x<sub>n</sub>) = (0, …, 0), proprio quello
+trovato per ℝ<sup>n</sup>.</p></li>
+</ul>
+<h2 id="ogni-campo-è-uno-spazio-vettoriale-su-sé-stesso"><strong>Ogni
+campo è uno spazio vettoriale su sé stesso</strong></h2>
+<p>Nello spazio 𝕂<sup>n</sup> il numero n è qualunque numero naturale
+maggiore di zero. Che cosa succede per n = 1? L'insieme 𝕂¹ è l'insieme
+delle "1-uple" (x), con x ∈ 𝕂, cioè semplicemente 𝕂. Quindi <strong>ogni
+campo 𝕂 è uno spazio vettoriale su 𝕂 stesso</strong>: la somma è la
+somma del campo, e la moltiplicazione per scalare è il prodotto del
+campo. Le proprietà della definizione seguono dalle proprietà del campo:
+(𝕂, +) è un gruppo commutativo perché lo è nella definizione di campo
+(proprietà 1-4), la 7 è la distributività del campo, la 6 segue dalla
+commutatività e dalla distributività, la 5 è l'associatività del
+prodotto e la 8 dice che 1 è l'elemento neutro per il prodotto. Ad
+esempio ℂ è uno spazio vettoriale su ℂ.</p>
+<h2 id="cambiare-il-campo-degli-scalari-ℂ-su-ℝ"><strong>Cambiare il
+campo degli scalari: ℂ su ℝ</strong></h2>
+<p>Definire uno spazio vettoriale serve proprio a dire qual è l'insieme
+degli scalari per cui si può moltiplicare. L'esempio importante è ℂ: lo
+si può considerare come spazio vettoriale su ℂ, ma anche su ℝ, se si
+decide di moltiplicare i numeri complessi <strong>solo per numeri
+reali</strong>. L'insieme e la somma restano gli stessi (come gruppo con
+la somma ℂ è lo stesso), cambia soltanto il campo degli scalari. Con le
+operazioni di somma e di moltiplicazione per numeri reali, ℂ è dunque
+uno spazio vettoriale su ℝ.</p>
+<p>Questo fatto è più generale: quando si hanno due campi e uno contiene
+l'altro, come ℝ dentro ℂ, il campo più grande si può sempre considerare
+uno spazio vettoriale sul campo più piccolo, moltiplicando solo per gli
+scalari del campo piccolo. Come sottolineato a lezione, non è
+un'osservazione casuale: è un concetto fondamentale di una teoria
+importante, la teoria di Galois.</p>
+<p>Una cosa da ricordare: nella definizione di spazio vettoriale la
+somma non dipende dal campo scelto. Il campo entra in gioco solo nella
+seconda operazione, quando si decide per quali scalari si moltiplica.
+Per questo ℂ con gli scalari in ℂ e ℂ con gli scalari in ℝ sono due
+spazi vettoriali diversi, anche se l'insieme e la somma coincidono.</p>
+<h2 id="lo-spazio-delle-funzioni"><strong>Lo spazio delle
+funzioni</strong></h2>
+<p>Consideriamo l'insieme V di tutte le funzioni f : ℝ → ℝ, quelle di
+cui si studiano i grafici alle superiori. In V si definiscono due
+operazioni <strong>punto per punto</strong>: per definire una funzione
+bisogna dire quanto vale in ogni x.</p>
+<ul>
+<li><p>La <strong>somma</strong> di due funzioni f e g è la funzione f +
+g il cui valore in x è (f + g)(x) = f(x) + g(x). Per esempio, se f(x) =
+eˣ e g(x) = sen x, la funzione f + g è eˣ + sen x: in ogni punto si
+calcolano prima eˣ e sen x e poi si somma.</p></li>
+<li><p>Il <strong>prodotto per uno scalare</strong> a ∈ ℝ è la funzione
+a·f il cui valore in x è (a·f)(x) = a·f(x). Per esempio 3·e<sup>x²</sup>
+è la funzione che in ogni punto calcola e<sup>x²</sup> e poi moltiplica
+per 3.</p></li>
+</ul>
+<p>Con queste due operazioni V è uno spazio vettoriale su ℝ. Le dispense
+propongono lo stesso schema per le funzioni da [0, 1] in 𝕂 e per le
+successioni (x<sub>n</sub>) di elementi di 𝕂, con somma e prodotto per
+scalare definiti componente per componente.</p>
+<p>Gli spazi di questo tipo sono molto diversi da spazi come
+ℝ<sup>n</sup>: più "selvaggi", mentre ℝ<sup>n</sup> è più docile. Il
+concetto di <strong>dimensione</strong>, che si definirà più avanti,
+permetterà di quantificare questa differenza: spazi come ℝ<sup>n</sup>
+hanno dimensione finita, mentre lo spazio di tutte le funzioni ha
+dimensione infinita.</p>
+<h2 id="un-controesempio-i-polinomi-di-grado-esattamente-k"><strong>Un
+controesempio: i polinomi di grado esattamente k</strong></h2>
+<p>L'esercizio 5.7 delle dispense chiede di controllare che l'insieme
+𝕂<sub>k</sub>[x] dei polinomi di grado <strong>minore o uguale</strong>
+a k è uno spazio vettoriale, e perché l'insieme dei polinomi di grado
+<strong>esattamente</strong> k non lo sia, se k ≥ 1. Il motivo è quello
+già visto nel capitolo 10: la somma può far diminuire il grado. Per
+esempio x² e −x² + x hanno entrambi grado 2, ma la loro somma è x, che
+ha grado 1, quindi la somma esce dall'insieme. Inoltre lo zero, il
+polinomio nullo, non ha grado k.</p>
+<h1 id="le-matrici-e-lo-spazio-mm-n-𝕂"><strong>19. Le Matrici e lo
+Spazio M(m, n, 𝕂)</strong></h1>
+<h2 id="un-nuovo-esempio-fondamentale"><strong>Un nuovo esempio
+fondamentale</strong></h2>
+<p>Dopo aver visto gli spazi vettoriali e i primi esempi (ℝ<sup>n</sup>,
+i polinomi, le funzioni), si introduce un altro esempio molto
+importante: lo <strong>spazio delle matrici</strong>. Come sottolineato
+a lezione, da qui in poi le matrici compaiono in quasi tutte le lezioni
+del corso, quindi vale la pena impararle bene fin dall'inizio.</p>
+<p>Come sempre bisogna fissare prima il campo degli scalari: sia 𝕂 un
+campo fissato. Chi trova astratta questa frase può pensare che 𝕂 sia ℝ
+oppure ℂ: nel 99% degli esempi e delle applicazioni è così. Esistono
+moltissimi altri campi, ma la teoria funziona allo stesso modo per
+tutti, e i matematici la scrivono in generale proprio per questo.</p>
+<h2 id="che-cosè-una-matrice"><strong>Che cos'è una
+matrice</strong></h2>
+<p><strong>Definizione.</strong> Una <strong>matrice</strong> m × n a
+coefficienti in 𝕂 (si legge «m per n») è una tabella rettangolare con m
+righe e n colonne</p>
+<p>A = ( a<sub>11</sub> a<sub>12</sub> … a<sub>1n</sub> ; a<sub>21</sub>
+a<sub>22</sub> … a<sub>2n</sub> ; … ; a<sub>m1</sub> a<sub>m2</sub> …
+a<sub>mn</sub> ),</p>
+<p>in cui ogni a<sub>ij</sub> è un elemento di 𝕂 (qui le righe sono
+separate da punto e virgola). Gli a<sub>ij</sub> si chiamano
+<strong>coefficienti</strong>, <strong>entrate</strong> o
+<strong>termini</strong> della matrice.</p>
+<p><strong>In parole povere:</strong> una matrice è una tabella di
+numeri, con righe in orizzontale e colonne in verticale. Dire che è «m
+per n» significa che ha m righe e n colonne. Ogni numero ha un
+indirizzo, dato da due indici: la riga in cui sta e la colonna in cui
+sta.</p>
+<p><img src="./media/image17.png"
+style="width:3.93701in;height:2.50259in" /></p>
+<p><em>Una matrice m × n: l'entrata aᵢⱼ sta nella i-esima riga e nella
+j-esima colonna.</em></p>
+<p>Gli indici si leggono sempre nello stesso ordine: <strong>prima la
+riga, poi la colonna</strong>. L'entrata a<sub>ij</sub> è quella nella
+i-esima riga e nella j-esima colonna, con i da 1 a m e j da 1 a n.
+Sembra un dettaglio, ma è importantissimo: in Excel, per esempio, una
+casella si chiama C2, cioè prima la colonna (la lettera) e poi la riga
+(il numero), mentre in matematica è esattamente il contrario. Tutti i
+matematici, in ogni libro e in ogni articolo, usano questa convenzione,
+e invertire l'ordine è un errore tipico da esame.</p>
+<p>Le <strong>righe</strong> di A si indicano con A<sub>1</sub>, …,
+A<sub>m</sub> e le <strong>colonne</strong> con A<sup>1</sup>, …,
+A<sup>n</sup>; per esempio A<sub>i</sub> = (a<sub>i1</sub>,
+a<sub>i2</sub>, …, a<sub>in</sub>) è la i-esima riga.</p>
+<p>L'insieme di tutte le matrici m × n a coefficienti in 𝕂 si indica con
+<strong>M(m, n, 𝕂)</strong>, o semplicemente M(m, n) quando il campo è
+chiaro.</p>
+<p><strong>In parole povere:</strong> M(m, n, 𝕂) è la scatola che
+contiene tutte le tabelle di m righe e n colonne con numeri presi da
+𝕂.</p>
+<h2 id="qualche-esempio"><strong>Qualche esempio</strong></h2>
+<ul>
+<li><p>( 2 , π , 1 ; √2 , −1 , 0 ) è una matrice 2 × 3 a coefficienti
+reali: ha due righe e tre colonne, e a<sub>12</sub> = π.</p></li>
+<li><p>( 3+i , π ; i , √2+1 ; 1 , √5 ) è una matrice 3 × 2 a
+coefficienti in ℂ.</p></li>
+<li><p>Una matrice con <strong>una sola riga</strong> è una matrice 1 ×
+n, per esempio (1, 7, −2). Quando le entrate sono vicine conviene
+scriverle con una virgola per non confondere 1, 7, −2 con il numero 17 e
+il segno meno.</p></li>
+<li><p>Una matrice con <strong>una sola colonna</strong> è una matrice m
+× 1. Ma allora è semplicemente un vettore colonna: M(m, 1, 𝕂) si
+identifica con 𝕂<sup>m</sup>. Per esempio una matrice 3 × 1 è un
+elemento di ℝ³, e una matrice 4 × 1 è un elemento di ℝ⁴. Si può quindi
+pensare ai vettori di 𝕂<sup>m</sup> come a particolari matrici, ed è
+molto comodo farlo.</p></li>
+</ul>
+<p>Una nota di precisione: formalmente una colonna di numeri e un
+elemento di 𝕂<sup>m</sup> sono oggetti distinti, ma si possono
+identificare senza rischio. Conviene farlo proprio perché permette di
+pensare sempre ai vettori di 𝕂<sup>m</sup> come a vettori colonna.</p>
+<h2 id="somma-e-prodotto-per-scalare"><strong>Somma e prodotto per
+scalare</strong></h2>
+<p>Per fare di M(m, n, 𝕂) uno spazio vettoriale bisogna dire come si
+sommano due matrici e come si moltiplica una matrice per uno scalare. Si
+fa <strong>entrata per entrata</strong>: per A = (a<sub>ij</sub>) e B =
+(b<sub>ij</sub>) dello stesso tipo e per λ ∈ 𝕂,</p>
+<p>(A + B)<sub>ij</sub> = a<sub>ij</sub> + b<sub>ij</sub> e
+(λA)<sub>ij</sub> = λ·a<sub>ij</sub>.</p>
+<p><strong>In parole povere:</strong> per sommare due matrici si sommano
+i numeri che stanno nello stesso posto; per moltiplicarle per un numero
+si moltiplica ogni entrata per quel numero. È come lavorare con due
+tabelle sovrapposte, casella per casella.</p>
+<p>Esempi in M(3, 2, ℝ), con le righe separate da punto e virgola:</p>
+<ul>
+<li><p>( 2 3 ; 1 1 ; 0 5 ) + ( −1 1 ; 0 1 ; 1 4 ) = ( 1 4 ; 1 2 ; 1 9 ):
+in ogni posto si sommano le due entrate (per esempio, nella prima riga,
+2 + (−1) = 1 e 3 + 1 = 4);</p></li>
+<li><p>−2 · ( 1 2 ; 3 4 ; 5 6 ) = ( −2 −4 ; −6 −8 ; −10 −12 ): ogni
+entrata si moltiplica per −2.</p></li>
+</ul>
+<p>Si possono sommare solo due matrici <strong>della stessa
+taglia</strong>, cioè con lo stesso numero di righe e lo stesso numero
+di colonne: non ha senso sommare una matrice 3 × 2 e una 7 × 9. Qualcuno
+potrebbe pensare di completare con degli zeri la più piccola, ma è
+un'idea che non è utile e non si usa.</p>
+<h2 id="mm-n-𝕂-è-uno-spazio-vettoriale"><strong>M(m, n, 𝕂) è uno spazio
+vettoriale</strong></h2>
+<p>Con queste due operazioni <strong>M(m, n, 𝕂) è uno spazio vettoriale
+su 𝕂</strong>: le proprietà della somma e del prodotto per scalare
+(commutativa, associativa, distributive, ecc.) si controllano facilmente
+perché le operazioni si fanno entrata per entrata, e in ogni singola
+entrata sono quelle dei numeri di 𝕂.</p>
+<ul>
+<li><p>Il <strong>vettore nullo</strong> (la matrice «zero») è la
+matrice con tutte le entrate uguali a 0; si ottiene anche come 0·A per
+una matrice A qualunque.</p></li>
+<li><p>L'<strong>opposto</strong> di una matrice A è la matrice −A =
+(−1)·A, con tutte le entrate cambiate di segno.</p></li>
+</ul>
+<p>Quindi una matrice è un <strong>vettore</strong> nel senso del
+capitolo 17: un elemento di uno spazio vettoriale. Come sottolineato a
+lezione, la parola «vettore» non va associata solo alle frecce o alle
+colonne di numeri: è un elemento di un qualunque spazio vettoriale, e
+può essere una matrice, una funzione, un polinomio, o semplicemente un
+numero.</p>
+<p>Il capitolo successivo parte da qui per chiedersi quali pezzi di uno
+spazio vettoriale sono a loro volta spazi: i sottospazi.</p>
+<h1 id="i-sottospazi-vettoriali"><strong>20. I Sottospazi
+Vettoriali</strong></h1>
+<h2 id="uno-spazio-dentro-un-altro-spazio"><strong>Uno spazio dentro un
+altro spazio</strong></h2>
+<p>Per parlare di <strong>sottospazio</strong> bisogna sapere qual è lo
+spazio più grande da cui si parte, esattamente come per parlare di
+sottoinsieme serve prima l'insieme. Sia dunque V uno spazio vettoriale
+su un campo 𝕂: per esempio ℝ³, i vettori tridimensionali che molti
+conoscono già.</p>
+<p><strong>Definizione.</strong> Un <strong>sottospazio
+vettoriale</strong> di V è un sottoinsieme W ⊆ V che soddisfa tre
+condizioni:</p>
+<p>1. <strong>0</strong> ∈ W: il vettore nullo di V sta in W;</p>
+<p>2. se w₁, w₂ ∈ W allora w₁ + w₂ ∈ W: W è chiuso rispetto alla
+somma;</p>
+<p>3. se w ∈ W e λ ∈ 𝕂 allora λ·w ∈ W: W è chiuso rispetto al prodotto
+per scalare.</p>
+<p><strong>In parole povere:</strong> un sottospazio è un pezzo di uno
+spazio vettoriale che è «chiuso in sé»: se prendi due vettori del pezzo
+e li sommi, resti nel pezzo; se ne allunghi o accorci uno con uno
+scalare, resti nel pezzo; e dentro c'è sempre l'origine. Non puoi
+«cadere fuori» facendo le operazioni solite. Per esempio un piano per
+l'origine di ℝ³ è un sottospazio, mentre un piano che non passa per
+l'origine no.</p>
+<p>La prima condizione ha un motivo preciso: ogni spazio vettoriale ha
+un elemento zero, quindi anche un sottospazio, che è a sua volta uno
+spazio, lo deve avere. E lo zero del sottospazio è lo zero dello spazio
+grande: l'origine è la stessa.</p>
+<p><strong>Proposizione.</strong> Se W è un sottospazio di V, allora W,
+con la somma e il prodotto per scalare di V, è a sua volta uno spazio
+vettoriale su 𝕂.</p>
+<p>(Le proprietà della somma e del prodotto valgono in W perché valgono
+in V, e le condizioni 1-3 garantiscono che le operazioni non facciano
+uscire da W.) Ogni spazio V ha sempre almeno due sottospazi: il
+<strong>sottospazio banale</strong> W = {0}, che contiene solo il
+vettore nullo, e il <strong>sottospazio totale</strong> W = V. Per ogni
+sottospazio vale {0} ⊆ W ⊆ V.</p>
+<p><strong>In parole povere:</strong> il sottospazio banale è il pezzo
+più piccolo possibile, la sola origine; il sottospazio totale è il pezzo
+più grande, tutto lo spazio. Ogni altro sottospazio sta in mezzo.</p>
+<h2 id="un-esempio-che-funziona-e-uno-che-non-funziona-in-ℝ³"><strong>Un
+esempio che funziona e uno che non funziona in ℝ³</strong></h2>
+<p>In V = ℝ³ si considerano due sottoinsiemi che hanno una definizione
+molto simile:</p>
+<ul>
+<li><p>W₁ = { (a, b, 0) | a, b ∈ ℝ }, i vettori con <strong>ultima
+componente 0</strong>;</p></li>
+<li><p>W₂ = { (a, b, 1) | a, b ∈ ℝ }, i vettori con <strong>ultima
+componente 1</strong>.</p></li>
+</ul>
+<p>Entrambi sono sottoinsiemi di ℝ³, ma solo uno è un sottospazio. Si
+controllano le tre condizioni.</p>
+<p><strong>W₁ è un sottospazio.</strong></p>
+<p>1. Il vettore nullo (0, 0, 0) ha la forma (a, b, 0) con a = b = 0,
+quindi sta in W₁.</p>
+<p>2. Se (a, b, 0) e (c, d, 0) sono in W₁, la loro somma è (a + c, b +
+d, 0 + 0) = (a + c, b + d, 0): l'ultima componente è ancora 0, quindi
+sta in W₁.</p>
+<p>3. Se (a, b, 0) ∈ W₁ e λ ∈ ℝ, allora λ·(a, b, 0) = (λa, λb, 0) ha
+ancora ultima componente 0, quindi sta in W₁.</p>
+<p>Geometricamente W₁ è il piano orizzontale per l'origine (il piano
+x-y).</p>
+<p><strong>W₂ non è un sottospazio</strong>, e non ne funziona nemmeno
+una condizione.</p>
+<p>1. Il vettore nullo (0, 0, 0) ha ultima componente 0, non 1, quindi
+non sta in W₂.</p>
+<p>2. La somma di (a, b, 1) e (c, d, 1) è (a + c, b + d, 2): l'ultima
+componente è 2, non 1, quindi esce da W₂.</p>
+<p>3. Il multiplo λ·(a, b, 1) = (λa, λb, λ) ha ultima componente λ, che
+è 1 solo se λ = 1: per esempio il doppio di (1, 1, 1) è (2, 2, 2), che
+non sta in W₂.</p>
+<p><img src="./media/image18.png"
+style="width:4.33071in;height:2.2764in" /></p>
+<p><em>W₁ e W₂ in ℝ³ (visti di lato): il piano per l'origine è un
+sottospazio, il piano a quota 1 no.</em></p>
+<p>Moralità: la definizione dei due insiemi è quasi identica, ma per uno
+funziona tutto e per l'altro niente. Quando si vogliono costruire
+sottospazi conviene imporre che qualcosa <strong>sia zero</strong> (lo
+zero ha la bella proprietà che 0 + 0 = 0 e λ·0 = 0), non che sia uguale
+a un numero diverso da zero. Infatti l'origine deve stare nel
+sottospazio, e imporre «uguale a 1» la esclude subito.</p>
+<h2 id="altri-esempi-nel-piano"><strong>Altri esempi nel
+piano</strong></h2>
+<p>Sia V = ℝ². Tre sottoinsiemi si confrontano con le tre
+condizioni.</p>
+<ul>
+<li><p>W = { (x, x²) | x ∈ ℝ }, cioè la <strong>parabola</strong> y =
+x². <strong>Non</strong> è un sottospazio: (1, 1) ∈ W ma ½·(1, 1) = (½,
+½) ∉ W, perché (½)² = ¼ ≠ ½. La terza condizione fallisce.</p></li>
+<li><p>W = { (x, 0) | x ≥ 0 }, una <strong>semiretta</strong> sull'asse
+x. <strong>Non</strong> è un sottospazio: (1, 0) ∈ W ma (−1)·(1, 0) =
+(−1, 0) ∉ W. Anche qui la terza condizione fallisce.</p></li>
+<li><p>W = { (x, x) | x ∈ ℝ }, la <strong>retta</strong> y = x. È un
+sottospazio: (0, 0) ∈ W; (a, a) + (b, b) = (a + b, a + b) ∈ W; λ·(a, a)
+= (λa, λa) ∈ W.</p></li>
+</ul>
+<p><img src="./media/image19.png"
+style="width:5.11811in;height:1.78372in" /></p>
+<p><em>Parabola e semiretta non sono sottospazi (il punto bianco esce
+dall'insieme), la retta y = x sì.</em></p>
+<h2 id="i-polinomi-1"><strong>I polinomi</strong></h2>
+<p>Fissato d ∈ ℕ, l'insieme 𝕂<sub>d</sub>[x] dei polinomi di grado
+<strong>minore o uguale</strong> a d è un sottospazio dello spazio 𝕂[x]
+di tutti i polinomi: lo zero è il polinomio nullo (che per convenzione
+appartiene a 𝕂<sub>d</sub>[x]), la somma di due polinomi di grado al più
+d ha ancora grado al più d (il grado può diminuire nella somma, ma non
+aumentare), e anche un multiplo per uno scalare ha grado al più d.</p>
+<p>L'insieme dei polinomi di grado <strong>esattamente</strong> 5,
+invece, non è un sottospazio di ℝ[x], con lo stesso fenomeno già visto
+nel capitolo 18, la somma che fa scendere il grado: x⁵ + x e −x⁵ + x²
+hanno grado 5, ma la loro somma x² + x ha grado 2, e anche il polinomio
+nullo non ha grado 5.</p>
+<p>Il capitolo successivo vede i sottospazi più importanti dello spazio
+delle matrici quadrate.</p>
+<h1 id="sottospazi-di-matrici-quadrate"><strong>21. Sottospazi di
+Matrici Quadrate</strong></h1>
+<h2 id="matrici-quadrate-e-diagonale-principale"><strong>Matrici
+quadrate e diagonale principale</strong></h2>
+<p>Una matrice n × n, cioè con lo stesso numero di righe e di colonne,
+si dice <strong>quadrata</strong>. Lo spazio delle matrici quadrate si
+indica con M(n, 𝕂), o semplicemente M(n) quando il campo è chiaro.
+Dentro M(n) vivono tanti sottospazi importanti, che si ottengono
+imponendo condizioni sulle entrate.</p>
+<p>Una matrice quadrata ha due diagonali, ma ce n'è una che conta. Gli
+elementi a<sub>11</sub>, a<sub>22</sub>, …, a<sub>nn</sub>, cioè quelli
+con i due indici uguali, formano la <strong>diagonale
+principale</strong>; l'altra diagonale, detta <strong>diagonale
+secondaria</strong>, non ha nessuna importanza per quello che si fa in
+questo corso. Quando si dice «la diagonale» si intende sempre quella
+principale.</p>
+<p><strong>Definizione.</strong> Una matrice quadrata A =
+(a<sub>ij</sub>) di taglia n × n si dice:</p>
+<ul>
+<li><p><strong>diagonale</strong> se a<sub>ij</sub> = 0 per ogni i ≠ j
+(fuori dalla diagonale principale tutto è zero);</p></li>
+<li><p><strong>triangolare superiore</strong> se a<sub>ij</sub> = 0 per
+ogni i &gt; j (tutto ciò che sta sotto la diagonale è zero);</p></li>
+<li><p><strong>triangolare inferiore</strong> se a<sub>ij</sub> = 0 per
+ogni i &lt; j (tutto ciò che sta sopra la diagonale è zero);</p></li>
+<li><p><strong>simmetrica</strong> se a<sub>ij</sub> = a<sub>ji</sub>
+per ogni i, j;</p></li>
+<li><p><strong>antisimmetrica</strong> se a<sub>ij</sub> =
+−a<sub>ji</sub> per ogni i, j.</p></li>
+</ul>
+<p><strong>In parole povere:</strong> immagina di disegnare la diagonale
+principale, quella che va dall'alto a sinistra al basso a destra.</p>
+<ul>
+<li><p><strong>Diagonale</strong>: i numeri possono stare solo sulla
+diagonale, tutto il resto è zero.</p></li>
+<li><p><strong>Triangolare superiore</strong>: i numeri stanno sulla
+diagonale e sopra di essa, sotto è tutto zero (un triangolo in alto).
+<strong>Triangolare inferiore</strong>: il contrario, i numeri stanno
+sulla diagonale e sotto.</p></li>
+<li><p><strong>Simmetrica</strong>: se «specchi» la matrice rispetto
+alla diagonale (scambi righe e colonne), non cambia nulla. L'entrata in
+posizione (1, 2) e quella in posizione (2, 1) sono uguali.</p></li>
+<li><p><strong>Antisimmetrica</strong>: lo specchio cambia il segno di
+ogni numero: l'entrata in posizione (1, 2) è l'opposto di quella in
+posizione (2, 1).</p></li>
+</ul>
+<p><img src="./media/image20.png"
+style="width:5.31496in;height:1.45802in" /></p>
+<p><em>Come sono fatte le matrici diagonali, triangolari, simmetriche e
+antisimmetriche: in grigio le entrate nulle, in colore quelle libere o
+legate.</em></p>
+<p>Un chiarimento sulla condizione «a<sub>ij</sub> = 0 per i &gt; j»
+delle triangolari: i &gt; j significa che l'indice della riga è più
+grande di quello della colonna, cioè l'entrata sta
+<strong>sotto</strong> la diagonale. Per esempio a<sub>31</sub> (terza
+riga, prima colonna) sta sotto. L'indice che conta la riga viene sempre
+per primo. Una matrice triangolare superiore include la diagonale: lì si
+possono avere numeri diversi da zero, e tutto ciò che sta sotto deve
+sparire.</p>
+<h2 id="esempi-2"><strong>Esempi</strong></h2>
+<p>Le cinque matrici seguenti sono, nell'ordine, diagonale, triangolare
+superiore, triangolare inferiore, simmetrica e antisimmetrica (le righe
+sono separate da punto e virgola):</p>
+<ul>
+<li><p>( 2 0 ; 0 −1 ) è diagonale;</p></li>
+<li><p>( 1 √2 ; 0 9 ) ha zero sotto la diagonale: è triangolare
+superiore;</p></li>
+<li><p>( −1 0 ; 7 2 ) ha zero sopra la diagonale: è triangolare
+inferiore;</p></li>
+<li><p>( −1 2 ; 2 4 ) ha le entrate in posizione (1, 2) e (2, 1) uguali:
+è simmetrica;</p></li>
+<li><p>( 0 1 ; −1 0 ) ha le entrate (1, 2) e (2, 1) opposte e zeri sulla
+diagonale: è antisimmetrica.</p></li>
+</ul>
+<p>In dimensione 3: ( 1 2 3 ; 0 4 5 ; 0 0 6 ) è triangolare superiore, (
+1 0 0 ; 2 4 0 ; 3 5 6 ) è triangolare inferiore, ( 1 0 0 ; 0 2 0 ; 0 0 3
+) è diagonale (si scrive anche diag(1, 2, 3)), ( 1 2 3 ; 2 4 5 ; 3 5 6 )
+è simmetrica e ( 0 1 2 ; −1 0 3 ; −2 −3 0 ) è antisimmetrica.</p>
+<h2 id="una-matrice-può-stare-in-più-classi"><strong>Una matrice può
+stare in più classi</strong></h2>
+<p>Una stessa matrice può appartenere a più classi, e la matrice nulla
+appartiene a tutte e cinque. Per esempio ( 0 0 ; 0 1 ) è diagonale,
+triangolare superiore, triangolare inferiore e simmetrica.</p>
+<p><strong>Antisimmetriche e diagonale.</strong> In una matrice
+antisimmetrica gli elementi della diagonale sono necessariamente nulli.
+La condizione a<sub>ij</sub> = −a<sub>ji</sub> applicata agli indici
+uguali (i = j) dice a<sub>ii</sub> = −a<sub>ii</sub>: un numero che è
+uguale al proprio opposto può essere solo 0 (in ℝ o in ℂ, e più in
+generale in ogni campo in cui 1 + 1 ≠ 0: da a = −a segue 2a = 0).
+Geometricamente, lo specchio rispetto alla diagonale lascia ferme le
+entrate della diagonale, ma cambia loro il segno, quindi devono essere
+zero.</p>
+<p><strong>Simmetria e antisimmetria non si escludono.</strong> Nel caso
+dei numeri reali o complessi la matrice nulla è sia simmetrica sia
+antisimmetrica, ed è l'unica: se a<sub>ij</sub> = a<sub>ji</sub> e
+a<sub>ij</sub> = −a<sub>ji</sub> allora a<sub>ij</sub> =
+−a<sub>ij</sub>, quindi a<sub>ij</sub> = 0.</p>
+<p>Gli insiemi di queste matrici si indicano con D(n) (diagonali),
+T<sub>s</sub>(n) (triangolari superiori), T<sub>i</sub>(n) (triangolari
+inferiori), S(n) (simmetriche) e A(n) (antisimmetriche).</p>
+<h2 id="sono-tutti-sottospazi"><strong>Sono tutti
+sottospazi</strong></h2>
+<p><strong>Proposizione.</strong> I sottoinsiemi D(n), T<sub>s</sub>(n),
+T<sub>i</sub>(n), S(n) e A(n) sono tutti sottospazi vettoriali di
+M(n).</p>
+<p><strong>In parole povere:</strong> se sommi due matrici dello stesso
+tipo, o ne moltiplichi una per un numero, il risultato resta dello
+stesso tipo. Due matrici diagonali sommate danno una diagonale; due
+simmetriche sommate danno una simmetrica; e così via.</p>
+<p>Per ciascuno dei cinque insiemi basta verificare le tre condizioni
+dei sottospazi: la matrice nulla appartiene all'insieme, e somma e
+prodotto per scalare conservano la proprietà che lo definisce. Per
+esempio, per le simmetriche:</p>
+<p>1. la matrice nulla è simmetrica (tutte le entrate sono 0, quindi
+a<sub>ij</sub> = a<sub>ji</sub>);</p>
+<p>2. se A e B sono simmetriche, la somma ha entrate a<sub>ij</sub> +
+b<sub>ij</sub> = a<sub>ji</sub> + b<sub>ji</sub>, che sono le entrate in
+posizione (j, i) della somma: A + B è simmetrica (in simboli, scambiare
+righe e colonne di A + B lascia A + B invariata);</p>
+<p>3. se A è simmetrica e λ ∈ 𝕂, la matrice λA ha entrate
+λ·a<sub>ij</sub> = λ·a<sub>ji</sub>: è ancora simmetrica.</p>
+<p>Per le antisimmetriche e per le altre classi il ragionamento è
+analogo. Come sottolineato a lezione, le verifiche sono abbastanza
+intuitive e non serve scriverle tutte; per chi trova la teoria astratta
+troppo complicata è però utile rifarle in modo formale, per esempio
+controllando le antisimmetriche con la vera definizione.</p>
+<p>Il capitolo successivo introduce l'altro modo di costruire
+sottospazi: invece di imporre condizioni si fanno entrare solo i vettori
+che servono, cioè lo Span.</p>
+<h1 id="combinazioni-lineari-e-sottospazio-generato-span"><strong>22.
+Combinazioni Lineari e Sottospazio Generato (Span)</strong></h1>
+<h2 id="due-modi-di-costruire-sottospazi"><strong>Due modi di costruire
+sottospazi</strong></h2>
+<p>Finora i sottospazi si sono costruiti <strong>per
+esclusione</strong>: si impongono condizioni (un'entrata uguale a zero,
+tante entrate nulle, una simmetria) e ciò che non le rispetta viene
+scartato. Come sottolineato a lezione, è come far entrare tutti in
+un'aula e poi mandare fuori, uno per uno, chi non ha gli occhiali.
+L'altra strada è <strong>per inclusione</strong>: si parte con l'aula
+vuota e si fanno entrare solo quelli che servono, per esempio tutti
+quelli con gli occhiali. Questo secondo metodo si chiama sottospazio
+generato, o <strong>Span</strong>, e richiede prima la nozione di
+combinazione lineare.</p>
+<h2 id="combinazioni-lineari"><strong>Combinazioni lineari</strong></h2>
+<p>Sia V uno spazio vettoriale su 𝕂 e siano v₁, …, v<sub>k</sub> ∈ V
+alcuni vettori.</p>
+<p><strong>Definizione.</strong> Una <strong>combinazione
+lineare</strong> di v₁, …, v<sub>k</sub> è un vettore della forma</p>
+<p>v = λ₁v₁ + λ₂v₂ + … + λ<sub>k</sub>v<sub>k</sub>,</p>
+<p>con λ₁, …, λ<sub>k</sub> ∈ 𝕂 scalari qualunque.</p>
+<p><strong>In parole povere:</strong> una combinazione lineare è una
+«ricetta» che usa i vettori che hai già: ne prendi un po' di ciascuno
+(ogni vettore moltiplicato per un numero, anche negativo o zero) e li
+sommi. Il risultato è un nuovo vettore dello stesso spazio, perché somma
+e moltiplicazione per scalare restano dentro lo spazio. Per esempio 3v₁
++ 2v₂ − 7v₃ è una combinazione lineare di v₁, v₂, v₃.</p>
+<p>Un esempio in ℝ³ con v₁ = (1, 0, 0) e v₂ = (0, 1, 0): la combinazione
+λ₁v₁ + λ₂v₂ vale (λ₁, 0, 0) + (0, λ₂, 0) = (λ₁, λ₂, 0). Al variare di λ₁
+e λ₂ si ottengono tutti i vettori con ultima componente 0, cioè il piano
+z = 0.</p>
+<h2 id="lo-span"><strong>Lo Span</strong></h2>
+<p><strong>Definizione.</strong> Il <strong>sottospazio
+generato</strong> da v₁, …, v<sub>k</sub> è l'insieme di tutte le loro
+combinazioni lineari:</p>
+<p>Span(v₁, …, v<sub>k</sub>) = { λ₁v₁ + … + λ<sub>k</sub>v<sub>k</sub>
+| λ₁, …, λ<sub>k</sub> ∈ 𝕂 }.</p>
+<p>Si legge «span» (dall'inglese <em>to span</em>, che in senso
+matematico vuol dire generare), ed è il nome che si usa anche in
+italiano per «lo spazio generato da».</p>
+<p><strong>In parole povere:</strong> lo Span di alcuni vettori è
+l'insieme di tutto ciò che riesci a costruire usando solo quei vettori,
+sommandoli e allungandoli o accorciandoli. Con un solo vettore non nullo
+ottieni la retta che passa per l'origine nella sua direzione; con due
+vettori non nulli e non paralleli, il piano per l'origine che li
+contiene; e così via.</p>
+<p><img src="./media/image21.png"
+style="width:3.93701in;height:3.93701in" /></p>
+<p><em>Span(v₁, v₂) in ℝ³ con v₁ = (1, 0, 0) e v₂ = (0, 1, 0): è il
+piano generato dai due vettori.</em></p>
+<p>Con un singolo vettore, Span(v) = { λv | λ ∈ 𝕂 }. Per esempio in ℝ²,
+Span((1, 2)) = { (t, 2t) | t ∈ ℝ }, la retta y = 2x.</p>
+<p><strong>Proposizione.</strong> Lo Span(v₁, …, v<sub>k</sub>) è un
+sottospazio vettoriale di V.</p>
+<p><strong>Dimostrazione.</strong> Sia W = Span(v₁, …, v<sub>k</sub>).
+Si verificano le tre condizioni.</p>
+<p>1. <strong>0 ∈ W.</strong> Basta prendere tutti gli scalari uguali a
+zero: 0·v₁ + … + 0·v<sub>k</sub> = 0. (Come prendere zero di tutto: il
+risultato è lo zero.)</p>
+<p>2. <strong>Chiusura rispetto alla somma.</strong> Siano v = λ₁v₁ + …
++ λ<sub>k</sub>v<sub>k</sub> e w = μ₁v₁ + … + μ<sub>k</sub>v<sub>k</sub>
+due elementi di W. Usando la commutatività e l'associatività della somma
+si possono riordinare i termini, e usando la proprietà distributiva (λ +
+μ)v = λv + μv degli spazi vettoriali si ottiene v + w = (λ₁ + μ₁)v₁ + …
++ (λ<sub>k</sub> + μ<sub>k</sub>)v<sub>k</sub>, che è ancora una
+combinazione lineare di v₁, …, v<sub>k</sub>, quindi sta in W.</p>
+<p>3. <strong>Chiusura rispetto al prodotto per scalare.</strong> Se v ∈
+W e λ ∈ 𝕂, allora λv = (λλ₁)v₁ + … + (λλ<sub>k</sub>)v<sub>k</sub> (si
+usa la distributività λ(u + w) = λu + λw e l'associatività del
+prodotto), che sta ancora in W.</p>
+<p>Il significato di questo risultato è che <strong>lo Span è un modo
+per fabbricare sottospazi</strong>: qualunque insieme di vettori si
+scelga, lo spazio che generano è sempre un sottospazio.</p>
+<p>Come sottolineato a lezione, il fatto che le dimostrazioni di questo
+capitolo valgano in uno spazio vettoriale qualunque, e non solo in ℝ³, è
+un punto di forza: lo stesso ragionamento funziona per matrici,
+polinomi, funzioni derivabili o integrabili, e per qualsiasi spazio che
+si voglia immaginare, perché quasi ogni oggetto che si studia in
+matematica ha la struttura di uno spazio vettoriale. Il prezzo è che la
+teoria sembra più astratta; il vantaggio è che si dimostra una cosa
+molto più generale. Nel corso gli esempi saranno quasi sempre vettori di
+ℝⁿ e matrici.</p>
+<h2 id="esercizi"><strong>Esercizi</strong></h2>
+<p><strong>Esercizio 6.9.</strong> Sia W ⊆ M(2, ℝ) l'insieme delle
+matrici della forma ( a b ; b a ), con a, b ∈ ℝ. Si dimostra che W è un
+sottospazio di M(2, ℝ) e che W = Span( ( 1 0 ; 0 1 ), ( 0 1 ; 1 0 )
+).</p>
+<ul>
+<li><p>La matrice nulla è di questa forma (a = b = 0).</p></li>
+<li><p>La somma di ( a b ; b a ) e ( a′ b′ ; b′ a′ ) è ( a+a′ b+b′ ;
+b+b′ a+a′ ), ancora della stessa forma con parametri a + a′ e b +
+b′.</p></li>
+<li><p>Il multiplo λ·( a b ; b a ) = ( λa λb ; λb λa ) è ancora della
+stessa forma.</p></li>
+<li><p>Ogni matrice ( a b ; b a ) si scrive come a·( 1 0 ; 0 1 ) + b·( 0
+1 ; 1 0 ), quindi sta nello Span; viceversa ogni combinazione lineare
+delle due matrici ha quella forma. Dunque W coincide con lo
+Span.</p></li>
+</ul>
+<p><strong>Esercizio 6.10.</strong> In ℝ³ siano v₁ = (1, 0, 1) e v₂ =
+(0, 1, 1). Si descrive Span(v₁, v₂) e si controlla quali tra u = (1, 2,
+3) e w = (1, 2, 4) vi appartengono.</p>
+<ul>
+<li><p>Una combinazione è a·v₁ + b·v₂ = (a, b, a + b). Quindi Span(v₁,
+v₂) = { (x, y, z) | z = x + y }: il piano di equazione z = x +
+y.</p></li>
+<li><p>u = (1, 2, 3): 1 + 2 = 3, quindi z = x + y e u appartiene al
+piano (si ottiene con a = 1, b = 2).</p></li>
+<li><p>w = (1, 2, 4): 1 + 2 = 3 ≠ 4, quindi w <strong>non</strong>
+appartiene al piano.</p></li>
+</ul>
+<p>Il passo successivo è chiedersi quando alcuni vettori generano tutto
+lo spazio senza ridondanze: è il tema della dipendenza e indipendenza
+lineare.</p>
+</article></main>
+</div>
+<a class="top" href="#top" aria-label="Torna su">&uarr;</a>
+<script>
+(function(){
+  var b=document.getElementById('btn-indice'), n=document.getElementById('indice');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',String(o));b.textContent=o?'Chiudi':'Indice';});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='Indice';}});
+})();
+</script>
+</body>
+</html>

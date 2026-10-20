@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>$pagetitle$</title>
+<style>
+:root { --bg:#f4f6fb; --surface:#fff; --ink:#151b2e; --muted:#5a6479; --line:#dbe1ec; --accent:#2744a8; --accent-soft:#e2e8fb; --mark:#fff176; --mark-ink:#151b2e; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#0f131b; --surface:#181d28; --ink:#e9edf5; --muted:#9ba6ba; --line:#2b3444; --accent:#8fadff; --accent-soft:#1f2e57; --mark:#6b5d00; --mark-ink:#fff6c2; } }
+:root[data-theme="dark"] { --bg:#0f131b; --surface:#181d28; --ink:#e9edf5; --muted:#9ba6ba; --line:#2b3444; --accent:#8fadff; --accent-soft:#1f2e57; --mark:#6b5d00; --mark-ink:#fff6c2; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 18px/1.65 'Source Sans 3', 'Segoe UI', system-ui, sans-serif; }
+.bar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 10px; padding: 10px max(16px, env(safe-area-inset-right)) 10px max(16px, env(safe-area-inset-left)); background: var(--surface); border-bottom: 1px solid var(--line); }
+.bar a, .bar button { font: inherit; font-size: 15px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border: 0; border-radius: 10px; padding: 8px 12px; text-decoration: none; cursor: pointer; min-height: 40px; }
+.bar .t { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; font-size: 16px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 1180px; margin: 0 auto; }
+nav#indice { display: none; padding: 16px; font-size: 15px; line-height: 1.4; }
+nav#indice.open { display: block; position: fixed; inset: 61px 0 0 0; z-index: 15; overflow-y: auto; background: var(--surface); padding-bottom: 80px; }
+nav#indice ul { list-style: none; margin: 0; padding-left: 14px; }
+nav#indice > ul { padding-left: 0; }
+nav#indice > ul > li { margin: 10px 0 2px; font-weight: 700; }
+nav#indice > ul > li > ul > li { font-weight: 500; margin: 3px 0; }
+nav#indice a { color: var(--ink); text-decoration: none; display: block; padding: 5px 0; }
+nav#indice a:hover { color: var(--accent); }
+main { padding: 20px max(16px, env(safe-area-inset-right)) 80px max(16px, env(safe-area-inset-left)); min-width: 0; }
+article { max-width: 760px; margin: 0 auto; overflow-wrap: break-word; }
+h1, h2, h3, h4 { font-family: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif; line-height: 1.2; margin: 1.8em 0 .5em; }
+h1 { font-size: 1.7rem; border-top: 3px solid var(--accent); padding-top: .6em; }
+h2 { font-size: 1.35rem; } h3 { font-size: 1.15rem; } h4 { font-size: 1rem; color: var(--muted); }
+h1:first-child { margin-top: .2em; }
+p { margin: .7em 0; }
+mark { background: var(--mark); color: var(--mark-ink); border-radius: 3px; padding: 0 2px; }
+img { max-width: 100%; height: auto; background: #fff; border-radius: 8px; }
+figure { margin: 1.2em 0; text-align: center; } figcaption { color: var(--muted); font-size: .9em; font-style: italic; }
+table { border-collapse: collapse; display: block; overflow-x: auto; max-width: 100%; margin: 1em 0; font-size: .92em; }
+th, td { border: 1px solid var(--line); padding: 6px 10px; vertical-align: top; }
+th { background: var(--accent-soft); }
+blockquote { margin: 1em 0; padding: .1em 1em; border-left: 4px solid var(--accent); background: var(--surface); border-radius: 0 8px 8px 0; }
+pre, code { font-family: 'JetBrains Mono', ui-monospace, Consolas, monospace; font-size: .85em; }
+pre { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+math { font-size: 1.08em; }
+math[display="block"] { display: block; overflow-x: auto; padding: 4px 0; }
+.top { position: fixed; right: 14px; bottom: 14px; z-index: 10; width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: var(--surface); display: grid; place-items: center; text-decoration: none; font-size: 20px; box-shadow: 0 4px 14px rgba(0,0,0,.3); }
+@media (min-width: 1000px) {
+  .layout { grid-template-columns: 300px minmax(0, 1fr); }
+  nav#indice, nav#indice.open { display: block; position: sticky; inset: auto; top: 61px; align-self: start; max-height: calc(100vh - 61px); overflow-y: auto; background: transparent; padding: 16px 8px 40px 16px; }
+  #btn-indice { display: none; }
+  main { padding-left: 32px; }
+}
+@media print { .bar, nav#indice, .top { display: none; } body { background: #fff; color: #000; } }
+</style>
+<script>(function(){try{var t=localStorage.getItem('quaderno-tema');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<div class="bar" id="top">
+  <a href="../../index.html" aria-label="Torna al Quaderno">&larr; Quaderno</a>
+  <span class="t">$pagetitle$</span>
+  <button type="button" id="btn-indice" aria-expanded="false" aria-controls="indice">Indice</button>
+</div>
+<div class="layout">
+<nav id="indice" aria-label="Indice">
+$toc$
+</nav>
+<main><article>
+$body$
+</article></main>
+</div>
+<a class="top" href="#top" aria-label="Torna su">&uarr;</a>
+<script>
+(function(){
+  var b=document.getElementById('btn-indice'), n=document.getElementById('indice');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',String(o));b.textContent=o?'Chiudi':'Indice';});
+  n.addEventListener('click',function(e){if(e.target.closest('a')){n.classList.remove('open');b.setAttribute('aria-expanded','false');b.textContent='Indice';}});
+})();
+</script>
+</body>
+</html>
