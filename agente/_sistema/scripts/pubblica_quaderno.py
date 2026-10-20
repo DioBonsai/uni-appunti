@@ -127,8 +127,13 @@ def main():
         print((r.stdout.strip().splitlines() or ["build ok"])[0])
     dest = repo / "protected"
     if dest.exists():
-        shutil.rmtree(dest)
-    dest.mkdir(parents=True)
+        # svuota il contenuto senza dipendere dalla cartella stessa (Windows la blocca se un'altra finestra ci è dentro)
+        for f in dest.iterdir():
+            if f.is_dir():
+                shutil.rmtree(f, ignore_errors=True)
+            else:
+                f.unlink()
+    dest.mkdir(parents=True, exist_ok=True)
     (dest / "index.html").write_text(adatta((PAG / "index.html").read_text(encoding="utf-8")), encoding="utf-8")
     shutil.copy2(PAG / "data.json", dest / "data.json")
     if (PAG / "img").exists():

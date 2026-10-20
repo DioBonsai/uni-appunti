@@ -179,6 +179,40 @@ nav.toc a.on{border-left-color:var(--mc)}
 .idx{padding:1.2rem .9rem 3rem}.idx h1{font-size:1.7rem}.idx a.mcard{padding:1.1rem}
 .capmeta{margin-bottom:.8rem}
 }
+
+/* ---- controlli di lettura ---- */
+.top-in{gap:.5rem}
+.ibtn{appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;height:36px;border:1px solid var(--lin);background:var(--card);color:var(--fg);border-radius:10px;padding:0 .7rem;cursor:pointer;font:600 13.5px/1 system-ui,-apple-system,"Segoe UI",sans-serif}
+.ibtn:hover{border-color:var(--mc)}
+.ibtn svg,.search svg,#totop svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.segm{display:inline-flex;border:1px solid var(--lin);border-radius:10px;overflow:hidden;background:var(--card)}
+.segm button{appearance:none;border:0;background:none;color:var(--fg);padding:0 .8rem;cursor:pointer;font:700 15px/1 system-ui,sans-serif;height:34px}
+.segm button+button{border-left:1px solid var(--lin)}.segm button:hover{background:var(--cod)}.segm .a-s{font-size:12px}.segm .a-l{font-size:18px}
+.sw-btn{appearance:none;display:inline-flex;align-items:center;gap:.55rem;height:36px;border:1px solid var(--lin);background:var(--card);color:var(--fg);border-radius:10px;padding:0 .85rem 0 .65rem;cursor:pointer;font:600 13.5px/1 system-ui,-apple-system,sans-serif;white-space:nowrap}
+.sw{width:30px;height:18px;border-radius:99px;background:var(--lin);position:relative;transition:background .15s;flex:none}
+.sw::after{content:"";position:absolute;left:2px;top:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 2px #0004;transition:transform .15s}
+.sw-btn[aria-checked=true]{border-color:var(--mc)}.sw-btn[aria-checked=true] .sw{background:var(--mc)}.sw-btn[aria-checked=true] .sw::after{transform:translateX(12px)}
+#theme svg{display:none}#theme[data-t=auto] .t-auto,#theme[data-t=light] .t-light,#theme[data-t=dark] .t-dark{display:block}#theme .lbl{display:none}
+.search{height:36px;border-radius:10px;padding:0 .3rem 0 .65rem;flex:1 1 14rem;max-width:28rem}
+.search svg{stroke:var(--mut);width:17px;height:17px}
+.search input{width:auto;flex:1;min-width:4rem;padding:0}
+select.tb.mats{height:36px;max-width:13rem;border-radius:10px;font-weight:700;color:var(--mc);padding:0 .7rem}
+@media (min-width:721px){.top .mat,.top .cur{display:none}.idx-top .mat{display:inline}.top a.back{order:-3}#mats{order:-2}.search{order:-1}.top-in{padding:.5rem 1rem}}
+/* ---- riquadro "In parole povere", link alle sezioni, torna su ---- */
+main p.pp{margin:1.1rem 0;padding:.85rem 1rem .9rem;border-radius:12px;background:var(--cod);background:color-mix(in srgb,var(--mc) 8%,var(--card));border:1px solid var(--lin);border-left:4px solid var(--mc)}
+main p.pp::before{content:"In parole povere";display:block;font:700 11px/1 system-ui,-apple-system,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--mc);margin-bottom:.45rem}
+main h2,main h3{position:relative}
+.ha{position:absolute;left:-1.7rem;top:0;opacity:0;font:600 .9rem system-ui,sans-serif;text-decoration:none;color:var(--mut);padding:.1rem .35rem;border-radius:6px}.ha::before{content:"#"}
+main h2:hover .ha,main h3:hover .ha,.ha:focus{opacity:1}.ha:hover{color:var(--mc);background:var(--cod)}
+#totop{position:fixed;right:1.3rem;bottom:1.4rem;z-index:25;width:46px;height:46px;border-radius:50%;border:1px solid var(--lin);background:var(--card);color:var(--fg);display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 20px #0004;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .2s,transform .2s}
+#totop.on{opacity:1;pointer-events:auto;transform:none}#totop svg{width:22px;height:22px;stroke-width:2.2}
+@media (max-width:900px){.ha{display:none}#totop{bottom:calc(84px + env(safe-area-inset-bottom));right:.9rem}}
+@media (max-width:720px){
+#ctrls .segm,#ctrls .sw-btn,#ctrls .ibtn{min-height:48px;height:auto;flex:1 1 40%;font-size:15px;justify-content:center}
+#ctrls .segm button{flex:1;height:46px}#ctrls .sw-btn{justify-content:flex-start;gap:.7rem}
+#theme .lbl{display:inline}#ctrls select.tb.mats{height:48px;max-width:none}
+main p.pp{padding:.8rem .9rem .85rem}
+}
 """
 
 JS_COMUNE = r"""
@@ -204,13 +238,13 @@ toHash();window.addEventListener('load',toHash);setTimeout(function(){early=fals
 ['wheel','touchstart','keydown','mousedown'].forEach(function(ev){window.addEventListener(ev,function(){early=false;root.classList.add('ready')},{passive:true,once:true})});
 
 /* evidenziazioni, tema, dimensione del testo */
-var hl=$('#hl');function setHl(on){body.classList.toggle('nomark',!on);hl.setAttribute('aria-pressed',on?'true':'false');ls('riass-evid',on?'1':'0')}
+var hl=$('#hl');function setHl(on){body.classList.toggle('nomark',!on);hl.setAttribute('aria-checked',on?'true':'false');ls('riass-evid',on?'1':'0')}
 setHl(ls('riass-evid')!=='0');hl.addEventListener('click',function(){setHl(body.classList.contains('nomark'))});
-var tb=$('#theme');function lab(){var t=ls('quaderno-tema')||'auto';tb.textContent='Tema: '+({auto:'auto',light:'chiaro',dark:'scuro'}[t]||'auto')}
+var tb=$('#theme');function lab(){var t=ls('quaderno-tema')||'auto',nm={auto:'automatico',light:'chiaro',dark:'scuro'}[t]||'automatico';tb.dataset.t=t;tb.title='Tema: '+nm+' (tocca per cambiare)';tb.setAttribute('aria-label','Tema: '+nm+', tocca per cambiare');var l=tb.querySelector('.lbl');if(l)l.textContent='Tema: '+nm}
 lab();tb.addEventListener('click',function(){var t=ls('quaderno-tema')||'auto',n={auto:'light',light:'dark',dark:'auto'}[t]||'auto';ls('quaderno-tema',n);if(n==='auto')root.removeAttribute('data-theme');else root.setAttribute('data-theme',n);lab()});
 function size(d){var c=parseInt(getComputedStyle(root).getPropertyValue('--fs'),10)||18,n=Math.max(14,Math.min(24,c+d));root.style.setProperty('--fs',n+'px');ls('riass-fs',String(n))}
 $('#fsm').addEventListener('click',function(){size(-1)});$('#fsp').addEventListener('click',function(){size(1)});
-$('#mats').addEventListener('change',function(e){if(e.target.value)location.href=e.target.value});
+$('#mats').addEventListener('change',function(e){if(e.target.value&&e.target.value!==SLUG+'.html')location.href=e.target.value});
 
 /* capitolo attivo, indice, barra di avanzamento */
 var q=$('#q'),links=$$('a[data-cap]',toc),active=-1,hs=[],railLinks=[],ticking=false,cur=$('#cur'),prog=$('#prog'),mc=$('#mcap'),mp=$('#mprev'),mn=$('#mnext'),ctrls=$('#ctrls'),scrim=$('#scrim');
@@ -282,6 +316,12 @@ document.addEventListener('keydown',function(e){
   else if(e.key==='Escape'){$('#lb').classList.remove('on')}
 });
 
+/* torna su e link alle sezioni */
+var totop=$('#totop');totop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'instant'})});
+window.addEventListener('scroll',function(){totop.classList.toggle('on',window.scrollY>1400)},{passive:true});
+main.addEventListener('click',function(e){var a=e.target.closest('a.ha');if(!a)return;e.preventDefault();var id=a.getAttribute('href').slice(1),u=location.origin+location.pathname+'#'+id;
+  history.replaceState(null,'','#'+id);(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(function(){say('Link alla sezione copiato',2000)},function(){say('Link: '+u,4000)})});
+
 /* copia il codice, ingrandisci le figure */
 $$('pre',main).forEach(function(p){var b=document.createElement('button');b.className='tb cp';b.type='button';b.textContent='Copia';
   b.addEventListener('click',function(){var tx=p.innerText.replace(/Copia$/,'').replace(/\s+$/,'');(navigator.clipboard?navigator.clipboard.writeText(tx):Promise.reject()).then(function(){b.textContent='Copiato'},function(){b.textContent='Errore'});setTimeout(function(){b.textContent='Copia'},1500)});p.appendChild(b)});
@@ -295,7 +335,7 @@ JS_INDICE = r"""
 (function(){
 var tb=document.getElementById('theme');
 function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
-function lab(){var t=ls('quaderno-tema')||'auto';tb.textContent='Tema: '+({auto:'auto',light:'chiaro',dark:'scuro'}[t]||'auto')}
+function lab(){var t=ls('quaderno-tema')||'auto',nm={auto:'automatico',light:'chiaro',dark:'scuro'}[t]||'automatico';tb.dataset.t=t;tb.title='Tema: '+nm+' (tocca per cambiare)';tb.setAttribute('aria-label','Tema: '+nm+', tocca per cambiare')}
 if(tb){lab();tb.addEventListener('click',function(){var t=ls('quaderno-tema')||'auto',n={auto:'light',light:'dark',dark:'auto'}[t]||'auto';ls('quaderno-tema',n);if(n==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',n);lab()})}
 })();
 (function(){
@@ -458,9 +498,9 @@ class Conv:
                         capitoli.append(capo)
                     out = []; marks = 0
                     capo = {"id": hid, "titolo": titolo_pl}
-                    out.append(f'<h2 id="{hid}">{h}</h2>')
+                    out.append(f'<h2 id="{hid}">{h}<a class="ha" href="#{hid}" aria-label="Copia il link a questa sezione"></a></h2>')
                 else:
-                    out.append(f'<h3 id="{hid}">{h}</h3>')
+                    out.append(f'<h3 id="{hid}">{h}<a class="ha" href="#{hid}" aria-label="Copia il link a questa sezione"></a></h3>')
                 continue
             if "<mark>" in s:
                 marks += 1
@@ -485,7 +525,15 @@ class Conv:
                 continue
             chiudi_liste()
             if s.strip():
-                out.append(f"<p>{s}</p>")
+                if re.match(r"^\s*(?:<[^>]+>)*\(?\s*In parole povere", s, flags=re.I):
+                    # riquadro "In parole povere": l'etichetta la mette lo stile, tolgo la dicitura e le parentesi duplicate
+                    s2 = re.sub(r"^(\s*(?:<[^>]+>)*)\(?\s*In parole povere\s*:?\s*", r"\1", s, count=1, flags=re.I)
+                    s2 = re.sub(r"\)\s*((?:</[^>]+>)*)\s*$", r"\1", s2) if re.match(r"^\s*(?:<[^>]+>)*\(", s) else s2
+                    s2 = re.sub(r"<(strong|em|mark|code)>\s*</\1>", "", s2)            # tag rimasti vuoti
+                    s2 = re.sub(r"^((?:\s|<[^>]+>)*)([a-zàèéìòù])", lambda m: m.group(1) + m.group(2).upper(), s2, count=1)   # inizia con la maiuscola
+                    out.append(f'<p class="pp">{s2.strip()}</p>')
+                else:
+                    out.append(f"<p>{s}</p>")
             if figs:
                 out.append(figs)
         chiudi_liste(); chiudi_pre()
@@ -532,6 +580,11 @@ def durata(m):
 
 IC_CERCA = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg>'
 IC_OPZ = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></svg>'
+
+IC_TEMA = ('<svg class="t-auto" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17" /><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor" stroke="none"/></svg>'
+           '<svg class="t-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.3M12 19.2v2.3M2.5 12h2.3M19.2 12h2.3M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>'
+           '<svg class="t-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>')
+IC_SU = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg>'
 ETICHETTE = ["Da studiare", "Iniziato", "Studiato"]
 
 
@@ -603,20 +656,22 @@ def main(argv):
         top = ('<header class="top"><div class="top-in">'
                '<a class="back" href="../" aria-label="Torna al Quaderno">&larr; Quaderno</a>'
                f'<span class="mat">{html.escape(nome)}</span><span class="cur" id="cur"></span>'
-               '<div class="search"><input id="q" type="search" placeholder="Cerca  ( / )" aria-label="Cerca nel testo" autocomplete="off">'
+               '<div class="search">' + IC_CERCA + '<input id="q" type="search" placeholder="Cerca nel testo   ( / )" aria-label="Cerca nel testo" autocomplete="off">'
                '<span class="n" id="cnt"></span><button id="sp" type="button" title="Precedente (Maiusc+Invio)">&uarr;</button><button id="sn" type="button" title="Successivo (Invio)">&darr;</button></div>'
                '<button id="msearch" type="button" aria-label="Cerca nel testo">' + IC_CERCA + '</button>'
                '<button id="mopts" type="button" aria-label="Opzioni di lettura">' + IC_OPZ + '</button>'
                '<div id="ctrls" role="group" aria-label="Opzioni di lettura">'
-               '<select class="tb" id="mats" aria-label="Cambia materia"><option value="">Cambia materia &#9662;</option>' + opzioni + '</select>'
-               '<button class="tb" id="fsm" type="button" title="Testo più piccolo">A&minus; Testo</button><button class="tb" id="fsp" type="button" title="Testo più grande">A+ Testo</button>'
-               '<button class="tb" id="hl" type="button" aria-pressed="true" title="Mostra o nascondi le evidenziazioni (h)">Evidenziazioni</button>'
-               '<button class="tb" id="theme" type="button">Tema</button></div>'
+               '<select class="tb mats" id="mats" aria-label="Cambia materia">' + opzioni.replace(f'value="{slug}.html"', f'value="{slug}.html" selected') + '</select>'
+               '<div class="segm" role="group" aria-label="Dimensione del testo"><button id="fsm" type="button" title="Testo più piccolo" aria-label="Testo più piccolo"><span class="a-s">A</span></button>'
+               '<button id="fsp" type="button" title="Testo più grande" aria-label="Testo più grande"><span class="a-l">A</span></button></div>'
+               '<button class="sw-btn" id="hl" type="button" role="switch" aria-checked="true" title="Mostra o nascondi le evidenziazioni (h)"><span class="sw"></span><span>Evidenziazioni</span></button>'
+               '<button class="ibtn" id="theme" type="button" data-t="auto">' + IC_TEMA + '<span class="lbl">Tema</span></button></div>'
                '</div><div id="prog"></div></header>')
         cl, cd = COLORI[slug]
         corpo = (f'<body data-slug="{slug}" data-nome="{html.escape(nome, quote=True)}" style="--mcl:{cl};--mcd:{cd}"><a class="skip" href="#main">Vai al contenuto</a>{top}'
                  f'<div class="wrap"><nav class="toc"><h4>Capitoli</h4>{"".join(voci)}</nav>'
                  f'<main id="main">{hero}{pre}{"".join(sezioni)}</main><aside class="rail"></aside></div>'
+                 '<button id="totop" type="button" aria-label="Torna in cima">' + IC_SU + '</button>'
                  '<div id="scrim"></div><div id="mbar"><button id="mprev" type="button" aria-label="Capitolo precedente">&lsaquo;</button>'
                  '<button id="mcap" type="button" aria-label="Elenco dei capitoli">Capitoli</button>'
                  '<button id="mnext" type="button" aria-label="Capitolo successivo">&rsaquo;</button></div>'
@@ -647,7 +702,7 @@ def main(argv):
     ora = datetime.now().strftime("%d/%m/%Y alle %H:%M")
     idx = ('<body><a class="skip" href="#main">Vai al contenuto</a>'
            '<header class="top idx-top"><div class="top-in"><a class="back" href="../" aria-label="Torna al Quaderno">&larr; Quaderno</a><span class="mat">Riassunti</span><span class="grow"></span>'
-           '<button class="tb" id="theme" type="button" aria-label="Cambia tema">Tema</button></div></header>'
+           '<button class="ibtn" id="theme" type="button" data-t="auto" aria-label="Cambia tema">' + IC_TEMA + '</button></div></header>'
            '<div class="idx" id="main"><h1>Riassunti</h1><p class="lead">Scegli una materia: il pulsante ti porta al primo capitolo che non hai ancora studiato.</p>'
            f'<div id="resume"></div><div class="grid">{cards}</div>'
            f'<p class="foot">Aggiornato il {ora}. Nella pagina di lettura: <kbd>/</kbd> cerca, <kbd>j</kbd> e <kbd>k</kbd> cambiano capitolo, <kbd>h</kbd> mostra o nasconde le evidenziazioni.</p></div>'
