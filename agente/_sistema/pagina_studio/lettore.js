@@ -113,6 +113,54 @@
     for (const v of voci.values()) if (v.m === slug) disegna(v, bl, tit);
   }
 
+  /* ---------- indice interattivo: capitoli che si aprono, ricerca, voce attiva mentre si scorre ---------- */
+  let titoli = [], attiva = null;
+  function costruisciIndice() {
+    const ul = ind.querySelector(':scope > ul'); if (!ul) return;
+    const cerca = document.createElement('input');
+    cerca.type = 'search'; cerca.id = 'r-cerca'; cerca.placeholder = 'Cerca nell\'indice…'; cerca.setAttribute('aria-label', 'Cerca nell\'indice'); cerca.autocomplete = 'off';
+    ind.insertBefore(cerca, ul);
+    const vuoto = document.createElement('p'); vuoto.className = 'muted'; vuoto.id = 'r-cerca-vuoto'; vuoto.textContent = 'Nessun capitolo corrisponde.'; vuoto.hidden = true; ind.appendChild(vuoto);
+    ul.querySelectorAll(':scope > li').forEach(li => {
+      const sub = li.querySelector(':scope > ul'); if (!sub) return;
+      li.classList.add('ha-figli');
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'chev'; b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-label', 'Apri o chiudi i paragrafi del capitolo');
+      b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+      li.insertBefore(b, li.firstChild);
+    });
+    ind.querySelectorAll('li a').forEach(a => { const n = a.textContent.replace(/\s+/g, ' ').trim(); a.dataset.t = n.toLowerCase(); a.textContent = n; });
+    titoli = [...ind.querySelectorAll('li a')].map(a => ({ a, el: document.getElementById(decodeURIComponent((a.getAttribute('href') || '').replace(/^#/, ''))) })).filter(x => x.el);
+    cerca.addEventListener('input', () => {
+      const q = cerca.value.trim().toLowerCase(); let n = 0;
+      ind.querySelectorAll('li').forEach(li => { li.hidden = false; li.classList.remove('trovato'); });
+      if (q) {
+        ind.querySelectorAll('li').forEach(li => {
+          const mio = li.querySelector(':scope > a'), prop = mio && mio.dataset.t.includes(q), figli = [...li.querySelectorAll('li > a')].some(a => a.dataset.t.includes(q));
+          li.hidden = !(prop || figli); if (prop) { li.classList.add('trovato'); n++; }
+          if (figli) li.classList.add('aperto');
+        });
+      }
+      vuoto.hidden = !q || n > 0;
+    });
+  }
+  const apriCapitolo = (li, su) => { li.classList.toggle('aperto', su); const b = li.querySelector(':scope > .chev'); if (b) b.setAttribute('aria-expanded', String(su)); };
+  function segui() {
+    if (!slug || !titoli.length) return;
+    let cur = null;
+    for (const t of titoli) { if (t.el.getBoundingClientRect().top <= 150) cur = t; else break; }
+    if ((cur && cur.a) === attiva) return;
+    if (attiva) { attiva.classList.remove('corrente'); attiva.removeAttribute('aria-current'); }
+    attiva = cur ? cur.a : null; if (!attiva) return;
+    attiva.classList.add('corrente'); attiva.setAttribute('aria-current', 'location');
+    const cap = attiva.closest('ul') && attiva.closest('li.ha-figli');
+    ind.querySelectorAll(':scope > ul > li.ha-figli.aperto:not(.trovato)').forEach(l => { if (l !== cap && !$('#r-cerca').value) apriCapitolo(l, false); });
+    if (cap) apriCapitolo(cap, true);
+    const r = attiva.getBoundingClientRect(), box = ind.getBoundingClientRect();
+    if (getComputedStyle(ind).position === 'sticky' || ind.classList.contains('aperto')) { if (r.top < box.top + 40 || r.bottom > box.bottom - 40) attiva.scrollIntoView({ block: 'center' }); }
+  }
+  let rafSegui = 0; window.addEventListener('scroll', () => { if (!rafSegui) rafSegui = requestAnimationFrame(() => { rafSegui = 0; segui(); }); }, { passive: true });
+  ind.addEventListener('click', e => { const b = e.target.closest('.chev'); if (b) { e.preventDefault(); e.stopPropagation(); const li = b.parentElement; apriCapitolo(li, !li.classList.contains('aperto')); } }, true);
+
   /* ---------- apertura del lettore ---------- */
   async function apri(sl, titolo, ancora) {
     slug = sl; $('#r-titolo').textContent = titolo;
@@ -123,7 +171,8 @@
       d.querySelectorAll('img').forEach(i => i.setAttribute('src', 'riassunti/' + sl + '/' + i.getAttribute('src').replace(/^\.\//, '')));
       art.innerHTML = d.querySelector('article').innerHTML; ind.innerHTML = d.querySelector('nav#indice').innerHTML;
     } catch (e) { art.textContent = 'Non riesco a caricare il riassunto (' + e.message + ').'; return; }
-    await caricaVoci(); ridisegna();
+    costruisciIndice();
+    await caricaVoci(); ridisegna(); segui();
     try { history.replaceState(null, '', '#riassunti'); localStorage.setItem('quaderno-riass', sl); } catch (e) {}
     window.scrollTo(0, 0);
     if (ancora) { const el = document.getElementById(ancora); if (el) el.scrollIntoView(); }
@@ -135,10 +184,11 @@
     e.preventDefault(); apri(a.dataset.slug, a.querySelector('b').textContent);
   });
   $('#r-indietro').addEventListener('click', chiudi);
-  $('#r-btn-indice').addEventListener('click', () => { const o = ind.classList.toggle('aperto'); $('#r-btn-indice').textContent = o ? 'Chiudi' : 'Indice'; });
+  $('#r-btn-indice').addEventListener('click', () => { const o = ind.classList.toggle('aperto'); $('#r-btn-indice').textContent = o ? 'Chiudi' : 'Indice'; if (o) { attiva = null; segui(); } });
   ind.addEventListener('click', e => {
     const a = e.target.closest('a'); if (!a) return; e.preventDefault();
     const el = document.getElementById(decodeURIComponent((a.getAttribute('href') || '').replace(/^#/, '')));
+    const li = a.parentElement; if (li.classList.contains('ha-figli') && a === li.querySelector(':scope > a')) apriCapitolo(li, true);
     ind.classList.remove('aperto'); $('#r-btn-indice').textContent = 'Indice'; if (el) el.scrollIntoView();
   });
   // uscendo dalla scheda si torna all'elenco la volta dopo

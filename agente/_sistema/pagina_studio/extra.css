@@ -605,3 +605,18 @@ details[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
   #r-indice, #r-indice.aperto { display: block; position: sticky; inset: auto; top: calc(var(--top-h) + 60px); align-self: start; max-height: calc(100vh - var(--top-h) - 70px); overflow-y: auto; background: transparent; padding: 12px 4px 40px; z-index: 1; }
   #r-btn-indice { display: none; }
 }
+
+/* Indice interattivo */
+#r-cerca { width: 100%; margin: 0 0 8px; padding: 10px 14px; font: inherit; font-size: .95rem; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; min-height: 44px; }
+#r-indice li { position: relative; list-style: none; }
+#r-indice li.ha-figli > ul { display: none; margin-left: 4px; border-left: 2px solid var(--line); padding-left: 12px; }
+#r-indice li.ha-figli.aperto > ul { display: block; }
+#r-indice li.ha-figli > a { padding-left: 34px; }
+#r-indice .chev { position: absolute; left: 0; top: 2px; width: 32px; height: 32px; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--muted); display: grid; place-items: center; cursor: pointer; }
+#r-indice .chev svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; transition: transform .15s; }
+#r-indice li.aperto > .chev svg { transform: rotate(90deg); }
+#r-indice .chev:hover { background: var(--accent-soft); }
+#r-indice a { border-radius: 8px; padding-right: 8px; }
+#r-indice a:hover { background: var(--accent-soft); }
+#r-indice a.corrente { color: var(--accent); background: var(--accent-soft); font-weight: 700; box-shadow: inset 3px 0 0 var(--accent); }
+#r-indice li.trovato > a { text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--accent); }
