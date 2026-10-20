@@ -119,17 +119,29 @@
     </section>
 
     <!-- RIASSUNTI -->
-    <section id="tab-riassunti" class="view narrow" role="tabpanel" aria-label="Riassunti" aria-labelledby="t-riassunti" hidden>
-      <div class="stack">
-        <div class="view-head"><h1>Riassunti integrali</h1><p class="muted">Il testo completo dei Word, con figure e formule, leggibile da qualunque dispositivo. Dalla pagina si torna qui con «Quaderno».</p></div>
+    <section id="tab-riassunti" class="view wide" role="tabpanel" aria-label="Riassunti" aria-labelledby="t-riassunti" hidden>
+      <div class="stack" id="riass-lista">
+        <div class="view-head"><h1>Riassunti integrali</h1><p class="muted">Il testo completo dei Word, con figure e formule, leggibile da qualunque dispositivo. Seleziona un testo e premi «Sottolinea»: la sottolineatura si salva e poi finisce anche nei Word sul computer.</p></div>
         <div class="card"><ul class="riass-list">
-          <li><a href="riassunti/algebra-lineare/index.html"><b>Algebra lineare</b><span class="muted">Matrici, sottospazi, Span</span></a></li>
-          <li><a href="riassunti/fondamenti-informatica/index.html"><b>Fondamenti di Informatica</b><span class="muted">Logica, codifica, automi</span></a></li>
-          <li><a href="riassunti/laboratorio/index.html"><b>Laboratorio</b><span class="muted">Appunti di laboratorio</span></a></li>
-          <li><a href="riassunti/matematica-discreta/index.html"><b>Matematica discreta</b><span class="muted">Insiemi, relazioni, permutazioni, aritmetica modulare</span></a></li>
-          <li><a href="riassunti/programmazione/index.html"><b>Programmazione</b><span class="muted">Linguaggio e algoritmi</span></a></li>
+          <li><a href="riassunti/algebra-lineare/index.html" data-slug="algebra-lineare"><b>Algebra lineare</b><span class="muted">Matrici, sottospazi, Span</span></a></li>
+          <li><a href="riassunti/fondamenti-informatica/index.html" data-slug="fondamenti-informatica"><b>Fondamenti di Informatica</b><span class="muted">Logica, codifica, automi</span></a></li>
+          <li><a href="riassunti/laboratorio/index.html" data-slug="laboratorio"><b>Laboratorio</b><span class="muted">Appunti di laboratorio</span></a></li>
+          <li><a href="riassunti/matematica-discreta/index.html" data-slug="matematica-discreta"><b>Matematica discreta</b><span class="muted">Insiemi, relazioni, permutazioni, aritmetica modulare</span></a></li>
+          <li><a href="riassunti/programmazione/index.html" data-slug="programmazione"><b>Programmazione</b><span class="muted">Linguaggio e algoritmi</span></a></li>
         </ul></div>
       </div>
+      <div id="riass-lettore" class="lettore" hidden>
+        <div class="lett-bar">
+          <button type="button" class="btn ghost" id="r-indietro">&larr; Materie</button>
+          <span class="lett-tit" id="r-titolo"></span>
+          <button type="button" class="btn ghost" id="r-btn-indice">Indice</button>
+        </div>
+        <div class="lett-body">
+          <nav id="r-indice" aria-label="Indice del riassunto"></nav>
+          <article id="r-art"></article>
+        </div>
+      </div>
+      <button type="button" id="r-pill" class="pill-azione" hidden></button>
     </section>
   </main>
 

@@ -311,7 +311,7 @@ def main():
 
     head = (PAG / "template.html").read_text(encoding="utf-8").split('<div class="app">')[0]
     head = head.replace("</style>", (PAG / "extra.css").read_text(encoding="utf-8") + "\n</style>", 1)
-    html = '<meta charset="utf-8">\n' + head + (PAG / "body.html").read_text(encoding="utf-8") + "\n<script>\n" + (PAG / "gen.js").read_text(encoding="utf-8").replace("if (typeof module", "if (false && typeof module") + "\n" + (PAG / "app.js").read_text(encoding="utf-8") + "\n</script>\n"
+    html = '<meta charset="utf-8">\n' + head + (PAG / "body.html").read_text(encoding="utf-8") + "\n<script>\n" + (PAG / "gen.js").read_text(encoding="utf-8").replace("if (typeof module", "if (false && typeof module") + "\n" + (PAG / "app.js").read_text(encoding="utf-8") + "\n" + (PAG / "lettore.js").read_text(encoding="utf-8") + "\n</script>\n"
     (PAG / "index.html").write_text(html, encoding="utf-8")
     print(f"{len(quiz)} domande, {len(probs)} problemi, {len(cards)} schede; index.html {len(html) // 1024} KB, data.json {(PAG / 'data.json').stat().st_size // 1024} KB")
     for m, x in avanz.items():

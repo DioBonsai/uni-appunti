@@ -20,6 +20,7 @@ from pathlib import Path
 PAG = Path(__file__).resolve().parent
 BASE = PAG.parent
 STATO = BASE / "progressi.json"
+SOTT = BASE / "sottolineature.json"   # sottolineature fatte nel Quaderno, in attesa di finire nei Word (applica_sottolineature.py)
 FILES = {"/": ("index.html", "text/html; charset=utf-8"), "/index.html": ("index.html", "text/html; charset=utf-8"),
          "/data.json": ("data.json", "application/json; charset=utf-8")}
 MAX_POST = 2 * 1024 * 1024
@@ -53,6 +54,8 @@ def make_handler(port):
             path = self.path.split("?")[0]
             if path == "/api/stato":
                 return self._send(200, STATO.read_bytes() if STATO.exists() else b"{}", "application/json; charset=utf-8")
+            if path == "/api/sottolineature":
+                return self._send(200, SOTT.read_bytes() if SOTT.exists() else b'{"v": 1, "items": []}', "application/json; charset=utf-8")
             mi = re.match(r"^/img/([a-z0-9_\-]+\.(png|jpe?g|gif|webp))$", path)
             if mi:  # disegni delle domande (scaricati dal sito esami)
                 f = PAG / "img" / mi.group(1)
@@ -73,11 +76,29 @@ def make_handler(port):
         do_HEAD = do_GET
 
         def do_POST(self):
-            if not self._host_ok() or self.path.split("?")[0] != "/api/stato":
+            rotta = self.path.split("?")[0]
+            if not self._host_ok() or rotta not in ("/api/stato", "/api/sottolineature"):
                 return self._send(403, b"non ammesso")
             n = int(self.headers.get("Content-Length") or 0)
             if n <= 0 or n > MAX_POST:
                 return self._send(413, b"dimensione non valida")
+            if rotta == "/api/sottolineature":  # {"add": [voci], "del": [id]} unito al file, cosi' piu' dispositivi non si pestano i piedi
+                try:
+                    x = json.loads(self.rfile.read(n))
+                    add = [i for i in x.get("add", []) if isinstance(i, dict) and all(isinstance(i.get(k), str) for k in ("id", "m", "q"))]
+                    tolte = {i for i in x.get("del", []) if isinstance(i, str)}
+                except Exception:
+                    return self._send(400, b"json non valido")
+                cur = json.loads(SOTT.read_text(encoding="utf-8")) if SOTT.exists() else {"v": 1, "items": []}
+                voci = {i["id"]: i for i in cur.get("items", [])}
+                voci.update({i["id"]: i for i in add})
+                for i in tolte:
+                    voci.pop(i, None)
+                cur = {"v": 1, "items": list(voci.values())}
+                tmp = SOTT.with_suffix(".tmp")
+                tmp.write_text(json.dumps(cur, ensure_ascii=False, indent=1), encoding="utf-8")
+                tmp.replace(SOTT)
+                return self._send(200, json.dumps(cur, ensure_ascii=False).encode("utf-8"), "application/json; charset=utf-8")
             try:
                 x = json.loads(self.rfile.read(n))
                 if not isinstance(x, dict) or x.get("v") != 2:
