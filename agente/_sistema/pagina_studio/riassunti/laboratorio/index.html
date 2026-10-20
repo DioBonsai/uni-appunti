@@ -220,6 +220,59 @@ mercato</strong></a></li>
 id="toc-esercizio-scambio-di-quattro-variabili"><strong>Esercizio:
 scambio di quattro variabili</strong></a></li>
 </ul></li>
+<li><a
+href="#capitolo-8-laboratorio-3-espressioni-booleane-ed-errori-con-if"
+id="toc-capitolo-8-laboratorio-3-espressioni-booleane-ed-errori-con-if"><strong>Capitolo
+8: Laboratorio 3: Espressioni Booleane ed Errori con if</strong></a>
+<ul>
+<li><a href="#di-che-cosa-parla-il-laboratorio-3"
+id="toc-di-che-cosa-parla-il-laboratorio-3"><strong>Di che cosa parla il
+laboratorio 3</strong></a></li>
+<li><a href="#quali-valori-assumono-queste-espressioni"
+id="toc-quali-valori-assumono-queste-espressioni"><strong>Quali valori
+assumono queste espressioni</strong></a></li>
+<li><a href="#il-codice-di-booleani.c-e-le-leggi-di-de-morgan"
+id="toc-il-codice-di-booleani.c-e-le-leggi-di-de-morgan"><strong>Il
+codice di booleani.c e le leggi di De Morgan</strong></a></li>
+<li><a href="#i-sei-esercizi-booleani"
+id="toc-i-sei-esercizi-booleani"><strong>I sei esercizi
+booleani</strong></a></li>
+<li><a href="#errori-insidiosi-con-if-e-else"
+id="toc-errori-insidiosi-con-if-e-else"><strong>Errori insidiosi con if
+e else</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-9-laboratorio-3-coderunner-ed-esercizi-sulle-scelte"
+id="toc-capitolo-9-laboratorio-3-coderunner-ed-esercizi-sulle-scelte"><strong>Capitolo
+9: Laboratorio 3: Coderunner ed Esercizi sulle Scelte</strong></a>
+<ul>
+<li><a href="#gli-esercizi-su-moodle-con-coderunner"
+id="toc-gli-esercizi-su-moodle-con-coderunner"><strong>Gli esercizi su
+Moodle con Coderunner</strong></a></li>
+<li><a href="#gli-esiti-della-verifica"
+id="toc-gli-esiti-della-verifica"><strong>Gli esiti della
+verifica</strong></a></li>
+<li><a href="#esercizio-saluti"
+id="toc-esercizio-saluti"><strong>Esercizio: saluti</strong></a></li>
+<li><a href="#esercizio-emersione-del-massimo-con-4-variabili"
+id="toc-esercizio-emersione-del-massimo-con-4-variabili"><strong>Esercizio:
+emersione del massimo con 4 variabili</strong></a></li>
+<li><a href="#esercizio-selezione-delle-operazioni"
+id="toc-esercizio-selezione-delle-operazioni"><strong>Esercizio:
+selezione delle operazioni</strong></a></li>
+</ul></li>
+<li><a
+href="#capitolo-10-laboratorio-3-equazioni-di-secondo-grado-e-sasso-carta-forbici-lucertola-spock"
+id="toc-capitolo-10-laboratorio-3-equazioni-di-secondo-grado-e-sasso-carta-forbici-lucertola-spock"><strong>Capitolo
+10: Laboratorio 3: Equazioni di Secondo Grado e
+Sasso-Carta-Forbici-Lucertola-Spock</strong></a>
+<ul>
+<li><a href="#lequazione-di-secondo-grado"
+id="toc-lequazione-di-secondo-grado"><strong>L'equazione di secondo
+grado</strong></a></li>
+<li><a href="#sasso-carta-forbici-lucertola-spock"
+id="toc-sasso-carta-forbici-lucertola-spock"><strong>Sasso-carta-forbici-lucertola-Spock</strong></a></li>
+</ul></li>
 </ul>
 </nav>
 <main><article>
@@ -943,6 +996,494 @@ temp:</p>
 Anche qui l'ordine è essenziale: ogni assegnamento deve avvenire quando
 il valore che sta per essere sovrascritto è già stato copiato
 altrove.</p>
+<h1
+id="capitolo-8-laboratorio-3-espressioni-booleane-ed-errori-con-if"><strong>Capitolo
+8: Laboratorio 3: Espressioni Booleane ed Errori con if</strong></h1>
+<h2 id="di-che-cosa-parla-il-laboratorio-3"><strong>Di che cosa parla il
+laboratorio 3</strong></h2>
+<p>Il laboratorio 3, «Condizioni booleane», mette in pratica quanto
+visto a teoria sulle espressioni booleane (capitoli 17 e 18) e sul
+costrutto if (capitolo 19). Le prime attività sono la valutazione di
+espressioni, la lettura del codice di booleani.c e sei esercizi da
+completare; poi si passa agli errori tipici con if/else, agli esercizi
+su Moodle (capitolo 9 di questo riassunto) ai programmi saluta.c e
+selezione_operazioni.c (capitolo 9) e a due programmi più lunghi,
+l'equazione di secondo grado e il gioco
+sasso-carta-forbici-lucertola-Spock (capitolo 10).</p>
+<h2 id="quali-valori-assumono-queste-espressioni"><strong>Quali valori
+assumono queste espressioni</strong></h2>
+<p>Il laboratorio propone nove espressioni da valutare. Le risposte sono
+queste:</p>
+<ul>
+<li><p>3 &gt; 5 || 10 == 7 + 3: <strong>true</strong> (la prima parte è
+falsa, la seconda è vera);</p></li>
+<li><p>3 != 5 &amp;&amp; (6 &lt; 2 || 5 + 2 == 10 - 3):
+<strong>true</strong> (3 è diverso da 5, e nella parentesi la seconda
+parte è vera: 7 == 7);</p></li>
+<li><p>3 &lt; 5 &lt; 7: <strong>non va scritta così</strong> (vedi
+sotto);</p></li>
+<li><p>4 &gt; 3 &gt; 2: <strong>non va scritta così</strong>;</p></li>
+<li><p>3 &lt; 5 &amp;&amp; 5 &lt; 7: <strong>true</strong>;</p></li>
+<li><p>3 &lt; 5 &amp;&amp; 7 &lt; 5: <strong>false</strong>;</p></li>
+<li><p>true &amp;&amp; false: <strong>false</strong> (true e false
+richiedono &lt;stdbool.h&gt;, capitolo 17);</p></li>
+<li><p>true &amp;&amp; 5 &lt; 7: <strong>true</strong>;</p></li>
+<li><p>false || 5 &lt; 10: <strong>true</strong>.</p></li>
+</ul>
+<p>Le due espressioni «con la catena» sono il trabocchetto
+dell'esercizio. In C i confronti si valutano <strong>uno alla volta, da
+sinistra a destra</strong>, e il risultato di un confronto è un intero,
+1 se vero e 0 se falso. Quindi 3 &lt; 5 &lt; 7 diventa (3 &lt; 5) &lt;
+7, cioè 1 &lt; 7, che è vero, ma <strong>per il motivo
+sbagliato</strong>: non si è confrontato 5 con 7. E 4 &gt; 3 &gt; 2
+diventa (4 &gt; 3) &gt; 2, cioè 1 &gt; 2, che è <strong>falso</strong>,
+mentre in matematica 4 &gt; 3 &gt; 2 è vero. La scrittura corretta per
+dire «5 sta fra 3 e 7» è, come già visto nel capitolo 18, 3 &lt; 5
+&amp;&amp; 5 &lt; 7.</p>
+<p>(In parole povere: in C non esiste la catena di disuguaglianze della
+matematica. Per dire «x sta fra a e b» bisogna scrivere due confronti
+separati e unirli con &amp;&amp;.)</p>
+<h2 id="il-codice-di-booleani.c-e-le-leggi-di-de-morgan"><strong>Il
+codice di booleani.c e le leggi di De Morgan</strong></h2>
+<p>Il laboratorio chiede di leggere il file booleani.c, che contiene
+vari esempi di operazioni booleane in C, e di <strong>procedere con gli
+esercizi successivi solo dopo aver capito tutte le operazioni di quel
+codice</strong>. Come promemoria, per compilare si usano i comandi gcc
+-Wall booleani.c -o booleani (Unix) oppure gcc -Wall booleani.c -o
+booleani.exe (Windows).</p>
+<p>Il laboratorio ricorda anche le <strong>leggi di De Morgan</strong>,
+che stabiliscono una relazione di equivalenza fra congiunzione e
+disgiunzione logica e si possono riassumere così:</p>
+<ul>
+<li><p>¬(a ∧ b) = ¬a ∨ ¬b</p></li>
+<li><p>¬(a ∨ b) = ¬a ∧ ¬b</p></li>
+</ul>
+<p>In C si scrivono !(a &amp;&amp; b) equivalente a !a || !b, e !(a ||
+b) equivalente a !a &amp;&amp; !b.</p>
+<p>(In parole povere: per negare «a e b insieme» basta dire «manca
+almeno uno dei due», cioè «non a oppure non b». E per negare «a oppure
+b» bisogna dire «mancano tutti e due», cioè «non a e non b». Si cambia
+l'operatore e si nega ciascun pezzo.)</p>
+<h2 id="i-sei-esercizi-booleani"><strong>I sei esercizi
+booleani</strong></h2>
+<p>Il file esercizi_booleani.c va aperto e completato implementando sei
+punti. Le soluzioni qui sotto sono ricavate da noi ragionando sul testo
+(le slide non le riportano):</p>
+<p>1. <strong>Multiplo</strong>: dati due interi a e b, stampare 1 se il
+primo è multiplo del secondo, 0 altrimenti. Un numero a è multiplo di b
+quando la divisione dà resto zero (con b diverso da zero):
+printf("%d\n", a % b == 0);. Il risultato di un confronto è già 0 o 1,
+quindi si può stampare direttamente.</p>
+<p>2. <strong>Voto valido</strong>: dato un voto a, stampare «true» se è
+compreso fra 1 e 30 inclusi, «false» altrimenti. Servono due confronti
+uniti da &amp;&amp;: la condizione è a &gt;= 1 &amp;&amp; a &lt;= 30, e
+per stampare la parola e non 0/1 si scrive printf("%s\n", (a &gt;= 1
+&amp;&amp; a &lt;= 30) ? "true" : "false"); (operatore ternario,
+capitolo 18).</p>
+<p>3. <strong>Negazione dell'and</strong>: dati due booleani b1 e b2,
+stampare «false» se sono entrambi veri, «true» altrimenti. È la
+negazione dell'and, !(b1 &amp;&amp; b2), che per De Morgan equivale a
+!b1 || !b2; anche qui si stampa la parola con printf("%s\n", !(b1
+&amp;&amp; b2) ? "true" : "false");.</p>
+<p>4. <strong>Massimo di due, con uguali</strong>: dati a e b, stampare
+il massimo; se sono uguali stampare «I due valori sono uguali». Servono
+tre casi distinti:</p>
+<p>if (a &gt; b) {</p>
+<p>printf("%d\n", a);</p>
+<p>}</p>
+<p>else if (b &gt; a) {</p>
+<p>printf("%d\n", b);</p>
+<p>}</p>
+<p>else {</p>
+<p>printf("I due valori sono uguali\n");</p>
+<p>}</p>
+<p>5. <strong>Massimo di tre</strong>: dati a, b e c, stampare il
+massimo usando una variabile di supporto max. L'idea è quella
+dell'«emersione del massimo»: si parte da un candidato e lo si
+sostituisce quando se ne trova uno più grande:</p>
+<p>int max = a;</p>
+<p>if (b &gt; max) {</p>
+<p>max = b;</p>
+<p>}</p>
+<p>if (c &gt; max) {</p>
+<p>max = c;</p>
+<p>}</p>
+<p>printf("%d\n", max);</p>
+<p>6. <strong>Ordinati</strong>: dati tre interi a, b e c, stampare
+«ordinati» se sono in ordine crescente, altrimenti niente. Basta
+confrontare le coppie vicine: if (a &lt;= b &amp;&amp; b &lt;= c) {
+printf("ordinati\n"); }. Il testo non precisa se «crescente» sia in
+senso stretto o largo: con &lt; al posto di &lt;= si richiederebbe che
+siano tutti distinti,: il testo non lo dice, quindi la scelta va fatta
+in base a come lo intende l'esercizio.</p>
+<p>Notare che nel punto 6 la condizione non si scrive a &lt;= b &lt;= c:
+sarebbe lo stesso errore delle espressioni a catena viste sopra.</p>
+<h2 id="errori-insidiosi-con-if-e-else"><strong>Errori insidiosi con if
+e else</strong></h2>
+<p>Il laboratorio fa osservare due frammenti di codice sbagliati,
+chiedendo di trovare gli errori. Sono entrambi
+<strong>insidiosi</strong> perché il codice <strong>compila senza
+segnalare problemi</strong>.</p>
+<p>Il primo è:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main() {</p>
+<p>int voto;</p>
+<p>scanf("%d", &amp;voto);</p>
+<p>if (voto &gt;= 18);</p>
+<p>printf("Esame passato.\n");</p>
+<p>}</p>
+<p>L'errore è il <strong>punto e virgola</strong> subito dopo la
+condizione. Per il linguaggio C è come se fosse scritto if (voto &gt;=
+18) ; seguito da printf(...): il ; è un'<strong>istruzione
+vuota</strong>, e la printf non fa parte dell'if e viene eseguita
+<strong>sempre</strong>, anche se il voto è inferiore a 18.</p>
+<p>Il secondo è:</p>
+<p>if (voto &gt;= 18)</p>
+<p>printf("Esame passato.\n");</p>
+<p>else</p>
+<p>printf("Esame non passato.\n");</p>
+<p>printf("Ripresentarsi al prossimo appello.\n");</p>
+<p>Mancano le <strong>graffe</strong> per un blocco else con più di
+un'istruzione (nelle slide il codice è privo di indentazione, e compila
+senza segnalazioni; un compilatore recente con -Wall può avvisare
+dell'indentazione ingannevole, ma non dà errore). Per il C solo la
+<strong>prima</strong> istruzione dopo la parola chiave else appartiene
+al blocco condizionale: l'ultima printf è quindi eseguita sempre, anche
+per chi ha passato l'esame. La versione corretta racchiude il blocco fra
+graffe:</p>
+<p>if (voto &gt;= 18) {</p>
+<p>printf("Esame passato.\n");</p>
+<p>}</p>
+<p>else {</p>
+<p>printf("Esame non passato.\n");</p>
+<p>printf("Ripresentarsi al prossimo appello.\n");</p>
+<p>}</p>
+<p>La regola pratica del laboratorio è: <strong>è sempre meglio mettere
+i blocchi condizionali fra parentesi graffe</strong>, a meno che non
+siano molto brevi ed evidenti.</p>
+<p>(In parole povere: l'if da solo «controlla» una sola istruzione,
+quella che viene subito dopo. Se ne vuoi controllare di più, le graffe
+servono a dire al C «tutte queste insieme». E un punto e virgola messo a
+caso dopo la parentesi dice al C «qui l'if ha già finito», con effetti
+disastrosi che il compilatore non nota.)</p>
+<p>Il prossimo capitolo riguarda l'uso di Coderunner su Moodle e gli
+esercizi sulle scelte.</p>
+<h1
+id="capitolo-9-laboratorio-3-coderunner-ed-esercizi-sulle-scelte"><strong>Capitolo
+9: Laboratorio 3: Coderunner ed Esercizi sulle Scelte</strong></h1>
+<h2 id="gli-esercizi-su-moodle-con-coderunner"><strong>Gli esercizi su
+Moodle con Coderunner</strong></h2>
+<p>Tre degli esercizi del laboratorio 3 sono quiz su
+<strong>Moodle</strong>, in un ambiente che si chiama
+<strong>Coderunner</strong>: sulla pagina del corso ci sono tre quiz
+(Lab03-Es1 «Scelte su Interi», Lab03-Es2 «Emersione del Massimo» e
+Lab03-Es3 «Sasso-carta-forbici-lucertola-Spock»), e si aprono con il
+pulsante «Tenta il quiz adesso». Le slide non riportano i testi dei tre
+quiz, ma solo i titoli e le indicazioni generali di funzionamento
+riassunte qui.</p>
+<p>Nella pagina dell'esercizio si trovano il <strong>testo</strong> (da
+leggere con cura prima di scrivere codice), un'<strong>area di
+lavoro</strong> in cui scrivere il codice C del programma e un pulsante
+per <strong>compilare ed eseguire</strong>, che si può usare quante
+volte si vuole. Il programma viene eseguito con <strong>diversi
+input</strong> e il sistema controlla che quanto stampato con printf
+corrisponda a quanto atteso.</p>
+<p>(In parole povere: Coderunner è un correttore automatico. Scrivi il
+programma, premi il pulsante, e lui lo prova con una serie di input già
+preparati confrontando le tue stampe con quelle giuste, sulle
+stampe.)</p>
+<h2 id="gli-esiti-della-verifica"><strong>Gli esiti della
+verifica</strong></h2>
+<p>Dopo ogni tentativo si può trovare uno di tre esiti:</p>
+<ul>
+<li><p><strong>errore di compilazione</strong>: il codice non compila.
+Va ricordato che Coderunner compila con le opzioni -Wall -Werror, quindi
+anche un semplice <em>warning</em> viene trattato come errore;</p></li>
+<li><p>il programma <strong>compila ed esegue, ma non passa tutti i
+test</strong>: non produce in output il testo atteso;</p></li>
+<li><p>il programma <strong>compila, esegue e passa tutti i
+test</strong>: produce tutti gli output attesi.</p></li>
+</ul>
+<p>Il laboratorio rassicura con un «niente panico»: la compilazione e
+l'esecuzione con degli input predefiniti sono automatiche, e l'obiettivo
+è scrivere un <strong>codice robusto</strong>, che risponda
+correttamente a input diversi. Gli input proposti sono formulati per
+mettere alla prova varie casistiche. <strong>Non è l'esame e l'esercizio
+non viene valutato</strong>: i messaggi sui punteggi che l'interfaccia
+mostra qua e là si possono ignorare.</p>
+<h2 id="esercizio-saluti"><strong>Esercizio: saluti</strong></h2>
+<p>L'esercizio chiede un programma saluta.c che chieda all'utente l'ora,
+come numero intero, e stampi il saluto più appropriato fra «Buongiorno»,
+«Buon pomeriggio», «Buonasera» e «Buona notte». Gli intervalli da usare
+vanno scelti da noi. Una scelta possibile (nostra soluzione), con ora da
+0 a 23, è questa:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main(void) {</p>
+<p>int ora;</p>
+<p>printf("Che ora e'? ");</p>
+<p>scanf("%d", &amp;ora);</p>
+<p>if (ora &gt;= 6 &amp;&amp; ora &lt; 12) {</p>
+<p>printf("Buongiorno\n");</p>
+<p>}</p>
+<p>else if (ora &gt;= 12 &amp;&amp; ora &lt; 18) {</p>
+<p>printf("Buon pomeriggio\n");</p>
+<p>}</p>
+<p>else if (ora &gt;= 18 &amp;&amp; ora &lt; 22) {</p>
+<p>printf("Buonasera\n");</p>
+<p>}</p>
+<p>else {</p>
+<p>printf("Buona notte\n");</p>
+<p>}</p>
+<p>}</p>
+<p>Gli intervalli sono semiaperti sinistri, [6, 12) e così via (capitolo
+18), così ogni ora appartiene a uno e un solo saluto. Il ramo finale
+else raccoglie le ore dalle 22 alle 5 e vale anche per input non validi
+(per esempio 40): se si vuole gestirli serve un controllo in più, ma
+l'esercizio non lo richiede.</p>
+<h2
+id="esercizio-emersione-del-massimo-con-4-variabili"><strong>Esercizio:
+emersione del massimo con 4 variabili</strong></h2>
+<p>Nel laboratorio si invita a completare un programma (quello del quiz
+Lab03-Es2) che trova il massimo fra <strong>quattro variabili</strong>,
+assicurandosi che passi tutti i test; l'esercizio è descritto come
+simile, ma più semplice, a uno visto a lezione. Il testo originale è sul
+quiz di Moodle. Lo schema (nostro, perché il testo del quiz non è nelle
+slide) è lo stesso usato per il massimo di tre numeri nel capitolo 8: si
+parte dal primo valore come candidato e lo si sostituisce quando se ne
+trova uno più grande:</p>
+<p>int max = a;</p>
+<p>if (b &gt; max) {</p>
+<p>max = b;</p>
+<p>}</p>
+<p>if (c &gt; max) {</p>
+<p>max = c;</p>
+<p>}</p>
+<p>if (d &gt; max) {</p>
+<p>max = d;</p>
+<p>}</p>
+<p>(In parole povere: è come una gara a eliminazione. Il campione in
+carica all'inizio è a; a ogni sfida, se lo sfidante è più grande,
+diventa lui il nuovo campione. Alla fine il campione è il massimo.)</p>
+<p>I tre if sono indipendenti e non else if: ogni variabile va
+confrontata con il massimo trovato fin lì, anche se una precedente lo ha
+già cambiato.</p>
+<h2 id="esercizio-selezione-delle-operazioni"><strong>Esercizio:
+selezione delle operazioni</strong></h2>
+<p>Il programma selezione_operazioni.c fa questo: chiede all'utente tre
+interi x1, x2 e x3; stampa il menù «scrivi 1 per calcolare la somma»,
+«scrivi 2 per calcolare il prodotto» e «scrivi 3 per calcolare la
+media»; chiede un numero fra 1, 2 e 3; se l'operazione scelta non è fra
+quelle proposte stampa un messaggio di errore appropriato, altrimenti
+esegue l'operazione sui tre interi e mostra il risultato. Una
+soluzione:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main(void) {</p>
+<p>int x1, x2, x3, scelta;</p>
+<p>printf("Inserisci tre interi: ");</p>
+<p>scanf("%d %d %d", &amp;x1, &amp;x2, &amp;x3);</p>
+<p>printf("scrivi 1 per calcolare la somma\n");</p>
+<p>printf("scrivi 2 per calcolare il prodotto\n");</p>
+<p>printf("scrivi 3 per calcolare la media\n");</p>
+<p>scanf("%d", &amp;scelta);</p>
+<p>if (scelta == 1) {</p>
+<p>printf("Somma: %d\n", x1 + x2 + x3);</p>
+<p>}</p>
+<p>else if (scelta == 2) {</p>
+<p>printf("Prodotto: %d\n", x1 * x2 * x3);</p>
+<p>}</p>
+<p>else if (scelta == 3) {</p>
+<p>printf("Media: %f\n", (x1 + x2 + x3) / 3.0);</p>
+<p>}</p>
+<p>else {</p>
+<p>printf("Operazione non valida\n");</p>
+<p>}</p>
+<p>}</p>
+<p>Due punti da notare. La media si calcola dividendo per 3.0 e non per
+3: dividendo per l'intero 3 si avrebbe una divisione fra interi che
+scarta i decimali (capitolo 16), mentre con 3.0 il risultato è un reale.
+E lo schema if ... else if ... else con l'else finale è il modo giusto
+per gestire la scelta non valida, perché l'else scatta quando nessuna
+delle opzioni precedenti è vera.</p>
+<p>Il prossimo capitolo conclude il laboratorio 3 con due programmi più
+articolati: l'equazione di secondo grado e il gioco
+sasso-carta-forbici-lucertola-Spock.</p>
+<h1
+id="capitolo-10-laboratorio-3-equazioni-di-secondo-grado-e-sasso-carta-forbici-lucertola-spock"><strong>Capitolo
+10: Laboratorio 3: Equazioni di Secondo Grado e
+Sasso-Carta-Forbici-Lucertola-Spock</strong></h1>
+<h2 id="lequazione-di-secondo-grado"><strong>L'equazione di secondo
+grado</strong></h2>
+<p>L'esercizio chiede di realizzare lo <strong>schema di risoluzione
+completo</strong> dell'equazione di secondo grado ax² + bx + c = 0, che
+a lezione era stato visto in forma semplificata, considerando
+<strong>anche tutti i casi limite</strong>. Il programma equaz_secondo.c
+prende in ingresso i tre coefficienti a, b e c e calcola, quando è
+possibile, le radici dell'equazione e le stampa; quando non è possibile
+stampa un messaggio di errore appropriato e termina.</p>
+<p>I casi limite nascono dal fatto che la formula risolutiva vale solo
+se a è diverso da zero. Il flusso di risoluzione del laboratorio si
+legge così:</p>
+<p><img src="./media/image1.png"
+style="width:5.11811in;height:3.40556in" /></p>
+<p><em>Il flusso di risoluzione di ax² + bx + c = 0 ridisegnato dalle
+slide (in verde il «sì», in rosso il «no»).</em></p>
+<p>1. Se <strong>a = 0</strong> l'equazione non è di secondo grado e si
+guarda b.</p>
+<p>2. Se a = 0 e <strong>b = 0</strong>, l'equazione diventa c = 0: se
+anche <strong>c = 0</strong> è <strong>indeterminata</strong> (ogni x è
+soluzione), altrimenti è <strong>impossibile</strong> (nessuna x la
+soddisfa).</p>
+<p>3. Se a = 0 ma b ≠ 0 l'equazione è di primo grado e ha l'unica
+soluzione <strong>x₁ = −c / b</strong>.</p>
+<p>4. Se <strong>a ≠ 0</strong> si calcolano il discriminante <strong>δ
+= b² − 4ac</strong> e tre grandezze di servizio: <strong>W =
+2a</strong>, <strong>W₁ = −b / W</strong> e <strong>W₂ = √|δ| /
+W</strong>.</p>
+<p>5. Se <strong>δ = 0</strong> c'è una <strong>singola radice</strong>,
+x₁ = W₁.</p>
+<p>6. Se <strong>δ &lt; 0</strong> non ci sono radici reali, ma
+<strong>radici complesse coniugate</strong>.</p>
+<p>7. Se <strong>δ &gt; 0</strong> ci sono due <strong>radici
+reali</strong>, x₁ = W₁ + W₂ e x₂ = W₁ − W₂.</p>
+<p>(In parole povere: prima di applicare la formula bisogna controllare
+che l'equazione sia davvero di secondo grado, perché con a = 0 si
+dividerebbe per zero. Poi il segno del discriminante dice quante
+soluzioni reali ci sono: due se è positivo, una se è zero, nessuna se è
+negativo.)</p>
+<p>Il perché di W₁ e W₂ (spiegazione nostra, non nelle slide) è la
+formula risolutiva x = (−b ± √δ) / (2a), che si può spezzare in due
+parti: x = −b/(2a) ± √δ/(2a), cioè W₁ ± W₂ (con il valore assoluto sotto
+la radice, perché per δ &lt; 0 la parte reale resta W₁ e la parte
+immaginaria è ±W₂).</p>
+<p>Per il calcolo il laboratorio ricorda di usare sqrt() per la radice
+quadrata, definita in &lt;math.h&gt;, e abs() per il valore assoluto,
+definita in &lt;stdlib.h&gt;. Una soluzione, nell'ipotesi che i
+coefficienti siano interi:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>#include &lt;math.h&gt;</p>
+<p>#include &lt;stdlib.h&gt;</p>
+<p>int main(void) {</p>
+<p>int a, b, c;</p>
+<p>printf("Inserisci a, b, c: ");</p>
+<p>scanf("%d %d %d", &amp;a, &amp;b, &amp;c);</p>
+<p>if (a == 0) {</p>
+<p>if (b == 0) {</p>
+<p>if (c == 0) {</p>
+<p>printf("Equazione indeterminata\n");</p>
+<p>}</p>
+<p>else {</p>
+<p>printf("Equazione impossibile\n");</p>
+<p>}</p>
+<p>}</p>
+<p>else {</p>
+<p>printf("x1 = %f\n", 0.0 - (double)c / b);</p>
+<p>}</p>
+<p>}</p>
+<p>else {</p>
+<p>int delta = b * b - 4 * a * c;</p>
+<p>double W = 2.0 * a;</p>
+<p>double W1 = 0.0 - b / W;</p>
+<p>double W2 = sqrt(abs(delta)) / W;</p>
+<p>if (delta == 0) {</p>
+<p>printf("Singola radice: x1 = %f\n", W1);</p>
+<p>}</p>
+<p>else if (delta &lt; 0) {</p>
+<p>printf("Radici complesse coniugate\n");</p>
+<p>}</p>
+<p>else {</p>
+<p>printf("x1 = %f, x2 = %f\n", W1 + W2, W1 - W2);</p>
+<p>}</p>
+<p>}</p>
+<p>}</p>
+<p>Alcune attenzioni. W è dichiarata double e vale 2.0 * a, così le
+divisioni -b / W e sqrt(...) / W sono fra reali: se invece W fosse un
+intero, -b / W scarterebbe i decimali (capitolo 16). Nel ramo a == 0 il
+cast (double)c evita la stessa divisione fra interi. Per le radici
+complesse la tabella dei casi di prova riporta solo la dicitura «Radici
+complesse coniugate»; volendo si potrebbe stampare la parte reale W₁ e
+quella immaginaria ±W₂. Infine abs() lavora con numeri interi: se i
+coefficienti fossero dei double bisognerebbe usare fabs(), anch'essa in
+&lt;math.h&gt; (nota nostra, il laboratorio parla solo di abs).</p>
+<p>Il laboratorio propone sette casi di prova. Provando i coefficienti
+nello schema si ottengono questi risultati:</p>
+<ul>
+<li><p>a = 0, b = 0, c = 0: indeterminata;</p></li>
+<li><p>a = 0, b = 0, c = 4: impossibile;</p></li>
+<li><p>a = 0, b = 2, c = −4: x₁ = 2;</p></li>
+<li><p>a = 1, b = 0, c = −121: x₁ = 11, x₂ = −11;</p></li>
+<li><p>a = 1, b = 2, c = 1: x₁ = −1 (singola radice);</p></li>
+<li><p>a = 1, b = −3, c = 10: radici complesse coniugate;</p></li>
+<li><p>a = 5, b = 20, c = 0: x₁ = 0, x₂ = −4.</p></li>
+</ul>
+<p>Verifichiamo l'ultimo: δ = 400, W = 10, W₁ = −20/10 = −2, W₂ = 20/10
+= 2, quindi x₁ = −2 + 2 = 0 e x₂ = −2 − 2 = −4. Il penultimo ha δ = 9 −
+40 = −31, negativo, e quindi nessuna radice reale.</p>
+<p>Un dettaglio pratico: sui sistemi Unix sqrt richiede di collegare la
+libreria matematica con gcc equaz_secondo.c -lm (capitolo 15 della
+teoria). Le espressioni con 0.0 - ... evitano di stampare «-0.000000»
+quando il risultato è zero (nostra precauzione, non richiesta dalle
+slide).</p>
+<h2
+id="sasso-carta-forbici-lucertola-spock"><strong>Sasso-carta-forbici-lucertola-Spock</strong></h2>
+<p>L'ultimo esercizio è una variante del gioco della morra cinese:
+<strong>sasso-carta-forbici-lucertola-Spock</strong>
+(<em>rock-paper-scissors-lizard-Spock</em>), una variante fantasiosa
+inventata da due studenti statunitensi, Sam Kass e Karen Bryla, e resa
+famosa dal telefilm <em>The Big Bang Theory</em>. Estende la morra
+cinese a <strong>cinque stati</strong>, aggiungendo la lucertola e
+Spock, il celebre personaggio di <em>Star Trek</em>. L'esercizio si
+svolge su Moodle con Coderunner (quiz Lab03-Es3): bisogna seguire il
+testo e completare l'esercizio. Il testo del quiz non è nelle slide,
+quindi la codifica delle scelte e il formato dell'output vanno letti nel
+quiz stesso.</p>
+<p>L'unico suggerimento che il laboratorio dà riguarda gli input: come
+fare a determinare se «gli input non sono stati letti»? Si ricorda che
+la funzione scanf <strong>restituisce il numero di specificatori di
+conversione letti con successo</strong> dallo standard input (capitolo
+10 della teoria). Per esempio, se si leggono due scelte con scanf("%d
+%d", &amp;g1, &amp;g2), il valore restituito deve essere 2; se è minore,
+l'input non è stato letto correttamente.</p>
+<p>(In parole povere: scanf non si limita a leggere, ma dice anche com'è
+andata, restituendo quante cose è riuscita a leggere. Confrontando quel
+numero con quello atteso sai se l'utente ha scritto dati validi.)</p>
+<p>Le regole del gioco originale (che non sono scritte nelle slide) sono
+dieci: le forbici tagliano la carta, la carta avvolge il sasso, il sasso
+schiaccia la lucertola, la lucertola avvelena Spock, Spock rompe le
+forbici, le forbici decapitano la lucertola, la lucertola mangia la
+carta, la carta smentisce Spock, Spock vaporizza il sasso e il sasso
+rompe le forbici. Con cinque scelte diventano molti i casi da trattare
+con una catena di if; si può ridurre il lavoro osservando che le regole
+sono «circolari». Numerando le scelte nell'ordine forbici 0, carta 1,
+sasso 2, lucertola 3, Spock 4, il giocatore che ha scelto <em>i</em>
+batte quello che ha scelto <em>j</em> esattamente quando (j - i + 5) % 5
+vale 1 oppure 3. Uno schema possibile (nostra proposta, da adattare al
+testo del quiz) è:</p>
+<p>int g1, g2;</p>
+<p>int letti = scanf("%d %d", &amp;g1, &amp;g2);</p>
+<p>if (letti != 2) {</p>
+<p>printf("Input non letti\n");</p>
+<p>}</p>
+<p>else if (g1 &lt; 0 || g1 &gt; 4 || g2 &lt; 0 || g2 &gt; 4) {</p>
+<p>printf("Scelta non valida\n");</p>
+<p>}</p>
+<p>else if (g1 == g2) {</p>
+<p>printf("Pareggio\n");</p>
+<p>}</p>
+<p>else if ((g2 - g1 + 5) % 5 == 1 || (g2 - g1 + 5) % 5 == 3) {</p>
+<p>printf("Vince il giocatore 1\n");</p>
+<p>}</p>
+<p>else {</p>
+<p>printf("Vince il giocatore 2\n");</p>
+<p>}</p>
+<p>Con questo schema i controlli vanno <strong>nell'ordine
+giusto</strong>: prima si verifica che gli input siano stati letti
+(letti), poi che siano validi, poi si distinguono pareggio e vittorie.
+L'ordine conta perché ogni else if presuppone che i casi precedenti
+siano esclusi: usare g1 e g2 prima di sapere che sono stati letti
+sarebbe un errore.</p>
+<p>Con questo il laboratorio 3 si chiude: dai confronti fra numeri si è
+arrivati a programmi che scelgono fra più casi, e il passo successivo
+della teoria, i cicli, permetterà di ripetere queste scelte.</p>
 </article></main>
 </div>
 <a class="top" href="#top" aria-label="Torna su">&uarr;</a>

@@ -1,204 +1,155 @@
-# Capitolo 20: Errori Comuni, Visibilità nei Blocchi e Schemi con if
-## Gli errori più comuni
-Molti errori nei programmi nascono da piccoli errori sintattici o logici negli if. Conviene conoscere quelli più frequenti.
+# Capitolo 20: Le Iterazioni e il Ciclo while
+## Perché servono i cicli
+Quando un programma deve ripetere un'operazione più volte, non ha senso copiare lo stesso codice decine di volte: serve un meccanismo di **ripetizione controllata**. Le **iterazioni**, o **cicli**, sono gli strumenti della programmazione strutturata (la terza struttura di controllo, dopo sequenza e selezione) che permettono di ripetere un blocco di istruzioni in modo controllato e leggibile.
 
-**Usare = invece di ==.** Scrivere `if (a = 5) { ... }` è un errore logico: `=` è un assegnamento, non un confronto. Il programma compila, ma non verifica se a vale 5: assegna 5 ad a, e la condizione vale quindi 5, cioè è sempre vera.
+(In parole povere: un ciclo è un "ripeti questo finché serve". Invece di scrivere dieci volte la stessa riga per stampare dieci numeri, la scrivi una volta sola e dici al computer quante volte, o fino a quando, deve rifarla.)
 
-**Dimenticare le graffe.** In C è consentito omettere le parentesi graffe se dopo l'if c'è una sola istruzione, ma questo può generare errori poco visibili:
-
-```c
-if (x > 0)
-    printf("Positivo\n");
-    printf("Errore!\n");   // eseguito sempre
-```
-
-La seconda printf non dipende dall'if, anche se l'indentazione lo suggerisce, e viene eseguita comunque. Per chiarezza è meglio usare sempre le graffe, anche con una sola istruzione, salvo casi davvero ovvi.
-
-**Ordine sbagliato delle condizioni.** Nell'if-else if le condizioni si controllano nell'ordine in cui sono scritte, e si esce al primo blocco la cui condizione è vera:
+## Il ciclo while
+Il **while** ripete un blocco di istruzioni **finché una condizione logica è vera**. La sintassi è:
 
 ```c
-if (num % 2 == 0) {
-    printf("Pari non nullo\n");
-}
-else if (num == 0) {
-    printf("Zero\n");   // mai raggiunto
+while (condizione) {
+    // blocco di istruzioni da ripetere
 }
 ```
 
-Lo zero è pari, quindi entra già nel primo blocco e il secondo non viene mai raggiunto. Si corregge controllando prima i casi più specifici:
+Il funzionamento è questo: si valuta la condizione; se è vera il blocco viene eseguito e poi si torna a valutare la condizione; se è falsa il ciclo termina e si passa all'istruzione subito dopo il while. Ne seguono due casi limite: se la condizione è falsa fin dall'inizio il blocco **non viene eseguito mai**, e se la condizione rimane sempre vera il ciclo non finisce più (**ciclo infinito**).
+
+(In parole povere: il while è come un buttafuori che, prima di ogni giro, chiede "la condizione è ancora vera?". Se sì, fa entrare per un altro giro; se no, il ciclo è finito. Se la risposta è "no" già alla prima domanda, non si entra nemmeno una volta.)
+
+## La terna fondamentale: stampare i numeri da 0 a 9
+Ogni ciclo si regge su tre elementi, la **terna fondamentale**: l'**inizializzazione** (il valore di partenza della variabile di controllo), la **condizione** (che decide se continuare) e l'**aggiornamento** (che fa avanzare la variabile di controllo verso la fine del ciclo). Per stampare i numeri da 0 a 9:
 
 ```c
-if (num == 0) {
-    printf("Zero\n");
-}
-else if (num % 2 == 0) {
-    printf("Pari non nullo\n");
-}
-```
+#include <stdio.h>
 
-**Condizioni ridondanti o mai vere.** In questo esempio i due blocchi finali non vengono mai eseguiti, perché ogni valore maggiore di 20 o di 50 è anche maggiore di 10 ed entra già nel primo blocco:
-
-```c
-if (x > 10) {
-    ...
-}
-else if (x > 20) {
-    ...   // mai eseguito!
-}
-else if (x > 50) {
-    ...   // mai eseguito!
-}
-```
-
-Infine, è buona norma gestire sempre tutti i casi possibili del flusso, con un **else** finale, così il programma non lascia situazioni non previste.
-
-## Suggerimenti e buona prassi
-Abituarsi a pensare ai casi limite evita brutte sorprese. Oltre a usare sempre le graffe e a ordinare le condizioni dal caso più specifico al più generale, come visto sopra, conviene mantenere le condizioni semplici e leggibili, spezzando quelle complesse con variabili booleane intermedie (capitolo 18):
-
-```c
-// difficile da leggere
-if (a > 10 && b < 5 || c == 7 && !(d % 2)) { ... }
-
-// meglio
-bool condA = (a > 10 && b < 5);
-bool condB = (c == 7 && d % 2 == 0);
-if (condA || condB) { ... }
-```
-
-## Esempio: stampare due numeri in ordine
-Un esempio che usa l'if: si chiedono all'utente due interi x e y e si stampano dal minore (o uguale) al maggiore. Negli esempi del docente la funzione main compare come `void main()`; qui usiamo la forma standard `int main(void)` e, come nei capitoli precedenti, omettiamo gli `#include`. Una prima soluzione stampa i due numeri in ordine diverso nei due rami:
-
-```c
 int main(void) {
-    int x, y;
-    printf("Inserisci x:");
-    scanf("%d", &x);
-    printf("Inserisci y:");
-    scanf("%d", &y);
-    if (y < x) {
-        printf("%d %d", y, x);
-    }
-    else {   // y >= x
-        printf("%d %d", x, y);
+    int i = 0;
+
+    while (i < 10) {
+        printf("%d\n", i);
+        i++;
     }
 }
 ```
 
-Una seconda soluzione fa invece uno **scambio condizionato**: se y è minore di x scambia i due valori, usando la variabile temporanea del capitolo 13, e poi stampa sempre x e y nello stesso ordine:
+Il ciclo itera per i = 0, 1, 2, …, 9; quando i diventa 10 la condizione `i < 10` è falsa e il ciclo termina. Il diagramma di flusso mostra bene il ruolo di ciascun elemento: l'assegnamento iniziale `i ← 0` viene eseguito una sola volta, la condizione viene controllata prima di ogni giro, e `i ← i + 1` chiude il giro riportando il flusso al controllo.
+
+![Diagramma di flusso del ciclo while che stampa i numeri da 0 a 9.](figure/prog/ch20_flow_while.png|8)
+
+(In parole povere: la terna è la ricetta di ogni ciclo. Da dove parto? Fino a quando vado avanti? Come mi avvicino alla fine a ogni giro? Se dimentichi una di queste tre risposte, il ciclo non parte, non si ferma o non finisce mai.)
+
+## Il conto alla rovescia
+L'aggiornamento non è per forza un incremento: può essere un decremento, e la condizione può essere "invertita". La logica del ciclo dipende dal problema, non ha una forma fissa. Un conto alla rovescia da 5 a 1:
 
 ```c
+#include <stdio.h>
+
 int main(void) {
-    int x, y;
-    printf("Inserisci x:");
-    scanf("%d", &x);
-    printf("Inserisci y:");
-    scanf("%d", &y);
-    if (y < x) {
-        // scambio condizionato
-        int temp = x;
-        x = y;
-        y = temp;
-    }
-    printf("%d %d", x, y);
-}
-```
+    int i = 5;
 
-## Visibilità nei blocchi condizionati
-Nello scambio condizionato la variabile `temp` è dichiarata **dentro il blocco** dell'if. Seguiamo l'esecuzione con x = 10 e y = 5, quando la condizione `y < x` è vera:
-- all'inizio sullo stack ci sono solo x e y, con i valori inseriti;
-- entrando nel blocco, la dichiarazione di temp la rende visibile e la inizializza a 10;
-- `x = y;` copia 5 in x e `y = temp;` copia 10 in y: i valori sono scambiati;
-- all'uscita dal blocco, temp esce dalla visibilità: viene rimossa dallo stack e non è più accessibile.
-
-Il programma stampa `5 10`. Come nel capitolo 7, la **visibilità** (scope) di una variabile è quindi limitata al blocco in cui è dichiarata, e la sua durata (lifetime) finisce quando il blocco termina.
-
-![Lo scambio condizionato: temp esiste solo dentro il blocco dell'if (in rosso le celle che cambiano).](figure/prog/ch20_scambio_condizionato.png|13)
-
-## Annidamenti non necessari
-Conviene evitare gli annidamenti multipli di if quando non servono, perché rendono il codice meno chiaro. Questo programma calcola il biglietto in base all'età, usando un if dentro un else:
-
-```c
-int eta;
-printf("Inserisci la tua età: ");
-scanf("%d", &eta);
-if (eta < 6) {
-    printf("Biglietto gratuito\n");
-}
-else {
-    if (eta < 18) {
-        printf("Biglietto ridotto\n");
-    }
-    else {
-        printf("Biglietto intero\n");
+    while (i > 0) {
+        printf("%d\n", i);
+        i--;
     }
 }
 ```
 
-Lo stesso comportamento si ottiene, in modo più leggibile, con un if-else if-else senza annidamenti:
+La terna è sempre la stessa: inizializzazione `i = 5`, condizione `i > 0`, aggiornamento `i--`.
+
+## Sommatorie e variabili accumulatore
+Il while non serve solo a ripetere istruzioni: spesso serve a **costruire progressivamente un risultato**. Per farlo si usa una **variabile accumulatore**, opportunamente inizializzata e modificata a ogni giro. Per esempio, la somma dei primi n numeri:
 
 ```c
-if (eta < 6) {
-    printf("Biglietto gratuito\n");
+int n = 5, i = 1, somma = 0;
+while (i <= n) {
+    somma = somma + i;
+    i++;
 }
-else if (eta < 18) {
-    printf("Biglietto ridotto\n");
+printf("Somma = %d\n", somma);
+```
+
+Con n = 5 la somma passa da 0 a 1, 3, 6, 10 e infine 15, che è il valore stampato. L'accumulatore va inizializzato prima del ciclo (qui a 0, l'elemento neutro dell'addizione): se partisse da un valore qualsiasi, il risultato sarebbe falsato.
+
+(In parole povere: l'accumulatore è come il totale sullo scontrino della cassa, che a ogni articolo si aggiorna aggiungendo il prezzo nuovo. Prima di cominciare deve valere zero.)
+
+## Leggere l'input con un valore di terminazione
+Non sempre sappiamo in anticipo quante iterazioni servono, per esempio quando leggiamo dei dati da tastiera. In questi casi si fissa un **valore di terminazione** (o **valore sentinella**) che l'utente inserisce per dire "ho finito". Nell'esempio della media delle altezze il valore di terminazione è qualunque altezza negativa: ogni altezza valida (maggiore o uguale a 0) aggiorna la **somma** (variabile accumulatore) e il **conteggio** (variabile contatore), e al termine i due insieme permettono di calcolare la media:
+
+```c
+int somma = 0, count = 0, altezza = 0;
+
+while (altezza >= 0) {
+    printf("Inserisci altezza: ");
+    scanf("%d", &altezza);
+
+    if (altezza >= 0) {
+        somma += altezza;
+        count++;
+    }
 }
-else {
-    printf("Biglietto intero\n");
+printf("Media = %f\n", somma / (float)count);
+```
+
+Nota: `altezza` parte da 0 solo perché la condizione `altezza >= 0` sia vera al primo controllo. L'`if` interno serve perché anche il valore sentinella viene letto con `scanf`, ma non deve essere contato fra le altezze. La divisione usa il cast a `float` per non fare una divisione fra interi (capitolo 16). Una cautela in più: se l'utente inserisce subito un valore negativo, `count` resta 0 e la media non è definita; questo caso non è gestito nel codice di esempio (aggiunta nostra): in quel caso la divisione darebbe un risultato non numerico.
+
+(In parole povere: è il "dimmi i numeri uno alla volta e quando hai finito scrivi un numero negativo". La somma tiene il totale e il contatore tiene quanti ne hai dati: dividendo il primo per il secondo esce la media.)
+
+## Terminare per una condizione di successo
+Un ciclo può anche finire per una **condizione di successo** che dipende dal contesto, senza contatori né valori di terminazione. Per esempio, indovinare un PIN:
+
+```c
+int segreto = 12345, guess = -1;
+while (guess != segreto) {
+    printf("Indovina il pin segreto: ");
+    scanf("%d", &guess);
+}
+printf("Bravo, hai indovinato!\n");
+```
+
+Il while è molto flessibile e generale: basta esprimere una opportuna condizione booleana e provvedere a inizializzare e aggiornare le variabili di controllo. Qui `guess` parte da −1 per essere certi che la prima condizione sia vera, e viene aggiornata dalla `scanf` a ogni giro.
+
+## Un errore comune: il ciclo infinito
+Se la condizione non diventa mai falsa si ha un **ciclo infinito**. Il caso tipico è dimenticare l'aggiornamento:
+
+```c
+int i = 0;
+while (i < 10) {
+    printf("%d\n", i);
+    // manca i++;
 }
 ```
 
-## Schemi ricorrenti elementari
-Alcuni usi dell'if si ripetono continuamente nei programmi.
+Qui `i` resta sempre 0 e il programma stampa `0` all'infinito (si interrompe dal terminale con Ctrl+C).
 
-**Massimo di due variabili.** Si confrontano a e b e si assegna a max il valore maggiore:
+(In parole povere: è come una canzone in ripetizione in cui nessuno preme mai "stop". Se dentro il giro non cambia niente che renda falsa la condizione, il ciclo non ha motivo di fermarsi.)
 
-```c
-int a, b, max;
-scanf("%d%d", &a, &b);
-// determina il massimo tra a e b
-if (a > b) {
-    max = a;
-}
-else {
-    max = b;
-}
-// qui max contiene il massimo tra a e b
-```
+## La visibilità delle variabili nei blocchi
+Ogni blocco `{ ... }` introduce un **ambito di visibilità** (in inglese ~scope~) locale: le variabili dichiarate al suo interno esistono solo durante l'esecuzione di quel blocco. Quando un ciclo viene eseguito, a **ogni iterazione** una nuova istanza delle variabili locali viene allocata sullo stack e poi deallocata alla fine del giro.
 
-**Validazione dell'input.** Prima di usare i dati letti, si controlla che scanf li abbia letti correttamente, usando il suo valore di ritorno (capitolo 10):
+(In parole povere: le variabili dichiarate dentro le graffe sono come i fogli che usi in una stanza e butti via uscendo. Ogni volta che rientri nella stanza, cioè a ogni giro del ciclo, ne hai di nuovi, e fuori dalla stanza non puoi più leggerli.)
+
+Si segue il programma seguente:
 
 ```c
-int valore;
-if (scanf("%d", &valore) == 1) {
-    printf("Hai inserito: %d\n", valore);
-}
-else {
-    printf("Input non valido\n");
+#include <stdio.h>
+
+int main(void) {
+    int x = 1;                  // visibile in tutto main()
+
+    while (x < 3) {
+        int y = x * 2;          // y visibile solo dentro il blocco
+        printf("x=%d, y=%d\n", x, y);
+        x++;
+    }
+    printf("x finale=%d", x);
 }
 ```
 
-**Protezione da operazioni illegali.** Per esempio, si evita la divisione per zero controllando il divisore:
+All'inizio esiste solo `x`, uguale a 1. La condizione `x < 3` è vera: si entra nel blocco e `y` viene allocata sullo stack, con valore `x * 2` = 2; si stampa `x=1 y=2` e `x` passa a 2. Alla chiusura della graffa `y` viene deallocata. La condizione `x < 3` è ancora vera: si rientra, `y` viene allocata di nuovo (e vale 4), si stampa `x=2 y=4`, `x` passa a 3 e `y` scompare ancora. Ora `x < 3` è falsa, il ciclo termina e il programma stampa `x finale=3`.
 
-```c
-if (divisore != 0) {
-    printf("Risultato: %d\n", dividendo / divisore);
-}
-else {
-    printf("Errore: divisione per zero!\n");
-}
-```
+![Lo stato delle variabili x e y a ogni passo del ciclo: y esiste solo dentro il blocco (in rosso le celle che cambiano).](figure/prog/ch20_scope_stack.png|14)
 
-**Controllo che un valore stia in un intervallo.** Si combinano la lettura riuscita e il confronto sull'intervallo (capitolo 18); grazie alla cortocircuitazione, se la lettura è fallita la temperatura non viene nemmeno confrontata:
+La variabile `y` non è quindi accessibile dopo la fine del ciclo: scrivere `printf("%d", y);` dopo il while è un **errore** (la variabile non è più visibile). Se il suo valore servisse, si può dichiarare `y` fuori dal ciclo oppure copiarne il valore in una variabile visibile nel `main` prima che il blocco termini.
 
-```c
-float temperatura;
-bool inputOk = scanf("%f", &temperatura) == 1;
-// 0 <= temperatura <= 100
-if (inputOk && 0 <= temperatura && temperatura <= 100) {
-    printf("Temperatura entro i limiti\n");
-}
-else {
-    printf("Temperatura fuori intervallo o lettura errata\n");
-}
-```
+Il prossimo capitolo presenta il ciclo `for`, una forma più compatta del while quando le iterazioni sono note in anticipo, e i cicli annidati.

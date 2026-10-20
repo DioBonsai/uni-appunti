@@ -598,6 +598,72 @@ cassetti</strong></a></li>
 <li><a href="#insiemi-numerabili"
 id="toc-insiemi-numerabili"><strong>Insiemi numerabili</strong></a></li>
 </ul></li>
+<li><a href="#le-combinazioni-semplici-e-i-coefficienti-binomiali"
+id="toc-le-combinazioni-semplici-e-i-coefficienti-binomiali"><strong>26.
+Le Combinazioni Semplici e i Coefficienti Binomiali</strong></a>
+<ul>
+<li><a href="#contare-i-sottoinsiemi-di-k-elementi"
+id="toc-contare-i-sottoinsiemi-di-k-elementi"><strong>Contare i
+sottoinsiemi di k elementi</strong></a></li>
+<li><a href="#lidea-dalle-disposizioni-alle-combinazioni"
+id="toc-lidea-dalle-disposizioni-alle-combinazioni"><strong>L'idea:
+dalle disposizioni alle combinazioni</strong></a></li>
+<li><a href="#i-coefficienti-binomiali"
+id="toc-i-coefficienti-binomiali"><strong>I coefficienti
+binomiali</strong></a></li>
+<li><a href="#calcolare-i-coefficienti"
+id="toc-calcolare-i-coefficienti"><strong>Calcolare i
+coefficienti</strong></a></li>
+<li><a href="#il-superenalotto" id="toc-il-superenalotto"><strong>Il
+superenalotto</strong></a></li>
+<li><a href="#riassumendo"
+id="toc-riassumendo"><strong>Riassumendo</strong></a></li>
+</ul></li>
+<li><a
+href="#problemi-con-più-scelte-quando-si-moltiplica-e-quando-si-somma"
+id="toc-problemi-con-più-scelte-quando-si-moltiplica-e-quando-si-somma"><strong>27.
+Problemi con più Scelte: Quando si Moltiplica e Quando si
+Somma</strong></a>
+<ul>
+<li><a href="#un-problema-non-si-risolve-con-una-formula-sola"
+id="toc-un-problema-non-si-risolve-con-una-formula-sola"><strong>Un
+problema non si risolve con una formula sola</strong></a></li>
+<li><a href="#la-scuola-di-ballo-due-gruppi-separati"
+id="toc-la-scuola-di-ballo-due-gruppi-separati"><strong>La scuola di
+ballo: due gruppi separati</strong></a></li>
+<li><a href="#la-squadra-di-calcio-quattro-scelte-indipendenti"
+id="toc-la-squadra-di-calcio-quattro-scelte-indipendenti"><strong>La
+squadra di calcio: quattro scelte indipendenti</strong></a></li>
+<li><a href="#la-gelateria-quando-il-secondo-passo-dipende-dal-primo"
+id="toc-la-gelateria-quando-il-secondo-passo-dipende-dal-primo"><strong>La
+gelateria: quando il secondo passo dipende dal primo</strong></a></li>
+<li><a href="#quando-si-moltiplica-e-quando-si-somma"
+id="toc-quando-si-moltiplica-e-quando-si-somma"><strong>Quando si
+moltiplica e quando si somma</strong></a></li>
+</ul></li>
+<li><a href="#le-combinazioni-con-ripetizione"
+id="toc-le-combinazioni-con-ripetizione"><strong>28. Le Combinazioni con
+Ripetizione</strong></a>
+<ul>
+<li><a href="#il-quarto-tipo-di-scelta"
+id="toc-il-quarto-tipo-di-scelta"><strong>Il quarto tipo di
+scelta</strong></a></li>
+<li><a href="#contare-i-monomi"
+id="toc-contare-i-monomi"><strong>Contare i monomi</strong></a></li>
+<li><a href="#il-trucco-delle-caselle-e-dei-separatori"
+id="toc-il-trucco-delle-caselle-e-dei-separatori"><strong>Il trucco
+delle caselle e dei separatori</strong></a></li>
+<li><a href="#il-conteggio" id="toc-il-conteggio"><strong>Il
+conteggio</strong></a></li>
+<li><a href="#la-formula-generale"
+id="toc-la-formula-generale"><strong>La formula
+generale</strong></a></li>
+<li><a href="#i-pasticcini" id="toc-i-pasticcini"><strong>I
+pasticcini</strong></a></li>
+<li><a href="#il-quadro-completo-dei-conteggi"
+id="toc-il-quadro-completo-dei-conteggi"><strong>Il quadro completo dei
+conteggi</strong></a></li>
+</ul></li>
 </ul>
 </nav>
 <main><article>
@@ -3707,6 +3773,407 @@ le tecniche di dimostrazione.</p>
 principio dei cassetti sono alla base dei metodi dei capitoli 21-24, e
 il capitolo seguente (le combinazioni) riprenderà le scelte non
 ordinate.</p>
+<h1 id="le-combinazioni-semplici-e-i-coefficienti-binomiali"><strong>26.
+Le Combinazioni Semplici e i Coefficienti Binomiali</strong></h1>
+<h2 id="contare-i-sottoinsiemi-di-k-elementi"><strong>Contare i
+sottoinsiemi di k elementi</strong></h2>
+<p>Nel capitolo 24 le scelte avevano un ordine. Qui l'ordine non conta,
+e il modello matematico è un <strong>sottoinsieme</strong>. Sia A un
+insieme con n elementi e fissiamo un numero k con 0 ≤ k ≤ n. Una
+<strong>combinazione semplice</strong> di ordine k in A è la scelta di
+un sottoinsieme S ⊆ A con |S| = k. Il numero di queste scelte si indica
+con C<sub>n,k</sub>, e quindi C<sub>n,k</sub> = |{ S ⊆ A : |S| = k }|.
+Il problema è calcolare questo numero.</p>
+<p>(In parole povere: una combinazione è una scelta "a mucchio", in cui
+interessa solo chi è stato scelto e non l'ordine in cui lo si è preso.
+Scegliere tre amici per una partita è lo stesso che scegliere gli stessi
+tre in un altro ordine.)</p>
+<p>Conviene fare delle osservazioni preliminari, con n fissato e k
+variabile fra 0 e n. Ci sono due casi estremi, che sono chiari. Con k =
+0 si vuole un sottoinsieme senza elementi: ce n'è uno solo, l'insieme
+vuoto, perché non si fa nessuna scelta; quindi C<sub>n,0</sub> = 1. Con
+k = n bisogna prendere tutti gli elementi e c'è un solo modo di farlo;
+quindi C<sub>n,n</sub> = 1. Il caso generale richiede un'idea in
+più.</p>
+<h2 id="lidea-dalle-disposizioni-alle-combinazioni"><strong>L'idea:
+dalle disposizioni alle combinazioni</strong></h2>
+<p>Dal punto di vista pratico, come si sceglie un sottoinsieme di tre
+oggetti? Se ne sceglie uno, poi un secondo, poi un terzo. Sebbene alla
+fine l'ordine non interessi, scegliendo un elemento alla volta si sta
+facendo una <strong>disposizione semplice</strong>: si estraggono k
+elementi da n in un certo ordine. Di disposizioni semplici ce ne sono
+D<sub>n,k</sub> = n!/(n − k)!, come si è visto nel capitolo 24.</p>
+<p>Il punto è che si vuole poi <strong>dimenticare l'ordine</strong> con
+cui gli elementi sono stati scelti. Si prenda un insieme di sei elementi
+a, b, c, d, e, f e si scelgano nell'ordine c, e, f. Il sottoinsieme
+ottenuto è S = {c, e, f}, ma si otterrebbe lo stesso con le scelte e, c,
+f oppure f, c, e, e così via: ogni modo di scrivere gli stessi tre
+elementi in un altro ordine è una disposizione diversa che dà lo stesso
+insieme. Le scritture diverse sono tante quanti gli ordinamenti di tre
+elementi, cioè 3! = 6.</p>
+<p><img src="./media/image53.png"
+style="width:4.72441in;height:2.48245in" /></p>
+<p><em>Le 6 disposizioni (c, e, f), (c, f, e), …, (f, e, c) danno tutte
+la stessa combinazione S = {c, e, f}.</em></p>
+<p>Nel caso generale una disposizione è una funzione iniettiva da
+I<sub>k</sub> = {1, …, k} in A, che a 1 associa a<sub>1</sub>, a 2
+associa a<sub>2</sub>, e così via fino a k, che ha come immagine
+a<sub>k</sub>; il sottoinsieme che si ottiene è S = {a<sub>1</sub>, …,
+a<sub>k</sub>}. Riordinare questi k elementi si può fare in k! modi,
+quindi <strong>ci sono esattamente k! disposizioni semplici che danno lo
+stesso sottoinsieme</strong>.</p>
+<p>Ne segue che ogni combinazione si ottiene da k! disposizioni diverse,
+e quindi il numero delle combinazioni è il numero delle disposizioni
+diviso k!:</p>
+<p>C<sub>n,k</sub> = (1/k!) · D<sub>n,k</sub> = n! / (k! (n − k)!).</p>
+<p>(In parole povere: si fa finta, per un momento, che l'ordine conti, e
+si contano tutte le scelte ordinate. Poi si corregge: ogni gruppo di k
+persone è stato contato k! volte, una per ogni modo di metterle in fila,
+e quindi si divide per k!.)</p>
+<h2 id="i-coefficienti-binomiali"><strong>I coefficienti
+binomiali</strong></h2>
+<p>I numeri n!/(k!(n − k)!) sono molto importanti perché capitano spesso
+in diversi settori della matematica. Per questo hanno un simbolo e un
+nome particolari: si scrivono con n sopra k fra parentesi tonde,
+<strong>senza barra di frazione</strong>, e si leggono «n su k». Si
+chiamano <strong>coefficienti binomiali</strong>, e perché si chiamino
+così si scoprirà fra non molto. Quindi</p>
+<p>C<sub>n,k</sub> = (n su k) = n! / (k! (n − k)!).</p>
+<p>(In parole povere: "n su k" è semplicemente il numero di modi di
+scegliere k oggetti da un mucchio di n quando l'ordine non conta. Si
+legge come "n su k" e non è una divisione, anche se per calcolarlo si
+usano i fattoriali.)</p>
+<p>I due casi estremi tornano dalla formula, ed è qui che la convenzione
+0! = 1 è utile. Per k = 0 si ha (n su 0) = n!/(0! · n!) = 1, e per k = n
+si ha (n su n) = n!/(n! · 0!) = 1. Nella formula con k = 0 si dovrebbe
+scrivere prima 0! e poi (n − 0)!, ma poiché si stanno moltiplicando dei
+numeri l'ordine dei fattori non cambia il risultato.</p>
+<h2 id="calcolare-i-coefficienti"><strong>Calcolare i
+coefficienti</strong></h2>
+<p>Quanti modi ci sono di scegliere tre oggetti fra sei? La risposta è
+(6 su 3):</p>
+<p>(6 su 3) = 6! / (3! · 3!) = (6 · 5 · 4 · 3 · 2 · 1) / ((3 · 2 · 1) ·
+(3 · 2 · 1)).</p>
+<p>Questi numeri sono molto più semplici da calcolare di quanto sembri,
+perché si semplificano quasi sempre molti fattori. Il 3 · 2 · 1 del
+numeratore si cancella con uno dei due fattoriali del denominatore,
+rimane (6 · 5 · 4)/(3 · 2 · 1) e, poiché 3 · 2 = 6, si cancella anche il
+6: restano 5 · 4 = 20. Conviene <strong>semplificare prima e usare la
+calcolatrice solo alla fine</strong>. Se si scrive la lista di tutti i
+sottoinsiemi di tre elementi di {a, b, c, d, e, f}, in ordine alfabetico
+da {a, b, c} a {d, e, f}, si contano in effetti 20 sottoinsiemi.</p>
+<p>Una conferma per un caso semplice: scegliere un solo elemento fra n
+dà n possibilità, e in effetti (n su 1) = n!/(1! (n − 1)!) = n. Per
+esempio (15 su 1) = 15.</p>
+<h2 id="il-superenalotto"><strong>Il superenalotto</strong></h2>
+<p>Un esempio concreto è il superenalotto. Si estraggono 6 numeri da 1 a
+90 e per vincere bisogna indovinare i sei che escono, non l'ordine di
+uscita. Per sapere quante sestine possono uscire bisogna contare i
+sottoinsiemi di 6 elementi di I<sub>90</sub> = {1, …, 90}: è una
+combinazione semplice, e quindi il numero delle sestine è</p>
+<p>C<sub>90,6</sub> = 90! / (6! · 84!) = (90 · 89 · 88 · 87 · 86 · 85) /
+720.</p>
+<p>Il 90! si semplifica con 84! lasciando solo i primi sei fattori, e
+poi si divide per 6! = 720. Il risultato è circa <strong>622
+milioni</strong> (622 614 630). Sono tutte sestine ugualmente possibili,
+e quindi, giocandone una sola, si ha una possibilità su circa 622
+milioni di vincere (senza entrare nel discorso della probabilità).</p>
+<h2 id="riassumendo"><strong>Riassumendo</strong></h2>
+<p>I casi di scelte che si sono visti finora si possono classificare con
+due domande: l'ordine conta? Le scelte si possono ripetere? Le
+<strong>disposizioni</strong> (con ripetizione: n<sup>k</sup>; semplici:
+n!/(n − k)!) sono ordinate; le <strong>combinazioni semplici</strong>,
+che si sono viste in questo capitolo, non lo sono e non ammettono
+ripetizioni, e il loro numero è il coefficiente binomiale (n su k).
+Resta da vedere il caso delle combinazioni con ripetizione. Prima, il
+capitolo successivo mostra come si usano le combinazioni nei problemi in
+cui le scelte sono più di una.</p>
+<h1
+id="problemi-con-più-scelte-quando-si-moltiplica-e-quando-si-somma"><strong>27.
+Problemi con più Scelte: Quando si Moltiplica e Quando si
+Somma</strong></h1>
+<h2 id="un-problema-non-si-risolve-con-una-formula-sola"><strong>Un
+problema non si risolve con una formula sola</strong></h2>
+<p>Con le combinazioni semplici si sa contare una singola scelta di k
+elementi fra n. I problemi veri però sono spesso più articolati: usano
+le combinazioni come tecnica di base, ma richiedono di suddividere la
+scelta in <strong>più passi</strong>. In questo capitolo ci sono tre
+problemi, e il loro confronto mostra un punto importante: a volte i
+numeri dei vari passi si <strong>moltiplicano</strong>, altre volte si
+<strong>sommano</strong>.</p>
+<p>Come sottolineato a lezione, di questi problemi <strong>non interessa
+tanto il numero finale, ma il procedimento</strong>: se si arriva a
+scrivere l'espressione giusta, il calcolo con la calcolatrice è
+secondario. Per i calcoli conviene comunque semplificare prima e usare
+la calcolatrice solo alla fine.</p>
+<h2 id="la-scuola-di-ballo-due-gruppi-separati"><strong>La scuola di
+ballo: due gruppi separati</strong></h2>
+<p>In una scuola di ballo ci sono 10 studenti maschi e 12 studentesse.
+Per una coreografia i maestri scelgono 4 uomini e 4 donne. Quante sono
+le scelte possibili?</p>
+<p>Un modo sbagliato di risolvere il problema è dire che ci sono 22
+studenti e se ne devono scegliere 8, quindi C<sub>22,8</sub>. È
+sbagliato perché fra i 22 non se ne devono scegliere 8 qualsiasi: la
+scelta è vincolata, perché 4 vanno presi da un gruppo e 4 dall'altro.
+Come sottolineato a lezione, la strategia giusta è dividere la scelta in
+due passi, uno dopo l'altro, e disegnare l'albero delle possibilità.</p>
+<p>Si scelgono prima gli uomini: 4 su 10, cioè (10 su 4) modi. Poi si
+scelgono le donne: qualunque sia la scelta degli uomini, le donne sono
+un gruppo separato, e quindi in ogni caso ci sono (12 su 4) possibilità.
+L'ordine dei due passi non cambia il risultato (prima gli uomini e poi
+le donne, o il contrario, danno gli stessi gruppi finali). I punti
+finali dell'albero, cioè tutte le situazioni possibili, si ottengono
+<strong>moltiplicando</strong> i due numeri, per il metodo delle scelte
+successive (capitolo 22):</p>
+<p>(10 su 4) · (12 su 4) = 210 · 495 = 103 950.</p>
+<p><img src="./media/image54.png"
+style="width:5.11811in;height:2.66525in" /></p>
+<p><em>L'albero delle scelte per la scuola di ballo: 210 rami per gli
+uomini, e da ciascuno sempre 495 rami per le donne.</em></p>
+<p>Il calcolo, con le semplificazioni: (10 su 4) = 10!/(4! · 6!) = (10 ·
+9 · 8 · 7)/(4 · 3 · 2 · 1) = 210, e (12 su 4) = 12!/(4! · 8!) = (12 · 11
+· 10 · 9)/(4 · 3 · 2 · 1) = 495.</p>
+<p>(In parole povere: quando due scelte sono indipendenti, cioè quello
+che scegli nella seconda non dipende da quello che hai scelto nella
+prima, il numero totale di possibilità è il prodotto dei due numeri.
+Ogni scelta degli uomini si può abbinare con ogni scelta delle
+donne.)</p>
+<h2 id="la-squadra-di-calcio-quattro-scelte-indipendenti"><strong>La
+squadra di calcio: quattro scelte indipendenti</strong></h2>
+<p>Una squadra di calcio ha una rosa di 3 portieri, 8 difensori, 7
+centrocampisti e 4 attaccanti, in totale 22 giocatori. L'allenatore
+decide di schierare 1 portiere, 4 difensori, 4 centrocampisti e 2
+attaccanti, cioè 11 giocatori con il modulo 4-4-2. Quante squadre
+diverse può schierare?</p>
+<p>È lo stesso tipo di problema della scuola di ballo, ma con quattro
+scelte invece di due, e quindi un albero più alto. Il modo in cui si
+scelgono i difensori non influisce su quello dei centrocampisti o degli
+attaccanti: a ogni passo il numero di possibilità è sempre quello. I
+numeri da calcolare sono:</p>
+<ul>
+<li><p>portiere: (3 su 1) = 3;</p></li>
+<li><p>difensori: (8 su 4) = 8!/(4! · 4!) = (8 · 7 · 6 · 5)/(4 · 3 · 2 ·
+1) = 70;</p></li>
+<li><p>centrocampisti: (7 su 4) = 7!/(4! · 3!) = (7 · 6 · 5)/(3 · 2 · 1)
+= 35;</p></li>
+<li><p>attaccanti: (4 su 2) = 4!/(2! · 2!) = (4 · 3)/2 = 6.</p></li>
+</ul>
+<p>Dato che ogni passo ha sempre lo stesso numero di scelte, si
+<strong>moltiplica</strong>: 3 · 70 · 35 · 6 = 44 100 squadre possibili.
+Il docente ha osservato che, se si cominciasse a dire che un certo
+attaccante ha litigato con un certo difensore e non devono giocare
+insieme, il numero di scelte di uno dei passi dipenderebbe da quelle
+precedenti e l'albero e l'analisi si complicherebbero.</p>
+<h2
+id="la-gelateria-quando-il-secondo-passo-dipende-dal-primo"><strong>La
+gelateria: quando il secondo passo dipende dal primo</strong></h2>
+<p>Una gelateria ha 15 gusti ed è possibile acquistare coni piccoli (1
+gusto), medi (2 gusti diversi) o grandi (3 gusti diversi). Quanti coni
+diversi si possono comprare in totale?</p>
+<p>Si divide il problema in due passi: prima si dice alla cassa la
+dimensione del cono (tre possibilità), poi si scelgono i gusti. Si
+disegna l'albero. Ogni scelta di gusti è una combinazione semplice,
+perché non conta l'ordine e non si ripete un gusto:</p>
+<ul>
+<li><p>cono piccolo: (15 su 1) = 15 possibilità;</p></li>
+<li><p>cono medio: (15 su 2) = 15!/(2! · 13!) = (15 · 14)/2 = 105
+possibilità;</p></li>
+<li><p>cono grande: (15 su 3) = 15!/(3! · 12!) = (15 · 14 · 13)/(3 · 2 ·
+1) = 455 possibilità.</p></li>
+</ul>
+<p>Questo albero è diverso da quelli visti finora. Nei casi precedenti,
+da qualunque ramo del primo livello si partisse, il numero di scelte del
+secondo livello era sempre lo stesso, e per questo i numeri si
+moltiplicavano. Qui invece <strong>il numero delle scelte al secondo
+livello dipende dal ramo</strong>: sono 15 per il piccolo, 105 per il
+medio e 455 per il grande. I punti finali dell'albero sono quindi la
+<strong>somma</strong> dei punti finali di ciascun ramo:</p>
+<p>15 + 105 + 455 = 575 coni.</p>
+<p><img src="./media/image55.png"
+style="width:5.11811in;height:2.68932in" /></p>
+<p><em>L'albero della gelateria: ogni tipo di cono ha un numero diverso
+di scelte di gusti, e i punti finali si sommano.</em></p>
+<p>(In parole povere: il tipo di cono divide il problema in casi
+alternativi, "o prendi il cono piccolo, o il medio, o il grande", e ogni
+caso ha un numero diverso di scelte di gusti. I casi non si abbinano fra
+loro come nella scuola di ballo: si sommano i loro conteggi.)</p>
+<h2 id="quando-si-moltiplica-e-quando-si-somma"><strong>Quando si
+moltiplica e quando si somma</strong></h2>
+<p>Come sottolineato a lezione, è una cosa da tenere molto presente
+quando si analizzano questi problemi:</p>
+<ul>
+<li><p>se a ogni passo il numero delle scelte è <strong>sempre lo
+stesso</strong>, qualunque sia il percorso fatto fin lì, si
+<strong>moltiplicano</strong> i numeri dei vari passi (scuola di ballo,
+squadra di calcio);</p></li>
+<li><p>se invece il numero delle scelte di un passo <strong>dipende da
+dove si è arrivati</strong> al passo precedente, l'espressione è più
+complicata e coinvolge delle <strong>somme</strong> (gelateria), una per
+ciascun ramo.</p></li>
+</ul>
+<p>Quando un problema si complica in questo modo il numero di casi
+esplode e non è possibile elencare tutte le possibilità. Il metodo è
+quindi prima di tutto capire che cosa chiede il problema, poi capire se
+è una questione di ordine oppure no, poi suddividere in pezzi più
+piccoli da risolvere uno alla volta e infine rimetterli insieme,
+moltiplicando o sommando a seconda dei casi.</p>
+<p>Nel prossimo capitolo manca ancora un tipo di scelta, quella non
+ordinata in cui lo stesso elemento si può prendere più volte: le
+combinazioni con ripetizione.</p>
+<h1 id="le-combinazioni-con-ripetizione"><strong>28. Le Combinazioni con
+Ripetizione</strong></h1>
+<h2 id="il-quarto-tipo-di-scelta"><strong>Il quarto tipo di
+scelta</strong></h2>
+<p>Si sono visti gli ordinamenti, le disposizioni semplici e con
+ripetizione e le combinazioni semplici. Manca l'ultimo caso, le
+<strong>combinazioni con ripetizione</strong>: scelte non ordinate in
+cui lo stesso elemento si può scegliere più volte. Un esempio già
+incontrato è una pasticceria con un certo numero di tipi di pasticcini,
+da cui si vuole un vassoio con un certo numero di pezzi: l'ordine in cui
+si mettono i pasticcini non conta, ma lo stesso tipo si può prendere sei
+o sette volte. Un esempio più matematico sono i monomi.</p>
+<p>Sia A un insieme con n ≥ 1 elementi e si devono fare k scelte in A,
+non ordinate e possibilmente ripetute. Una <strong>combinazione con
+ripetizione</strong> di ordine k in A è una scelta di questo tipo; il
+loro numero si indica con C<sup>r</sup><sub>n,k</sub>, dove la r sta per
+«ripetizione» (non è un esponente). Il numero k è qualunque: non è detto
+che debba essere minore di n, come si vede sotto.</p>
+<p>(In parole povere: è la scelta di un vassoio di pasticcini, in cui
+non conta l'ordine in cui li metti dentro ma conta quanti ne prendi di
+ogni tipo. Puoi prendere il tipo preferito anche cinque volte, e puoi
+prenderne più di quanti siano i tipi.)</p>
+<h2 id="contare-i-monomi"><strong>Contare i monomi</strong></h2>
+<p>Un <strong>monomio</strong> in più variabili è un'espressione fatta
+di variabili elevate a un certo esponente. Il suo <strong>grado</strong>
+è la <strong>somma degli esponenti</strong>. Per esempio x³ y² z⁵ è un
+monomio in tre variabili x, y, z, e ha grado 3 + 2 + 5 = 10. Per
+semplicità si considerano solo monomi con coefficiente 1.</p>
+<p>(In parole povere: un monomio è una "parola" fatta di lettere
+ripetute, per esempio x x x y y z z z z z, che si scrive in breve x³ y²
+z⁵. Il grado è quante lettere ci sono in tutto: qui 3 + 2 + 5 = 10.)</p>
+<p>La domanda è: quanti sono i monomi diversi di grado 10 in tre
+variabili? Se ne possono scrivere moltissimi, a cominciare da x¹⁰ (una
+variabile può comparire con esponente 0), poi x⁹ y, x⁹ z, x⁸ y² e così
+via. Si può saperlo senza elencarli tutti?</p>
+<p>Si osserva che si sta facendo una scelta in un insieme (le variabili
+x, y, z) e che è <strong>non ordinata</strong>: x² · x · y² · z³ · z² e
+x · x² · z² · y² · z³ sono lo stesso monomio x³ y² z⁵: scritti con i
+fattori in un altro ordine, sono uguali, perché il prodotto è
+commutativo e si possono raggruppare tutte le x, tutte le y e tutte le
+z. Quindi l'ordine di scelta non conta. A differenza delle combinazioni
+semplici però qui gli elementi si scelgono <strong>più volte</strong>:
+nel monomio x³ y² z⁵ si sono scelte 3 volte la x, 2 volte la y e 5 volte
+la z, per un totale di 10 scelte, cioè il grado.</p>
+<h2 id="il-trucco-delle-caselle-e-dei-separatori"><strong>Il trucco
+delle caselle e dei separatori</strong></h2>
+<p>Per contarli si rappresenta ogni monomio con una riga di 10 caselle,
+ognuna delle quali è la scelta di una variabile. Per comodità si
+dispongono in ordine tutte le x, poi le y, poi le z: il monomio x³ y² z⁵
+diventa x x x y y z z z z z. Per un altro monomio, per esempio x⁴ y³ z³,
+si cambiano solo i punti in cui si passa da una variabile all'altra.</p>
+<p>Il passo cruciale è che <strong>tutta l'informazione sta nei punti di
+cambiamento</strong>, non in che cosa c'è nelle caselle. Se si decide
+dove la x diventa y e dove la y diventa z, il monomio è determinato. Con
+tre variabili ci sono due punti di cambiamento (con sei variabili
+sarebbero cinque, e in generale una in meno del numero di variabili).
+Quindi contare i monomi equivale a contare in quanti modi si possono
+inserire due «sbarrette» di separazione nella riga.</p>
+<p><img src="./media/image56.png"
+style="width:5.11811in;height:2.9909in" /></p>
+<p><em>Il monomio x³ y² z⁵ in 10 caselle, e nella versione a 12 caselle
+in cui le due separazioni occupano una casella ciascuna; sotto, il caso
+x² z⁸, in cui mancando la y i separatori sono vicini ma in caselle
+distinte.</em></p>
+<p>Qui c'è però una complicazione. Per un monomio come x² z⁸, in cui
+manca la y, le due sbarrette finiscono nello stesso punto (la zona delle
+y si restringe a zero), e lo stesso accade se manca la prima o l'ultima
+variabile, per esempio x¹⁰ o z¹⁰. Bisogna quindi tenere conto che le due
+sbarrette possono cadere nello stesso posto, e questo complica il
+conteggio. Si risolve con un trucco: invece di mettere le separazioni
+<strong>fra</strong> le caselle, si prende una striscia di <strong>12
+caselle</strong>, cioè le 10 di prima più 2, e si <strong>riservano due
+caselle</strong> alle separazioni. Si riscrive per esempio x x x • y y •
+z z z z z, dove i due punti segnano le separazioni.</p>
+<p>Non si è persa informazione: da questa striscia si ricava il monomio
+cancellando le due caselle di separazione, e viceversa dal monomio si
+ricostruisce la striscia. Il vantaggio è che ora le due separazioni
+occupano <strong>caselle distinte</strong>, e si possono scegliere in
+modo del tutto arbitrario: per x² z⁸ la striscia è x x • • z z z z z z z
+z, con le separazioni vicine ma non sovrapposte.</p>
+<h2 id="il-conteggio"><strong>Il conteggio</strong></h2>
+<p>I monomi di grado 10 in tre variabili sono quindi tanti quanti i modi
+di scegliere 2 caselle (le separazioni) fra 12. Scegliere 2 caselle su
+12 è una combinazione semplice di ordine 2 sulle 12, e quindi</p>
+<p>C<sup>r</sup><sub>3,10</sub> = C<sub>12,2</sub> = 12! / (2! · 10!) =
+(12 · 11)/2 = 66.</p>
+<p>Ci sono 66 monomi di grado 10 in tre variabili.</p>
+<p>(In parole povere: invece di contare i monomi direttamente, si conta
+una cosa più facile che corrisponde esattamente a loro, cioè quante
+coppie di caselle si possono scegliere per mettere le separazioni. Dato
+che da una striscia si ricava un monomio e viceversa, i due conteggi
+coincidono.)</p>
+<h2 id="la-formula-generale"><strong>La formula generale</strong></h2>
+<p>Questo metodo non dipende dal problema particolare: le variabili x,
+y, z sono semplicemente gli elementi di un insieme da cui si sceglie. Il
+2 che compare nel risultato è il numero delle separazioni, cioè il
+numero degli oggetti meno 1, perché per separare n oggetti servono n − 1
+sbarrette (con un solo oggetto non servono separazioni, con due ne basta
+una, con tre ne servono due). Il 12 è invece il numero delle scelte
+originali, 10, più le caselle di separazione, 2.</p>
+<p>In generale, con A insieme di n elementi e k scelte (anche
+ripetute):</p>
+<ul>
+<li><p>le separazioni sono n − 1;</p></li>
+<li><p>la striscia ha k + (n − 1) = k + n − 1 caselle;</p></li>
+<li><p>si scelgono le n − 1 caselle delle separazioni fra le k + n −
+1.</p></li>
+</ul>
+<p><strong>Proposizione.</strong> Il numero delle combinazioni con
+ripetizione di k elementi scelti fra n è</p>
+<p>C<sup>r</sup><sub>n,k</sub> = C<sub>k+n−1, n−1</sub> = (k + n − 1)! /
+((n − 1)! · k!).</p>
+<p>Nella formula, la differenza (k + n − 1) − (n − 1) è proprio k, ed è
+per questo che al denominatore compare k!. Con n = 3 e k = 10 si ritrova
+C<sub>12,2</sub> = 66. È un risultato curioso e interessante: il calcolo
+delle combinazioni con ripetizione si è ricondotto a un problema già
+risolto, quello delle combinazioni semplici, in una situazione non
+identica ma strettamente imparentata, in cui cambiano soltanto i
+numeri.</p>
+<h2 id="i-pasticcini"><strong>I pasticcini</strong></h2>
+<p>La formula serve anche per il problema della pasticceria. Una
+pasticceria ha 20 tipi di pasticcini e si vuole un vassoio con 30
+pasticcini. Poiché lo stesso tipo si può scegliere più volte, è un
+problema di combinazioni con ripetizione: 30 scelte (k = 30) fra 20
+oggetti (n = 20). Si noti che le scelte sono più degli oggetti, e va
+bene lo stesso, perché la ripetizione è ammessa. Il numero è</p>
+<p>C<sup>r</sup><sub>20,30</sub> = C<sub>30+20−1, 20−1</sub> =
+C<sub>49,19</sub> = (49 su 19) = 49! / (19! · 30!).</p>
+<p>Si può immaginare la striscia di caselle: le 30 caselle dei
+pasticcini più 19 caselle di separazione fra i 20 tipi, in totale 49; il
+numero è quello dei modi di scegliere le 19 caselle di separazione fra
+le 49. È un numero molto grande (circa 1,9 · 10¹³, cioè 18 851 684 897
+584), molto più grande delle sestine del superenalotto, e come per gli
+altri problemi interessa soprattutto il procedimento.</p>
+<h2 id="il-quadro-completo-dei-conteggi"><strong>Il quadro completo dei
+conteggi</strong></h2>
+<p>Con questo capitolo si completa il quadro delle scelte di k elementi
+in un insieme di n, che si distinguono con due domande, l'ordine conta?
+e le scelte si possono ripetere?:</p>
+<ul>
+<li><p>scelte ordinate, <strong>con ripetizione</strong>: disposizioni
+con ripetizione, D<sup>r</sup><sub>n,k</sub> = n<sup>k</sup>;</p></li>
+<li><p>scelte ordinate, <strong>senza ripetizione</strong>: disposizioni
+semplici, D<sub>n,k</sub> = n!/(n − k)!, e con k = n gli ordinamenti,
+n!;</p></li>
+<li><p>scelte non ordinate, <strong>senza ripetizione</strong>:
+combinazioni semplici, C<sub>n,k</sub> = (n su k);</p></li>
+<li><p>scelte non ordinate, <strong>con ripetizione</strong>:
+combinazioni con ripetizione, C<sup>r</sup><sub>n,k</sub> = C<sub>k+n−1,
+n−1</sub>.</p></li>
+</ul>
+<p>Queste sono le tecniche di base: con i problemi dei capitoli 26 e 27
+si tratta poi di capire a quale tipo di scelta si riconduce il testo e
+di suddividere la scelta in passi.</p>
 </article></main>
 </div>
 <a class="top" href="#top" aria-label="Torna su">&uarr;</a>

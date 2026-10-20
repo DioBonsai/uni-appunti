@@ -33,8 +33,8 @@ Studiati: 1-9. Da studiare: 10-22.
 | 21 | Sottospazi di Matrici Quadrate | 0/39 | da studiare |
 | 22 | Combinazioni Lineari e Sottospazio Generato (Span) | 0/35 | da studiare |
 
-### Matematica discreta: 14/25 capitoli studiati
-Studiati: 1-14. In parte: 15. Da studiare: 16-25.
+### Matematica discreta: 14/28 capitoli studiati
+Studiati: 1-14. In parte: 15. Da studiare: 16-28.
 
 | Cap. | Titolo | Paragrafi evidenziati | Stato |
 |---|---|---|---|
@@ -63,6 +63,9 @@ Studiati: 1-14. In parte: 15. Da studiare: 16-25.
 | 23 | Ordinamenti, Fattoriale e Anagrammi | 0/30 | da studiare |
 | 24 | Le Disposizioni: con Ripetizione e Semplici | 0/29 | da studiare |
 | 25 | Insiemi Finiti, Cardinalità e Principio dei Cassetti | 0/39 | da studiare |
+| 26 | Le Combinazioni Semplici e i Coefficienti Binomiali | 0/29 | da studiare |
+| 27 | Problemi con più Scelte: Quando si Moltiplica e Quando si Somma | 0/36 | da studiare |
+| 28 | Le Combinazioni con Ripetizione | 0/41 | da studiare |
 
 ### Fondamenti Info: 22/22 capitoli studiati
 Studiati: 1-22. Tutto studiato.
@@ -92,8 +95,8 @@ Studiati: 1-22. Tutto studiato.
 | 21 | Il Quantificatore Universale | 9/35 | studiato |
 | 22 | Il Quantificatore Esistenziale e le Leggi di De Morgan per i Quantificatori | 12/35 | studiato |
 
-### Programmazione: 19/19 capitoli studiati
-Studiati: 1-19. Tutto studiato.
+### Programmazione: 19/22 capitoli studiati
+Studiati: 1-19. Da studiare: 20-22.
 
 | Cap. | Titolo | Paragrafi evidenziati | Stato |
 |---|---|---|---|
@@ -116,6 +119,9 @@ Studiati: 1-19. Tutto studiato.
 | 17 | Espressioni Booleane e Operatori Logici | 11/57 | studiato |
 | 18 | Intervalli, Cortocircuitazione e Semplificazione delle Condizioni | 6/54 | studiato |
 | 19 | Il Controllo di Flusso e il Costrutto if | 10/83 | studiato |
+| 20 | Le Iterazioni e il Ciclo while | 0/95 | da studiare |
+| 21 | Il Ciclo for e i Cicli Annidati | 0/76 | da studiare |
+| 22 | Sentinelle, break, continue e il Ciclo do-while | 0/87 | da studiare |
 <!-- AUTO:fine -->
 
 Legenda: ✅ nel Word | 🟡 parziale | ⬜ non ancora (lezione/slide non ancora fatta o non riassunta) | ➖ omesso dal docente.

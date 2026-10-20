@@ -480,6 +480,80 @@ if-else</strong></a></li>
 id="toc-visibilità-nei-blocchi-condizionati"><strong>Visibilità nei
 blocchi condizionati</strong></a></li>
 </ul></li>
+<li><a href="#capitolo-20-le-iterazioni-e-il-ciclo-while"
+id="toc-capitolo-20-le-iterazioni-e-il-ciclo-while"><strong>Capitolo 20:
+Le Iterazioni e il Ciclo while</strong></a>
+<ul>
+<li><a href="#perché-servono-i-cicli"
+id="toc-perché-servono-i-cicli"><strong>Perché servono i
+cicli</strong></a></li>
+<li><a href="#il-ciclo-while" id="toc-il-ciclo-while"><strong>Il ciclo
+while</strong></a></li>
+<li><a href="#la-terna-fondamentale-stampare-i-numeri-da-0-a-9"
+id="toc-la-terna-fondamentale-stampare-i-numeri-da-0-a-9"><strong>La
+terna fondamentale: stampare i numeri da 0 a 9</strong></a></li>
+<li><a href="#il-conto-alla-rovescia"
+id="toc-il-conto-alla-rovescia"><strong>Il conto alla
+rovescia</strong></a></li>
+<li><a href="#sommatorie-e-variabili-accumulatore"
+id="toc-sommatorie-e-variabili-accumulatore"><strong>Sommatorie e
+variabili accumulatore</strong></a></li>
+<li><a href="#leggere-linput-con-un-valore-di-terminazione"
+id="toc-leggere-linput-con-un-valore-di-terminazione"><strong>Leggere
+l'input con un valore di terminazione</strong></a></li>
+<li><a href="#terminare-per-una-condizione-di-successo"
+id="toc-terminare-per-una-condizione-di-successo"><strong>Terminare per
+una condizione di successo</strong></a></li>
+<li><a href="#un-errore-comune-il-ciclo-infinito"
+id="toc-un-errore-comune-il-ciclo-infinito"><strong>Un errore comune: il
+ciclo infinito</strong></a></li>
+<li><a href="#la-visibilità-delle-variabili-nei-blocchi"
+id="toc-la-visibilità-delle-variabili-nei-blocchi"><strong>La visibilità
+delle variabili nei blocchi</strong></a></li>
+</ul></li>
+<li><a href="#capitolo-21-il-ciclo-for-e-i-cicli-annidati"
+id="toc-capitolo-21-il-ciclo-for-e-i-cicli-annidati"><strong>Capitolo
+21: Il Ciclo for e i Cicli Annidati</strong></a>
+<ul>
+<li><a href="#il-ciclo-for" id="toc-il-ciclo-for"><strong>Il ciclo
+for</strong></a></li>
+<li><a href="#lequivalenza-fra-for-e-while"
+id="toc-lequivalenza-fra-for-e-while"><strong>L'equivalenza fra for e
+while</strong></a></li>
+<li><a href="#percorrere-un-intervallo-di-valori"
+id="toc-percorrere-un-intervallo-di-valori"><strong>Percorrere un
+intervallo di valori</strong></a></li>
+<li><a href="#i-cicli-annidati" id="toc-i-cicli-annidati"><strong>I
+cicli annidati</strong></a></li>
+<li><a href="#errori-comuni-nei-cicli-for"
+id="toc-errori-comuni-nei-cicli-for"><strong>Errori comuni nei cicli
+for</strong></a></li>
+<li><a href="#quando-usare-for-e-quando-while"
+id="toc-quando-usare-for-e-quando-while"><strong>Quando usare for e
+quando while</strong></a></li>
+</ul></li>
+<li><a href="#capitolo-22-sentinelle-break-continue-e-il-ciclo-do-while"
+id="toc-capitolo-22-sentinelle-break-continue-e-il-ciclo-do-while"><strong>Capitolo
+22: Sentinelle, break, continue e il Ciclo do-while</strong></a>
+<ul>
+<li><a href="#il-problema-quando-fermarsi"
+id="toc-il-problema-quando-fermarsi"><strong>Il problema: quando
+fermarsi</strong></a></li>
+<li><a href="#un-esempio-il-primo-quadrato-maggiore-di-500"
+id="toc-un-esempio-il-primo-quadrato-maggiore-di-500"><strong>Un
+esempio: il primo quadrato maggiore di 500</strong></a></li>
+<li><a href="#la-media-delle-altezze-con-una-variabile-sentinella"
+id="toc-la-media-delle-altezze-con-una-variabile-sentinella"><strong>La
+media delle altezze con una variabile sentinella</strong></a></li>
+<li><a href="#il-controllo-esplicito-del-flusso-break-e-continue"
+id="toc-il-controllo-esplicito-del-flusso-break-e-continue"><strong>Il
+controllo esplicito del flusso: break e continue</strong></a></li>
+<li><a href="#il-ciclo-do-while" id="toc-il-ciclo-do-while"><strong>Il
+ciclo do-while</strong></a></li>
+<li><a href="#come-scegliere-il-ciclo"
+id="toc-come-scegliere-il-ciclo"><strong>Come scegliere il
+ciclo</strong></a></li>
+</ul></li>
 </ul>
 </nav>
 <main><article>
@@ -3234,6 +3308,509 @@ il blocco termina</mark>.</p>
 style="width:5.11811in;height:2.45482in" /></p>
 <p><em>Lo scambio condizionato: temp esiste solo dentro il blocco
 dell'if (in rosso le celle che cambiano).</em></p>
+<h1 id="capitolo-20-le-iterazioni-e-il-ciclo-while"><strong>Capitolo 20:
+Le Iterazioni e il Ciclo while</strong></h1>
+<h2 id="perché-servono-i-cicli"><strong>Perché servono i
+cicli</strong></h2>
+<p>Quando un programma deve ripetere un'operazione più volte, non ha
+senso copiare lo stesso codice decine di volte: serve un meccanismo di
+<strong>ripetizione controllata</strong>. Le
+<strong>iterazioni</strong>, o <strong>cicli</strong>, sono gli
+strumenti della programmazione strutturata (la terza struttura di
+controllo, dopo sequenza e selezione) che permettono di ripetere un
+blocco di istruzioni in modo controllato e leggibile.</p>
+<p>(In parole povere: un ciclo è un "ripeti questo finché serve". Invece
+di scrivere dieci volte la stessa riga per stampare dieci numeri, la
+scrivi una volta sola e dici al computer quante volte, o fino a quando,
+deve rifarla.)</p>
+<h2 id="il-ciclo-while"><strong>Il ciclo while</strong></h2>
+<p>Il <strong>while</strong> ripete un blocco di istruzioni
+<strong>finché una condizione logica è vera</strong>. La sintassi è:</p>
+<p>while (condizione) {</p>
+<p>// blocco di istruzioni da ripetere</p>
+<p>}</p>
+<p>Il funzionamento è questo: si valuta la condizione; se è vera il
+blocco viene eseguito e poi si torna a valutare la condizione; se è
+falsa il ciclo termina e si passa all'istruzione subito dopo il while.
+Ne seguono due casi limite: se la condizione è falsa fin dall'inizio il
+blocco <strong>non viene eseguito mai</strong>, e se la condizione
+rimane sempre vera il ciclo non finisce più (<strong>ciclo
+infinito</strong>).</p>
+<p>(In parole povere: il while è come un buttafuori che, prima di ogni
+giro, chiede "la condizione è ancora vera?". Se sì, fa entrare per un
+altro giro; se no, il ciclo è finito. Se la risposta è "no" già alla
+prima domanda, non si entra nemmeno una volta.)</p>
+<h2 id="la-terna-fondamentale-stampare-i-numeri-da-0-a-9"><strong>La
+terna fondamentale: stampare i numeri da 0 a 9</strong></h2>
+<p>Ogni ciclo si regge su tre elementi, la <strong>terna
+fondamentale</strong>: l'<strong>inizializzazione</strong> (il valore di
+partenza della variabile di controllo), la <strong>condizione</strong>
+(che decide se continuare) e l'<strong>aggiornamento</strong> (che fa
+avanzare la variabile di controllo verso la fine del ciclo). Per
+stampare i numeri da 0 a 9:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main(void) {</p>
+<p>int i = 0;</p>
+<p>while (i &lt; 10) {</p>
+<p>printf("%d\n", i);</p>
+<p>i++;</p>
+<p>}</p>
+<p>}</p>
+<p>Il ciclo itera per i = 0, 1, 2, …, 9; quando i diventa 10 la
+condizione i &lt; 10 è falsa e il ciclo termina. Il diagramma di flusso
+mostra bene il ruolo di ciascun elemento: l'assegnamento iniziale i ← 0
+viene eseguito una sola volta, la condizione viene controllata prima di
+ogni giro, e i ← i + 1 chiude il giro riportando il flusso al
+controllo.</p>
+<p><img src="./media/image23.png"
+style="width:3.14961in;height:3.59955in" /></p>
+<p><em>Diagramma di flusso del ciclo while che stampa i numeri da 0 a
+9.</em></p>
+<p>(In parole povere: la terna è la ricetta di ogni ciclo. Da dove
+parto? Fino a quando vado avanti? Come mi avvicino alla fine a ogni
+giro? Se dimentichi una di queste tre risposte, il ciclo non parte, non
+si ferma o non finisce mai.)</p>
+<h2 id="il-conto-alla-rovescia"><strong>Il conto alla
+rovescia</strong></h2>
+<p>L'aggiornamento non è per forza un incremento: può essere un
+decremento, e la condizione può essere "invertita". La logica del ciclo
+dipende dal problema, non ha una forma fissa. Un conto alla rovescia da
+5 a 1:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main(void) {</p>
+<p>int i = 5;</p>
+<p>while (i &gt; 0) {</p>
+<p>printf("%d\n", i);</p>
+<p>i--;</p>
+<p>}</p>
+<p>}</p>
+<p>La terna è sempre la stessa: inizializzazione i = 5, condizione i
+&gt; 0, aggiornamento i--.</p>
+<h2 id="sommatorie-e-variabili-accumulatore"><strong>Sommatorie e
+variabili accumulatore</strong></h2>
+<p>Il while non serve solo a ripetere istruzioni: spesso serve a
+<strong>costruire progressivamente un risultato</strong>. Per farlo si
+usa una <strong>variabile accumulatore</strong>, opportunamente
+inizializzata e modificata a ogni giro. Per esempio, la somma dei primi
+n numeri:</p>
+<p>int n = 5, i = 1, somma = 0;</p>
+<p>while (i &lt;= n) {</p>
+<p>somma = somma + i;</p>
+<p>i++;</p>
+<p>}</p>
+<p>printf("Somma = %d\n", somma);</p>
+<p>Con n = 5 la somma passa da 0 a 1, 3, 6, 10 e infine 15, che è il
+valore stampato. L'accumulatore va inizializzato prima del ciclo (qui a
+0, l'elemento neutro dell'addizione): se partisse da un valore
+qualsiasi, il risultato sarebbe falsato.</p>
+<p>(In parole povere: l'accumulatore è come il totale sullo scontrino
+della cassa, che a ogni articolo si aggiorna aggiungendo il prezzo
+nuovo. Prima di cominciare deve valere zero.)</p>
+<h2 id="leggere-linput-con-un-valore-di-terminazione"><strong>Leggere
+l'input con un valore di terminazione</strong></h2>
+<p>Non sempre sappiamo in anticipo quante iterazioni servono, per
+esempio quando leggiamo dei dati da tastiera. In questi casi si fissa un
+<strong>valore di terminazione</strong> (o <strong>valore
+sentinella</strong>) che l'utente inserisce per dire "ho finito".
+Nell'esempio della media delle altezze il valore di terminazione è
+qualunque altezza negativa: ogni altezza valida (maggiore o uguale a 0)
+aggiorna la <strong>somma</strong> (variabile accumulatore) e il
+<strong>conteggio</strong> (variabile contatore), e al termine i due
+insieme permettono di calcolare la media:</p>
+<p>int somma = 0, count = 0, altezza = 0;</p>
+<p>while (altezza &gt;= 0) {</p>
+<p>printf("Inserisci altezza: ");</p>
+<p>scanf("%d", &amp;altezza);</p>
+<p>if (altezza &gt;= 0) {</p>
+<p>somma += altezza;</p>
+<p>count++;</p>
+<p>}</p>
+<p>}</p>
+<p>printf("Media = %f\n", somma / (float)count);</p>
+<p>Nota: altezza parte da 0 solo perché la condizione altezza &gt;= 0
+sia vera al primo controllo. L'if interno serve perché anche il valore
+sentinella viene letto con scanf, ma non deve essere contato fra le
+altezze. La divisione usa il cast a float per non fare una divisione fra
+interi (capitolo 16). Una cautela in più: se l'utente inserisce subito
+un valore negativo, count resta 0 e la media non è definita; questo caso
+non è gestito nel codice di esempio (aggiunta nostra): in quel caso la
+divisione darebbe un risultato non numerico.</p>
+<p>(In parole povere: è il "dimmi i numeri uno alla volta e quando hai
+finito scrivi un numero negativo". La somma tiene il totale e il
+contatore tiene quanti ne hai dati: dividendo il primo per il secondo
+esce la media.)</p>
+<h2 id="terminare-per-una-condizione-di-successo"><strong>Terminare per
+una condizione di successo</strong></h2>
+<p>Un ciclo può anche finire per una <strong>condizione di
+successo</strong> che dipende dal contesto, senza contatori né valori di
+terminazione. Per esempio, indovinare un PIN:</p>
+<p>int segreto = 12345, guess = -1;</p>
+<p>while (guess != segreto) {</p>
+<p>printf("Indovina il pin segreto: ");</p>
+<p>scanf("%d", &amp;guess);</p>
+<p>}</p>
+<p>printf("Bravo, hai indovinato!\n");</p>
+<p>Il while è molto flessibile e generale: basta esprimere una opportuna
+condizione booleana e provvedere a inizializzare e aggiornare le
+variabili di controllo. Qui guess parte da −1 per essere certi che la
+prima condizione sia vera, e viene aggiornata dalla scanf a ogni
+giro.</p>
+<h2 id="un-errore-comune-il-ciclo-infinito"><strong>Un errore comune: il
+ciclo infinito</strong></h2>
+<p>Se la condizione non diventa mai falsa si ha un <strong>ciclo
+infinito</strong>. Il caso tipico è dimenticare l'aggiornamento:</p>
+<p>int i = 0;</p>
+<p>while (i &lt; 10) {</p>
+<p>printf("%d\n", i);</p>
+<p>// manca i++;</p>
+<p>}</p>
+<p>Qui i resta sempre 0 e il programma stampa 0 all'infinito (si
+interrompe dal terminale con Ctrl+C).</p>
+<p>(In parole povere: è come una canzone in ripetizione in cui nessuno
+preme mai "stop". Se dentro il giro non cambia niente che renda falsa la
+condizione, il ciclo non ha motivo di fermarsi.)</p>
+<h2 id="la-visibilità-delle-variabili-nei-blocchi"><strong>La visibilità
+delle variabili nei blocchi</strong></h2>
+<p>Ogni blocco { ... } introduce un <strong>ambito di
+visibilità</strong> (in inglese <em>scope</em>) locale: le variabili
+dichiarate al suo interno esistono solo durante l'esecuzione di quel
+blocco. Quando un ciclo viene eseguito, a <strong>ogni
+iterazione</strong> una nuova istanza delle variabili locali viene
+allocata sullo stack e poi deallocata alla fine del giro.</p>
+<p>(In parole povere: le variabili dichiarate dentro le graffe sono come
+i fogli che usi in una stanza e butti via uscendo. Ogni volta che
+rientri nella stanza, cioè a ogni giro del ciclo, ne hai di nuovi, e
+fuori dalla stanza non puoi più leggerli.)</p>
+<p>Si segue il programma seguente:</p>
+<p>#include &lt;stdio.h&gt;</p>
+<p>int main(void) {</p>
+<p>int x = 1; // visibile in tutto main()</p>
+<p>while (x &lt; 3) {</p>
+<p>int y = x * 2; // y visibile solo dentro il blocco</p>
+<p>printf("x=%d, y=%d\n", x, y);</p>
+<p>x++;</p>
+<p>}</p>
+<p>printf("x finale=%d", x);</p>
+<p>}</p>
+<p>All'inizio esiste solo x, uguale a 1. La condizione x &lt; 3 è vera:
+si entra nel blocco e y viene allocata sullo stack, con valore x * 2 =
+2; si stampa x=1 y=2 e x passa a 2. Alla chiusura della graffa y viene
+deallocata. La condizione x &lt; 3 è ancora vera: si rientra, y viene
+allocata di nuovo (e vale 4), si stampa x=2 y=4, x passa a 3 e y
+scompare ancora. Ora x &lt; 3 è falsa, il ciclo termina e il programma
+stampa x finale=3.</p>
+<p><img src="./media/image24.png"
+style="width:5.51181in;height:1.64417in" /></p>
+<p><em>Lo stato delle variabili x e y a ogni passo del ciclo: y esiste
+solo dentro il blocco (in rosso le celle che cambiano).</em></p>
+<p>La variabile y non è quindi accessibile dopo la fine del ciclo:
+scrivere printf("%d", y); dopo il while è un <strong>errore</strong> (la
+variabile non è più visibile). Se il suo valore servisse, si può
+dichiarare y fuori dal ciclo oppure copiarne il valore in una variabile
+visibile nel main prima che il blocco termini.</p>
+<p>Il prossimo capitolo presenta il ciclo for, una forma più compatta
+del while quando le iterazioni sono note in anticipo, e i cicli
+annidati.</p>
+<h1 id="capitolo-21-il-ciclo-for-e-i-cicli-annidati"><strong>Capitolo
+21: Il Ciclo for e i Cicli Annidati</strong></h1>
+<h2 id="il-ciclo-for"><strong>Il ciclo for</strong></h2>
+<p>In molti casi sappiamo già quante iterazioni servono. Per questi casi
+il C offre il <strong>for</strong>, una variante sintattica più compatta
+e leggibile del while:</p>
+<p>for (inizializzazione; condizione; aggiornamento) {</p>
+<p>// blocco di istruzioni da ripetere</p>
+<p>}</p>
+<p>Il funzionamento è questo: l'<strong>inizializzazione</strong> viene
+eseguita una sola volta, prima del ciclo, e le variabili che dichiara
+sono visibili solo dentro il for; la <strong>condizione</strong> viene
+valutata prima di ogni iterazione; l'<strong>aggiornamento</strong>
+viene eseguito dopo ogni iterazione. Il for è un caso particolare del
+while, ma più ordinato: gli elementi di controllo sono scritti uno
+accanto all'altro, e questo riduce gli errori.</p>
+<p>(In parole povere: il for mette in una sola riga la terna del
+capitolo precedente: da dove parto, fino a quando continuo, come avanzo.
+Tutto quello che serve a governare il ciclo sta nell'intestazione, e il
+corpo contiene solo il lavoro vero e proprio.)</p>
+<h2 id="lequivalenza-fra-for-e-while"><strong>L'equivalenza fra for e
+while</strong></h2>
+<p>Il for è un modo compatto di scrivere un while insieme alla sua terna
+di controllo. I due frammenti seguenti sono equivalenti:</p>
+<p>for (inizializzazione; condizione; aggiornamento) {</p>
+<p>// blocco di istruzioni da ripetere</p>
+<p>}</p>
+<p>{</p>
+<p>inizializzazione;</p>
+<p>while (condizione) {</p>
+<p>// blocco di istruzioni da ripetere</p>
+<p>aggiornamento;</p>
+<p>}</p>
+<p>}</p>
+<p>Le graffe esterne nella versione con il while servono a limitare la
+visibilità: come nel for, la variabile inizializzata non esiste fuori
+dal ciclo.</p>
+<h2 id="percorrere-un-intervallo-di-valori"><strong>Percorrere un
+intervallo di valori</strong></h2>
+<p>Il for è il modo naturale per percorrere un <strong>intervallo di
+valori numerici</strong>, descritto da tre cose: un valore iniziale (per
+esempio 0), una condizione di appartenenza all'intervallo (per esempio x
+&lt; 10) e un passo (+1, +2, −1, …).</p>
+<p>(In parole povere: un intervallo si dà come un percorso a piedi:
+punto di partenza, fino a dove si cammina e di quanti passi alla volta.
+Il for ti chiede esattamente queste tre informazioni.)</p>
+<p>Alcuni esempi:</p>
+<p>// numeri nell'intervallo semiaperto [0, 10): inizio 0, condizione
+&lt; 10, passo +1</p>
+<p>for (int i = 0; i &lt; 10; i++) {</p>
+<p>printf("%d\n", i);</p>
+<p>}</p>
+<p>// numeri pari nell'intervallo chiuso [0, 40]: inizio 0, condizione
+&lt;= 40, passo +2</p>
+<p>for (int i = 0; i &lt;= 40; i += 2) {</p>
+<p>...</p>
+<p>}</p>
+<p>// numeri in [0, n] in ordine decrescente: inizio n, condizione &gt;=
+0, passo -1</p>
+<p>int n = 10;</p>
+<p>for (int i = n; i &gt;= 0; i--) {</p>
+<p>...</p>
+<p>}</p>
+<p>Due applicazioni tipiche sono la somma fino a N (intervallo [1, N]) e
+la tabellina del 5 (intervallo [1, 10]):</p>
+<p>// con N già definito</p>
+<p>int somma = 0;</p>
+<p>for (int i = 1; i &lt;= N; i++) {</p>
+<p>somma += i;</p>
+<p>}</p>
+<p>for (int i = 1; i &lt;= 10; i++) {</p>
+<p>printf("%d x 5 = %d\n", i, i*5);</p>
+<p>}</p>
+<p>Si noti come la scelta fra &lt; e &lt;= decide se l'estremo destro è
+escluso o incluso: è lo stesso discorso degli intervalli visti nel
+capitolo 18.</p>
+<h2 id="i-cicli-annidati"><strong>I cicli annidati</strong></h2>
+<p>Gli elementi della programmazione strutturata sono componibili: un
+ciclo può contenere, nel suo blocco, un altro ciclo, detto <strong>ciclo
+annidato</strong>. Un esempio è la stampa di una griglia di numeri:</p>
+<p>for (int r = 0; r &lt; 3; r++) {</p>
+<p>for (int c = 0; c &lt; 3; c++) {</p>
+<p>printf("(%d,%d) ", r, c);</p>
+<p>}</p>
+<p>printf("\n");</p>
+<p>}</p>
+<p>Il ciclo esterno gestisce le righe r, quello interno le colonne c. A
+ogni valore di r il ciclo interno ricomincia da capo e percorre tutte le
+colonne, poi printf("\n") va a capo. Il risultato è una griglia di 3
+righe e 3 colonne, con 3 × 3 = 9 coppie stampate:</p>
+<p>(0,0) (0,1) (0,2)</p>
+<p>(1,0) (1,1) (1,2)</p>
+<p>(2,0) (2,1) (2,2)</p>
+<p><img src="./media/image25.png"
+style="width:3.54331in;height:2.70571in" /></p>
+<p><em>L'ordine con cui il ciclo annidato visita le 9 coppie (r, c): il
+ciclo interno gira più in fretta.</em></p>
+<p>(In parole povere: è come l'orologio, dove la lancetta dei minuti fa
+un giro completo per ogni passo di quella delle ore. Il ciclo interno
+gira "veloce" e quello esterno "lento".)</p>
+<p>Valgono anche qui le regole di visibilità: ogni blocco introduce un
+ambito locale, quindi le variabili di un ciclo sono visibili all'interno
+del proprio blocco, e anche dentro i blocchi annidati. Nell'esempio r è
+visibile sia nel ciclo esterno sia in quello interno, mentre c è
+visibile solo nel ciclo interno.</p>
+<h2 id="errori-comuni-nei-cicli-for"><strong>Errori comuni nei cicli
+for</strong></h2>
+<p>Gli errori tipici sono questi:</p>
+<ul>
+<li><p><strong>condizione sempre vera</strong>: for (int i = 0; i &gt;=
+0; i++) { ... } non si ferma mai (infinito);</p></li>
+<li><p><strong>aggiornamento mancante</strong>: for (int i = 0; i &lt;
+10; ) { ... } lascia i invariata, e il ciclo è infinito;</p></li>
+<li><p><strong>off-by-one</strong>: for (int i = 0; i &lt;= 10; i++)
+esegue 11 iterazioni invece di 10, perché si include anche l'estremo
+destro;</p></li>
+<li><p><strong>uso improprio della variabile di controllo</strong>: con
+i = i + 2; dentro il corpo si altera a mano il contatore, e il ciclo non
+scorre più come previsto;</p></li>
+<li><p><strong>scope della variabile contatore</strong>: dopo for (int i
+= 0; i &lt; 5; i++) { ... } scrivere printf("%d", i); è un errore,
+perché i non esiste fuori dal for.</p></li>
+</ul>
+<p>(In parole povere: l'errore "off-by-one" è lo sbaglio del paletto e
+dello spazio fra paletti: se ti servono 10 passi e parti da 0, ti fermi
+a 9; se arrivi fino a 10 ne fai 11.)</p>
+<h2 id="quando-usare-for-e-quando-while"><strong>Quando usare for e
+quando while</strong></h2>
+<p>La scelta dipende dalla natura del problema:</p>
+<ul>
+<li><p>il <strong>for</strong> va bene quando le iterazioni sono note a
+priori, per gli intervalli numerici con passo costante e quando il
+contatore è gestito in modo naturale e regolare;</p></li>
+<li><p>il <strong>while</strong> va bene quando le iterazioni sono
+ignote in anticipo, quando la condizione dipende da un input o da eventi
+esterni e quando l'aggiornamento non è numerico o è irregolare.</p></li>
+</ul>
+<p>Il prossimo capitolo riguarda i problemi in cui non si sa quanto
+durerà il ciclo: le sentinelle, i comandi break e continue e il ciclo
+do-while.</p>
+<h1
+id="capitolo-22-sentinelle-break-continue-e-il-ciclo-do-while"><strong>Capitolo
+22: Sentinelle, break, continue e il Ciclo do-while</strong></h1>
+<h2 id="il-problema-quando-fermarsi"><strong>Il problema: quando
+fermarsi</strong></h2>
+<p>In molti casi non possiamo sapere all'inizio quante volte un ciclo
+dovrà ripetersi. Serve quindi un meccanismo per decidere <strong>quando
+fermarsi</strong>. Si usano due concetti, che vanno spesso insieme.</p>
+<p>Un <strong>valore sentinella</strong> è un valore speciale che
+segnala la fine delle iterazioni (per esempio, leggo da input il valore
+−1). Altri nomi con cui si trova: valore di terminazione, marcatore di
+fine input, codice di arresto, EOF (<em>end of file</em>).</p>
+<p>Una <strong>variabile sentinella</strong> è una variabile booleana
+che controlla il proseguimento del ciclo. Altri nomi comuni: flag di
+controllo (<em>flag</em> vuol dire "bandierina di segnalazione"),
+controllo di ciclo (<em>loop flag</em>), variabile di controllo di
+terminazione.</p>
+<p>Spesso si usano insieme: il valore sentinella, letto da input, serve
+ad aggiornare la variabile sentinella che controlla la terminazione del
+ciclo.</p>
+<p>(In parole povere: il valore sentinella è il "basta, ho finito" che
+l'utente scrive per fermare il programma; la variabile sentinella è la
+bandierina alzata dal programma quando decide di fermarsi. Spesso la
+prima serve ad abbassare o alzare la seconda.)</p>
+<h2 id="un-esempio-il-primo-quadrato-maggiore-di-500"><strong>Un
+esempio: il primo quadrato maggiore di 500</strong></h2>
+<p>Per trovare il primo numero il cui quadrato è maggiore di 500 si può
+usare una variabile sentinella trovato:</p>
+<p>int n = 1;</p>
+<p>bool trovato = false; // variabile sentinella (serve
+&lt;stdbool.h&gt;, cap. 17)</p>
+<p>while (!trovato) {</p>
+<p>int q = n * n;</p>
+<p>if (q &gt; 500) {</p>
+<p>trovato = true;</p>
+<p>}</p>
+<p>else {</p>
+<p>n++;</p>
+<p>}</p>
+<p>}</p>
+<p>printf("%d x %d = %d\n", n, n, n*n);</p>
+<p>Lo stesso problema si può risolvere più brevemente scrivendo
+direttamente nella condizione il caso in cui si deve continuare:</p>
+<p>int n = 1;</p>
+<p>// n*n &lt;= 500: finché vale, si continua</p>
+<p>while (n * n &lt;= 500) {</p>
+<p>n++;</p>
+<p>}</p>
+<p>printf("%d x %d = %d\n", n, n, n*n);</p>
+<p>Il risultato è lo stesso: il primo n con n² &gt; 500 è 23 (22² = 484,
+23² = 529). La seconda versione è più breve; la prima rende esplicito il
+motivo per cui il ciclo si ferma, e per questo è più adatta quando le
+condizioni di uscita sono più di una o più complicate.</p>
+<h2 id="la-media-delle-altezze-con-una-variabile-sentinella"><strong>La
+media delle altezze con una variabile sentinella</strong></h2>
+<p>Nel capitolo 20 la media delle altezze usava il valore sentinella
+(un'altezza negativa) direttamente nella condizione del while. La
+versione con una variabile sentinella continua rende più chiaro il
+flusso:</p>
+<p>int somma = 0, count = 0;</p>
+<p>bool continua = true; // variabile sentinella</p>
+<p>while (continua) {</p>
+<p>int altezza;</p>
+<p>printf("Inserisci altezza (negativa per terminare): ");</p>
+<p>scanf("%d", &amp;altezza);</p>
+<p>if (altezza &gt;= 0) {</p>
+<p>somma += altezza;</p>
+<p>count++;</p>
+<p>}</p>
+<p>else { // altezza è un valore sentinella (&lt; 0)</p>
+<p>continua = false; // aggiorna la sentinella: il ciclo finisce</p>
+<p>}</p>
+<p>}</p>
+<p>printf("Media = %f\n", somma / (float)count);</p>
+<p>Il valore sentinella (altezza negativa) serve ad aggiornare la
+variabile sentinella continua, che a sua volta controlla la
+terminazione. Il giro in corso finisce e, alla successiva valutazione
+della condizione, continua è falsa e il ciclo termina.</p>
+<h2 id="il-controllo-esplicito-del-flusso-break-e-continue"><strong>Il
+controllo esplicito del flusso: break e continue</strong></h2>
+<p>Il linguaggio definisce due parole chiave per controllare in modo
+esplicito il flusso dentro un ciclo.</p>
+<p>L'istruzione <strong>break</strong> interrompe immediatamente il
+ciclo corrente: il flusso riprende subito dopo il ciclo. L'istruzione
+<strong>continue</strong> salta il resto del blocco per l'iterazione
+corrente e passa subito alla successiva valutazione della
+condizione.</p>
+<p>for (int i = 0; i &lt; 10; i++) {</p>
+<p>if (i == 5)</p>
+<p>break; // stop al ciclo</p>
+<p>printf("%d ", i);</p>
+<p>}</p>
+<p>Questo primo ciclo stampa 0 1 2 3 4 e si ferma quando i vale 5.</p>
+<p>for (int i = 0; i &lt; 10; i++) {</p>
+<p>if (i % 2 == 0)</p>
+<p>continue; // salta i pari</p>
+<p>printf("%d ", i);</p>
+<p>}</p>
+<p>Questo secondo ciclo stampa 1 3 5 7 9: per i numeri pari il continue
+salta la printf e passa al giro successivo. Nel for l'aggiornamento i++
+viene eseguito comunque, ed è per questo che il ciclo non diventa
+infinito (nota nostra: in un while equivalente un continue salterebbe
+anche l'aggiornamento).</p>
+<p>(In parole povere: break è l'uscita di emergenza che fa uscire dal
+ciclo subito; continue è il "salta questo giro" che passa direttamente
+al prossimo.)</p>
+<p>Entrambe le istruzioni possono essere utili in casi particolari, ma
+peggiorano la leggibilità. Per questo <strong>nel corso si eviterà di
+usarle</strong>: è meglio esplicitare le condizioni di terminazione con
+le variabili sentinella.</p>
+<h2 id="il-ciclo-do-while"><strong>Il ciclo do-while</strong></h2>
+<p>Il <strong>do-while</strong> è una variante del while in cui la
+valutazione della condizione è <strong>posticipata</strong>:</p>
+<p>do {</p>
+<p>// blocco di istruzioni da ripetere</p>
+<p>} while (condizione);</p>
+<p>Il blocco viene <strong>sempre eseguito almeno una volta</strong>, e
+poi si ripete finché la condizione è vera. Si noti il punto e virgola
+finale dopo la parentesi della condizione.</p>
+<p>(In parole povere: nel while si controlla prima di entrare, nel
+do-while si entra e si controlla dopo. È come assaggiare il piatto prima
+di decidere se ne vuoi ancora.)</p>
+<p><img src="./media/image26.png"
+style="width:4.72441in;height:2.49344in" /></p>
+<p><em>A confronto while e do-while: il controllo della condizione è
+prima o dopo il blocco.</em></p>
+<p>È utile per scenari specifici, come la <strong>validazione
+dell'input</strong>: chiedere un valore finché l'utente non ne inserisce
+uno valido. Si ricorda che scanf restituisce il numero di valori letti
+correttamente (capitolo 10):</p>
+<p>int x, retval;</p>
+<p>do {</p>
+<p>printf("Inserisci un numero [1,10]: ");</p>
+<p>retval = scanf("%d", &amp;x);</p>
+<p>// ripeti se input non valido o non compreso nell'intervallo
+[1,10]</p>
+<p>} while (retval == 0 || !(1 &lt;= x &amp;&amp; x &lt;= 10));</p>
+<p>printf("Hai inserito %d\n", x);</p>
+<p>Attenzione: nelle slide la condizione è scritta !(1 &lt;= x || x
+&lt;= 10), con un || al posto di &amp;&amp;. Così com'è non controlla
+l'intervallo, perché 1 &lt;= x || x &lt;= 10 è vera per qualunque
+numero: per verificare l'appartenenza a [1, 10] servono
+<strong>entrambe</strong> le condizioni insieme, come nel codice qui
+sopra. (Per riconoscere l'errore basta provare con il valore 15: con ||
+il ciclo si ferma, con &amp;&amp; chiede di nuovo.)</p>
+<h2 id="come-scegliere-il-ciclo"><strong>Come scegliere il
+ciclo</strong></h2>
+<p>Riassumendo i tre cicli visti nei capitoli 20-22, più le
+sentinelle:</p>
+<ul>
+<li><p><strong>for</strong> quando si conosce già il numero di
+iterazioni o si percorre un intervallo con passo regolare;</p></li>
+<li><p><strong>while</strong> quando le iterazioni non sono note, e il
+controllo è fatto prima di ogni giro (può non essere eseguito
+mai);</p></li>
+<li><p><strong>do-while</strong> quando il blocco deve girare almeno una
+volta, tipicamente per la validazione dell'input;</p></li>
+<li><p>sentinelle (di valore o di variabile) per decidere quando
+fermarsi quando la durata dipende dai dati.</p></li>
+</ul>
 </article></main>
 </div>
 <a class="top" href="#top" aria-label="Torna su">&uarr;</a>
