@@ -5,6 +5,7 @@ Uso: python riassunti_html.py <cartella_uscita>
 Scrive: <uscita>/riassunti/index.html, <uscita>/riassunti/<slug>.html, <uscita>/riassunti/img/<hash>.<ext>
 """
 import hashlib
+from datetime import datetime
 import html
 import json
 import re
@@ -40,7 +41,7 @@ a{color:var(--acc)}button,input,select{font:inherit}
 /* barra in alto */
 .top{position:sticky;top:0;z-index:20;background:var(--bar);backdrop-filter:blur(8px);border-bottom:1px solid var(--lin);font:14px/1.2 system-ui,-apple-system,"Segoe UI",sans-serif}
 .top-in{max-width:94rem;margin:0 auto;padding:.5rem 1rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
-.top a.back{text-decoration:none;font-weight:600;white-space:nowrap}
+.top a.back{text-decoration:none;font-weight:600;white-space:nowrap;display:inline-flex;align-items:center;min-height:36px;padding:0 .85rem;border:1px solid var(--lin);border-radius:99px;background:var(--card)}.top a.back:hover{border-color:var(--acc)}
 .top .mat{font-weight:700;white-space:nowrap}
 .top .cur{color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:28rem;min-width:0;flex:1 1 8rem}
 .top .grow{flex:1}
@@ -105,7 +106,7 @@ main{padding-bottom:7.5rem}
 @media (max-width:720px){
 .top{padding-top:env(safe-area-inset-top)}
 .top-in{gap:.3rem;padding:.3rem .5rem;min-height:54px;flex-wrap:wrap}
-.top a.back{font-size:0;display:grid;place-items:center;width:44px;height:44px;border-radius:12px}.top a.back::before{content:"\2039";font-size:36px;line-height:1;color:var(--acc);margin-top:-4px}
+.top a.back{font-size:0;display:grid;place-items:center;width:44px;height:44px;border-radius:12px;border:0;background:none;padding:0}.top a.back::before{content:"\2039";font-size:36px;line-height:1;color:var(--acc);margin-top:-4px}
 .top .mat{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:16px;border-left:0;padding-left:0}
 #msearch,#mopts{display:grid;place-items:center;width:44px;height:44px;border:0;background:none;color:var(--fg);border-radius:12px;cursor:pointer;padding:0}
 #msearch svg,#mopts svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -125,11 +126,15 @@ main h2{font-size:1.45rem}main h3{font-size:1.1rem}
 .pn{flex-direction:column}.pn a{padding:.9rem 1rem}
 .idx{padding:1.2rem .9rem 3rem}.idx h1{font-size:1.7rem}.idx a.mcard{padding:1.1rem 1.1rem}
 }
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:4px}
+.skip{position:absolute;left:.5rem;top:-4rem;z-index:60;background:var(--acc);color:#fff;padding:.6rem 1rem;border-radius:10px;font:600 14px system-ui,sans-serif;text-decoration:none}.skip:focus{top:.5rem}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html.ready{scroll-behavior:auto}}
 @media print{.top,nav.toc,aside.rail,.pn,#toast,#lb,.cp{display:none!important}.wrap{display:block;padding:0}body{background:#fff;color:#000;font-size:11pt}main h2{break-before:page;border:0}main section.cap:first-child h2{break-before:auto}mark{background:#fff59d!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}pre,figure{break-inside:avoid}}
 body{--mc:var(--mcl,#1f4e9c)}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]) body{--mc:var(--mcd,#8fb4ff)}}
 :root[data-theme=dark] body{--mc:var(--mcd,#8fb4ff)}
-.top .mat{border-left:3px solid var(--mc);padding-left:.5rem}
+.top .mat{color:var(--mc)}@media (min-width:721px){.top .mat{border-left:3px solid var(--mc);padding-left:.55rem}}
+.idx-top .top-in{max-width:62rem;min-height:58px;padding:.5rem 1rem}.idx-top .mat{color:var(--fg);border-left:0;padding-left:0;font-size:1.05rem}.idx-top .grow{flex:1}
 #prog{background:var(--mc)}
 nav.toc a.on{border-left-color:var(--mc)}
 .hero{margin:.2rem 0 2.2rem;padding:1.4rem 1.5rem 1.3rem;background:var(--card);border:1px solid var(--lin);border-left:6px solid var(--mc);border-radius:16px;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -157,6 +162,7 @@ nav.toc a.on{border-left-color:var(--mc)}
 .idx .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1rem}
 .idx a.mcard{display:flex;flex-direction:column;gap:.5rem;background:var(--card);border:1px solid var(--lin);border-top:5px solid var(--mc);border-radius:16px;padding:1.1rem 1.2rem 1rem;text-decoration:none;color:var(--fg);box-shadow:0 1px 0 #0001;transition:transform .15s,box-shadow .15s,border-color .15s}
 .idx a.mcard:hover{transform:translateY(-2px);box-shadow:0 10px 26px -12px #0006;border-color:var(--mc)}
+.idx .foot{margin:2rem 0 0;color:var(--mut);font-size:13px;line-height:1.6}.idx kbd{font:12px/1 ui-monospace,Consolas,monospace;border:1px solid var(--lin);border-bottom-width:2px;border-radius:5px;padding:.1rem .35rem;background:var(--card)}
 .idx a.mcard{--mc:var(--mcl)}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]) .idx a.mcard{--mc:var(--mcd)}}
 :root[data-theme=dark] .idx a.mcard{--mc:var(--mcd)}
@@ -286,6 +292,12 @@ lb.addEventListener('click',function(){lb.classList.remove('on')});
 """
 
 JS_INDICE = r"""
+(function(){
+var tb=document.getElementById('theme');
+function ls(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+function lab(){var t=ls('quaderno-tema')||'auto';tb.textContent='Tema: '+({auto:'auto',light:'chiaro',dark:'scuro'}[t]||'auto')}
+if(tb){lab();tb.addEventListener('click',function(){var t=ls('quaderno-tema')||'auto',n={auto:'light',light:'dark',dark:'auto'}[t]||'auto';ls('quaderno-tema',n);if(n==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',n);lab()})}
+})();
 (function(){
 var el=document.getElementById('resume'),best=null;
 ['algebra','matematica-discreta','fondamenti','programmazione','laboratorio'].forEach(function(s){try{var p=JSON.parse(localStorage.getItem('riass-pos:'+s));if(p&&p.u&&p.m&&(!best||(p.ts||0)>(best.ts||0)))best=p;}catch(e){}});
@@ -602,9 +614,9 @@ def main(argv):
                '<button class="tb" id="theme" type="button">Tema</button></div>'
                '</div><div id="prog"></div></header>')
         cl, cd = COLORI[slug]
-        corpo = (f'<body data-slug="{slug}" data-nome="{html.escape(nome, quote=True)}" style="--mcl:{cl};--mcd:{cd}">{top}'
+        corpo = (f'<body data-slug="{slug}" data-nome="{html.escape(nome, quote=True)}" style="--mcl:{cl};--mcd:{cd}"><a class="skip" href="#main">Vai al contenuto</a>{top}'
                  f'<div class="wrap"><nav class="toc"><h4>Capitoli</h4>{"".join(voci)}</nav>'
-                 f'<main>{hero}{pre}{"".join(sezioni)}</main><aside class="rail"></aside></div>'
+                 f'<main id="main">{hero}{pre}{"".join(sezioni)}</main><aside class="rail"></aside></div>'
                  '<div id="scrim"></div><div id="mbar"><button id="mprev" type="button" aria-label="Capitolo precedente">&lsaquo;</button>'
                  '<button id="mcap" type="button" aria-label="Elenco dei capitoli">Capitoli</button>'
                  '<button id="mnext" type="button" aria-label="Capitolo successivo">&rsaquo;</button></div>'
@@ -632,9 +644,14 @@ def main(argv):
                   f'<div class="bar"><i style="width:{pct}%"></i></div>'
                   f'<div class="mc-sub">{fatti} di {k} capitoli studiati{extra_inz} &middot; circa {durata(tmin)} di lettura</div>'
                   f'<div class="mc-next">{nxt_html}</div><span class="mc-go">{vai} &rarr;</span></a>')
-    idx = ('<body><header class="top"><div class="top-in"><a class="back" href="../">&larr; Quaderno</a><span class="mat" style="--mcl:#1f4e9c;--mcd:#8fb4ff">Riassunti</span></div></header>'
-           '<div class="idx"><h1>Riassunti</h1><p class="lead">Scegli una materia: il pulsante ti porta al primo capitolo che non hai ancora studiato.</p>'
-           f'<div id="resume"></div><div class="grid">{cards}</div></div><script>{JS_INDICE}</script></body>')
+    ora = datetime.now().strftime("%d/%m/%Y alle %H:%M")
+    idx = ('<body><a class="skip" href="#main">Vai al contenuto</a>'
+           '<header class="top idx-top"><div class="top-in"><a class="back" href="../" aria-label="Torna al Quaderno">&larr; Quaderno</a><span class="mat">Riassunti</span><span class="grow"></span>'
+           '<button class="tb" id="theme" type="button" aria-label="Cambia tema">Tema</button></div></header>'
+           '<div class="idx" id="main"><h1>Riassunti</h1><p class="lead">Scegli una materia: il pulsante ti porta al primo capitolo che non hai ancora studiato.</p>'
+           f'<div id="resume"></div><div class="grid">{cards}</div>'
+           f'<p class="foot">Aggiornato il {ora}. Nella pagina di lettura: <kbd>/</kbd> cerca, <kbd>j</kbd> e <kbd>k</kbd> cambiano capitolo, <kbd>h</kbd> mostra o nasconde le evidenziazioni.</p></div>'
+           f'<script>{JS_INDICE}</script></body>')
     (base / "index.html").write_text(pagina("Riassunti", "", idx), encoding="utf-8")
     return 0
 

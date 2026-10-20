@@ -32,6 +32,7 @@ CSS_EXTRA = """<style>
 .subj-read{display:inline-flex;align-items:center;gap:6px;margin:0 16px 12px;padding:6px 12px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font:700 .84rem var(--font-body);text-decoration:none}
 .subj-read:hover{filter:brightness(.95)}
 .sq-label a{font-weight:700;color:var(--accent)}
+@media (min-width:720px) and (max-width:1060px){.brand-name{display:none}.seg .tab,.seg .tablink{padding-inline:13px}.topbar-in{gap:8px}}
 @media (max-width:719px){
   .sq{width:40px!important;height:40px!important}
   .subj-read{min-height:44px;margin-bottom:14px}
@@ -86,11 +87,34 @@ def adatta(html):
     return html + chr(10) + LOGOUT_JS + chr(10)
 
 
+def controlli(repo, dest):
+    """Prima di pubblicare: pagine non vuote e nessun capitolo in meno rispetto all'ultima versione pubblicata
+    (protegge da un Word aperto a metà o danneggiato)."""
+    p = []
+    for nome, minimo in (("index.html", 100_000), ("data.json", 100_000)):
+        f = dest / nome
+        if not f.exists() or f.stat().st_size < minimo:
+            p.append(f"{nome} mancante o troppo piccolo")
+    for slug in ("algebra", "matematica-discreta", "fondamenti", "programmazione", "laboratorio"):
+        f = dest / "riassunti" / f"{slug}.html"
+        if not f.exists():
+            p.append(f"riassunti/{slug}.html mancante"); continue
+        ora = f.read_text(encoding="utf-8").count('<section class="cap"')
+        r = subprocess.run(["git", "-C", str(repo), "show", f"HEAD:protected/riassunti/{slug}.html"], capture_output=True, text=True, encoding="utf-8")
+        prima = r.stdout.count('<section class="cap"') if r.returncode == 0 else 0
+        if ora == 0:
+            p.append(f"{slug}: nessun capitolo")
+        elif ora < prima:
+            p.append(f"{slug}: {ora} capitoli, prima erano {prima}")
+    return p
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", default=str(REPO_DEFAULT))
     ap.add_argument("--push", action="store_true")
     ap.add_argument("--no-build", action="store_true")
+    ap.add_argument("--force", action="store_true", help="pubblica anche se i controlli non passano")
     a = ap.parse_args()
     repo = Path(a.repo)
     if not (repo / "vercel.json").exists():
@@ -115,6 +139,13 @@ def main():
         print(r.stderr); return 1
     tot = sum(f.stat().st_size for f in dest.rglob("*") if f.is_file()) / 1048576
     print(f"protected/ pronta: {tot:.1f} MB")
+    problemi = controlli(repo, dest)
+    if problemi and not a.force:
+        print("\nCONTROLLI NON SUPERATI (non pubblico):")
+        for x in problemi:
+            print(" -", x)
+        print("Se sono voluti, rilancia con --force.")
+        return 2
     if a.push:
         g = lambda *x: subprocess.run(["git", "-C", str(repo), *x], capture_output=True, text=True, encoding="utf-8")
         g("add", "-A")
