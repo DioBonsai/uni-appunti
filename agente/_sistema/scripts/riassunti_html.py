@@ -199,8 +199,8 @@ nav.toc a.on{border-left-color:var(--mc)}
 select.tb.mats{height:36px;max-width:13rem;border-radius:10px;font-weight:700;color:var(--mc);padding:0 .7rem}
 @media (min-width:721px){.top .mat,.top .cur{display:none}.idx-top .mat{display:inline}.top a.back{order:-3}#mats{order:-2}.search{order:-1}.top-in{padding:.5rem 1rem}}
 /* ---- riquadro "In parole povere", link alle sezioni, torna su ---- */
-main p.pp{margin:1.1rem 0;padding:.85rem 1rem .9rem;border-radius:12px;background:var(--cod);background:color-mix(in srgb,var(--mc) 8%,var(--card));border:1px solid var(--lin);border-left:4px solid var(--mc)}
-main p.pp::before{content:"In parole povere";display:block;font:700 11px/1 system-ui,-apple-system,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--mc);margin-bottom:.45rem}
+main p.pp{margin:1.1rem 0;padding:.85rem 1rem .9rem;border-radius:12px;background:var(--cod);background:color-mix(in srgb,var(--ok) 10%,var(--card));border:1px solid color-mix(in srgb,var(--ok) 30%,var(--lin));border-left:4px solid var(--ok)}
+main p.pp::before{content:"In parole povere";display:block;font:700 11px/1 system-ui,-apple-system,sans-serif;letter-spacing:.09em;text-transform:uppercase;color:var(--ok);margin-bottom:.45rem}
 main h2,main h3{position:relative}
 .ha{position:absolute;left:-1.7rem;top:0;opacity:0;font:600 .9rem system-ui,sans-serif;text-decoration:none;color:var(--mut);padding:.1rem .35rem;border-radius:6px}.ha::before{content:"#"}
 main h2:hover .ha,main h3:hover .ha,.ha:focus{opacity:1}.ha:hover{color:var(--mc);background:var(--cod)}
@@ -273,6 +273,9 @@ window.addEventListener('scroll',function(){if(!ticking){ticking=true;requestAni
 window.addEventListener('resize',update);update();
 
 /* telefono: pannelli dal basso, ricerca a scomparsa, capitolo precedente/successivo */
+var mq=window.matchMedia('(max-width:720px)'),ctrlsHome=ctrls.parentNode,ctrlsNext=ctrls.nextSibling;
+function placeCtrls(){if(mq.matches){if(ctrls.parentNode!==document.body)document.body.appendChild(ctrls)}else if(ctrls.parentNode!==ctrlsHome){ctrlsHome.insertBefore(ctrls,ctrlsNext)}}
+placeCtrls();if(mq.addEventListener)mq.addEventListener('change',placeCtrls);else if(mq.addListener)mq.addListener(placeCtrls);
 function closeAll(){ctrls.classList.remove('open');toc.classList.remove('open');scrim.classList.remove('on')}
 function openPanel(el){var was=el.classList.contains('open');closeAll();if(!was){el.classList.add('open');scrim.classList.add('on')}}
 $('#mopts').addEventListener('click',function(){openPanel(ctrls)});
