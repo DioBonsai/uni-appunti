@@ -2003,7 +2003,7 @@ $('#freq-card').addEventListener('toggle', () => { if ($('#freq-card').open) req
     ind.querySelectorAll(':scope > ul > li.ha-figli[data-auto]:not(.trovato)').forEach(l => { if (l !== cap && !$('#r-cerca').value) apriCapitolo(l, false); });
     if (cap && !cap.classList.contains('aperto')) apriCapitolo(cap, true, true);
     const r = attiva.getBoundingClientRect(), box = ind.getBoundingClientRect();
-    if (getComputedStyle(ind).position === 'sticky' || ind.classList.contains('aperto')) { if (r.top < box.top + 40 || r.bottom > box.bottom - 40) attiva.scrollIntoView({ block: 'center' }); }
+    if (getComputedStyle(ind).position === 'sticky' || ind.classList.contains('aperto')) { if (r.top < box.top + 40 || r.bottom > box.bottom - 40) ind.scrollTop += r.top - box.top - box.height / 2 + r.height / 2; }   // solo l'indice, mai la pagina
   }
   let rafSegui = 0; window.addEventListener('scroll', () => { if (!rafSegui) rafSegui = requestAnimationFrame(() => { rafSegui = 0; segui(); }); }, { passive: true });
   ind.addEventListener('click', e => { const b = e.target.closest('.chev'); if (b) { e.preventDefault(); e.stopPropagation(); const li = b.parentElement; apriCapitolo(li, !li.classList.contains('aperto')); } }, true);
