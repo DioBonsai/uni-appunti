@@ -28,13 +28,8 @@ WORD = {
     "Fondamenti Info": ["Riassunto Fondamenti Informatica.docx", "Fondamenti Info/Fondamenti Informatica.docx"],
     "Programmazione": ["Riassunto Programmazione.docx", "Programmazione/Riassunto Programmazione.docx"],
 }
-# Testi a mano (non deducibili dai file): lezioni coperte e note. I capitoli studiati si calcolano dalle evidenziazioni.
-LEZIONI = {
-    "Algebra lineare": "3 di 26 (L4 Polinomi pronta, in attesa dell'ok)",
-    "Matematica discreta": "5 fatte",
-    "Fondamenti Info": "cap. 1 del libro",
-    "Programmazione": "slide 00-02C, laboratorio Lab01",
-}
+# Ripiego se un Word manca: il testo «Lezioni nel Word» si ricava dai Word (numero di capitoli e ultimo titolo), vedi avanzamento().
+LEZIONI = {"Algebra lineare": "", "Matematica discreta": "", "Fondamenti Info": "", "Programmazione": ""}
 # Date d'esame (AAAA-MM-GG), da compilare quando Moodle le pubblica; si possono anche inserire nella pagina.
 ESAMI = {}
 
@@ -227,7 +222,11 @@ def avanzamento():
                     a = l[i + 1] if i + 1 < len(l) else None
             return ", ".join(parts)
         nota = f"Studiati: {rng(done)}." + (f" In parte: {rng(part)}." if part else "") + (f" Da studiare: {rng(todo)}." if todo else " Tutto studiato.")
-        out[mat] = dict(capitoli=len(res), studiati=len(done), lezioni=LEZIONI[mat], prossimo=nota,
+        lez = f"{len(res)} capitoli, l'ultimo è «{res[-1][1]}»" if res else LEZIONI[mat]
+        if mat == "Programmazione" and (UNI / "Riassunto Laboratorio.docx").exists():
+            nl = len(chapters(UNI / "Riassunto Laboratorio.docx")[0])
+            lez += f"; Laboratorio (Word a parte): {nl} capitoli"
+        out[mat] = dict(capitoli=len(res), studiati=len(done), lezioni=lez, prossimo=nota,
                         elenco=[dict(n=n, t=t, s=s, hl=hl, tot=tot) for n, t, s, hl, tot in res])
     lab = UNI / "Riassunto Laboratorio.docx"   # il laboratorio fa parte di ciò che è stato trattato per Programmazione
     if lab.exists() and "Programmazione" in texts:
