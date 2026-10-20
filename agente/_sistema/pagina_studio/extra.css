@@ -627,3 +627,6 @@ details[open] > summary::after { transform: rotate(225deg) translateY(-2px); }
 @keyframes arrivo { 0%, 55% { background: var(--accent-soft); box-shadow: -10px 0 0 var(--accent-soft), 10px 0 0 var(--accent-soft); border-radius: 4px; } 100% { background: transparent; box-shadow: none; } }
 
 .hero-note.avviso { margin-top: 8px; padding: 8px 12px; border-radius: 10px; background: var(--warn-soft); color: var(--warn); font-size: .92rem; }
+.lett-salva { flex: none; font-size: .78rem; padding: 4px 8px; border-radius: 8px; white-space: nowrap; }
+.lett-salva.ok { color: var(--good); background: var(--good-soft); } .lett-salva.solo { color: var(--warn); background: var(--warn-soft); font-weight: 700; }
+@media (max-width: 640px) { .lett-salva { display: none; } .lett-salva.solo { display: inline-block; } .lett-tit { display: none; } }

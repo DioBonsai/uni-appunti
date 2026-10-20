@@ -7,7 +7,7 @@
   const BLOCCHI = 'p,li,td,th,h1,h2,h3,h4,h5,h6,dd,dt,figcaption,blockquote,pre';
   const LS_SOTT = 'quaderno-sott';
   const lista = $('#riass-lista'), lettore = $('#riass-lettore'), art = $('#r-art'), ind = $('#r-indice'), pill = $('#r-pill');
-  let slug = null, voci = new Map(), db = null, range = null, tolta = null;
+  let slug = null, voci = new Map(), db = null, range = null, tolta = null, dbOk = true;
 
   /* ---------- salvataggio ---------- */
   const hash = s => { let h = 5381; for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); };
@@ -22,13 +22,22 @@
       if (db) (await db.collection('sottolineature').get()).docs.forEach(d => { const v = d.data(); if (v && v.id) voci.set(v.id, v); });
     } catch (e) { db = null; }
     salvaLocale();
+    statoSalvataggio();
     // quello che c'è solo in un posto si copia anche negli altri
     if (SERVER && voci.size) postServer({ add: [...voci.values()], del: [] });
-    if (db) { try { for (const v of voci.values()) await db.collection('sottolineature').doc(v.id).set(v); } catch (e) {} }
+    if (db) { try { for (const v of voci.values()) await db.collection('sottolineature').doc(v.id).set(v); dbOk = true; } catch (e) { dbOk = false; } }
+    statoSalvataggio();
+  }
+  function statoSalvataggio() {   // dice dove finiscono le sottolineature, così non si scopre dopo che erano rimaste solo sul dispositivo
+    const el = $('#r-salva'); if (!el) return;
+    const dove = SERVER ? 'file del computer' : (db && dbOk ? 'database della pagina' : null);
+    el.className = 'lett-salva ' + (dove ? 'ok' : 'solo');
+    el.textContent = dove ? '✓ Sottolineature salvate nel ' + dove : '⚠ Solo su questo dispositivo';
+    el.title = dove ? '' : 'Non posso scrivere nel database della pagina (serve il livello Collaboratore). Le sottolineature restano in questo browser e non arrivano nei Word.';
   }
   async function aggiungi(v) {
     voci.set(v.id, v); salvaLocale(); postServer({ add: [v], del: [] });
-    if (db) { try { await db.collection('sottolineature').doc(v.id).set(v); } catch (e) { toast('Salvata solo su questo dispositivo'); } }
+    if (db) { try { await db.collection('sottolineature').doc(v.id).set(v); } catch (e) { dbOk = false; statoSalvataggio(); toast('Salvata solo su questo dispositivo'); } }
   }
   async function togli(id) {
     voci.delete(id); salvaLocale(); postServer({ add: [], del: [id] });
