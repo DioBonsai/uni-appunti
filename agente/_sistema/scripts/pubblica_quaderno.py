@@ -33,12 +33,21 @@ CSS_EXTRA = """<style>
 .subj-read:hover{filter:brightness(.95)}
 .sq-label a{font-weight:700;color:var(--accent)}
 @media (max-width:719px){
+  .sq{width:40px!important;height:40px!important}
+  .subj-read{min-height:44px;margin-bottom:14px}
+  .chips-pick > *,.tchip{min-height:44px}
+  .bn span,.bnlink span{font-size:.75rem}
   .bottomnav{grid-template-columns:repeat(5,1fr)!important}
   .bnlink{appearance:none;border:0;background:none;color:var(--muted);font:600 .72rem var(--font-body);min-height:56px;display:grid;justify-items:center;align-content:center;gap:3px;border-radius:14px;text-decoration:none;position:relative}
   .bnlink svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
   .bnlink:active{transform:scale(.96)}
 }
 </style>"""
+# meta per usare il Quaderno come app dalla schermata Home del telefono, e per non finire sui motori di ricerca
+PWA = ('<meta name="robots" content="noindex,nofollow,noarchive">'
+       '<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/apple-touch-icon.png">'
+       '<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">'
+       '<meta name="apple-mobile-web-app-title" content="Quaderno">')
 RSLUG = ('const RSLUG = {"Algebra lineare":"algebra","Matematica discreta":"matematica-discreta","Fondamenti Info":"fondamenti",'
          '"Programmazione":"programmazione","Programmazione, Laboratorio":"laboratorio"};')
 LOGOUT_JS = ("<script>document.addEventListener('DOMContentLoaded',function(){var b=document.getElementById('logout-btn');"
@@ -73,7 +82,7 @@ def adatta(html):
     html = sostituisci(html, "</style>", "</style>" + CSS_EXTRA, "stile")
     # la pagina costruita è un frammento (niente <head>/<body>): meta noindex all'inizio, script di uscita in fondo
     if "robots" not in html.lower():
-        html = '<meta name="robots" content="noindex,nofollow,noarchive">' + chr(10) + html
+        html = PWA + chr(10) + html
     return html + chr(10) + LOGOUT_JS + chr(10)
 
 
