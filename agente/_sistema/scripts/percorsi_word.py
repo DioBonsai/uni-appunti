@@ -9,6 +9,11 @@ NOMI = {  # vecchio nome -> nome attuale
 }
 
 
+ARCHIVIO = "_archivio_word"  # dal 21 ott 2026 i Word stanno qui (non servono piu': i riassunti sono nel sito)
+
+
 def trova(uni: Path, cartella: str, fname: str) -> Path:
-    """UNI/<nome attuale>; la cartella (vecchia struttura) viene ignorata."""
-    return uni / NOMI.get(fname, fname)
+    """UNI/_archivio_word/<nome attuale> (o UNI/<nome> se ancora sciolto); la cartella vecchia viene ignorata."""
+    n = NOMI.get(fname, fname)
+    a = uni / ARCHIVIO / n
+    return a if a.exists() else uni / n

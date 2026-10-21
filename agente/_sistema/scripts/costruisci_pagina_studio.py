@@ -15,6 +15,9 @@ import sys
 from datetime import date
 from pathlib import Path
 
+import sys as _s, pathlib as _pl
+_s.path.insert(0, str(_pl.Path(__file__).resolve().parent))
+from percorsi_word import trova as _trova  # noqa: E402
 BASE = Path(__file__).resolve().parent.parent          # _sistema
 UNI = BASE.parent.parent                                # cartella UNI
 PAG = BASE / "pagina_studio"
@@ -166,7 +169,7 @@ def parse_all_cards():
 
 def find_word(mat):
     for rel in WORD[mat]:
-        p = UNI / rel
+        p = _trova(UNI, '', Path(rel).name)
         if p.exists():
             return p
     return None
@@ -279,7 +282,7 @@ def avanzamento():
     if lab is not None and "Programmazione" in texts:
         texts["Programmazione"] += "\n" + lab[1]
     else:
-        labw = UNI / "Riassunto Laboratorio.docx"
+        labw = _trova(UNI, "", "Riassunto Laboratorio.docx")
         if labw.exists() and "Programmazione" in texts:
             texts["Programmazione"] += "\n" + chapters(labw)[1]
     return out, texts

@@ -14,6 +14,9 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+import sys as _s, pathlib as _pl
+_s.path.insert(0, str(_pl.Path(__file__).resolve().parent))
+from percorsi_word import trova as _trova  # noqa: E402
 UNI = Path(__file__).resolve().parent.parent.parent.parent
 DEST = Path.home() / "OneDrive" / "UNI-backup"
 WORDS = {
@@ -44,7 +47,7 @@ def main() -> None:
     changed = 0
     stamp = datetime.now().strftime("%Y%m%d_%H%M")
     for materia, fname in WORDS.items():
-        src = UNI / fname
+        src = _trova(UNI, '', fname)
         if not src.exists():
             continue
         if sync_file(src, DEST / "corrente" / materia / fname):

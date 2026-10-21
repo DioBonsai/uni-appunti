@@ -14,6 +14,9 @@ from pathlib import Path
 
 from docx import Document
 
+import sys as _s, pathlib as _pl
+_s.path.insert(0, str(_pl.Path(__file__).resolve().parent))
+from percorsi_word import trova as _trova  # noqa: E402
 UNI = Path(__file__).resolve().parent.parent.parent.parent
 WORDS = {
     "Algebra lineare": "Riassunto Algebra lineare.docx",
@@ -53,7 +56,7 @@ def is_formula(t: str) -> bool:
 
 
 def check(name: str) -> tuple[int, int]:
-    path = UNI / WORDS[name]
+    path = _trova(UNI, '', WORDS[name])
     if not path.exists():
         print(f"[{name}] file non trovato: {path}")
         return 1, 0

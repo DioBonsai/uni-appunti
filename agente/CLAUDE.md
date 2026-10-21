@@ -5,6 +5,8 @@ che prima faceva con NotebookLM: da fonti (appunti a mano, schede, dispense, sli
 trascritti) a capitoli di riassunto che continuano il Word esistente.
 
 ## IMPORTANTE (dal 20 ottobre 2026): i riassunti stanno nel sito, non più nei Word
+
+I vecchi Word sono archiviati (21 ott 2026) in `UNI\_archivio_word\`: sola consultazione, non vanno più modificati. Gli script li trovano da soli lì (`percorsi_word.trova`).
 Emanuele usa solo il Quaderno online (https://quaderno-privato.vercel.app). I 5 Word (`../Riassunto *.docx`) sono **congelati e obsoleti**: non si aprono, non si modificano, non ci si aggiungono capitoli (`aggiungi_capitolo.py` si rifiuta senza `--forza-word`).
 - **Contenuti**: `C:\Users\admin\Documents\GitHub\quaderno-privato\contenuti\<materia>.json` (algebra, matematica-discreta, fondamenti, programmazione, laboratorio): capitoli e blocchi di testo con id stabili (`cap26.12`) e figure in `contenuti/img/`. Nuovo capitolo: bozza in `_sistema/bozze/` → revisore → `python _sistema/scripts/aggiungi_capitolo_sito.py <materia> <bozza>.md` → `python _sistema/scripts/pubblica_quaderno.py --push`.
 - **Evidenziazioni**: le fa SOLO Emanuele dal sito (selezionando il testo; l'account `emanuele` è amministratore), sono salvate sul database Upstash e sincronizzate su tutti i dispositivi; gli altri utenti le vedono in sola lettura. Un capitolo è «studiato» con almeno 3 paragrafi evidenziati (o segnato a mano dal sito). Mai modificarle da qui. Per leggerle: `node scripts/esporta_evid.js` nel repo del sito scrive `_sistema/evid_export.json` (lo fa già `pubblica_quaderno.py`); il Quaderno locale e il piano di ripasso leggono da lì.
