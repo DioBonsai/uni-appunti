@@ -39,7 +39,9 @@ LEZIONI = {
     "Programmazione": "slide 00-02C, laboratorio Lab01",
 }
 # Date d'esame (AAAA-MM-GG), da compilare quando Moodle le pubblica; si possono anche inserire nella pagina.
-ESAMI = {}
+# STIMA (non ufficiale, 21 ott 2026): primo appello invernale = inizio della sessione (18 gen 2027); negli anni scorsi Mate/Algebra
+# ebbero il 1° appello il 24/1/24, 16/1/25, 15/1/26. Sostituire con la data vera dalla Bacheca appelli MyUniTo (o dal Quaderno).
+ESAMI = {"Algebra lineare": "2027-01-18", "Matematica discreta": "2027-01-18"}
 
 # Pesi d'esame di Matematica discreta: (tema, quiz su 150, problemi su 30, parole chiave per «nel Word»)
 FREQ = [
