@@ -1,0 +1,1210 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Quaderno//Orario B//IT
+CALSCALE:GREGORIAN
+BEGIN:VTIMEZONE
+TZID:Europe/Rome
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:lez-20260928-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20260928T090000
+DTEND;TZID=Europe/Rome:20260928T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20260928-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20260928T110000
+DTEND;TZID=Europe/Rome:20260928T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20260930-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20260930T090000
+DTEND;TZID=Europe/Rome:20260930T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20260930-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20260930T110000
+DTEND;TZID=Europe/Rome:20260930T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261001-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261001T090000
+DTEND;TZID=Europe/Rome:20261001T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261001-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261001T110000
+DTEND;TZID=Europe/Rome:20261001T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261002-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261002T090000
+DTEND;TZID=Europe/Rome:20261002T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261002-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261002T110000
+DTEND;TZID=Europe/Rome:20261002T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261005-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261005T090000
+DTEND;TZID=Europe/Rome:20261005T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261005-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261005T110000
+DTEND;TZID=Europe/Rome:20261005T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261006-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261006T090000
+DTEND;TZID=Europe/Rome:20261006T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261006-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261006T110000
+DTEND;TZID=Europe/Rome:20261006T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261007-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261007T090000
+DTEND;TZID=Europe/Rome:20261007T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261007-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261007T110000
+DTEND;TZID=Europe/Rome:20261007T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261008-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261008T090000
+DTEND;TZID=Europe/Rome:20261008T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261008-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261008T110000
+DTEND;TZID=Europe/Rome:20261008T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261009-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261009T090000
+DTEND;TZID=Europe/Rome:20261009T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261009-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261009T110000
+DTEND;TZID=Europe/Rome:20261009T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261012-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261012T090000
+DTEND;TZID=Europe/Rome:20261012T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261012-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261012T110000
+DTEND;TZID=Europe/Rome:20261012T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261013-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261013T090000
+DTEND;TZID=Europe/Rome:20261013T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261013-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261013T110000
+DTEND;TZID=Europe/Rome:20261013T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261014-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261014T090000
+DTEND;TZID=Europe/Rome:20261014T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261014-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261014T110000
+DTEND;TZID=Europe/Rome:20261014T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261015-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261015T090000
+DTEND;TZID=Europe/Rome:20261015T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261015-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261015T110000
+DTEND;TZID=Europe/Rome:20261015T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261016-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261016T090000
+DTEND;TZID=Europe/Rome:20261016T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261016-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261016T110000
+DTEND;TZID=Europe/Rome:20261016T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261019-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261019T090000
+DTEND;TZID=Europe/Rome:20261019T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261019-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261019T110000
+DTEND;TZID=Europe/Rome:20261019T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261020-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261020T090000
+DTEND;TZID=Europe/Rome:20261020T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261020-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261020T110000
+DTEND;TZID=Europe/Rome:20261020T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261021-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261021T090000
+DTEND;TZID=Europe/Rome:20261021T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261021-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261021T110000
+DTEND;TZID=Europe/Rome:20261021T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261022-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261022T090000
+DTEND;TZID=Europe/Rome:20261022T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261022-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261022T110000
+DTEND;TZID=Europe/Rome:20261022T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261023-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261023T090000
+DTEND;TZID=Europe/Rome:20261023T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261023-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261023T110000
+DTEND;TZID=Europe/Rome:20261023T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261026-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261026T090000
+DTEND;TZID=Europe/Rome:20261026T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261026-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261026T110000
+DTEND;TZID=Europe/Rome:20261026T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261027-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261027T090000
+DTEND;TZID=Europe/Rome:20261027T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261027-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261027T110000
+DTEND;TZID=Europe/Rome:20261027T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261028-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261028T090000
+DTEND;TZID=Europe/Rome:20261028T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261028-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261028T110000
+DTEND;TZID=Europe/Rome:20261028T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261029-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261029T090000
+DTEND;TZID=Europe/Rome:20261029T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261029-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261029T110000
+DTEND;TZID=Europe/Rome:20261029T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261030-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261030T090000
+DTEND;TZID=Europe/Rome:20261030T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261030-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261030T110000
+DTEND;TZID=Europe/Rome:20261030T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261102-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261102T090000
+DTEND;TZID=Europe/Rome:20261102T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261102-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261102T110000
+DTEND;TZID=Europe/Rome:20261102T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261103-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261103T090000
+DTEND;TZID=Europe/Rome:20261103T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261103-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261103T110000
+DTEND;TZID=Europe/Rome:20261103T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261104-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261104T090000
+DTEND;TZID=Europe/Rome:20261104T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261104-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261104T110000
+DTEND;TZID=Europe/Rome:20261104T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261105-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261105T090000
+DTEND;TZID=Europe/Rome:20261105T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261105-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261105T110000
+DTEND;TZID=Europe/Rome:20261105T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261109-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261109T090000
+DTEND;TZID=Europe/Rome:20261109T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261109-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261109T110000
+DTEND;TZID=Europe/Rome:20261109T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261110-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261110T090000
+DTEND;TZID=Europe/Rome:20261110T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261110-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261110T110000
+DTEND;TZID=Europe/Rome:20261110T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261111-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261111T090000
+DTEND;TZID=Europe/Rome:20261111T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261111-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261111T110000
+DTEND;TZID=Europe/Rome:20261111T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261112-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261112T090000
+DTEND;TZID=Europe/Rome:20261112T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261112-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261112T110000
+DTEND;TZID=Europe/Rome:20261112T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261113-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261113T090000
+DTEND;TZID=Europe/Rome:20261113T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261113-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261113T110000
+DTEND;TZID=Europe/Rome:20261113T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261116-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261116T090000
+DTEND;TZID=Europe/Rome:20261116T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261116-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261116T110000
+DTEND;TZID=Europe/Rome:20261116T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261117-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261117T090000
+DTEND;TZID=Europe/Rome:20261117T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261117-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261117T110000
+DTEND;TZID=Europe/Rome:20261117T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261118-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261118T090000
+DTEND;TZID=Europe/Rome:20261118T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261118-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261118T110000
+DTEND;TZID=Europe/Rome:20261118T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261119-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261119T090000
+DTEND;TZID=Europe/Rome:20261119T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261119-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261119T110000
+DTEND;TZID=Europe/Rome:20261119T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261120-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261120T090000
+DTEND;TZID=Europe/Rome:20261120T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261120-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261120T110000
+DTEND;TZID=Europe/Rome:20261120T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261123-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261123T090000
+DTEND;TZID=Europe/Rome:20261123T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261123-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261123T110000
+DTEND;TZID=Europe/Rome:20261123T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261124-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261124T090000
+DTEND;TZID=Europe/Rome:20261124T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261124-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261124T110000
+DTEND;TZID=Europe/Rome:20261124T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261125-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261125T090000
+DTEND;TZID=Europe/Rome:20261125T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261125-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261125T110000
+DTEND;TZID=Europe/Rome:20261125T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261126-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261126T090000
+DTEND;TZID=Europe/Rome:20261126T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261126-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261126T110000
+DTEND;TZID=Europe/Rome:20261126T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261127-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261127T090000
+DTEND;TZID=Europe/Rome:20261127T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261127-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261127T110000
+DTEND;TZID=Europe/Rome:20261127T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261130-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261130T090000
+DTEND;TZID=Europe/Rome:20261130T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261130-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261130T110000
+DTEND;TZID=Europe/Rome:20261130T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261201-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261201T090000
+DTEND;TZID=Europe/Rome:20261201T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261201-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261201T110000
+DTEND;TZID=Europe/Rome:20261201T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261202-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261202T090000
+DTEND;TZID=Europe/Rome:20261202T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261202-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261202T110000
+DTEND;TZID=Europe/Rome:20261202T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261203-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261203T090000
+DTEND;TZID=Europe/Rome:20261203T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261203-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261203T110000
+DTEND;TZID=Europe/Rome:20261203T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261204-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261204T090000
+DTEND;TZID=Europe/Rome:20261204T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261204-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261204T110000
+DTEND;TZID=Europe/Rome:20261204T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261207-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261207T090000
+DTEND;TZID=Europe/Rome:20261207T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261207-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261207T110000
+DTEND;TZID=Europe/Rome:20261207T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261209-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261209T090000
+DTEND;TZID=Europe/Rome:20261209T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261209-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261209T110000
+DTEND;TZID=Europe/Rome:20261209T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261210-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261210T090000
+DTEND;TZID=Europe/Rome:20261210T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261210-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261210T110000
+DTEND;TZID=Europe/Rome:20261210T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261211-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261211T090000
+DTEND;TZID=Europe/Rome:20261211T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261211-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261211T110000
+DTEND;TZID=Europe/Rome:20261211T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261214-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261214T090000
+DTEND;TZID=Europe/Rome:20261214T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261214-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261214T110000
+DTEND;TZID=Europe/Rome:20261214T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261215-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261215T090000
+DTEND;TZID=Europe/Rome:20261215T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261215-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261215T110000
+DTEND;TZID=Europe/Rome:20261215T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261216-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261216T090000
+DTEND;TZID=Europe/Rome:20261216T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261216-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261216T110000
+DTEND;TZID=Europe/Rome:20261216T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261217-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261217T090000
+DTEND;TZID=Europe/Rome:20261217T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261217-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261217T110000
+DTEND;TZID=Europe/Rome:20261217T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261218-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261218T090000
+DTEND;TZID=Europe/Rome:20261218T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261218-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261218T110000
+DTEND;TZID=Europe/Rome:20261218T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261221-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261221T090000
+DTEND;TZID=Europe/Rome:20261221T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261221-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261221T110000
+DTEND;TZID=Europe/Rome:20261221T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261222-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261222T090000
+DTEND;TZID=Europe/Rome:20261222T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20261222-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20261222T110000
+DTEND;TZID=Europe/Rome:20261222T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270107-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270107T090000
+DTEND;TZID=Europe/Rome:20270107T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270107-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270107T110000
+DTEND;TZID=Europe/Rome:20270107T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270108-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270108T090000
+DTEND;TZID=Europe/Rome:20270108T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270108-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270108T110000
+DTEND;TZID=Europe/Rome:20270108T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270111-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270111T090000
+DTEND;TZID=Europe/Rome:20270111T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270111-110000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270111T110000
+DTEND;TZID=Europe/Rome:20270111T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270112-090000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270112T090000
+DTEND;TZID=Europe/Rome:20270112T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270112-110000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270112T110000
+DTEND;TZID=Europe/Rome:20270112T130000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270113-090000-ProgIB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270113T090000
+DTEND;TZID=Europe/Rome:20270113T110000
+SUMMARY:Programmazione I
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: AMPARORE. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270113-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270113T110000
+DTEND;TZID=Europe/Rome:20270113T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270114-090000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270114T090000
+DTEND;TZID=Europe/Rome:20270114T110000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270114-110000-MDAG-BmodB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270114T110000
+DTEND;TZID=Europe/Rome:20270114T130000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. B)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BUZANO, RADESCHI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270115-090000-MDAG-BmodA@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270115T090000
+DTEND;TZID=Europe/Rome:20270115T110000
+SUMMARY:Matematica discreta, Algebra e Geometria (mod. A)
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: MORI. Canale B (cognomi E-O).
+END:VEVENT
+BEGIN:VEVENT
+UID:lez-20270115-110000-FDAB@quaderno
+DTSTAMP:20261021T080000Z
+DTSTART;TZID=Europe/Rome:20270115T110000
+DTEND;TZID=Europe/Rome:20270115T130000
+SUMMARY:Fondamenti dell'Informatica
+LOCATION:Aula B\, Dipartimento di Informatica\, Via Pessinetto 12\, Torino
+DESCRIPTION:Docenti: BERARDI. Canale B (cognomi E-O).
+END:VEVENT
+END:VCALENDAR
