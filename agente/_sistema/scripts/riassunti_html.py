@@ -219,6 +219,7 @@ mark.ev{background:var(--mark);color:inherit;border-radius:3px;padding:.02em .08
 #evbar button:hover{background:var(--mark)}#evbar button[hidden]{display:none}
 #evbar svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .mkman{appearance:none;border:1px solid var(--lin);background:var(--card);color:var(--fg);border-radius:99px;padding:.2rem .7rem;font:600 12px system-ui,sans-serif;cursor:pointer}.mkman:hover{border-color:var(--ok);color:var(--ok)}
+@media (pointer:coarse) and (min-width:721px){#evbar{left:50%!important;top:auto!important;bottom:calc(28px + env(safe-area-inset-bottom));transform:translateX(-50%)}#evbar button{min-height:48px;padding:0 1.2rem;font-size:15px}}
 @media (max-width:720px){#evbar{left:50%!important;top:auto!important;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%)}#evbar button{min-height:48px;padding:0 1.1rem;font-size:15px}.mkman{min-height:36px}}
 """
 
@@ -387,7 +388,7 @@ function mostraBarra(){
   var tutto=si.items.every(function(it){return coperto(EV.b[it.id]||[],it.r,btext(it.b))});
   $('#evadd').hidden=tutto;$('#evdel').hidden=!si.items.some(function(it){return tocca(EV.b[it.id]||[],it.r)});
   var r=si.rect;evbar.hidden=false;
-  if(window.innerWidth>720){var w=evbar.offsetWidth||150,top=r.top-52;if(top<70)top=r.bottom+10;evbar.style.top=Math.round(top)+'px';evbar.style.left=Math.round(Math.max(8,Math.min(window.innerWidth-w-8,r.left+r.width/2-w/2)))+'px'}
+  if(window.innerWidth>720&&!window.matchMedia('(pointer:coarse)').matches){var w=evbar.offsetWidth||150,top=r.top-52;if(top<70)top=r.bottom+10;evbar.style.top=Math.round(top)+'px';evbar.style.left=Math.round(Math.max(8,Math.min(window.innerWidth-w-8,r.left+r.width/2-w/2)))+'px'}
 }
 function impostaBlocco(b,id,nuovo){
   var prima=(EV.b[id]||[]).map(function(x){return x.slice()});
