@@ -1,10 +1,10 @@
 # 24. Verificare le Regole di Inferenza: Dimostrazione, Controesempio e Tavola di Verità
 ## Quando una regola è valida
-Una **regola di inferenza** ha delle ipotesi (le premesse) e una conclusione. Come per la definizione dell'implicazione (cap. 16), la regola è **valida** se, **ogni volta che tutte le ipotesi sono vere**, lo è anche la conclusione. Come sottolineato a lezione, i casi in cui anche solo una premessa è falsa non contano: si considerano «buoni per definizione». Gli unici casi rilevanti sono quelli in cui tutte le premesse sono vere.
+Una **regola di inferenza** ha delle ipotesi (le premesse) e una conclusione (cap. 19). Come per la definizione dell'implicazione (cap. 16), la regola è **valida** se, **ogni volta che tutte le ipotesi sono vere**, lo è anche la conclusione. Come sottolineato a lezione, i casi in cui anche solo una premessa è falsa non contano: si considerano «buoni per definizione». Gli unici casi rilevanti sono quelli in cui tutte le premesse sono vere.
 
 **In parole povere:** una regola è un «se… allora…» tra le premesse messe insieme e la conclusione. È sbagliata se si riesce a trovare anche un solo caso in cui le premesse sono tutte vere e la conclusione è falsa; è giusta se un caso simile non esiste.
 
-Per decidere ci sono tre strade, che a lezione sono state mostrate su cinque regole. Non si sa in anticipo quale funzioni meglio: conviene provare.
+Per decidere si possono usare quattro strade, mostrate a lezione su cinque regole (numerate come nell'esercizio). Non sempre la dimostrazione è semplice: quando ci si blocca, i valori di verità che si stanno considerando danno un suggerimento su dove la regola può fallire.
 
 ## Strada 1: dimostrare con le regole note
 Si **assumono** le ipotesi e si cerca di arrivare alla conclusione usando le regole solite (come il modus ponens).
@@ -28,7 +28,7 @@ Assumendo p, per il modus ponens si ottiene r ∨ q: ma questo non basta per ott
 - r → ¬q = F → F = V (ipotesi falsa, implicazione vera);
 - p → r = V → F = F.
 
-Le due premesse sono vere e la conclusione è falsa: **la regola non è valida**. Come sottolineato a lezione, questo è un ragionamento per contraddizione; ci si tornerà più avanti nel corso come tecnica di dimostrazione: invece di dimostrare che la regola è vera, la si suppone falsa e si guarda se si arriva a una situazione impossibile.
+Le due premesse sono vere e la conclusione è falsa: **la regola non è valida**. Come detto a lezione rispondendo a una domanda, cercare il controesempio è il primo passo di una tecnica che si chiama **ragionamento per contraddizione**: invece di dimostrare che la regola è vera, la si suppone falsa e si guarda se si arriva a una situazione impossibile; se ci si arriva, la regola è valida. Qui invece si trova un caso reale, e quindi la regola non è valida. La tecnica verrà ripresa più avanti nel corso.
 
 **Regola 3.** Premesse: p → r e r → q. Conclusione: q.
 Somiglia alla transitività, ma c'è un dettaglio: **p non c'è tra le premesse**. Si cerca allora un caso in cui le premesse sono vere e la conclusione è falsa, ragionando all'indietro:
@@ -36,7 +36,7 @@ Somiglia alla transitività, ma c'è un dettaglio: **p non c'è tra le premesse*
 2. da r → q con q falsa si ricava che r è falsa;
 3. da p → r con r falsa si ricava che p è falsa.
 
-Il contrapositivo (cap. 17) lo permette: normalmente si legge l'implicazione dalla verità alla verità, ma per la contrapposta vale la direzione opposta e **la falsità si sposta da destra a sinistra**, mentre la verità si sposta da sinistra a destra. Con p, q, r tutte false: p → r = F → F = V, r → q = F → F = V (ipotesi falsa, implicazione vera) e q è falsa. Le premesse sono vere, la conclusione è falsa: **la regola non è valida**. Come sottolineato a lezione, su otto casi ne basta uno, e qui con p, q, r tutte false (il «triplo zero») la regola fallisce; è anche l'unico, perché partendo dall'ipotesi che la regola fosse falsa si è arrivati a questa unica scelta dei valori.
+Il contrapositivo (cap. 17) lo permette: normalmente si legge l'implicazione dalla verità alla verità, ma per la contrapposta vale la direzione opposta e **la falsità si sposta da destra a sinistra**, mentre la verità si sposta da sinistra a destra. Con p, q, r tutte false: p → r = F → F = V, r → q = F → F = V (ipotesi falsa, implicazione vera) e q è falsa. Le premesse sono vere, la conclusione è falsa: **la regola non è valida**. Su otto casi ne basta uno, e qui con p, q, r tutte false (il «triplo zero», in ordine di tavola di verità) la regola fallisce; è anche l'unico, perché partendo dall'ipotesi che la regola fosse falsa si è arrivati a questa unica scelta dei valori. Come sottolineato a lezione, il ragionamento automatico usa quasi solo la deduzione, perché solo sui casi piccoli si riesce a usare la tavola di verità; se però ci si trova meglio con la tavola, la si usa pure: è importante sapere che esistono anche le scorciatoie.
 
 ## Strada 3: la tavola di verità
 **Regola 4.** Premesse: ¬r → ¬p e r. Conclusione: p.
@@ -47,15 +47,14 @@ Con la tavola, in cui p e r sono le sole variabili (q non compare), si guardano 
 
 Una riga che fa fallire la regola basta: **la regola non è valida**.
 
-Come sottolineato a lezione, la tavola di verità è più lenta ma sicura, ed è la scelta migliore quando le formule sono poche e brevi; il ragionamento automatico usa invece quasi solo la deduzione, perché solo sui casi piccoli si riesce a usare la tavola di verità.
+La tavola di verità è più lenta ma sicura, ed è la scelta migliore quando le formule sono poche e brevi.
 
 ## Strada 4: riscrivere la regola in una forma più semplice
-La stessa regola 4 si può verificare senza tavola. Il **contrapositivo** dice che ¬r → ¬p è uguale a p → r: si scambiano gli argomenti e si negano entrambi, e le due negazioni della seconda forma si cancellano (doppia negazione). La regola diventa allora: da p → r e r si conclude p. Questa è la **fallacia di affermare la conclusione** (cap. 19): l'implicazione non è invertibile, perché da p → r e r non si può dedurre p. Quindi la regola è falsa. Come sottolineato a lezione, è un altro modo di arrivare alla stessa conclusione, riconducendosi a un caso già noto.
+La stessa regola 4 si può verificare senza tavola. Il **contrapositivo** dice che ¬r → ¬p è uguale a p → r: si scambiano gli argomenti e si negano entrambi, e le due negazioni della seconda forma si cancellano (doppia negazione). La regola diventa allora: da p → r e r si conclude p. Questa è la fallacia dell'**affermazione della conclusione** (cap. 19): l'implicazione non è invertibile, perché da p → r e r non si può dedurre p. Quindi la regola è falsa. Come sottolineato a lezione, è un altro modo di arrivare alla stessa conclusione, riconducendosi a un caso già noto.
 
-## Riepilogo dei metodi
-- **Dimostrazione**: si assumono le premesse e si usano le regole note (modus ponens, ecc.); conviene quando la regola è valida e il percorso è breve.
-- **Controesempio**: si cerca una scelta di valori con premesse vere e conclusione falsa, spostando la falsità a sinistra e la verità a destra con il contrapositivo; conviene quando la dimostrazione si blocca.
-- **Tavola di verità**: si guardano solo le righe con tutte le premesse vere; conviene con poche variabili e formule brevi.
-- **Riscrittura**: si riconduce la regola a una già nota (contrapositivo, doppia negazione); conviene quando si riconosce una forma già vista.
+## Riepilogo
+In sintesi: la dimostrazione conviene quando la regola è valida e il percorso è breve; il controesempio quando la dimostrazione si blocca (si parte dalla conclusione falsa e si fa correre la falsità a sinistra); la tavola di verità quando le variabili sono poche; la riscrittura quando si riconosce una forma già vista, come il contrapositivo o la doppia negazione.
 
 **In parole povere:** se la regola è giusta, una dimostrazione lo prova; se è sbagliata, basta un caso in cui le premesse sono vere e la conclusione no. Un fallimento nella dimostrazione suggerisce dove cercare quel caso.
+
+Nel capitolo successivo le regole di inferenza vengono estese agli enunciati quantificati.

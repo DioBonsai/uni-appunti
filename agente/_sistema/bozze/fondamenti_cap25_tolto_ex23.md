@@ -1,4 +1,4 @@
-# 23. Regole di Inferenza per gli Enunciati Quantificati
+# 25. Regole di Inferenza per gli Enunciati Quantificati
 ## Dal capitolo 19 ai quantificatori
 Si chiude la sezione sui quantificatori vedendo come si estendono le regole di inferenza del capitolo 19 agli enunciati con ∀ e ∃, e come si combinano con quelle per le proposizioni.
 
