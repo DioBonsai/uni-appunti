@@ -1,3 +1,3 @@
-# Report Moodle - 2026-10-23
+# Moodle report - 2026-10-25 14:10
 
-**Serve il login**: la sessione Moodle e' scaduta. Apri il browser pane e accedi a Moodle (https://informatica.i-learn.unito.it). Nessun controllo eseguito.
+Serve il login: apri il browser pane e accedi a Moodle (sessione scaduta). Nessun controllo eseguito.
