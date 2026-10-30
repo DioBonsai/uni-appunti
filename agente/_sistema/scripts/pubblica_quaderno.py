@@ -176,13 +176,20 @@ def main():
     if a.push:
         g = lambda *x: subprocess.run(["git", "-C", str(repo), *x], capture_output=True, text=True, encoding="utf-8")
         g("add", "-A")
-        if not g("status", "--porcelain").stdout.strip():
+        if not g("status", "--porcelain").stdout.strip() and not a.force:
             print("Nessuna modifica da pubblicare."); return 0
         msg = "Aggiornamento contenuti\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>"
         g("commit", "-q", "-m", msg)
         p = g("push", "-q")
-        print("Pubblicato su GitHub (Vercel aggiorna il sito da solo)." if p.returncode == 0 else "Push non riuscito: " + p.stderr.strip())
-        return p.returncode
+        print("Salvato su GitHub." if p.returncode == 0 else "Push non riuscito: " + p.stderr.strip())
+        # Dal 30 ott 2026 il repo e' nell'organizzazione Personale-Giano: sul piano Hobby Vercel non collega
+        # repo privati di organizzazione, quindi il sito si pubblica da questo PC con il CLI di Vercel.
+        d = subprocess.run("vercel deploy --prod --yes", cwd=str(repo), shell=True, capture_output=True, text=True, encoding="utf-8", errors="replace")
+        if d.returncode == 0:
+            print("Pubblicato su Vercel: https://quaderno-privato.vercel.app")
+        else:
+            print("Pubblicazione su Vercel non riuscita:", (d.stderr or d.stdout).strip()[-400:])
+        return p.returncode or d.returncode
     return 0
 
 
