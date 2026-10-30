@@ -1,5 +1,6 @@
 PDF senza testo (scansioni/appunti a mano): trascrivere a mano o con lettura visiva.
 
+Algebra lineare\23 Ottobre.pdf  (3 pagine, ~0 car/pagina)
 Fondamenti Info\L10_parte2_1_5_quantifiers.pdf  (25 pagine, ~0 car/pagina)
 Fondamenti Info\L4_Parte2_1-2_Propositions.pdf  (11 pagine, ~0 car/pagina)
 Fondamenti Info\slide_1-1 Bits And Their storage.pdf  (15 pagine, ~0 car/pagina)
@@ -11,6 +12,7 @@ Fondamenti Info\slide_1-5 The binary System.pdf  (6 pagine, ~0 car/pagina)
 Fondamenti Info\slide_1-6 Storing Integers.pdf  (9 pagine, ~0 car/pagina)
 Fondamenti Info\slide_1-7 Storing Fractions.pdf  (9 pagine, ~0 car/pagina)
 Fondamenti Info\slide_1-9 Data Compression.pdf  (6 pagine, ~0 car/pagina)
+Matematica discreta\22 Ottobre.pdf  (1 pagine, ~0 car/pagina)
 Matematica discreta\L4_appunti_8ott.pdf  (1 pagine, ~0 car/pagina)
 Matematica discreta\libro_Mori.pdf  (185 pagine, ~0 car/pagina)
 Matematica discreta\RiassuntoLezione1.pdf  (3 pagine, ~0 car/pagina)

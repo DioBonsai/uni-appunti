@@ -20,3 +20,6 @@
 - 2026-10-23 09:27 | login scaduto | 0 novita' | file scaricati: nessuno | annunci importanti: no
 - 2026-10-24 11:20 | login scaduto | 0 novita' | file scaricati: nessuno | annunci importanti: no
 - 2026-10-25 14:10 | login scaduto | 0 novita' | file scaricati: nessuno | annunci importanti: no
+- 2026-10-27 09:13 | login scaduto | 0 novita' | file scaricati: nessuno | annunci importanti: no
+- 2026-10-30 14:44 | login scaduto | 0 novita' | file scaricati: nessuno | annunci importanti: no
+- 2026-10-30 14:55 | ok (controllo manuale) | Mate: nuove lezioni L11 27 ott e L12 29 ott (permutazioni), registrazioni L9/L10/L11; annuncio ⚠ ripristinata lezione 12 nov corso B. Algebra: video L8 aggiunto; L4 e L9 senza video. Fondamenti: pagina registrazioni 2026 NASCOSTA dal docente; programma L13-L15. Programmazione: nuove slide 06A_funzioni e Lab04 | file scaricati: 06A_funzioni.pdf, Lab04 - Iterazioni.pdf | annunci importanti: si (orario Mate)
